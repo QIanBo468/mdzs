@@ -14,10 +14,14 @@ import earningsList from '@/components/index/earningsList'
 import wallet from '@/components/index/wallet'
 import usdt from '@/components/index/usdt'
 import charge from '@/components/index/'
+
+import settingRoutes from './setting-pay-method.js'
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    ...settingRoutes,
+
     {
       path: '/login',
       name: 'Login',
@@ -150,6 +154,14 @@ export default new Router({
       component: resolve => require(['@/components/personalCenter/newAddress'], resolve),
       meta: {
         title: '我的地址'
+      }
+    },
+    {
+      path: '/mytrans',
+      name: 'mytrans',
+      component: resolve => require(['@/components/transaction/mytrans'], resolve),
+      meta: {
+        title: '我的交易'
       }
     }
   ]
