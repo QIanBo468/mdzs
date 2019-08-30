@@ -77,6 +77,14 @@ export default new Router({
       meta: {
         title: '付款'
       }
+    },
+    {
+      path: '/hangon',
+      name: 'hangon',
+      component: resolve => require(['@/components/transaction/hangon'], resolve),
+      meta: {
+        title: '挂买'
+      }
     }
   ]
 })
