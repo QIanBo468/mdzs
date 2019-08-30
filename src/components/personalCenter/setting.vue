@@ -1,6 +1,6 @@
 <template>
 <div class="root">
-  <van-nav-bar title="设置" left-arrow class="nav-top" />
+  <van-nav-bar title="设置" left-arrow class="nav-top" @click-left="back" />
 
   <van-cell-group class="group">
     <div class="cell" @click="clickHead">
@@ -47,14 +47,22 @@ export default {
       this.headimg = ""
     },
 
+    back() {
+      this.$router.go(-1)
+    },
+
     clickHead() {
-      this.$router.push({ name: "payment" })
     },
     clickNickName() {
-      this.$router.push({ name: "payment" })
+      this.$router.push({
+        path: "/settingChangeNickName",
+        query: {
+          nickname: this.nickname,
+        },
+      })
     },
     clickAbout() {
-      this.$router.push({ name: "payment" })
+      this.$router.push("/settingAboutUs")
     },
   },
 
@@ -66,7 +74,8 @@ export default {
 
 <style lang="less" scoped>
 .root {
-  background: rgba(248, 248, 248, 1);
+  background: #f8f8f8;
+  height: 100vh;
 }
 
 .nav-top {
