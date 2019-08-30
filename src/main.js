@@ -6,9 +6,10 @@ import router from './router'
 import './utils/rem.js'
 import Vant from 'vant'
 import 'vant/lib/index.css'
+import Trancenter from './components/template/tran_nav/index'
 
 Vue.use(Vant)
-
+Vue.component('trannav',Trancenter)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

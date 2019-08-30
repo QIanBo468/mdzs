@@ -13,7 +13,7 @@ import earnings from '@/components/index/earnings'
 import earningsList from '@/components/index/earningsList'
 import wallet from '@/components/index/wallet'
 import usdt from '@/components/index/usdt'
-import charge from '@/components/index/charge'
+import charge from '@/components/index/'
 Vue.use(Router)
 
 export default new Router({
@@ -67,11 +67,6 @@ export default new Router({
       path: '/usdt',
       name: 'usdt',
       component: usdt
-    },
-    {
-      path: '/charge',
-      name: 'charge',
-      component: charge
     },
 
     {
