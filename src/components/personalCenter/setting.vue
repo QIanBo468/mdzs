@@ -61,8 +61,17 @@ export default {
 
     uploadImage(e) {
       let file = e.target.files[0]
-      console.log(file)
+      if (!file) {
+        return
+      }
+
+      let reader = new FileReader()
+      reader.onload = (e) => {
+        this.headimg = e.target.result
+      }
+      reader.readAsDataURL(file)
     },
+
     clickNickName() {
       this.$router.push({
         path: "/settingChangeNickName",
@@ -71,6 +80,7 @@ export default {
         },
       })
     },
+
     clickAbout() {
       this.$router.push("/settingAboutUs")
     },
