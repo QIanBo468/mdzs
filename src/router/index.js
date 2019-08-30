@@ -7,7 +7,13 @@ import register from '@/components/register'
 import index from '@/components/index'
 import tabbarBox from '@/components/tabbarBox'
 import text from '@/components/text'
-
+import notice from '@/components/index/notice'
+import noticeDetails from '@/components/index/noticeDetails'
+import earnings from '@/components/index/earnings'
+import earningsList from '@/components/index/earningsList'
+import wallet from '@/components/index/wallet'
+import usdt from '@/components/index/usdt'
+import charge from '@/components/index/charge'
 Vue.use(Router)
 
 export default new Router({
@@ -33,17 +39,58 @@ export default new Router({
       component: register
     },
     {
+      path: '/notice',
+      name: 'notice',
+      component: notice
+    },
+    {
+      path: '/noticeDetails',
+      name: 'noticeDetails',
+      component: noticeDetails
+    },
+    {
+      path: '/earnings',
+      name: 'earnings',
+      component: earnings
+    },
+    {
+      path: '/earningsList',
+      name: 'earningsList',
+      component: earningsList
+    },
+    {
+      path: '/wallet',
+      name: 'wallet',
+      component: wallet
+    },
+    {
+      path: '/usdt',
+      name: 'usdt',
+      component: usdt
+    },
+    {
+      path: '/charge',
+      name: 'charge',
+      component: charge
+    },
+
+    {
       path: '/tabbarBox',
       // redirect: '/tabbarBox/text',
       name: 'tabbarBox',
-      component: tabbarBox
-      // children: [
-      //   {
-      //     path: 'text',
-      //     name: 'text',
-      //     component: text
-      //   }
-      // ]
+      component: tabbarBox,
+      children: [
+        {
+          path: '/',
+          name: 'index',
+          component: index
+        },
+        {
+          path: 'text',
+          name: 'text',
+          component: text
+        }
+      ]
     }
   ]
 })

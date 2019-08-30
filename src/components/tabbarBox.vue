@@ -1,9 +1,9 @@
 <template>
     <div class='tabbar'>
-        <router-link to='/tabbarBox/text'></router-link>
-        <van-tabbar v-model="active">
-            <van-tabbar-item icon="home-o">标签</van-tabbar-item>
-            <van-tabbar-item icon="search">标签</van-tabbar-item>
+        <router-view style="flex:1; "/>
+        <van-tabbar v-model="active" style="height: 50px;    position: sticky">
+            <van-tabbar-item icon="home-o" to='/tabbarBox'>标签</van-tabbar-item>
+            <van-tabbar-item icon="search" to='/tabbarBox/text'>标签</van-tabbar-item>
             <van-tabbar-item icon="friends-o">标签</van-tabbar-item>
             <van-tabbar-item icon="setting-o">标签</van-tabbar-item>
         </van-tabbar>
@@ -22,5 +22,8 @@ export default {
     .tabbar{
         width: 100%;
         height: 100%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
     }
 </style>
