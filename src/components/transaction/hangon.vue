@@ -1,33 +1,28 @@
 <template>
     <div>
         <div class="bothse">
-            <trannav title="挂买" :leftj="true" ></trannav>
-            <div class="cont">
-                <div class="contmodule">
-                    <div>挂买数量</div>
-                    <input type="number" v-model="uploaddata.num" placeholder="请输入挂买数量">
-                </div>
-                
-            </div>
+            <gbuy v-if="gstate == 0"></gbuy>
+            <gmai v-if="gstate == 1"></gmai>
         </div>
     </div>
 </template>
 
 <script>
+import gbuy from '@/components/template/gua/gbuy';
+import gmai from '@/components/template/gua/gmai';
 export default {
     name:'hangon',
     data(){
         return {
-            uploaddata:{
-                num:''
-            }
+          gstate: 1 ,//0 挂买  1挂卖
         }
     },
     methods:{
         
     },
     components:{
-
+        gbuy,
+        gmai
     }
 }
 </script>
@@ -43,23 +38,5 @@ export default {
         display: block;
     }
 }  
-.cont{
-    padding:0 16px;
-}
-.contmodule{
-    padding:20px 0 0;
-    div{
-       
-            font-size:14px;
-            font-weight:400;
-            color:rgba(255,255,255,1);
-        
-    }
-    input{
-        height:40px;
-        background:#0D2179; 
-        border-radius:4px;
-        border:none;
-    }
-}
+
 </style>

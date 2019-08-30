@@ -2,13 +2,22 @@
     <div>
         <div class="bothse">
             <trannav title="付款" :leftj="true" ></trannav>
-            <marketxinxi :title='1' :state="state"></marketxinxi>
+            <marketxinxi :title='1' :state="state" @imgshow='imgshow'></marketxinxi>
             <div class="buyin" v-if="state"  @click="qdfu">确认付款</div>
             <div class="buyins" v-else>
                 <div @click="qued">确认</div>
                 <div>投诉</div>
             </div>
         </div>
+
+        <van-popup v-model="show">
+            <div class="tan"><img :src="tu" alt=""></div>
+            <div class="quxiao" @click="show =false"><img src="../../../static/images/icon/quxiao.png" alt=""></div>
+        </van-popup>
+       
+
+        
+        
     </div>
 </template>
 
@@ -19,10 +28,19 @@ export default {
     name:'payment',
     data(){
         return{
-            state:true
+            state:true ,//状态
+            show:true,//弹框显隐
+            tu:'',//弹出显示的图片
         }
     },
     methods:{
+        //查看图片
+        imgshow(val){
+            console.log(val);
+
+            this.tu = val;
+            this.show = true
+        },
         // 确实付款
         qdfu(){
             this.state =!this.state
@@ -43,6 +61,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.van-popup--center {
+    background: #040A24;
+    overflow: hidden;
+}
 .bothse{
     padding:44px 0 36px;
     border: 1px solid transparent;
@@ -61,6 +83,7 @@ export default {
     color:#fff;
 }
 .buyins{
+
     margin:115px 16px 0;
     line-height: 44px;
     text-align: center;
@@ -82,4 +105,23 @@ export default {
         }    
     }
 }
+.tan{
+    width:280px;
+    height:386px;   
+    background: #fff;
+    img{
+        width:280px;
+        height:386px; 
+    }   
+}
+.quxiao{
+    width: 36px;
+    height: 36px;
+    margin:16px auto 0;
+    img{
+        width: 36px;
+        height:36px;
+    }
+}
+
 </style>

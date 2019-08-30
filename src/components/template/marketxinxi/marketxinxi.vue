@@ -44,7 +44,7 @@
                     <div>账号名称：张小闹</div>
                     <div>账号：283947299</div>
                     <div>账号类型：微信支付</div>
-                    <div v-if="title == 1" class="zfphoto"><img src="" alt=""></div>
+                    <div @click="$emit('imgshow','http://mapopen-pub-webserviceapi.bj.bcebos.com/images/place1.png')" v-if="title == 1" class="zfphoto"><img src="http://mapopen-pub-webserviceapi.bj.bcebos.com/images/place1.png" alt=""></div>
                 </div>
             </div>
             <div class="xincont">
@@ -52,8 +52,8 @@
                 <div class="cont_ent">
                     <div>账号名称：张小闹</div>
                     <div>账号：283947299</div>
-                    <div>账号类型：微信支付</div>
-                    <div v-if="title == 1" class="zfphoto"><img src="" alt=""></div>
+                    <div>账号类型：支付宝支付</div>
+                    <div @click="$emit('imgshow','http://mapopen-pub-webserviceapi.bj.bcebos.com/images/direction.png')"  v-if="title == 1" class="zfphoto"><img src="http://mapopen-pub-webserviceapi.bj.bcebos.com/images/direction.png" alt=""></div>
                 </div>
             </div>
             <div class="xincont">
