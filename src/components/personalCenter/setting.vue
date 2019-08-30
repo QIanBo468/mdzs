@@ -143,7 +143,6 @@ export default {
       margin-left: 6px;
       color: #bbb;
       font-size: 16px;
-      flex-base: 16px;
     }
   }
 }

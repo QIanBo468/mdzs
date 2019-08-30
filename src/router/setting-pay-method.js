@@ -14,4 +14,14 @@ export default [
     name: 'settingAboutUs',
     component: resolve => require(['@/components/personalCenter/settingAboutUs'], resolve),
   },
+  {
+    path: '/myPaymentMethods', // 我的收款方式
+    name: 'myPaymentMethods',
+    component: resolve => require(['@/components/personalCenter/myPaymentMethods'], resolve),
+  },
+  {
+    path: '/myPaymentMethodsBinding', // 我的收款方式 -> 绑定
+    name: 'myPaymentMethodsBinding',
+    component: resolve => require(['@/components/personalCenter/myPaymentMethodsBinding'], resolve),
+  },
 ]
