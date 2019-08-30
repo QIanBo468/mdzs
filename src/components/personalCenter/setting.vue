@@ -3,9 +3,17 @@
   <van-nav-bar title="设置" left-arrow class="nav-top" @click-left="back" />
 
   <van-cell-group class="group">
-    <div class="cell" @click="clickHead">
+    <div class="cell select-image-parent">
       <span>头像</span>
       <div class="cell-right">
+        <input
+          class="select-image"
+          type="file"
+          accept="image/*"
+          capture="camera"
+          @change="uploadImage"
+        />
+
         <img v-if="headimg !== ''" class="cell-right-img" :src="headimg" alt="头像"/>
         <img v-else class="cell-right-img" src="../../assets/img/morentouxiang.png" alt="头像"/>
         <van-icon class="cell-right-icon" name="arrow"></van-icon>
@@ -51,7 +59,9 @@ export default {
       this.$router.go(-1)
     },
 
-    clickHead() {
+    uploadImage(e) {
+      let file = e.target.files[0]
+      console.log(file)
     },
     clickNickName() {
       this.$router.push({
@@ -126,6 +136,18 @@ export default {
       flex-base: 16px;
     }
   }
+}
+
+.select-image-parent {
+  position: relative;
+}
+.select-image {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
 }
 
 </style>
