@@ -13,7 +13,7 @@ module.exports = {
     // selectorBlackList  : ['van','mu'],
     rootValue: 16,
     unitPrecision: 5,
-    propList: ['font', 'font-size', 'line-height', 'letter-spacing'],
+    propList: ['*'],
     replace: true,
     mediaQuery: false,
     minPixelValue: 0,

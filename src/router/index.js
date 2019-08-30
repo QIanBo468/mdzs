@@ -44,6 +44,39 @@ export default new Router({
       //     component: text
       //   }
       // ]
+    },
+    // liuyingxiang  以下
+    {
+      path: '/transaction',
+      name: 'transaction',
+      component: resolve => require(['@/components/transaction/tran_center'], resolve),
+      meta: {
+        title: '交易中心'
+      }
+    },
+    {
+      path: '/transmarket',
+      name: 'transmarket',
+      component: resolve => require(['@/components/transaction/tran_market'], resolve),
+      meta: {
+        title: '交易市场'
+      }
+    },
+    {
+      path: '/marketxq',
+      name: 'marketxq',
+      component: resolve => require(['@/components/transaction/marketxq'], resolve),
+      meta: {
+        title: '交易详情'
+      }
+    },
+    {
+      path: '/payment',
+      name: 'payment',
+      component: resolve => require(['@/components/transaction/payment'], resolve),
+      meta: {
+        title: '付款'
+      }
     }
   ]
 })

@@ -1,0 +1,60 @@
+<template>
+    <div>
+        <van-nav-bar class="nav" @click-left="goback"  :border="false">
+            <van-icon slot="left" class="back" v-if="leftj"><img src="/static/images/icon/leftback.png" alt=""></van-icon>
+            <van-icon slot="title" class="title" >{{title}}</van-icon>
+        </van-nav-bar>
+    </div>
+</template>
+
+
+
+<script>
+export default {
+    props:{
+        title:{
+            type:String,
+            default:''
+        },
+        leftj:{
+            type:Boolean,
+            default:false
+        }
+    },
+    data(){
+        return{
+        }
+    },
+    methods:{
+        // 返回上一页面
+        goback(){
+            this.$router.go(-1)
+        }
+    },
+    components:{
+
+    }
+}
+</script>
+
+<style lang="less" scoped>
+.nav{
+    background:#0D2179;   
+    position: fixed;
+    top:0; 
+    width: 100%;
+}
+.title{
+    color:#fff;
+    font-weight:500;
+ 
+}
+.back{
+    width:30px;
+    height:30px;
+    img{
+        width: 30px;
+        height:30px; 
+    }
+}
+</style>
