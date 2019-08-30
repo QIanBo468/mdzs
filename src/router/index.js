@@ -86,6 +86,23 @@ export default new Router({
           component: text
         }
       ]
+    },
+
+    {
+      path: '/payment',
+      name: 'payment',
+      component: resolve => require(['@/components/transaction/payment'], resolve),
+      meta: {
+        title: '付款'
+      }
+    },
+    {
+      path: '/hangon',
+      name: 'hangon',
+      component: resolve => require(['@/components/transaction/hangon'], resolve),
+      meta: {
+        title: '挂买'
+      }
     }
   ]
 })
