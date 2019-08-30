@@ -1,4 +1,4 @@
-// 设置 rem 函数
+// // 设置 rem 函数
 // function setRem () {
 //   // 320 默认大小16px; 320px = 20rem ;每个元素px基础上/16
 //   let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth
@@ -13,7 +13,6 @@
 // window.onresize = function () {
 //   setRem()
 // }
-
 
 // 基准大小
 const baseSize = 32

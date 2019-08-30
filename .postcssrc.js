@@ -17,7 +17,7 @@ module.exports = {
     replace: true,
     mediaQuery: false,
     minPixelValue: 0,
-    selectorBlackList  : ['van','mu'],
+    selectorBlackList  : ['van'],
     },
     "postcss-import": {},
     "postcss-url": {},
