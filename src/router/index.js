@@ -85,6 +85,14 @@ export default new Router({
       meta: {
         title: '挂买'
       }
+    },
+    {
+      path: '/mytrans',
+      name: 'mytrans',
+      component: resolve => require(['@/components/transaction/mytrans'], resolve),
+      meta: {
+        title: '我的交易'
+      }
     }
   ]
 })
