@@ -16,8 +16,12 @@ import usdt from '@/components/index/usdt'
 import charge from '@/components/index/'
 Vue.use(Router)
 
+import settingRoutes from "./setting-pay-method.js"
+
 export default new Router({
   routes: [
+    ...settingRoutes,
+
     {
       path: '/login',
       name: 'Login',
