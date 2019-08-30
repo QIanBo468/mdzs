@@ -3,14 +3,15 @@
   <van-nav-bar title="设置" left-arrow class="nav-top" />
 
   <van-cell-group class="group">
-    <div class="cell headimg">
+    <div class="cell" @click="clickHead">
       <span>头像</span>
       <div class="cell-right">
-        <img class="cell-right-img" :src="headimg" alt="头像"/>
+        <img v-if="headimg !== ''" class="cell-right-img" :src="headimg" alt="头像"/>
+        <img v-else class="cell-right-img" src="../../assets/img/morentouxiang.png" alt="头像"/>
         <van-icon class="cell-right-icon" name="arrow"></van-icon>
       </div>
     </div>
-    <div class="cell headimg">
+    <div class="cell" @click="clickNickName">
       <span>昵称</span>
       <div class="cell-right">
         <span class="cell-right-text">{{ nickname }}</span>
@@ -20,7 +21,7 @@
   </van-cell-group>
 
   <van-cell-group class="group">
-    <div class="cell headimg">
+    <div class="cell" @click="clickAbout">
       <span>关于我们</span>
       <div class="cell-right">
         <van-icon class="cell-right-icon" name="arrow"></van-icon>
@@ -36,15 +37,25 @@ export default {
   data() {
     return {
       headimg: "",
-      nickname: ""
+      nickname: "",
     }
   },
 
   methods: {
     getData() {
       this.nickname = "奔跑的兔子"
-      this.headimg = "http://img2.mtime.com/up/454/1152454/1382C875-EF8E-4B41-A5AF-CF920AABC062_500.jpg"
-    }
+      this.headimg = ""
+    },
+
+    clickHead() {
+      this.$router.push({ name: "payment" })
+    },
+    clickNickName() {
+      this.$router.push({ name: "payment" })
+    },
+    clickAbout() {
+      this.$router.push({ name: "payment" })
+    },
   },
 
   created() {
@@ -69,8 +80,16 @@ export default {
 .cell {
   height: 60px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #f9f9f9;
+  font-size: 14px;
+  padding: 0 16px;
+  color: rgba(102, 102, 102, 1);
+
+  &:active {
+    background: #f2f3f5;
+  }
 
   &-right {
     display: flex;
@@ -97,19 +116,6 @@ export default {
       font-size: 16px;
       flex-base: 16px;
     }
-  }
-}
-
-.headimg {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
-  padding: 0 16px;
-  color: rgba(102, 102, 102, 1);
-
-  &:active {
-    background: #f2f3f5;
   }
 }
 
