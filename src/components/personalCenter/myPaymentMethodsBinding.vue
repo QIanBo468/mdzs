@@ -179,7 +179,7 @@ export default {
 
 .main {
   flex-grow: 1;
-  padding: 0 16px;
+  padding: 10px 16px 0;
   background: #fff;
   display: flex;
   flex-direction: column;
@@ -201,6 +201,7 @@ export default {
   background: none;
   border: none;
   font-size: 14px;
+  opacity: 1;
 }
 
 .empty {
@@ -208,7 +209,9 @@ export default {
 }
 
 .bind-btn {
-  margin-bottom: 30px;
+  margin-bottom: 41px;
+  background: url("../../assets/img/big_btn.png");
+  color: #fff;
 }
 
 </style>
