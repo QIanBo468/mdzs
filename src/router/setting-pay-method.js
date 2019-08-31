@@ -24,4 +24,14 @@ export default [
     name: 'myPaymentMethodsBinding',
     component: resolve => require(['@/components/personalCenter/myPaymentMethodsBinding'], resolve),
   },
+  {
+    path: '/feedback', // 问题反馈
+    name: 'feedback',
+    component: resolve => require(['@/components/personalCenter/feedback'], resolve),
+  },
+  {
+    path: '/feedbackNew', // 我要反馈
+    name: 'feedbackNew',
+    component: resolve => require(['@/components/personalCenter/feedbackNew'], resolve),
+  },
 ]
