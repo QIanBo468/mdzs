@@ -13,8 +13,22 @@ import earnings from '@/components/index/earnings'
 import earningsList from '@/components/index/earningsList'
 import wallet from '@/components/index/wallet'
 import usdt from '@/components/index/usdt'
-import charge from '@/components/index/'
+import charge from '@/components/index/charge'
+import extract from '@/components/index/extract'
+import transfer from '@/components/index/transfer'
+import ofc from '@/components/index/ofc'
+import exchange from '@/components/index/exchange'
+import ofcTransfer from '@/components/index/ofcTransfer'
+import fund from '@/components/index/fund'
+import fundTransfer from '@/components/index/fundTransfer'
+import ofcRecord from '@/components/index/ofcRecord'
+import transferRecord from '@/components/index/transferRecord'
+import conversion from '@/components/index/conversion'
+import topUp from '@/components/index/topUp'
+import address from '@/components/index/address'
+import mall from '@/components/mall'
 
+// import charge from '@/components/index/'
 import settingRoutes from './setting-pay-method.js'
 Vue.use(Router)
 
@@ -72,10 +86,77 @@ export default new Router({
       name: 'usdt',
       component: usdt
     },
-
+    {
+      path: '/charge',
+      name: 'charge',
+      component: charge
+    },
+    {
+      path: '/extract',
+      name: 'extract',
+      component: extract
+    },
+    {
+      path: '/transfer',
+      name: 'transfer',
+      component: transfer
+    },
+    {
+      path: '/ofc',
+      name: 'ofc',
+      component: ofc
+    },
+    {
+      path: '/exchange',
+      name: 'exchange',
+      component: exchange
+    },
+    {
+      path: '/ofcTransfer',
+      name: 'ofcTransfer',
+      component: ofcTransfer
+    },
+    {
+      path: '/fund',
+      name: 'fund',
+      component: fund
+    },
+    {
+      path: '/fundTransfer',
+      name: 'fundTransfer',
+      component: fundTransfer
+    },
+    {
+      path: '/ofcRecord',
+      name: 'ofcRecord',
+      component: ofcRecord
+    },
+    {
+      path: '/transferRecord',
+      name: 'transferRecord',
+      component: transferRecord
+    },
+    {
+      path: '/conversion',
+      name: 'conversion',
+      component: conversion
+    },
+    {
+      path: '/topUp',
+      name: 'topUp',
+      component: topUp
+    },
+    {
+      path: '/address',
+      name: 'address',
+      component: address
+    },
+    {
+      path: '/',
+      redirect: '/tabbarBox'
+    },
     {
       path: '/tabbarBox',
-      // redirect: '/tabbarBox/text',
       name: 'tabbarBox',
       component: tabbarBox,
       children: [
@@ -85,9 +166,17 @@ export default new Router({
           component: index
         },
         {
-          path: 'text',
-          name: 'text',
-          component: text
+          path: '/mall',
+          name: 'mall',
+          component: mall
+        },
+        {
+          path: '/myIndex',
+          name: 'myIndex',
+          component: resolve => require(['@/components/personalCenter/myIndex'], resolve),
+          meta: {
+            title: '我的'
+          }
         }
       ]
     },

@@ -33,5 +33,5 @@ export default [
     path: '/feedbackNew', // 我要反馈
     name: 'feedbackNew',
     component: resolve => require(['@/components/personalCenter/feedbackNew'], resolve),
-  },
+  }
 ]
