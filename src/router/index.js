@@ -115,6 +115,30 @@ export default new Router({
       meta: {
         title: '我的交易'
       }
+    },
+    {
+      path: '/inviteFriends',
+      name: 'inviteFriends',
+      component: resolve => require(['@/components/personalCenter/inviteFriends'], resolve),
+      meta: {
+        title: '邀请好友'
+      }
+    },
+    {
+      path: '/contactUs',
+      name: 'contactUs',
+      component: resolve => require(['@/components/personalCenter/contactUs'], resolve),
+      meta: {
+        title: '联系我们'
+      }
+    },
+    {
+      path: '/turntable',
+      name: 'turntable',
+      component: resolve => require(['@/components/personalCenter/turntable'], resolve),
+      meta: {
+        title: '抽奖转盘'
+      }
     }
   ]
 })
