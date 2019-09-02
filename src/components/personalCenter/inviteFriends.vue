@@ -1,0 +1,173 @@
+<template>
+  <div class="content">
+    <van-nav-bar title="邀请好友" left-arrow @click-left="$router.go(-1)" :border="false" />
+    <div class="main">
+      <div class="title">
+        <h2>ofc邀请您注册及下载</h2>
+        <div>
+          <span>邀请人：丢丢</span>
+          <span>ID:83738472</span>
+        </div>
+      </div>
+      <div class="con">
+        <div class="top">
+          <p>注册邀请码</p>
+          <label>31577</label>
+          <button>复制</button>
+        </div>
+        <div class="bottom">
+          <img src="../../assets/img/ewm.png" alt />
+          <p>长按二维码识别</p>
+          <button @click="show=true">邀请好友</button>
+        </div>
+      </div>
+    </div>
+    <van-popup v-model="show" position="bottom">
+      <div class="popup">
+        <ul class="flex">
+          <li>
+            <div class="box flex flex-align-center flex-pack-center">
+              <img src="../../assets/img/weixin.png" alt />
+            </div>
+            <p>微信</p>
+          </li>
+          <li>
+            <div class="box flex flex-align-center flex-pack-center">
+              <img src="../../assets/img/pengyouquan.png" alt />
+            </div>
+            <p>朋友圈</p>
+          </li>
+          <li>
+            <div class="box flex flex-align-center flex-pack-center">
+              <img src="../../assets/img/QQ.png" alt />
+            </div>
+            <p>QQ</p>
+          </li>
+          <li>
+            <div class="box flex flex-align-center flex-pack-center">
+              <img src="../../assets/img/weibo.png" alt />
+            </div>
+            <p>微博</p>
+          </li>
+        </ul>
+        <button @click="show = false">取消</button>
+      </div>
+    </van-popup>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      show: true
+    };
+  }
+};
+</script>
+
+<style scoped>
+@import "../../assets/css/reset.css";
+.van-nav-bar {
+  background: none;
+}
+.van-nav-bar .van-icon {
+  color: #fff;
+}
+.van-nav-bar__title {
+  color: #fff;
+  max-width: 100%;
+}
+.content {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(180deg, #fd5966 0%, #f42d3d 100%);
+  color: #fff;
+  text-align: center;
+}
+.title h2 {
+  font-size: 20px;
+  line-height: 1;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+.title span {
+  font-size: 12px;
+  line-height: 1;
+  display: inline-block;
+}
+.title span:nth-child(1) {
+  margin-right: 20px;
+}
+.con {
+  width: 270px;
+  height: 420px;
+  background: url(../../assets/img/yaoqing_bg.png) no-repeat;
+  background-size: 100% 100%;
+  margin: 20px auto 0;
+  color: #f84d4d;
+}
+.con .top {
+  height: 166px;
+  padding-top: 30px;
+}
+.con .top p {
+  font-size: 14px;
+  line-height: 1;
+}
+.con .top label {
+  font-size: 35px;
+  line-height: 1;
+  font-weight: 500;
+  margin-top: 7px;
+  letter-spacing: 3px;
+  display: block;
+}
+.main button {
+  width: 80px;
+  height: 28px;
+  background: url(../../assets/img/small_btn.png) no-repeat;
+  background-size: 100% 100%;
+  font-size: 12px;
+  display: inline-block;
+  color: #ffffff;
+  margin-top: 10px;
+}
+.con .bottom {
+  padding-top: 30px;
+}
+.con .bottom img {
+  width: 110px;
+  height: 110px;
+}
+.con .bottom p {
+  font-size: 12px;
+  line-height: 1;
+  margin-top: 10px;
+}
+.popup ul {
+  background: #f5f5f5;
+  padding: 20px 6px;
+}
+.popup li {
+  margin-left: 10px;
+}
+.popup .box {
+  width: 60px;
+  height: 60px;
+  border: 1px dashed #999999;
+}
+.popup p {
+  font-size: 10px;
+  line-height: 1;
+  color: #999999;
+  margin-top: 10px;
+}
+.popup button {
+  width: 100%;
+  height: 50px;
+  background: #fff;
+  font-size: 18px;
+  color: #333;
+}
+</style>

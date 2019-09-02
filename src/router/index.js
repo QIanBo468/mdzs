@@ -27,10 +27,15 @@ import conversion from '@/components/index/conversion'
 import topUp from '@/components/index/topUp'
 import address from '@/components/index/address'
 import mall from '@/components/mall'
+
+// import charge from '@/components/index/'
+import settingRoutes from './setting-pay-method.js'
 Vue.use(Router)
 
 export default new Router({
   routes: [
+    ...settingRoutes,
+
     {
       path: '/login',
       name: 'Login',
@@ -164,6 +169,14 @@ export default new Router({
           path: '/mall',
           name: 'mall',
           component: mall
+        },
+        {
+          path: '/myIndex',
+          name: 'myIndex',
+          component: resolve => require(['@/components/personalCenter/myIndex'], resolve),
+          meta: {
+            title: '我的'
+          }
         }
       ]
     },
@@ -181,6 +194,110 @@ export default new Router({
       component: resolve => require(['@/components/transaction/hangon'], resolve),
       meta: {
         title: '挂买'
+      }
+    },
+    {
+      path: '/myIndex',
+      name: 'myIndex',
+      component: resolve => require(['@/components/personalCenter/myIndex'], resolve),
+      meta: {
+        title: '我的'
+      }
+    },
+    {
+      path: '/my_Mill',
+      name: 'my_Mill',
+      component: resolve => require(['@/components/personalCenter/my_Mill'], resolve),
+      meta: {
+        title: '我的矿机'
+      }
+    },
+    {
+      path: '/my_recommend',
+      name: 'my_recommend',
+      component: resolve => require(['@/components/personalCenter/my_recommend'], resolve),
+      meta: {
+        title: '我的推荐'
+      }
+    },
+    {
+      path: '/my_team',
+      name: 'my_team',
+      component: resolve => require(['@/components/personalCenter/my_team'], resolve),
+      meta: {
+        title: '我的团队'
+      }
+    },
+    {
+      path: '/my_Address',
+      name: 'my_Address',
+      component: resolve => require(['@/components/personalCenter/my_Address'], resolve),
+      meta: {
+        title: '我的地址'
+      }
+    },
+    {
+      path: '/newAddress',
+      name: 'newAddress',
+      component: resolve => require(['@/components/personalCenter/newAddress'], resolve),
+      meta: {
+        title: '添加地址'
+      }
+    },
+    {
+      path: '/mytrans',
+      name: 'mytrans',
+      component: resolve => require(['@/components/transaction/mytrans'], resolve),
+      meta: {
+        title: '我的交易'
+      }
+    },
+    {
+      path: '/inviteFriends',
+      name: 'inviteFriends',
+      component: resolve => require(['@/components/personalCenter/inviteFriends'], resolve),
+      meta: {
+        title: '邀请好友'
+      }
+    },
+    {
+      path: '/contactUs',
+      name: 'contactUs',
+      component: resolve => require(['@/components/personalCenter/contactUs'], resolve),
+      meta: {
+        title: '联系我们'
+      }
+    },
+    // {
+    //   path: '/turntable',
+    //   name: 'turntable',
+    //   component: resolve => require(['@/components/personalCenter/turntable'], resolve),
+    //   meta: {
+    //     title: '抽奖转盘'
+    //   }
+    // },
+    {
+      path: '/safeCenter',
+      name: 'safeCenter',
+      component: resolve => require(['@/components/personalCenter/safeCenter'], resolve),
+      meta: {
+        title: '账户与安全'
+      }
+    },
+    {
+      path: '/fix_login',
+      name: 'fix_login',
+      component: resolve => require(['@/components/personalCenter/fix_login'], resolve),
+      meta: {
+        title: '修改登录密码'
+      }
+    },
+    {
+      path: '/fix_deal',
+      name: 'fix_deal',
+      component: resolve => require(['@/components/personalCenter/fix_deal'], resolve),
+      meta: {
+        title: '修改支付密码'
       }
     }
   ]
