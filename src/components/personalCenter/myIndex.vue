@@ -57,7 +57,7 @@
         </div>
         <img src="../../assets/img/more_small.png" alt />
       </router-link>
-      <router-link class="list" to="">
+      <router-link class="list" to="safeCenter">
         <div class="my_first">
           <img src="../../assets/img/zhanghuyuanquan.png" alt />
           <p>账户与安全</p>

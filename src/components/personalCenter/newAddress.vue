@@ -62,7 +62,20 @@ export default {
   color: #999999;
   font-size: 15px;
 }
-.sure{
-
+.sure {
+  padding: 15px;
+  position: fixed;
+  bottom: 220px;
+  left: 0;
+  right: 0;
+}
+button {
+  background: #f45c68;
+  width: 100%;
+  border: none;
+  padding: 15px;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 23px;
 }
 </style>

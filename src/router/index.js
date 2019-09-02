@@ -153,7 +153,7 @@ export default new Router({
       name: 'newAddress',
       component: resolve => require(['@/components/personalCenter/newAddress'], resolve),
       meta: {
-        title: '我的地址'
+        title: '添加地址'
       }
     },
     {
@@ -162,6 +162,30 @@ export default new Router({
       component: resolve => require(['@/components/transaction/mytrans'], resolve),
       meta: {
         title: '我的交易'
+      }
+    },
+    {
+      path: '/safeCenter',
+      name: 'safeCenter',
+      component: resolve => require(['@/components/personalCenter/safeCenter'], resolve),
+      meta: {
+        title: '账户与安全'
+      }
+    },
+    {
+      path: '/fix_login',
+      name: 'fix_login',
+      component: resolve => require(['@/components/personalCenter/fix_login'], resolve),
+      meta: {
+        title: '修改登录密码'
+      }
+    },
+    {
+      path: '/fix_deal',
+      name: 'fix_deal',
+      component: resolve => require(['@/components/personalCenter/fix_deal'], resolve),
+      meta: {
+        title: '修改支付密码'
       }
     }
   ]
