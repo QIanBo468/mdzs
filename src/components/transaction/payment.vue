@@ -29,7 +29,7 @@ export default {
     data(){
         return{
             state:true ,//状态
-            show:true,//弹框显隐
+            show:false,//弹框显隐
             tu:'',//弹出显示的图片
         }
     },
@@ -66,7 +66,7 @@ export default {
     overflow: hidden;
 }
 .bothse{
-    padding:44px 0 36px;
+    padding:40px 0 36px;
     border: 1px solid transparent;
     background:rgba(0,22,114,1);
     a{

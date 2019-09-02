@@ -4,7 +4,7 @@
         <van-tabbar v-model="active" style="height: 50px;    position: sticky">
             <van-tabbar-item icon="home-o" to='/tabbarBox'>首页</van-tabbar-item>
             <van-tabbar-item icon="search" to='/mall'>商城</van-tabbar-item>
-            <van-tabbar-item icon="friends-o" >交易中心</van-tabbar-item>
+            <van-tabbar-item icon="friends-o" to="/transaction" >交易中心</van-tabbar-item>
             <van-tabbar-item icon="setting-o" to='/myIndex'>我的</van-tabbar-item>
         </van-tabbar>
     </div>
