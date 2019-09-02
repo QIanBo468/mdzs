@@ -15,7 +15,7 @@
     </div>
     <div class="fix_pass">
       <div class="password">
-        <div class="login_pass">
+        <div class="login_pass" @click="empty_huancun">
           <span>清空缓存</span>
           <div class="huancun">
             <span>300M</span>
@@ -43,6 +43,9 @@ export default {
   methods: {
     onClickLeft () {
       this.$router.go(-1)
+    },
+    empty_huancun () {
+
     }
   },
   created () {}

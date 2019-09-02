@@ -15,21 +15,21 @@
       </div>
     </div>
     <div class="my_list">
-      <div class="list">
-        <router-link class="my_first" to="my_Mill">
+      <router-link class="list" to="my_Mill">
+        <div class="my_first" >
           <img src="../../assets/img/wodekuangji.png" alt />
           <p>我的矿机</p>
-        </router-link>
+        </div>
         <img src="../../assets/img/more_small.png" alt />
-      </div>
-      <router-link class="list" to>
+      </router-link>
+      <router-link class="list" to=''>
         <div class="my_first">
           <img src="../../assets/img/wodejiaoyi.png" alt />
           <p>我的交易</p>
         </div>
         <img src="../../assets/img/more_small.png" alt />
       </router-link>
-      <router-link class="list" to="">
+      <router-link class="list" to="myPaymentMethods">
         <div class="my_first">
           <img src="../../assets/img/wodeshoukuanfangshi.png" alt />
           <p>我的收款方式</p>
@@ -64,7 +64,7 @@
         </div>
         <img src="../../assets/img/more_small.png" alt />
       </router-link>
-      <router-link class="list" to="">
+      <router-link class="list" to="feedback">
         <div class="my_first">
           <img src="../../assets/img/wentifankui.png" alt />
           <p>问题反馈</p>
@@ -82,7 +82,9 @@ export default {
   },
   computed: {},
   methods: {
-    onClickRight () {}
+    onClickRight () {
+      this.$router.push('setting')
+    }
   },
   created () {}
 }
