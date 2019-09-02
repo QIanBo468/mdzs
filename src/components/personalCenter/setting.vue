@@ -51,8 +51,17 @@ export default {
 
   methods: {
     getData() {
-      this.nickname = "奔跑的兔子"
-      this.headimg = ""
+      this.$axios.fetchPost('/portal', {
+        source: "web",
+        version: "v1",
+        module: "User",
+        interface: "1000",
+        data: {}
+      }).then(res => {
+        // console.log(res)
+        this.nickname = res.data.nickname
+        this.headimg = res.data.avatar
+      })
     },
 
     back() {
@@ -70,6 +79,31 @@ export default {
         this.headimg = e.target.result
       }
       reader.readAsDataURL(file)
+
+      let form = new FormData()
+      form.append("avatar", file)
+
+      this.$axios.fetchPost("http://ofc.qdunzi.com/upload", {
+        file: form,
+      }).then(res => {
+        console.log(res)
+
+        this.$axios.fetchPost('/portal', {
+          source: "web",
+          version: "v1",
+          module: "User",
+          interface: "1001",
+          data: {
+            avatar: res.file,
+          }
+        }).then(res => {
+          // console.log(res)
+        })
+
+      }).catch(err => {
+        console.log(err)
+      })
+
     },
 
     clickNickName() {
