@@ -75,6 +75,19 @@ export default {
             ]
         }
     },
+    created () {
+        this.$axios.fetchPost('/portal',
+        {
+            source: "web",
+            version: "v1",
+            module: "User",
+            interface: "1000",
+            data: {}
+        }).then(res => {
+            console.log(res)
+            this.userInfo = res.data
+        })
+    }
 }
 </script>
 <style lang="less">
