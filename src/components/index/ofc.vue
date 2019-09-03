@@ -68,7 +68,7 @@ export default {
         }
     },
     created () {
-         this.$axios.fetchPost('/portal',
+        this.$axios.fetchPost('/portal',
         {
             source: "web",
             version: "v1",

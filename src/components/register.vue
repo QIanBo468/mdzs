@@ -10,25 +10,33 @@
                 <van-field
                     placeholder="请输入手机号"
                     left-icon="contact"
+                    maxlength="11"
+                    v-model="fromObj.account"
                 />
 
                 <van-field
-                    placeholder="请输入密码（最少8位数字+密码）"
+                    placeholder="请输入密码（最少6位 数字+字母）"
                     left-icon="contact"
+                    v-model="fromObj.password"
+                    name="password"
+                    :error="errors.has('password')"
+                    v-validate="'required|password'"
                 >
                 </van-field>
 
                 <van-field
-                    placeholder="请再次输入密码"
+                    placeholder="请输入支付密码"
+                    v-model="fromObj.safeword"
                     left-icon="contact"
                 />
                 <van-field
                     placeholder="请输入邀请码"
                     left-icon="contact"
+                    v-model="fromObj.inviteCode"
                 />
             </van-cell-group>
             <van-cell-group :border='false'>
-                <van-button  class='btn'>下一步</van-button>
+                <van-button  class='btn' @click="submit">下一步</van-button>
                 <div class='agreement'>
                     已阅读并同意以下协议：《ofc服务协议》
                 </div>
@@ -37,15 +45,38 @@
     </div>
 </template>
 <script>
+import { Toast } from 'vant'
 export default {
     data () {
         return {
-
+            fromObj: {
+                account: '',
+                password: '',
+                safeword: '',
+                inviteCode: '',
+            },
         }
     },
     methods : {
         onClickLeft () {
-            
+            this.$router.go(-1)
+        },
+        submit () {
+                    this.$router.push('/authentication')
+            this.$axios.fetchPost('/portal',
+            {
+                source: "web",
+                version: "v1",
+                module: "Account",
+                interface: "1002",
+                data: this.fromObj
+            }).then(res => {
+                if (res.success) {
+                    // this.$cookies.set('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
+                }else{
+                    Toast(res.message)
+                }
+            })
         }
     }
 }

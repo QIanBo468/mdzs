@@ -4,6 +4,7 @@
             title="我的收益"
             left-arrow
             :border="false"
+            @click-left="onClickLeft"
         />
         <div class='box'>
             <div class="list" v-for='(item, index) in 5' :key='index'>
@@ -20,6 +21,32 @@
         </div>
     </div>
 </template>
+<script>
+export default {
+    data () {
+        return {
+
+        }
+    },
+    created () {
+        this.$axios.fetchPost('/portal',
+        {
+            source: "web",
+            version: "v1",
+            module: "Finance",
+            interface: "4006",
+            data: {lastId: 0,page: 1}
+        }).then(res => {
+            
+        })
+    },
+    methods: {
+        onClickLeft () {
+            this.$router.go(-1)
+        }
+    }
+}
+</script>
 <style lang="less" scoped>
 #earningsList{
     width: 100%;
