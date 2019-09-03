@@ -24,7 +24,12 @@
       </div>
       <div>
         <div class="label">收款二维码</div>
-        <van-uploader v-model="qrCodeFileList" :max-count="1" :after-read="upload" />
+        <van-uploader
+          v-model="qrCodeFileList"
+          :max-count="1"
+          :after-read="upload"
+          @delete="deleteQrCode"
+          />
       </div>
     </template>
 
@@ -308,6 +313,9 @@ export default {
       }).catch(err => {
         console.log(err)
       })
+    },
+    deleteQrCode() {
+      this.qrCode = ""
     },
 
     getData() {
