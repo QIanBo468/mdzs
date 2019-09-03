@@ -5,18 +5,18 @@
         <van-icon name="setting-o" size="20" slot="right" @click="onClickRight" />
       </van-nav-bar>
       <div class="top">
-        <img src="../../assets/img/morentouxiang.png" alt class="headpic" />
+        <img :src="avatar" alt class="headpic" />
 
         <div class="headtext">
-          <p>后视镜设计师</p>
-          <p>ID：83748374</p>
-          <p>级别：爱心大使 矿长</p>
+          <p>{{info.nickname}}</p>
+          <p>ID：{{info.id}}</p>
+          <p>级别：{{info.level}}</p>
         </div>
       </div>
     </div>
     <div class="my_list">
       <router-link class="list" to="my_Mill">
-        <div class="my_first" >
+        <div class="my_first">
           <img src="../../assets/img/wodekuangji.png" alt />
           <p>我的矿机</p>
         </div>
@@ -78,7 +78,10 @@
 <script>
 export default {
   data () {
-    return {}
+    return {
+      info: '',
+      avatar: ''
+    }
   },
   computed: {},
   methods: {
@@ -86,7 +89,22 @@ export default {
       this.$router.push('setting')
     }
   },
-  created () {}
+  created () {
+    this.$axios
+      .fetchPost('/portal', {
+        interface: '1000',
+        module: 'User',
+        source: 'web',
+        version: 'v1',
+        data: {}
+      })
+      .then(res => {
+        console.log('个人信息', res)
+        // this.goodsList = res.data.list;
+        this.info = res.data
+        this.avatar = res.data.avatar
+      })
+  }
 }
 </script>
 <style scoped>

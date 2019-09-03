@@ -12,17 +12,17 @@
       <div class="con">
         <div class="top">
           <p>注册邀请码</p>
-          <label>31577</label>
-          <button>复制</button>
+          <label>{{num}}</label>
+          <button @click="copy(num)">复制</button>
         </div>
         <div class="bottom">
           <img src="../../assets/img/ewm.png" alt />
           <p>长按二维码识别</p>
-          <button @click="show=true">邀请好友</button>
+          <!-- <button @click="show=true">邀请好友</button> -->
         </div>
       </div>
     </div>
-    <van-popup v-model="show" position="bottom">
+    <!-- <van-popup v-model="show" position="bottom">
       <div class="popup">
         <ul class="flex">
           <li>
@@ -52,18 +52,33 @@
         </ul>
         <button @click="show = false">取消</button>
       </div>
-    </van-popup>
+    </van-popup>-->
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
-      show: true
-    };
+      // show: true,
+      num: '312875'
+    }
+  },
+  methods: {
+    copy (num) {
+      this.show = true
+      this.$toast('已复制')
+      const input = document.createElement('input')
+      document.body.appendChild(input)
+      input.setAttribute('value', num)
+      input.select()
+      if (document.execCommand('copy')) {
+        document.execCommand('copy')
+      }
+      document.body.removeChild(input)
+    }
   }
-};
+}
 </script>
 
 <style scoped>
@@ -80,7 +95,8 @@ export default {
 }
 .content {
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  height: auto;
   background: linear-gradient(180deg, #fd5966 0%, #f42d3d 100%);
   color: #fff;
   text-align: center;
@@ -134,7 +150,7 @@ export default {
   margin-top: 10px;
 }
 .con .bottom {
-  padding-top: 30px;
+  padding-top: 45px;
 }
 .con .bottom img {
   width: 110px;

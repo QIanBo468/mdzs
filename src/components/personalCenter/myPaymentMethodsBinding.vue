@@ -3,12 +3,12 @@
   <van-nav-bar :title="'绑定' + title" left-arrow class="nav-top" @click-left="back" />
 
   <div class="main">
-    <template v-if="type !== 'bankcard'">
+    <template v-if="type !== 0">
       <div>
         <div class="label">账户名称</div>
         <van-field
           class="input"
-          v-model="accountName"
+          v-model="realName"
           placeholder="账户名称和实名信息一致（真实姓名）"
           clearable
         />
@@ -17,14 +17,19 @@
         <div class="label">{{ title }}</div>
         <van-field
           class="input"
-          v-model="accountNo"
+          v-model="account"
           :placeholder="'请输入' + title"
           clearable
         />
       </div>
       <div>
         <div class="label">收款二维码</div>
-        <van-uploader />
+        <van-uploader
+          v-model="qrCodeFileList"
+          :max-count="1"
+          :after-read="upload"
+          @delete="deleteQrCode"
+          />
       </div>
     </template>
 
@@ -33,7 +38,7 @@
         <div class="label">持卡人</div>
         <van-field
           class="input"
-          v-model="cardHolder"
+          v-model="realName"
           placeholder="请输入持卡人姓名"
           clearable
         />
@@ -42,8 +47,18 @@
         <div class="label">卡号</div>
         <van-field
           class="input"
-          v-model="cardNo"
+          v-model="account"
+          type="number"
           placeholder="请输入银行卡号"
+          clearable
+        />
+      </div>
+      <div>
+        <div class="label">开户行</div>
+        <van-field
+          class="input"
+          v-model="bankAddress"
+          placeholder="请输入开户行"
           clearable
         />
       </div>
@@ -51,7 +66,7 @@
         <div class="label">身份证号</div>
         <van-field
           class="input"
-          v-model="idCardNo"
+          v-model="idCard"
           placeholder="请输入本人身份证号"
           clearable
         />
@@ -60,7 +75,9 @@
         <div class="label">银行预留手机号</div>
         <van-field
           class="input"
-          v-model="bankPhone"
+          v-model="mobile"
+          type="number"
+          maxlength="11"
           placeholder="请输入银行预留手机号"
           clearable
         />
@@ -71,8 +88,10 @@
       <div class="label">验证码</div>
       <van-field
         class="input"
-        v-model="sms"
+        v-model="captcha"
         placeholder="请输入验证码"
+        maxlength="6"
+        type="number"
         clearable
       >
         <template #button>
@@ -113,13 +132,13 @@ export default {
 
     let title = ""
     switch (type) {
-      case "alipay":
+      case 1:
         title = "支付宝账号"
         break
-      case "weixin":
+      case 2:
         title = "微信账号"
         break
-      case "bankcard":
+      case 0:
         title = "银行卡"
         break
     }
@@ -129,17 +148,16 @@ export default {
       id,
 
       title,
-      sms: "",
+      captcha: "",
       counter: 0,
 
-      accountName: "",
-      accountNo: "",
-      qrCode: "",
+      realName: "",
+      account: "",
+      qrCodeFileList: [],
 
-      cardHolder: "",
-      cardNo: "",
-      idCardNo: "",
-      bankPhone: "",
+      bankAddress: "",
+      idCard: "",
+      mobile: "",
     }
   },
 
@@ -157,10 +175,184 @@ export default {
         }
         this.counter--
       }, 1000)
+
+      this.$axios.fetchPost('/portal', {
+        source: "web",
+        version: "v1",
+        module: "User",
+        interface: "1000",
+        data: {
+        },
+      }).then(res => {
+        // console.log(res)
+        if (res.code !== 0) {
+          return
+        }
+
+        this.$axios.fetchPost('/portal', {
+          source: "web",
+          version: "v1",
+          module: "Finance",
+          interface: "1906",
+          data: {
+            account: res.data.account,
+          },
+        }).then(res => {
+          console.log(res)
+        })
+      })
     },
 
     bind() {
+      let param = {
+        type: this.type,
+        account: this.account,
+        realName: this.realName,
+        captcha: this.captcha,
+      }
+
+      if (param.type === 0) {
+        param.bankAddress = this.bankAddress
+        param.idCard = this.idCard
+        param.mobile = this.mobile
+      } else {
+        param.qrCode = this.qrCode
+      }
+
+      let errmsg = this.checkParam(param)
+      if (errmsg) {
+        this.$toast(errmsg)
+        return
+      }
+
+      let inter = "1901"
+      if (this.id) {
+        inter = "1903"
+        param.id = this.id
+      }
+
+      this.$axios.fetchPost('/portal', {
+        source: "web",
+        version: "v1",
+        module: "Finance",
+        interface: inter,
+        data: param,
+      }).then(res => {
+        // console.log(res)
+        if (res.code !== 0) {
+          this.$toast(res.message)
+          return
+        }
+        if (this.id) {
+          this.$toast("修改支付方式成功")
+        } else {
+          this.$toast("绑定支付方式成功")
+        }
+      })
     },
+
+    checkParam(param) {
+      if (param.type !== 0) {
+        if (!param.realName) {
+          return "账户名称必填"
+        }
+        if (param.realName.length < 2) {
+          return "账号名称最少两个字符"
+        }
+        if (!param.account) {
+          return this.title + "必填"
+        }
+        if (!param.qrCode) {
+          return "收款二维码必传"
+        }
+      } else {
+        if (!param.realName) {
+          return "持卡人必填"
+        }
+        if (param.realName.length < 2) {
+          return "持卡人姓名最少两个字符"
+        }
+        if (!param.account) {
+          return "卡号必填"
+        }
+        if (!(/^([1-9]{1})(\d{14}|\d{18})$/.test(param.account))) {
+          return "银行卡号有误"
+        }
+        if (!param.bankAddress) {
+          return "开户行必填"
+        }
+        if (!param.idCard) {
+          return "身份证号必填"
+        }
+        if (!(/(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}$)/.test(param.idCard))) {
+          return "身份证号有误"
+        }
+        if (!param.mobile) {
+          return "银行预留手机号必填"
+        }
+        if (!(/^1[3456789]\d{9}$/.test(param.mobile))) {
+          return "手机号码有误"
+        }
+      }
+
+      if (!param.captcha) {
+        return "验证码必填"
+      }
+      if (param.captcha.length !== 6) {
+        return "验证码为6位数字"
+      }
+      return ""
+    },
+
+    upload(file) {
+      let form = new FormData()
+      form.append("file", file.file)
+      this.$axios.fetchPost("http://ofc.qdunzi.com/upload", form).then(res => {
+        // console.log(res)
+        this.qrCode = res.data.file
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    deleteQrCode() {
+      this.qrCode = ""
+    },
+
+    getData() {
+      this.$axios.fetchPost('/portal', {
+        source: "web",
+        version: "v1",
+        module: "Finance",
+        interface: "1902",
+        data: {
+          id: this.id,
+        },
+      }).then(res => {
+        // console.log(res)
+        if (res.code !== 0) {
+          return
+        }
+
+        let d = res.data
+        this.realName = d.realName
+        this.account = d.account
+        this.bankAddress = d.bankAddress
+        this.idCard = d.idCard
+        this.mobile = d.mobile
+        this.qrCode = d.qrCode
+        this.qrCodeFileList = [
+          {
+            url: d.qrCode,
+          }
+        ]
+      })
+    },
+  },
+
+  created() {
+    if (this.id) {
+      this.getData()
+    }
   },
 }
 </script>
@@ -194,6 +386,8 @@ export default {
 .input {
   border: 1px solid #d8d8d8;
   border-radius: 4px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .sms-button {

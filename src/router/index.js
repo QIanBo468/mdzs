@@ -6,7 +6,7 @@ import authentication from '@/components/authentication'
 import register from '@/components/register'
 import index from '@/components/index'
 import tabbarBox from '@/components/tabbarBox'
-import text from '@/components/text'
+// import text from '@/components/text'
 import notice from '@/components/index/notice'
 import noticeDetails from '@/components/index/noticeDetails'
 import earnings from '@/components/index/earnings'
@@ -221,14 +221,7 @@ export default new Router({
         title: '挂买'
       }
     },
-    {
-      path: '/myIndex',
-      name: 'myIndex',
-      component: resolve => require(['@/components/personalCenter/myIndex'], resolve),
-      meta: {
-        title: '我的'
-      }
-    },
+    
     {
       path: '/my_Mill',
       name: 'my_Mill',
@@ -293,14 +286,14 @@ export default new Router({
         title: '联系我们'
       }
     },
-    // {
-    //   path: '/turntable',
-    //   name: 'turntable',
-    //   component: resolve => require(['@/components/personalCenter/turntable'], resolve),
-    //   meta: {
-    //     title: '抽奖转盘'
-    //   }
-    // },
+    {
+      path: '/turntable',
+      name: 'turntable',
+      component: resolve => require(['@/components/personalCenter/turntable'], resolve),
+      meta: {
+        title: '抽奖转盘'
+      }
+    },
     {
       path: '/safeCenter',
       name: 'safeCenter',

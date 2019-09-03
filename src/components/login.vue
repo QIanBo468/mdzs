@@ -6,17 +6,25 @@
             @click-left="onClickLeft"
             :border='false'
         />
+        
         <div class='login'>
             <van-cell-group  style="margin-top: 50px">
                 <van-field
                     placeholder="请输入手机号"
                     left-icon="manager-o"
                     v-model="obj.account"
+                    name="phone"
+                    v-validate="'required|phone'"
+                    :error="errors.has('phone')"
+                    
                 />
                 <van-field
                     placeholder="请输入密码"
                     left-icon="bag-o"
                     type="password"
+                    v-validate="'required'"
+                    name='password'
+                    :error="errors.has('password')"
                     v-model="obj.password"
                 />
             </van-cell-group>
@@ -30,6 +38,7 @@
     </div>
 </template>
 <script>
+import {Toast} from 'vant'
 export default {
     data () {
         return {
@@ -41,21 +50,33 @@ export default {
     },
     methods:{
         submit(){
-            this.$axios.fetchPost('/portal',
-            {
-                source: "web",
-                version: "v1",
-                module: "Account",
-                interface: "1000",
-                data: this.obj
-            }).then(res => {
-                this.userInfo = res.data
-                this.$cookies.set('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
-                this.$router.push('/')
+            var that = this
+            this.$validator.validateAll().then(function(result) {
+                if (result) {
+                that.$axios.fetchPost('/portal',
+                {
+                    source: "web",
+                    version: "v1",
+                    module: "Account",
+                    interface: "1000",
+                    data: that.obj
+                }).then(res => {
+                    if (res.success) {
+                        that.userInfo = res.data
+                        that.$cookies.set('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
+                        that.$router.go(-1)
+                    }else{
+                        Toast(res.message)
+                    }
+                })
+                } else {
+                    Toast('格式有误')
+                }
             })
+            
         },
         onClickLeft () {
-
+            this.$router.go(-1)
         }
     }
 }

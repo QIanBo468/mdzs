@@ -13,7 +13,13 @@
       maxlength="200"
       class="feedback"
     />
-    <van-uploader v-model="fileList" multiple :max-count="3" class="uploader"/>
+    <van-uploader
+      v-model="fileList"
+      multiple
+      :max-count="3"
+      class="uploader"
+      :after-read="upload"
+      />
     <van-button class="submit-btn" @click="submit">提交</van-button>
   </div>
 </div>
@@ -33,7 +39,38 @@ export default {
       this.$router.go(-1)
     },
 
+    upload(file) {
+      let list = []
+      if (file.length) {
+        for (let i = 0; i < file.length; i++) {
+          list.push(file[i].file)
+        }
+      } else {
+        list.push(file.file)
+      }
+
+      this.uploadOne(list, 0)
+    },
+    uploadOne(list, i) {
+      let form = new FormData()
+      form.append("file", list[i])
+      this.$axios.fetchPost("http://ofc.qdunzi.com/upload", form).then(res => {
+        // console.log(res)
+        list[i]._url = res.data.file
+        if (i + 1 < list.length) {
+          this.uploadOne(list, i + 1)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+
     submit() {
+      let list = []
+      for (let i = 0; i < this.fileList.length; i++) {
+        list.push(this.fileList[i].file._url)
+      }
+      console.log(list)
     },
   },
 }
