@@ -123,7 +123,7 @@ export default {
           page,
         }
       }).then(res => {
-        console.log(res)
+        // console.log(res)
         this.lastId = res.data.lastId
         let list = res.data.list
         this.total = res.data.total
@@ -134,7 +134,7 @@ export default {
         }
       })
 
-      let list = [
+      /* let list = [
         {
           type: 1,
           id: 1,
@@ -156,7 +156,7 @@ export default {
           bankAddress: "临沂北城支行",
         },
       ]
-      this.list.push(...list)
+      this.list.push(...list) */
     },
   },
 

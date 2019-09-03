@@ -220,17 +220,28 @@ export default {
         return
       }
 
+      let inter = "1901"
+      if (this.id) {
+        inter = "1903"
+        param.id = this.id
+      }
+
       this.$axios.fetchPost('/portal', {
         source: "web",
         version: "v1",
         module: "Finance",
-        interface: "1901",
+        interface: inter,
         data: param,
       }).then(res => {
-        console.log(res)
+        // console.log(res)
         if (res.code !== 0) {
           this.$toast(res.message)
           return
+        }
+        if (this.id) {
+          this.$toast("修改支付方式成功")
+        } else {
+          this.$toast("绑定支付方式成功")
         }
       })
     },
@@ -239,6 +250,9 @@ export default {
       if (param.type !== 0) {
         if (!param.realName) {
           return "账户名称必填"
+        }
+        if (param.realName.length < 2) {
+          return "账号名称最少两个字符"
         }
         if (!param.account) {
           return this.title + "必填"
@@ -250,8 +264,14 @@ export default {
         if (!param.realName) {
           return "持卡人必填"
         }
+        if (param.realName.length < 2) {
+          return "持卡人姓名最少两个字符"
+        }
         if (!param.account) {
           return "卡号必填"
+        }
+        if (!(/^([1-9]{1})(\d{14}|\d{18})$/.test(param.account))) {
+          return "银行卡号有误"
         }
         if (!param.bankAddress) {
           return "开户行必填"
@@ -259,25 +279,32 @@ export default {
         if (!param.idCard) {
           return "身份证号必填"
         }
+        if (!(/(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}$)/.test(param.idCard))) {
+          return "身份证号有误"
+        }
         if (!param.mobile) {
           return "银行预留手机号必填"
+        }
+        if (!(/^1[3456789]\d{9}$/.test(param.mobile))) {
+          return "手机号码有误"
         }
       }
 
       if (!param.captcha) {
         return "验证码必填"
       }
+      if (param.captcha.length !== 6) {
+        return "验证码为6位数字"
+      }
       return ""
     },
 
     upload(file) {
       let form = new FormData()
-      form.append("avatar", file)
-      this.$axios.fetchPost("http://ofc.qdunzi.com/upload", {
-        file: form,
-      }).then(res => {
-        console.log(res)
-        this.qrCode = res.file
+      form.append("file", file.file)
+      this.$axios.fetchPost("http://ofc.qdunzi.com/upload", form).then(res => {
+        // console.log(res)
+        this.qrCode = res.data.file
       }).catch(err => {
         console.log(err)
       })

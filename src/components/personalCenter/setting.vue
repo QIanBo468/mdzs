@@ -81,19 +81,16 @@ export default {
       reader.readAsDataURL(file)
 
       let form = new FormData()
-      form.append("avatar", file)
-      this.$axios.fetchPost("http://ofc.qdunzi.com/upload", {
-        file: form,
-      }).then(res => {
-        console.log(res)
-
+      form.append("file", file)
+      this.$axios.fetchPost("http://ofc.qdunzi.com/upload", form).then(res => {
+        // console.log(res)
         this.$axios.fetchPost('/portal', {
           source: "web",
           version: "v1",
           module: "User",
           interface: "1001",
           data: {
-            avatar: res.file,
+            avatar: res.data.file,
           }
         }).then(res => {
           // console.log(res)
