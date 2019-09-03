@@ -286,14 +286,14 @@ export default new Router({
         title: '联系我们'
       }
     },
-    // {
-    //   path: '/turntable',
-    //   name: 'turntable',
-    //   component: resolve => require(['@/components/personalCenter/turntable'], resolve),
-    //   meta: {
-    //     title: '抽奖转盘'
-    //   }
-    // },
+    {
+      path: '/turntable',
+      name: 'turntable',
+      component: resolve => require(['@/components/personalCenter/turntable'], resolve),
+      meta: {
+        title: '抽奖转盘'
+      }
+    },
     {
       path: '/safeCenter',
       name: 'safeCenter',

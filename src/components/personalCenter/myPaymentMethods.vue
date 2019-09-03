@@ -16,11 +16,11 @@
       @click="clickItem(item)"
     >
       <div class="item-left">
-        <template v-if="item.type === 'alipay'">
+        <template v-if="item.type === 1">
           <img class="item-logo" src="../../../static/images/icon/zhifubao.png" />
-          <div v-if="item.bound">
-            <div>账户名称: {{ item.accountName }}</div>
-            <div>账号: {{ item.accountNo }}</div>
+          <div v-if="item.account">
+            <div>账户名称: {{ item.realName }}</div>
+            <div>账号: {{ item.account }}</div>
           </div>
           <div v-else>
             <div>绑定支付宝账号</div>
@@ -28,11 +28,11 @@
           </div>
         </template>
 
-        <template v-else-if="item.type === 'weixin'">
+        <template v-else-if="item.type === 2">
           <img class="item-logo" src="../../../static/images/icon/weixin.png" />
-          <div v-if="item.bound">
-            <div>账户名称: {{ item.accountName }}</div>
-            <div>账号: {{ item.accountNo }}</div>
+          <div v-if="item.account">
+            <div>账户名称: {{ item.realName }}</div>
+            <div>账号: {{ item.account }}</div>
           </div>
           <div v-else>
             <div>绑定微信账号</div>
@@ -42,10 +42,10 @@
 
         <template v-else>
           <img class="item-logo" src="../../../static/images/icon/yinhangka.png" />
-          <div v-if="item.bound">
-            <div>账户名称: {{ item.accountName }}</div>
-            <div>账号: {{ item.accountNo | accountNo }}</div>
-            <div>开户行: {{ item.bank }}</div>
+          <div v-if="item.account">
+            <div>账户名称: {{ item.realName }}</div>
+            <div>账号: {{ item.account | accountNo }}</div>
+            <div>开户行: {{ item.bankName + item.bankAddress }}</div>
           </div>
           <div v-else>
             <div>绑定个人银行卡</div>
@@ -55,7 +55,7 @@
       </div>
 
       <div class="item-right">
-        <span class="item-right-bind" v-if="!item.bound">去绑定</span>
+        <span class="item-right-bind" v-if="!item.account">去绑定</span>
         <van-icon name="arrow"></van-icon>
       </div>
     </div>
@@ -69,10 +69,22 @@ export default {
   data() {
     return {
       total: 0,
-      list: [],
+      list: [
+        {
+          type: 1,
+        },
+        {
+          type: 2,
+        },
+        {
+          type: 0,
+        },
+      ],
       loading: false,
       finished: false,
       page: 1,
+
+      lastId: 0,
     }
   },
 
@@ -101,39 +113,50 @@ export default {
     },
 
     getData(page) {
-      this.list = [
+      this.$axios.fetchPost('/portal', {
+        source: "web",
+        version: "v1",
+        module: "Finance",
+        interface: "1900",
+        data: {
+          lastId: this.lastId,
+          page,
+        }
+      }).then(res => {
+        // console.log(res)
+        this.lastId = res.data.lastId
+        let list = res.data.list
+        this.total = res.data.total
+        this.list.push(...list)
+
+        if (this.list.length - 3 >= this.total) {
+          this.finished = true
+        }
+      })
+
+      /* let list = [
         {
-          type: "alipay",
-          bound: true,
-          accountName: "李小猫",
-          accountNo: "12383747463",
+          type: 1,
+          id: 1,
+          realName: "李小猫",
+          account: "12383747463",
         },
         {
-          type: "weixin",
-          bound: true,
-          accountName: "李小猫",
-          accountNo: "12383747463",
+          type: 2,
+          id: 2,
+          realName: "李小猫",
+          account: "12383747463",
         },
         {
-          type: "bankcard",
-          bound: true,
-          accountName: "李小猫",
-          accountNo: "3746374637463746123",
-          bank: "招商银行临沂北城支行",
-        },
-        {
-          type: "alipay",
-          bound: false,
-        },
-        {
-          type: "weixin",
-          bound: false,
-        },
-        {
-          type: "bankcard",
-          bound: false,
+          type: 0,
+          id: 3,
+          realName: "李小猫",
+          account: "3746374637463746123",
+          bankName: "招商银行",
+          bankAddress: "临沂北城支行",
         },
       ]
+      this.list.push(...list) */
     },
   },
 

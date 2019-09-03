@@ -32,6 +32,17 @@ export default {
     },
 
     save() {
+      this.$axios.fetchPost('/portal', {
+        source: "web",
+        version: "v1",
+        module: "User",
+        interface: "1001",
+        data: {
+          nickname: this.nickname,
+        }
+      }).then(res => {
+        // console.log(res)
+      })
     },
   },
 }
