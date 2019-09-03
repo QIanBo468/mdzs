@@ -3,12 +3,13 @@
         <van-nav-bar
             title="公告"
             left-arrow
+            @click-left="onClickLeft"
         />
         <div class="noticeList">
-            <router-link to='noticeDetails'>
+            <router-link :to="{ path: '/noticeDetails', query: { id: item.id}}"  v-for="(item, index) in noticeList" :key='index'>
                 <ul>
-                    <li>新上6号爱心矿机，租赁价格仅10000usdt</li>
-                    <li>2019.06.12 14:12:45</li>
+                    <li>{{item.title}}</li>
+                    <li></li>
                 </ul>
                 <div>
                     <img src="../../../static/images/index/more.png" alt="">
@@ -19,7 +20,28 @@
 </template>
 <script>
 export default {
-    
+    data () {
+        return {
+            noticeList: []
+        }
+    },
+    created () {
+        this.$axios.fetchPost('/portal',
+        {
+            source: "web",
+            version: "v1",
+            module: "Content",
+            interface: "3000",
+            data: {lastId: 0,page: 1}
+        }).then(res => {
+            this.noticeList = res.data.list
+        })
+    },
+    methods : {
+        onClickLeft () {
+            this.$router.go(-1)
+        }
+    }
 }
 </script>
 <style lang="less" scoped>

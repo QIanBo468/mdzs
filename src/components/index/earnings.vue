@@ -4,6 +4,7 @@
             title="我的收益"
             left-arrow
             :border="false"
+            @click-left="onClickLeft"
         />
         <div class='statis'>
             <div>累计获得收益（ofc）</div>
@@ -19,44 +20,68 @@
                     <img src="../../../static/images/index/kuang.png" alt="">
                     <div>矿机收益</div>
                 </div>
-                <div class='num'>1.39001720</div>
+                <div class='num'>{{earnings.machine}}</div>
             </div>
             <div class='box'>
                 <div>
                     <img src="../../../static/images/index/kuang.png" alt="">
                     <div>矿长收益</div>
                 </div>
-                <div class='num'>1.39001720</div>
+                <div class='num'>{{earnings.manager}}</div>
             </div>
             <div class='box'>
                 <div>
                     <img src="../../../static/images/index/kuang.png" alt="">
                     <div>大使收益</div>
                 </div>
-                <div class='num'>1.39001720</div>
+                <div class='num'>{{earnings.ambassador}}</div>
             </div>
         </div>
-        <div class='firstTitle'>
+        <div class='firstTitle' @click="goEarningsList">
             <!-- <router-link to='earningsList'> -->
                 <span></span>
                 <span>收益明细</span>
                 <div>更多></div>
             <!-- </router-link> -->
         </div>
-        <div class="list" v-for='(item, index) in 5' :key='index'>
+        <div class="list" v-for='(item, index) in earnings.list' :key='index'>
             <ul>
-                <li class='overText'>矿机收益</li>
-                <li>2019.07.12 13:45:12</li>
+                <li class='overText'>{{item.creditName}}</li>
+                <li>{{item.createdAt}}</li>
             </ul>
             <div>
-                2.19230000
+                {{item.realMoney}}
             </div>
         </div>
     </div>
 </template>
 <script>
 export default {
-    
+    data () {
+        return {
+            earnings: {},
+        }
+    },
+    created () {
+        this.$axios.fetchPost('/portal',
+        {
+            source: "web",
+            version: "v1",
+            module: "Finance",
+            interface: "4005",
+            data: {}
+        }).then(res => {
+            this.earnings = res.data
+        })
+    },
+    methods : {
+        goEarningsList () {
+            this.$router.push('earningsList')
+        },
+        onClickLeft () {
+            this.$router.go(-1)
+        }
+    }
 }
 </script>
 <style lang="less">

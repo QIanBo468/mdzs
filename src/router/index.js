@@ -6,7 +6,7 @@ import authentication from '@/components/authentication'
 import register from '@/components/register'
 import index from '@/components/index'
 import tabbarBox from '@/components/tabbarBox'
-import text from '@/components/text'
+// import text from '@/components/text'
 import notice from '@/components/index/notice'
 import noticeDetails from '@/components/index/noticeDetails'
 import earnings from '@/components/index/earnings'
@@ -171,6 +171,14 @@ export default new Router({
           component: mall
         },
         {
+          path: '/transaction',
+          name: 'transaction',
+          component: resolve => require(['@/components/transaction/tran_center'], resolve),
+          meta: {
+            title: '交易中心'
+          }
+        },
+        {
           path: '/myIndex',
           name: 'myIndex',
           component: resolve => require(['@/components/personalCenter/myIndex'], resolve),
@@ -179,6 +187,23 @@ export default new Router({
           }
         }
       ]
+    },
+    {
+      path: '/transmarket',
+      name: 'transmarket',
+      component: resolve => require(['@/components/transaction/tran_market'], resolve),
+      meta: {
+        title: '交易市场'
+      }
+    },
+
+    {
+      path: '/marketxq',
+      name: 'marketxq',
+      component: resolve => require(['@/components/transaction/marketxq'], resolve),
+      meta: {
+        title: '交易详情'
+      }
     },
     {
       path: '/payment',
@@ -196,14 +221,7 @@ export default new Router({
         title: '挂买'
       }
     },
-    {
-      path: '/myIndex',
-      name: 'myIndex',
-      component: resolve => require(['@/components/personalCenter/myIndex'], resolve),
-      meta: {
-        title: '我的'
-      }
-    },
+    
     {
       path: '/my_Mill',
       name: 'my_Mill',
