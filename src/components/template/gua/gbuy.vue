@@ -14,12 +14,13 @@
                     <div>交易密码</div>
                     <input type="password" v-model="uploaddata.mm" placeholder="请输入交易密码">
                 </div>
-                <div class="queding">确定</div>
+                <div class="queding" @click="yesbuy()">确定</div>
             </div>
     </div>
 </template>
 
 <script>
+import { setTimeout } from 'timers';
 export default {
     name:'gbuy',
     data(){
@@ -32,7 +33,57 @@ export default {
         }
     },
     methods:{
+        // 点击确定
+        yesbuy(){
 
+            var _this = this;
+            let is_int = /^[0-9]*[1-9][0-9]*$/;
+            if(_this.uploaddata.num == ''){
+                _this.$toast('请输入挂买数量');
+                return false;
+            }else if(_this.uploaddata.num == 0){
+                _this.$toast('挂买数量不为0');
+                return false;
+            }else if(is_int.test(_this.uploaddata.num) == false){
+                _this.$toast('挂买数量应为整数');
+                return false;
+            }else if(_this.uploaddata.price == ''){
+                _this.$toast('请输入售价');
+                return false;
+            }else if(_this.uploaddata.mm == ''){
+                _this.$toast('请输入交易密码');
+                return false;
+            }
+
+            let data={
+                status:0,
+                num :  _this.uploaddata.num,
+                price : _this.uploaddata.price,
+                safeword : _this.uploaddata.mm
+            };
+            // data.status = 0;
+            // data.num = _this.uploaddata.num;
+            // data.price = _this.uploaddata.price;
+            // data.safeword = _this.uploaddata.safeword;
+            _this.$axios.fetchPost('/portal',{
+                interface: "1001",
+                module: "Attachment",
+                source: "web",
+                version: "v1",
+                data:data
+            })
+            .then(res=>{
+                console.log('挂买',res)
+                if(res.code == 0){
+                    _this.$toast(res.message)
+                    setTimeout(()=>{
+                        Object.assign(_this.$data,_this.$options.data())
+                    },1300)
+                }else if(res.code == 4800){
+                    _this.$toast(res.message)
+                }
+            })
+        }
     },
     components:{}
 }

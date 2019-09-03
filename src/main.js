@@ -8,6 +8,8 @@ import Vant from 'vant'
 import 'vant/lib/index.css'
 import Trancenter from './components/template/tran_nav/index'
 import VueCookies from 'vue-cookies'
+Vue.use(VueCookies)
+Vue.prototype.$axios = api
 import api from './utils/api'
 // import VeeValidate from 'vee-validate';
 // Vue.use(VeeValidate);
@@ -84,7 +86,7 @@ Validator.extend('password', {
 Vue.prototype.$axios = api;
 Vue.use(VueCookies)
 Vue.use(Vant)
-Vue.component('trannav',Trancenter)
+Vue.component('trannav', Trancenter)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

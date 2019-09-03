@@ -7,17 +7,22 @@
             @click-left="onClickLeft"
         />
         <div class='box'>
-            <div class="list" v-for='(item, index) in 5' :key='index'>
-                <!-- <router-link to='noticeDetails'> -->
-                    <ul>
-                        <li class='overText'>矿机收益</li>
-                        <li>2019.07.12 13:45:12</li>
-                    </ul>
-                    <div>
-                        2.19230000
-                    </div>
-                <!-- </router-link> -->
-            </div>
+            <van-list
+            v-model="loading"
+            :finished="finished"
+            finished-text="没有更多了"
+            @load="onLoad"
+            >
+                <div class="list" v-for='(item, index) in list' :key='index'>
+                        <ul>
+                            <li class='overText'>{{item.creditName}}</li>
+                            <li>{{item.createdAt}}</li>
+                        </ul>
+                        <div>
+                            {{item.realMoney}}
+                        </div>
+                </div>
+            </van-list>
         </div>
     </div>
 </template>
@@ -25,22 +30,39 @@
 export default {
     data () {
         return {
-
+            list: [],
+            finished: false,
+            loading: false,
+            page: 1,
+            lastPage: null,
+            lastId: 0,
         }
     },
     created () {
-        this.$axios.fetchPost('/portal',
-        {
-            source: "web",
-            version: "v1",
-            module: "Finance",
-            interface: "4006",
-            data: {lastId: 0,page: 1}
-        }).then(res => {
-            
-        })
+        
     },
     methods: {
+        onLoad() {
+            if (this.lastPage && this.lastPage < this.page) {
+                this.finished = true
+                this.loading = false;
+            }else{
+                
+                this.$axios.fetchPost('/portal',
+                {
+                    source: "web",
+                    version: "v1",
+                    module: "Finance",
+                    interface: "4006",
+                    data: {lastId: this.lastId,page: this.page ++}
+                }).then(res => {
+                    this.list = this.list.concat(res.data.list)
+                    this.lastPage = res.data.lastPage
+                    this.loading = false;
+                    this.lastId = res.data.lastId
+                })
+            }
+        },
         onClickLeft () {
             this.$router.go(-1)
         }
@@ -53,8 +75,12 @@ export default {
     height: 100%;
     overflow: hidden;
     background: #f8f8f8;
+    display: flex;
+    flex-direction: column;
 }
 .box{
+    flex: 1;
+    overflow: scroll;
     padding: 0 16px;
     margin-top: 10px;
     background: #fff;

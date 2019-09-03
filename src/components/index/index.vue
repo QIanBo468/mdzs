@@ -48,17 +48,17 @@ export default {
                     title: '我的收益'
                 },
                 {
-                    to: '/',
+                    to: '/wallet',
                     icon: '../../static/images/index/wallet.png',
                     title: '我的钱包'
                 },
                 {
-                    to: '/',
+                    to: '/inviteFriends',
                     icon: '../../static/images/index/invite.png',
                     title: '邀请好友'
                 },
                 {
-                    to: '/',
+                    to: '/contactUs',
                     icon: '../../static/images/index/connection.png',
                     title: '联系我们'
                 }

@@ -33,6 +33,17 @@ export default {
             console.log(res)
             this.goodsList = res.data.list
         })
+        // this.$axios.fetchPost('/portal',
+        // {
+        //     interface: "3000",
+        //     module: "Investment",
+        //     source: "web",
+        //     version: "v1",
+        //     data: {id:'3',way: 0}
+        // }).then(res => {
+        //     console.log(res)
+        //     // this.goodsList = res.data.list
+        // })
     }
 }
 </script>

@@ -3,16 +3,16 @@
     <van-nav-bar title="我的矿机" left-arrow @click-left="onClickLeft" />
     <div>
       <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="get_mill">
-        <div class="mill_list">
+        <div class="mill_list" v-for="(item,index) in list " :key="index">
           <div class="list">
-            <img src="../../assets/img/kuangji(1).png" alt />
+            <img :src="item.image" alt />
             <div class="intrudce">
-              <p>123</p>
-              <p>算力：50G</p>
-              <p>租赁价格：10usdt</p>
+              <p>{{item.title}}</p>
+              <p>算力：{{item.calculation}}G</p>
+              <p>租赁价格：{{item.amount}}usdt</p>
               <div class="price">
                 <p>累计收益：</p>
-                <p>1200usdt</p>
+                <p>{{item.grantedYield}}usdt</p>
               </div>
             </div>
           </div>
@@ -61,7 +61,6 @@ export default {
           .then(res => {
             console.log(res)
             this.lastId = res.data.lastId
-            this.list = res.data.list
             if (res.code == 0) {
               if (res.data.list.length == 0) {
                 this.finished = true

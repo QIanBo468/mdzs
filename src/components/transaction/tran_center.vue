@@ -13,14 +13,14 @@
             </div>
 
             <div class="flex_both">
-                <div class="flex_model">
+                <router-link to="/hangon?gstate=0" class="flex_model">
                     <div><img src="../../../static/images/icon/gmay.png" /></div>
                     <div>挂买</div>
-                </div>
-                <div class="flex_model">
+                </router-link>
+                <router-link to="/hangon?gstate=1" class="flex_model">
                     <div><img src="../../../static/images/icon/gmai.png" /></div>
                     <div>挂卖</div>
-                </div>
+                </router-link>
             </div>
             <!-- 最后一行 -->
             <router-link to="/transmarket" class="last_view">
@@ -52,7 +52,7 @@ export default {
         this.orgOptions = {
             xAxis: {
                 type: 'category',
-                data: ['Mon', 'Tue', 'Wed'],
+                data: ['', '', '','','',''],
                 axisLine:{  
                     lineStyle:{  
                         color:'#fff',  
@@ -77,7 +77,7 @@ export default {
                 }
             },
             series: [{
-                data: [1, 8, 8.1],
+                data: [1, 5, 8.1,2,4,2],
                 type: 'line',
                 smooth: true,//折点是圆弧状的
 
@@ -99,7 +99,7 @@ export default {
         
     },
     methods:{
-
+     
     },
     components:{
         'chart':ECharts
