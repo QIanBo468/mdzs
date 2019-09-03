@@ -5,11 +5,11 @@
             left-arrow
         />
         <div class='list'>
-            <router-link to='usdt'>
+            <router-link to='/usdt'>
                 <img src="../../../static/images/index/med.png" width="32px" height="32px" alt="">
                 <div class='num'>
-                    <div>usdt</div>
-                    <div>123845.00000000</div>
+                    <div>{{usdt.name}}</div>
+                    <div>{{usdt.have}}</div>
                 </div>
                 <img src="../../../static/images/index/big.png" width="9px" height="16px" alt="">
             </router-link>
@@ -18,8 +18,8 @@
             <router-link to='usdt' class='bgyellow'>
                 <img src="../../../static/images/index/quan.png" width="32px" height="32px" alt="">
                 <div class='num'>
-                    <div>ofc</div>
-                    <div>123845.00000000</div>
+                    <div>{{ofc.name}}</div>
+                    <div>{{ofc.have}}</div>
                 </div>
                 <img src="../../../static/images/index/big.png" width="9px" height="16px" alt="">
             </router-link>
@@ -28,8 +28,8 @@
             <router-link to='usdt' class='bgred'>
             <img src="../../../static/images/index/aixin.png" width="32px" height="32px" alt="">
             <div class='num'>
-                <div>爱心基金</div>
-                <div>45.00000000</div>
+                <div>{{LoveFund.name}}</div>
+                <div>{{LoveFund.have}}</div>
             </div>
             <img src="../../../static/images/index/big.png" width="9px" height="16px" alt="">
             </router-link>
@@ -39,8 +39,8 @@
             <router-link to='usdt' class='bggray'>
             <img src="../../../static/images/index/f.png" width="32px" height="32px" alt="">
             <div class='num'>
-                <div>usdt</div>
-                <div>123845.00000000</div>
+                <div>{{fu.name}}</div>
+                <div>{{fu.have}}</div>
             </div>
             <img src="../../../static/images/index/big.png" width="9px" height="16px" alt="">
             </router-link>
@@ -50,7 +50,33 @@
 </template>
 <script>
 export default {
-    
+    data () {
+        return {
+            usdt: {},
+            ofc: {},
+            fu: {},
+            LoveFund: {},
+
+        }
+    },
+    created () {
+        this.$axios.fetchPost('/portal',
+        {
+            source: "web",
+            version: "v1",
+            module: "Finance",
+            interface: "4003",
+            data: {}
+        }).then(res => {
+            this.usdt = res.data.usdt
+            this.ofc = res.data.ofc
+            this.fu = res.data.fu
+            this.LoveFund = res.data.LoveFund
+        })
+    },
+    methods: {
+        
+    }
 }
 </script>
 <style lang="less" scoped>
