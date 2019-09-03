@@ -43,10 +43,14 @@ export default {
     position: fixed;
     top:0; 
     width: 100%;
+    height: 40px;
+    line-height: 40px;
 }
 .title{
     color:#fff;
     font-weight:500;
+    font-size: 18px;
+    
  
 }
 .back{

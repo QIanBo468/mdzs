@@ -30,7 +30,7 @@ export default {
 
 <style lang="less" scoped>
 .bothse{
-    padding:44px 0 36px;
+    padding:40px 0 36px;
     border: 1px solid transparent;
     background:rgba(0,22,114,1);
     a{

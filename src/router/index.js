@@ -171,6 +171,14 @@ export default new Router({
           component: mall
         },
         {
+          path: '/transaction',
+          name: 'transaction',
+          component: resolve => require(['@/components/transaction/tran_center'], resolve),
+          meta: {
+            title: '交易中心'
+          }
+        },
+        {
           path: '/myIndex',
           name: 'myIndex',
           component: resolve => require(['@/components/personalCenter/myIndex'], resolve),
@@ -179,6 +187,23 @@ export default new Router({
           }
         }
       ]
+    },
+    {
+      path: '/transmarket',
+      name: 'transmarket',
+      component: resolve => require(['@/components/transaction/tran_market'], resolve),
+      meta: {
+        title: '交易市场'
+      }
+    },
+
+    {
+      path: '/marketxq',
+      name: 'marketxq',
+      component: resolve => require(['@/components/transaction/marketxq'], resolve),
+      meta: {
+        title: '交易详情'
+      }
     },
     {
       path: '/payment',
