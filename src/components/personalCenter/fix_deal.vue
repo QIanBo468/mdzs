@@ -2,12 +2,12 @@
   <div class="fix_deal">
     <van-nav-bar title="修改支付密码" left-arrow @click-left="onClickLeft" />
     <div class="deal_list">
-      <van-field v-model="value" placeholder="请输入当前支付密码" label="请输入当前支付密码" type="password"/>
-      <van-field v-model="value" placeholder="请输入新密码" label="请输入新密码" type="password"/>
-      <van-field v-model="value" placeholder="请再次输入新密码" label="确认新密码" type="password"/>
+      <van-field v-model="current" placeholder="请输入当前支付密码" label="请输入当前支付密码" type="password" />
+      <van-field v-model="newPwd" placeholder="请输入新密码" label="请输入新密码" type="password" />
+      <van-field v-model="checkPwd" placeholder="请再次输入新密码" label="确认新密码" type="password" />
     </div>
     <div class="sure">
-      <button>完成</button>
+      <button @click="fix_pass">完成</button>
     </div>
   </div>
 </template>
@@ -15,10 +15,36 @@
 <script>
 export default {
   data () {
-    return {}
+    return {
+      current: '',
+      newPwd: '',
+      checkPwd: ''
+    }
   },
   computed: {},
-  methods: {},
+  methods: {
+    onClickLeft () {
+      this.$router.go(-1)
+    },
+    fix_pass () {
+      this.$axios
+        .fetchPost('/portal', {
+          interface: '2002',
+          module: 'User',
+          source: 'web',
+          version: 'v1',
+          data: {
+            oldSafeword: this.current,
+            safeword: this.newPwd,
+            repeat: this.checkPwd
+          }
+        })
+        .then(res => {
+          console.log('修改支付密码', res)
+          this.$toast(res.message)
+        })
+    }
+  },
   created () {}
 }
 </script>
