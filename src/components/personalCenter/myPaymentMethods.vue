@@ -16,9 +16,9 @@
       @click="clickItem(item)"
     >
       <div class="item-left">
-        <template v-if="item._type === 'alipay'">
+        <template v-if="item.type === 1">
           <img class="item-logo" src="../../../static/images/icon/zhifubao.png" />
-          <div v-if="item.bound">
+          <div v-if="item.account">
             <div>账户名称: {{ item.realName }}</div>
             <div>账号: {{ item.account }}</div>
           </div>
@@ -28,9 +28,9 @@
           </div>
         </template>
 
-        <template v-else-if="item._type === 'weixin'">
+        <template v-else-if="item.type === 2">
           <img class="item-logo" src="../../../static/images/icon/weixin.png" />
-          <div v-if="item.bound">
+          <div v-if="item.account">
             <div>账户名称: {{ item.realName }}</div>
             <div>账号: {{ item.account }}</div>
           </div>
@@ -42,7 +42,7 @@
 
         <template v-else>
           <img class="item-logo" src="../../../static/images/icon/yinhangka.png" />
-          <div v-if="item.bound">
+          <div v-if="item.account">
             <div>账户名称: {{ item.realName }}</div>
             <div>账号: {{ item.account | accountNo }}</div>
             <div>开户行: {{ item.bankName + item.bankAddress }}</div>
@@ -55,7 +55,7 @@
       </div>
 
       <div class="item-right">
-        <span class="item-right-bind" v-if="!item.bound">去绑定</span>
+        <span class="item-right-bind" v-if="!item.account">去绑定</span>
         <van-icon name="arrow"></van-icon>
       </div>
     </div>
@@ -69,10 +69,22 @@ export default {
   data() {
     return {
       total: 0,
-      list: [],
+      list: [
+        {
+          type: 1,
+        },
+        {
+          type: 2,
+        },
+        {
+          type: 0,
+        },
+      ],
       loading: false,
       finished: false,
       page: 1,
+
+      lastId: 0,
     }
   },
 
@@ -95,7 +107,7 @@ export default {
         path: "/myPaymentMethodsBinding",
         query: {
           id: item.id,
-          type: item._type,
+          type: item.type,
         },
       })
     },
@@ -107,74 +119,44 @@ export default {
         module: "Finance",
         interface: "1900",
         data: {
-          lastId: 0,
+          lastId: this.lastId,
           page,
         }
       }).then(res => {
-        // console.log(res)
+        console.log(res)
+        this.lastId = res.data.lastId
         let list = res.data.list
-
-        for (let i = 0; i < list.length; i++) {
-          let item = list[i]
-          switch (item.type) {
-            case 0:
-              item._type = "bankcard"
-              break
-            case 1:
-              item._type = "alipay"
-              break
-            case 2:
-              item._type = "weixin"
-              break
-          }
-        }
-
         this.total = res.data.total
-        if (page === 1) {
-          this.list = list
-        } else {
-          this.list.push(...list)
-        }
+        this.list.push(...list)
 
-        if (this.list.length >= this.total) {
+        if (this.list.length - 3 >= this.total) {
           this.finished = true
         }
       })
 
-      this.list = [
+      let list = [
         {
-          _type: "alipay",
-          bound: true,
+          type: 1,
+          id: 1,
           realName: "李小猫",
           account: "12383747463",
         },
         {
-          _type: "weixin",
-          bound: true,
+          type: 2,
+          id: 2,
           realName: "李小猫",
           account: "12383747463",
         },
         {
-          _type: "bankcard",
-          bound: true,
+          type: 0,
+          id: 3,
           realName: "李小猫",
           account: "3746374637463746123",
           bankName: "招商银行",
           bankAddress: "临沂北城支行",
         },
-        {
-          _type: "alipay",
-          bound: false,
-        },
-        {
-          _type: "weixin",
-          bound: false,
-        },
-        {
-          _type: "bankcard",
-          bound: false,
-        },
       ]
+      this.list.push(...list)
     },
   },
 

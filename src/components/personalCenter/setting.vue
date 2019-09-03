@@ -82,7 +82,6 @@ export default {
 
       let form = new FormData()
       form.append("avatar", file)
-
       this.$axios.fetchPost("http://ofc.qdunzi.com/upload", {
         file: form,
       }).then(res => {
@@ -99,7 +98,6 @@ export default {
         }).then(res => {
           // console.log(res)
         })
-
       }).catch(err => {
         console.log(err)
       })
