@@ -1,6 +1,6 @@
 <template>
   <div class="content">
-    <van-nav-bar class="back_jiantou" left-arrow @click="onClickleft" />
+    <van-nav-bar class="back_jiantou" left-arrow @click-left="onClickleft" />
     <div class="backname_box">
       <img src="../../assets/img/zhuanpan_title.png" alt />
     </div>
@@ -44,11 +44,8 @@
                     :key="index"
                     :style="{transform:item.troter,width:item.width}"
                   >
-                    <div class="prize-name">奖品{{item.prizeIndex}}</div>
-                    <div class="prize-pic">
-                      {{item.prizeName}}
-                      <img :src="item.imgs" />
-                    </div>
+                    <div class="prize-name"></div>
+                    <div class="prize-pic">{{item.prizeName}}</div>
                   </div>
                 </div>
               </div>
@@ -57,6 +54,24 @@
         </div>
       </div>
     </div>
+    <div class="intrudces">
+      <div class="intrudec">
+        <img src="../../assets/img/left.png" alt />
+        <span>游戏说明</span>
+        <img src="../../assets/img/right.png" alt />
+      </div>
+      <div class="intrudce">{{instruction}}</div>
+    </div>
+
+    <van-dialog
+      v-model="show"
+      title="中奖说明"
+      show-cancel-button
+      :before-close="confirms"
+      cancel-button-text="再玩一次"
+    >
+      <span>{{user}}</span>
+    </van-dialog>
   </div>
 </template>
 <script>
@@ -78,58 +93,53 @@ export default {
         {
           prizeType: 1, // 是否是奖品
           prizeIndex: '奖品1',
-          prizeName: '奖品名字1',
-          id: '1', // 奖品id
-          imgs: '../assets/img/banner.png'
+          prizeName: '一等奖',
+          id: '1' // 奖品id
         },
         {
           prizeType: 1, // 是否是奖品
           prizeIndex: '奖品2',
-          prizeName: '奖品名字2',
-          id: '2', // 奖品id
-          imgs: '../assets/img/banner.png'
+          prizeName: '二等奖',
+          id: '2' // 奖品id
         },
         {
           prizeType: 1, // 是否是奖品
           prizeIndex: '奖品3',
-          prizeName: '奖品名字3',
-          id: '3', // 奖品id
-          imgs: '../assets/img/banner.png'
+          prizeName: '三等奖',
+          id: '3' // 奖品id
         },
         {
           prizeType: 1, // 是否是奖品
           prizeIndex: '奖品4',
-          prizeName: '奖品名字4',
-          id: '4', // 奖品id
-          imgs: '../assets/img/banner.png'
+          prizeName: '一等奖',
+          id: '4' // 奖品id
         },
         {
           prizeType: 1, // 是否是奖品
           prizeIndex: '奖品5',
-          prizeName: '奖品名字5',
-          id: '5', // 奖品id
-          imgs: '../assets/img/banner.png'
+          prizeName: '二等奖',
+          id: '5' // 奖品id
         },
         {
           prizeType: 1, // 是否是奖品
           prizeIndex: '奖品6',
-          prizeName: '奖品名字6',
-          id: '6', // 奖品id
-          imgs: '../assets/img/banner.png'
+          prizeName: '三等奖',
+          id: '6' // 奖品id
         }
       ],
       // 奖品列表
       arrOne: [],
       arrTwo: [],
       member_prize_list: [], // 中奖信息
-      guize: '',
-      page: 1,
-      total_page: ''
+      index_id: '',
+      user: '',
+      show: false,
+      instruction: '' // 游戏说明
     }
   },
   created () {
     let _this = this
-    // _this.get_list()
+    _this.get_list()
     _this.setSan()
   },
   methods: {
@@ -140,16 +150,57 @@ export default {
     // 奖品
     get_list () {
       let _this = this
+      _this.$axios
+        .fetchPost('/portal', {
+          interface: '1000',
+          module: 'LuckDraw',
+          source: 'web',
+          version: 'v1'
+        })
+        .then(res => {
+          console.log('游戏说明', res)
+          this.index_id = res.data.logId
+          this.instruction = res.data.instruction
+        })
     },
     chou () {
       let _this = this
-      //   if (_this.click_flag) {
-      _this.indexa = '';
-      _this.indexb = '';
-      _this.winnum = 2
-      _this.rotating(_this.winnum)
-
-      //   }
+      if (_this.click_flag) {
+        _this.$axios
+          .fetchPost('/portal', {
+            interface: '1001',
+            module: 'LuckDraw',
+            source: 'web',
+            version: 'v1',
+            data: {
+              logId: this.index_id
+            }
+          })
+          .then(res => {
+            console.log('结束', res)
+            if (res.code == 0) {
+              _this.winnum = Number(res.data.status) - Number(1)
+              console.log('结束', _this.winnum)
+              if (_this.click_flag && _this.winnum) {
+                _this.indexa = ''
+                _this.indexb = ''
+                _this.rotating(_this.winnum)
+              }
+            } else {
+              this.$toast(res.message)
+            }
+          })
+      }
+    },
+    confirms (action, done) {
+      if (action == 'confirm') {
+        done()
+        this.click_flag = true
+      } else {
+        this.click_flag = true
+        this.get_list()
+        done()
+      }
     },
     setSan () {
       let _this = this
@@ -158,7 +209,7 @@ export default {
       _this.rotate_angle =
         'rotate(' +
         Math.floor((-360 * 100) / _this.prize_list.length) / 200 +
-        'deg)';
+        'deg)'
       _this.start_rotating_degree =
         Math.floor((-360 * 100) / _this.prize_list.length) / 200
 
@@ -167,10 +218,10 @@ export default {
           'rotate(' +
           (Math.floor((360 * 100) / _this.prize_list.length) / 100) *
             (0.5 + Number(i)) +
-          'deg) translateX(-50%)';
+          'deg) translateX(-50%)'
         _this.prize_list[i].width =
           //   Math.floor((3.14 * 5.6) / _this.prize_list.length) + 'px'
-          _this.prize_list[i].width = '80px';
+          _this.prize_list[i].width = '80px'
         var item = {
           value: _this.prize_list[i].name,
           zIndex: Number(i) + 1,
@@ -180,7 +231,6 @@ export default {
             'deg)',
           degnum: i
         }
-        console.log(_this.prize_list)
         if (i < _this.prize_list.length / 2) {
           _this.arrOne.push(item)
         } else {
@@ -191,7 +241,7 @@ export default {
     rotating (index) {
       // 转盘转动函数，index值为中奖的下标，后台会返回中奖的id，这边会首先for循环判断中奖的下标
       let _this = this
-      _this.rotate_transition = 'transform 6s cubic-bezier(0.25,0.1,0.01,1)';
+      _this.rotate_transition = 'transform 6s cubic-bezier(0.25,0.1,0.01,1)'
       var type = 0 // 默认为 0  转盘转动 1 箭头和转盘都转动(暂且遗留)
       var during_time = 5 // 默认为1s
       var result_index = index // 最终要旋转到哪一块，对应prize_list的下标
@@ -212,14 +262,14 @@ export default {
           (Math.floor((360 * 100) / _this.prize_list.length) * result_index) /
             100
         _this.start_rotating_degree = rotate_angle
-        _this.rotate_angle = 'rotate(' + rotate_angle + 'deg)';
+        _this.rotate_angle = 'rotate(' + rotate_angle + 'deg)'
         // 旋转结束后，允许再次触发
         setTimeout(function () {
           if (_this.winnum < _this.prize_list.length / 2) {
-            _this.indexb = '';
+            _this.indexb = ''
             _this.indexa = _this.winnum
           } else {
-            _this.indexa = '';
+            _this.indexa = ''
             _this.indexb = _this.winnum - _this.arrOne.length
           }
           setTimeout(function () {
@@ -230,20 +280,22 @@ export default {
     },
     game_over () {
       let _this = this
-      let user =
+      this.user =
         _this.prize_list[_this.winnum].prizeType == 1
           ? '恭喜您，获得' + _this.prize_list[_this.winnum].prizeName
           : _this.prize_list[_this.winnum].prizeName
-      let list_id = _this.prize_list[_this.winnum].id
-      console.log(user, list_id)
-      this.$dialog
-        .alert({
-          message: user
-        })
-        .then(() => {
-          // on close
-          console.log('确定')
-        })
+      this.show = true
+      //   this.$dialog
+      //     .confirm({
+      //       message: this.user
+      //     })
+      //     .then(() => {
+      //       // on close
+      //       console.log('确定')
+      //       //   _this.set_over()
+      //       _this.winnum = ''
+      //       _this.click_flag = true
+      //     })
     }
   }
 }
@@ -383,11 +435,11 @@ export default {
 
 .prize-list .ulOne li:nth-child(odd),
 .prize-list .ulTwo li:nth-child(even) {
-  background: #fff2ae;
+  background: #ffa400;
 }
 .prize-list .ulTwo li:nth-child(odd),
 .prize-list .ulOne li:nth-child(even) {
-  background: #f99900;
+  background: #ffcb00;
 }
 .prize-list ul .win {
   background: red !important;
@@ -409,18 +461,45 @@ export default {
 .prize-pic {
   text-align: center;
   box-sizing: border-box;
-  padding: 0.2rem 0.3rem;
-  font-size: 0.24rem;
-  color: #ff6600;
+  padding: 5px;
+  font-size: 16px;
+  color: #ffffff;
 }
-.prize-pic img {
-  width: 0.75rem;
-  height: 0.75rem;
-}
+
 .prize-name {
   box-sizing: border-box;
-  padding-top: 0.3rem;
-  font-size: 0.24rem;
-  color: #ff6600;
+  padding-top: 8px;
+  font-size: 16px;
+  color: #ffffff;
 }
+.van-dialog__content > span {
+  color: #000;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 15px;
+  padding: 15px;
+}
+.intrudec {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.intrudec > img {
+  margin: 0 10px;
+}
+.intrudec > span {
+  font-size: 18px;
+  color: #fff;
+}
+.intrudce {
+  margin: auto;
+  width: 100%;
+  padding: 15px 60px;
+  color: #fff;
+  font-size: 14px;
+}
+.intrudces{
+    padding: 30px;
+}
+
 </style>
