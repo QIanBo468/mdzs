@@ -10,9 +10,9 @@ import Trancenter from './components/template/tran_nav/index'
 import api from './utils/api'
 import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
-Vue.prototype.$axios = api;
+Vue.prototype.$axios = api
 Vue.use(Vant)
-Vue.component('trannav',Trancenter)
+Vue.component('trannav', Trancenter)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

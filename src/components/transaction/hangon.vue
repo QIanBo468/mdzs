@@ -17,6 +17,9 @@ export default {
           gstate: 0 ,//0 挂买  1挂卖
         }
     },
+    created(){
+       this.gstate = this.$route.query.gstate
+    },
     methods:{
         
     },

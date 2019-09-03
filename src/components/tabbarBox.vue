@@ -19,6 +19,8 @@ export default {
     created () {
         if(this.$route.path == '/mall') {
             this.active = 1;
+        }else  if(this.$route.path == '/transaction') {
+            this.active = 2;
         }
     }
 }

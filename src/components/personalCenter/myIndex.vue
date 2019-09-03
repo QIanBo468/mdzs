@@ -22,7 +22,7 @@
         </div>
         <img src="../../assets/img/more_small.png" alt />
       </router-link>
-      <router-link class="list" to=''>
+      <router-link class="list" to='/mytrans'>
         <div class="my_first">
           <img src="../../assets/img/wodejiaoyi.png" alt />
           <p>我的交易</p>

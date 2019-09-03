@@ -2,11 +2,11 @@
     <div>
         <div class="bothse">
             <trannav title="付款" :leftj="true" ></trannav>
-            <marketxinxi :title='1' :state="state" @imgshow='imgshow'></marketxinxi>
+            <marketxinxi :title='1' :state="state"  ref="dianji" @imgshow='imgshow' :bothdata="bothdata"></marketxinxi>
             <div class="buyin" v-if="state"  @click="qdfu">确认付款</div>
             <div class="buyins" v-else>
                 <div @click="qued">确认</div>
-                <div>投诉</div>
+                <div @click="tousu">投诉</div>
             </div>
         </div>
 
@@ -31,9 +31,43 @@ export default {
             state:true ,//状态
             show:false,//弹框显隐
             tu:'',//弹出显示的图片
+
+            id:'',//传来的id
+            bothdata:{},//详情里的数据
         }
     },
+    created(){
+        this.id = this.$route.query.id;
+        this.getxq();
+    },
     methods:{
+        //获取数据详情
+        getxq(){
+            var _this = this;
+            _this.$axios.fetchPost('/portal',{
+                interface: "1003",
+                module: "Attachment",
+                source: "web",
+                version: "v1",
+                data:{
+                    id:_this.id
+                }
+
+            })
+            .then(res=>{
+                // console.log('详情',res.data)
+                if(res.code == 0){  
+                    _this.bothdata = res.data
+                    console.log( _this.bothdata)
+                }else if(res.code == 4800){
+                    _this.$toast(res.message)
+                }
+            })
+        },
+
+
+
+
         //查看图片
         imgshow(val){
             console.log(val);
@@ -43,15 +77,55 @@ export default {
         },
         // 确实付款
         qdfu(){
-            this.state =!this.state
+            this.$refs.dianji.upqd();
+        },
+        //确认付款后的确认
+        changefuk(){
+             this.state =!this.state;
         },
         //点击确定
         qued(){
-            this.$dialog.alert({
-                message: '提交成功，等待卖家确认！'
-            }).then(() => {
-            // on close
-            });
+            var _this = this;
+            _this.$axios.fetchPost('/portal',{
+                interface: "1005",
+                module: "Attachment",
+                source: "web",
+                version: "v1",
+                data:{
+                    id:_this.id
+                }
+            })
+            .then(res=>{
+                console.log('点击确认',res)
+                if(res.code == 0){
+                     this.$dialog.alert({
+                        message: '提交成功，等待卖家确认！'
+                    }).then(() => {});
+                }else if(res.code == 4800 ){
+                    _this.$toast(res.message)
+                }
+            })
+        },
+        //点击投诉
+        tousu(){
+            var _this = this;
+            _this.$axios.fetchPost('/portal',{
+                interface: "1006",
+                module: "Attachment",
+                source: "web",
+                version: "v1",
+                data:{
+                    id:_this.id
+                }
+            })
+            .then(res=>{
+                console.log('点击投诉',res)
+                if(res.code == 0){
+                    _this.$toast(res.message)
+                }else if(res.code == 4800 ){
+                    _this.$toast(res.message)
+                }
+            })
         }
     },
     components:{
