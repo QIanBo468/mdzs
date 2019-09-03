@@ -14,7 +14,7 @@ export default {
     name:'hangon',
     data(){
         return {
-          gstate: 1 ,//0 挂买  1挂卖
+          gstate: 0 ,//0 挂买  1挂卖
         }
     },
     methods:{

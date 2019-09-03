@@ -65,6 +65,7 @@ export default {
 <style lang="less" scoped>
 .bothse{
     height:100vh;
+    padding:40px 0 0;
     background:rgba(0,22,114,1);
 }
 .titletab{
@@ -72,6 +73,7 @@ export default {
     justify-content: space-between;
     align-items: center;
     background:#0D2179;
+    
     .tablist{
         width: 50%;
         line-height: 44px;

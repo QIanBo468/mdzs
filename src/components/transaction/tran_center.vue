@@ -113,7 +113,7 @@ export default {
     font-weight:500;
 }
 .bothse{
-    height:100vh;
+    height: 100%;;
     padding:44px 0 0;
     box-sizing: border-box;
     background:rgba(0,22,114,1);
