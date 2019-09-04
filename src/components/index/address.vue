@@ -4,24 +4,15 @@
             title="地址本"
             left-arrow
             :border="false"
+            @click-left='$router.go(-1)'
         />
         <ul class='box'>
-            <li @click='select(1)' :class='active === 1? "active": ""'>
+            <li v-for='(item, index) in list' :key='index' @click='select(index,item)' :class='active === index? "active": ""'>
                 <div class='info'>
-                    <p>王小闹</p>
-                    <p>sjdhffkj27364829hdjkfhfkdj</p>
+                    <p>{{item.name}}</p>
+                    <p>{{item.address}}</p>
                 </div>
                 <div class='img'>
-
-                </div>
-            </li>
-            <li @click='select(2)' :class='active === 2? "active": ""'>
-                <div class='info'>
-                    <p>王小闹</p>
-                    <p>sjdhffkj27364829hdjkfhfkdj</p>
-                </div>
-                <div class='img'>
-
                 </div>
             </li>
         </ul>
@@ -33,17 +24,32 @@ export default {
         return {
             active: null,
             imgSrc: '../../../static/images/index/select.png',
+            list: [],
         }
     },
+    created() {
+        this.usdt = this.$route.query.usdt
+        this.$axios.fetchPost('/portal',
+        {
+            source: "web",
+            version: "v1",
+            module: "User",
+            interface: "8000",
+            data: {}
+        }).then(res => {
+            if(res.success){
+                this.list = res.data
+            }
+        })
+    },
     methods: {
-        select (index) {
-            console.log(this.active == index)
+        select (index,item) {
             if(this.active == index){
                 this.active = ''
             }else{
                 this.active = index
+                this.$router.push({path: 'extract',query:{address: item.address,usdt: this.usdt}})
             }
-            // this.imgSrc = ''
         }
     }
 }

@@ -5,6 +5,7 @@
         right-text="提币记录"
         left-arrow
         @click-left="onClickLeft"
+        @click-right= '$router.push("/extractRecord")'
         />
         <div class='box'>
             <div class='usdt'>
@@ -12,34 +13,40 @@
                 usdt
             </div>
             <div class='money'>
-                123845.00000000
+                {{$route.query.usdt}}
             </div>
             <div class='title'>
                 钱包地址
             </div>
-            <InputImg style="width: 343px;height: 40px;margin: 0 auto" :placeholder='placesite' :value='user' @changeInp = 'aaa'>
+            <!-- <input type="text" v-model="address"> -->
+            <!-- <InputImg  :placeholder='placesite' :value='user' @changeInp = 'aaa'>
                 <template slot="right"> 
-                    <img :src="InputImg" alt="">
-                    <!-- <span>123</span> -->
+                    
                 </template>
-            </InputImg>
-
+            </InputImg> -->
+            <div class="inputBox" style="width: 343px;height: 40px;margin: 0 auto">
+                <input type="text" v-model="address">
+                <img :src="InputImg" alt="" @click="$router.push({path: '/address', query:{usdt: usdtNum}})">
+            </div>
             <div class='title'>
                 提币数量
             </div>
-
-            <InputImg style="width: 343px;height: 40px;margin: 0 auto 40px" :placeholder='placeNum'>
+            <div class="inputBox" style="width: 343px;height: 40px;margin: 0 auto 40px">
+                <input type="number" v-model="num">
+                <span class='red' @click="num = usdtNum">全部</span>
+            </div>
+            <!-- <InputImg style="width: 343px;height: 40px;margin: 0 auto 40px" :placeholder='placeNum'>
                 <template slot="right"> 
-                    <span class='red'>全部</span>
+                    
                 </template>
-            </InputImg>
+            </InputImg> -->
             <div class='cell'>
                 <div>手续费</div>
-                <div>5%usdt</div>
+                <div class='overText'>{{money.serve}}</div>
             </div>
             <div class="cell">
                 <div>实际到账</div>
-                <div>0usdt</div>
+                <div class='overText'>{{money.practical}}</div>
             </div>
             <div class='btn' @click='submit'>
                 提币
@@ -54,25 +61,41 @@ export default {
     data () {
         return {
             user: '',
+            address: '',
+            num: '',
             InputImg: '../../../static/images/index/user.png',
             placesite: '请输入钱包地址',
             placeNum: '请输入提币数量',
+            usdtNum: '',
+            charge: '',
+        }
+    },
+    computed : {
+        money () {
+            var obj = {
+                serve: this.num * this.charge / 100,
+                practical: this.num - this.num * this.charge / 100,
+            }
+            return obj
         }
     },
     created () {
+        this.usdtNum = this.$route.query.usdt
+        this.address = this.$route.query.address
         this.$axios.fetchPost('/portal',
-            {
-                source: "web",
-                version: "v1",
-                module: "User",
-                interface: "8000",
-                data: {}
-            }).then(res => {
-            })
+        {
+            source: "web",
+            version: "v1",
+            module: "Finance",
+            interface: "4000",
+            data: {}
+        }).then(res => {
+            this.charge = res.data.params
+        })
     },
     methods : {
         onClickLeft () {
-            this.$router.go(-1)
+            this.$router.push('/usdt')
         },
         aaa(obj){
             if(obj == ''){
@@ -80,12 +103,24 @@ export default {
             }else{
                 this.InputImg  =  '../../../static/images/index/empty.png';
             }
-            console.log(obj)
         },
         submit () {
-            Dialog.alert({
-                title: '提示',
-                message: '提交成功，等待客服处理！'
+            this.$axios.fetchPost('/portal',
+            {
+                source: "web",
+                version: "v1",
+                module: "Finance",
+                interface: "4001",
+                data: {amount: this.num,address: this.address }
+            }).then(res => {
+                if(res.success){
+                    // this.list = res.data
+                    this.num = ''
+                    Dialog.alert({
+                        title: '提示',
+                        message: res.message
+                    })
+                }
             })
         }
     },
@@ -97,9 +132,11 @@ export default {
 <style lang="less" scoped>
     #extract{
         width: 100%;
+        overflow: hidden;
         .box{
             // width: 100%;
             padding: 0 16px;
+            overflow: hidden;
             margin: 0 auto;
             border-top: 10px solid #f8f8f8;
             .title{
@@ -132,16 +169,42 @@ export default {
                 color: #333;
                 margin: 5px auto 38px;
             }
-            
+            .inputBox{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                border: 1px solid #D8D8D8;
+                padding: 8px;
+                box-sizing: border-box;
+                justify-content: space-between;
+                border-radius:4px;
+                font-size: 14px;
+                input{
+                    // height: 20px;
+                    flex: 1;
+                    border: 0;
+                    font-size: 14px;
+                }
+                img{
+                    width: 17px;
+                    height: 20px;
+                }
+                // span{
+                //     display: table-cell;
+                //     vertical-align:middle
+                // }
+            }
             .cell{
                 height: 18px;
+                width: 100%;
+                overflow: hidden;
                 line-height: 18px;
                 color: #666;
                 display: flex;
                 justify-content: space-between;
                 margin-bottom: 10px;
                 div{
-                    width: 30%;
+                    width: 40%;
                 }
                 div:last-child{
                     text-align: right;

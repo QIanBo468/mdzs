@@ -17,7 +17,7 @@
                     <span>充币</span>   
                 <!-- </router-link> -->
             </div>
-            <div @click='$router.push("/extract")'>
+            <div @click='$router.push({path: "/extract", query: {usdt: usdt.creditValue}})'>
                 <img src="../../../static/images/index/extract.png" alt="">
                 <span>提币</span>  
             </div>

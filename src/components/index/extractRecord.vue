@@ -1,9 +1,10 @@
 <template>
     <div id='transferRecord'>
          <van-nav-bar
-            title="转账记录"
+            title="提币记录"
             left-arrow
             :border="false"
+            @click-left="$router.go(-1)"
         />
         <div class='box'>
             <van-list
@@ -13,23 +14,29 @@
             @load="onLoad"
             >
                 <div class='record' v-for='(item, index) in list' :key='index'>
-                    <!-- <div class='status'>审核</div> -->
+                    <div v-if='item.status == 0' class='status'>申请中</div>
+                    <div v-if='item.status == 1' class='status'>提现成功</div>
+                    <div v-if='item.status == -1' class='status'>提现失败</div>
                     <ul>
                         <li>
-                            <div>会员ID</div>
-                            <div>2387489273</div>
+                            <div>钱包地址</div>
+                            <div>{{item.account}}</div>
+                        </li>
+                        <li>
+                            <div>提币数量</div>
+                            <div>{{item.money}}</div>
                         </li>
                         <li>
                             <div>提交时间</div>
-                            <div>2019.08.12 14:12:12</div>
+                            <div>{{item.createdAt}}</div>
                         </li>
                         <li>
-                            <div>钱包类型</div>
-                            <div>usde</div>
+                            <div>手续费</div>
+                            <div>{{item.fee}}</div>
                         </li>
                         <li>
-                            <div>转账数量</div>
-                            <div class='red'>2019.08.12 14:12:12</div>
+                            <div>到账数量</div>
+                            <div class='red'>{{item.realMoney}}</div>
                         </li>
                     </ul>
                 </div>

@@ -27,6 +27,8 @@ import conversion from '@/components/index/conversion'
 import topUp from '@/components/index/topUp'
 import address from '@/components/index/address'
 import mall from '@/components/mall'
+import extractRecord from '@/components/index/extractRecord'
+
 
 // import charge from '@/components/index/'
 import settingRoutes from './setting-pay-method.js'
@@ -150,6 +152,11 @@ export default new Router({
       path: '/address',
       name: 'address',
       component: address
+    },
+    {
+      path: '/extractRecord',
+      name: 'extractRecord',
+      component: extractRecord
     },
     {
       path: '/',
