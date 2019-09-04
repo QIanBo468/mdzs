@@ -10,8 +10,8 @@
         :class="[index == tabstate?'tabact':'']"
       >{{item}}</div>
     </div>
-    <div class="bodylist">
-      <div class="listmodule" v-for="(item,index) in bodylist" :key="index">
+    <div class="bodylist" >
+      <div class="listmodule" v-for="(item,index) in bodylist" :key="index" @click="goxq(index)">
         <div class="list_model first_div">
           <div>单号：{{item.orderNo}}</div>
           <div>
@@ -64,7 +64,10 @@ export default {
       this.myjiao()
   },
   mounted() {
-    window.addEventListener("scroll", this.scrollFn);
+    window.addEventListener("scroll", this.scrollFn,true);
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.scrollFn,true); // 销毁监听
   },
   methods: {
     //文档高度
@@ -118,13 +121,11 @@ export default {
         this.page++;
         this.myjiao();
         if (this.page == this.lastpage) {
-          this.destroyed();
+         window.removeEventListener("scroll", this.scrollFn); // 销毁监听
         }
       }
     },
-    destroyed() {
-      window.removeEventListener("scroll", this.scrollFn); // 销毁监听
-    },
+    
         // 我的交易
     myjiao(){
       var _this = this;
@@ -185,6 +186,7 @@ export default {
           }
         });  
     },
+    
     // 点击切换
     clicktab(index) {
       this.tabstate = index;
@@ -192,6 +194,13 @@ export default {
       this.lastId= 0, //lastid
       this.bodylist = [];
       this.myjiao()
+    },
+    //去详情
+    goxq(index){
+        let list = this.bodylist;
+        let id = list[index].id;
+        if(list[index].onOffer != 1)
+        this.$router.push({path:'/payment',query:{id:id,states:false}})
     }
   },
   components: {}

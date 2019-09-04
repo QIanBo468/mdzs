@@ -98,7 +98,7 @@ export default {
                 if(res.code == 0){
                     _this.$toast(res.message)
                     setTimeout(()=>{
-                        Object.assign(_this.$data,_this.$options.data())
+                        Object.assign(_this.$data.uploaddata,_this.$options.data().uploaddata)
                     },1300)
                 }else if(res.code == 4800){
                     _this.$toast(res.message)

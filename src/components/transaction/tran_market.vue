@@ -72,8 +72,11 @@ export default {
     this.getrecord(); 
   },
   mounted() {
-    window.addEventListener("scroll", this.scrollFn);
+    window.addEventListener("scroll", this.scrollFn,true);
   },
+  beforeDestroy() {
+      window.removeEventListener("scroll", this.scrollFn,true); // 销毁监听
+    },
   methods: {
     //文档高度
     getScrollTop() {
@@ -126,13 +129,11 @@ export default {
         this.page++;
         this.getrecord();
         if (this.page == this.lastpage) {
-          this.destroyed();
+           window.removeEventListener("scroll", this.scrollFn); // 销毁监听;
         }
       }
     },
-    destroyed() {
-      window.removeEventListener("scroll", this.scrollFn); // 销毁监听
-    },
+    
 
     //挂单记录
     getrecord() {

@@ -2,7 +2,7 @@
     <div>
         <div class="bothse">
             <trannav title="付款" :leftj="true" ></trannav>
-            <marketxinxi :title='1' :state="state"  ref="dianji" @imgshow='imgshow' :bothdata="bothdata"></marketxinxi>
+            <marketxinxi :title='1' :state='state'  ref="dianji" @imgshow='imgshow' :bothdata="bothdata"></marketxinxi>
             <div class="buyin" v-if="state"  @click="qdfu">确认付款</div>
             <div class="buyins" v-else>
                 <div @click="qued">确认</div>
@@ -38,9 +38,47 @@ export default {
     },
     created(){
         this.id = this.$route.query.id;
-        this.getxq();
+        // if( this.$route.query.states == true){
+        //     this.state = true;
+        //     this.getxq();
+        // }else{
+        //     this.state = false;
+        //     this.getjyxq()
+        // }   
+        if( this.$route.query.states == false){
+            this.state = false;
+            this.getjyxq()   //交易详情
+        }else{
+            this.state = true;
+            this.getxq();   //数据详情（买入里的）
+        }
+
+      
     },
     methods:{
+        // 获取交易详情
+        getjyxq(){
+            var _this = this;
+            _this.$axios.fetchPost('/portal',{
+                interface: "6001",
+                module: "User",
+                source: "web",
+                version: "v1",
+                data:{
+                    id:_this.id
+                }
+
+            })
+            .then(res=>{
+                // console.log('详情',res.data)
+                if(res.code == 0){  
+                    _this.bothdata = res.data
+                    console.log( _this.state)
+                }else if(res.code == 4800){
+                    _this.$toast(res.message)
+                }
+            })
+        },
         //获取数据详情
         getxq(){
             var _this = this;
@@ -58,7 +96,7 @@ export default {
                 // console.log('详情',res.data)
                 if(res.code == 0){  
                     _this.bothdata = res.data
-                    console.log( _this.bothdata)
+                    console.log( _this.state)
                 }else if(res.code == 4800){
                     _this.$toast(res.message)
                 }
