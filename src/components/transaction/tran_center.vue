@@ -9,7 +9,7 @@
         <div class="centerbottom">
             <div class="todaybothdata">
                 <div>今日总交易量</div>
-                <div>283,384ofc</div>
+                <div>{{cont.count}}ofc</div>
             </div>
 
             <div class="flex_both">
@@ -46,13 +46,21 @@ export default {
         return{
             title:'交易中心',
             orgOptions:{},
+            cont:'', //获取的数据
+            yarr:[],
+            xarr:[],
         }
     },
+    created(){
+        this.getzheimg()
+    },
     mounted() {
+        
+        
         this.orgOptions = {
             xAxis: {
                 type: 'category',
-                data: ['', '', '','','',''],
+                data: this.xarr,
                 axisLine:{  
                     lineStyle:{  
                         color:'#fff',  
@@ -77,7 +85,7 @@ export default {
                 }
             },
             series: [{
-                data: [1, 5, 8.1,2,4,2],
+                data: this.yarr,
                 type: 'line',
                 smooth: true,//折点是圆弧状的
 
@@ -98,8 +106,37 @@ export default {
         }
         
     },
+    
     methods:{
-     
+        //  折线图
+        getzheimg(){
+            var _this = this;
+            let data={
+                lastId :0,
+                page:1
+            }
+            _this.$axios.fetchPost("/portal", {
+                interface: "2000",
+                module: "Attachment",
+                source: "web",
+                version: "v1",
+                data: data
+            })
+            .then(res => {
+            console.log("折线图", res);
+            if (res.code == 0) {
+                _this.cont = res.data
+                var list = res.data.list
+                console.log(list)
+                for(var i  in list){
+                    _this.yarr.push(list[i].price);
+                    _this.xarr.push('');
+                }
+            } else if (res.code == 4800) {
+                _this.$toast(res.message);
+            }
+            });
+        },
     },
     components:{
         'chart':ECharts
