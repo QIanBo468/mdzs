@@ -70,7 +70,24 @@ export default {
       for (let i = 0; i < this.fileList.length; i++) {
         list.push(this.fileList[i].file._url)
       }
-      console.log(list)
+
+      this.$axios.fetchPost('/portal', {
+        source: "web",
+        version: "v1",
+        module: "Content",
+        interface: "5001",
+        data: {
+          content: this.feedback,
+          imageList: list,
+        }
+      }).then(res => {
+        // console.log(res)
+        if (res.code === 0) {
+          this.$toast("新增反馈成功")
+        } else {
+          this.$toast(res.message)
+        }
+      })
     },
   },
 }

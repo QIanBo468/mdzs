@@ -4,7 +4,7 @@
 
   <div class="main">
     <div class="logo">
-      <img src="../../assets/img/morentouxiang.png" alt="ofc矿机" />
+      <img src="../../assets/img/icon.png" alt="ofc矿机" />
       <div class="logo-text">ofc矿机</div>
     </div>
 
@@ -72,6 +72,8 @@ export default {
     font-size: 16px;
     color: #333;
     font-weight: 500;
+    margin-top: 10px;
+    font-weight: bold;
   }
 }
 
