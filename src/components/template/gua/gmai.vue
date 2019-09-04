@@ -7,7 +7,7 @@
                     <input type="number" v-model="uploaddata.num" placeholder="请输入挂卖数量">
                 </div>
                 <div class="contmodule">
-                    <div>挂卖售价</div>
+                    <div><span>挂卖售价</span><span>最低售价：{{price}}</span></div>
                     <input type="number" v-model="uploaddata.price" placeholder="请输入售价">
                 </div>
                 <div class="contmodule">
@@ -25,6 +25,7 @@ export default {
     data(){
         return{
             ofc:'0',//ofc
+            price:'',//最低售价
             uploaddata:{
                 num:'',
                 price:'',
@@ -50,6 +51,7 @@ export default {
                 console.log('ofc',res)
                  if(res.code == 0){
                    _this.ofc = res.data.ofc.have
+                   _this.price = res.data.price.have
                 }else if(res.code == 4800){
                     _this.$toast(res.message)
                 }
