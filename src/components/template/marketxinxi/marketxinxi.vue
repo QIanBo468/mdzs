@@ -66,7 +66,7 @@
                 </div>
             </div> -->
 
-            <div class="lookmore">查看更多</div>
+            <!-- <div class="lookmore">查看更多</div> -->
             <!-- <div class="buyin" v-if="title == 0">买入</div> -->
             
         </div>
@@ -83,9 +83,10 @@
                 </div>
             </div>
         <!-- 上传支付凭证 -->
-        <div class="uploadpz" v-if="title == 1">
+        <div class="uploadpz" v-if="title == 1&&bothdata.transactionLog">
             <div>上传支付凭证</div>
-            <div><van-uploader v-model="fileList" multiple preview-size="100" :max-count="1" :after-read="afterRead" /></div>
+            <div v-if="state == true"><van-uploader v-model="fileList" multiple preview-size="100" :max-count="1" :after-read="afterRead" /></div>
+            <div v-else><img :src="bothdata.transactionLog.voucher" alt=""></div>
         </div>
         <!-- 交易密码 -->
         <div class="transmm" v-if="title == 1 && state ==true">
@@ -126,6 +127,13 @@ export default {
                 safeword:'',
             },
         }
+    },
+    created(){
+        // let imglist = {
+        //     url: this.bothdata.voucher
+        // };
+        
+        // this.fileList.push(imglist)
     },
     methods:{
         afterRead(file) {
@@ -284,6 +292,15 @@ export default {
             font-size:16px;
             font-weight:500;
             color:rgba(255,255,255,1);
+        }
+        &:last-child{
+            width: 100px;
+            height: 100px;
+            // background:#999;
+            img{
+                width: 100px;
+                height: 100px;
+            }
         }
     }
 }
