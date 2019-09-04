@@ -1,6 +1,6 @@
 <template>
     <div id='input'>
-        <input type="text" v-model="val" :placeholder="placeholder">
+        <input type="number" v-model="val"  @change='changeVal' :placeholder="placeholder">
         <slot name='right'>
         </slot>
     </div>
@@ -13,14 +13,11 @@ export default {
             val: this.value,
         }
     },
-    watch : {
-        val () {
-            this.$emit('changeInp',this.val)
-        }
-    },
     props: [ 'value', 'placeholder'],
     methods: {
-
+        changeVal() {
+            this.$emit('changeInp',this.val)
+        }
     }
 }
 </script>

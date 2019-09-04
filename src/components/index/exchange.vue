@@ -5,6 +5,7 @@
         right-text="兑换记录"
         left-arrow
         @click-left="onClickLeft"
+        @click-right='$router.push("/conversion")'
         />
         <div class='box'>
             <div class='usdt'>
@@ -12,29 +13,33 @@
                 ofc
             </div>
             <div class='money'>
-                123845.00000000
+                <!-- {{$route.query.creditValue}} -->
+                {{rules.total_ofc}}
             </div>
             <div class='title'>
                 兑换数量
             </div>
-            <InputImg style="width: 343px;height: 40px;margin: 0 auto" :placeholder='placeNum' :value='user' >
-            </InputImg>
+            <!-- <InputImg  :placeholder='placeNum' @changeInp='changeVal' :value='user' > -->
+            <div class='inputBox' style="width: 343px;height: 40px;margin: 0 auto">
+                <input type="number" v-model="num" placeholder="请输入兑换数量">
+
+            </div>
             <div class='remarks'>
-                备注：ofc兑换usdt比例为1：1
+                备注：ofc兑换usdt比例为1 ：{{rules.toUsdt}}
             </div>
             <div class='cell'>
                 <div>手续费</div>
-                <div>5%usdt</div>
+                <div class='overText'>{{aNum[0]}}</div>
             </div>
             <div class='cell'>
                 <div>爱心基金</div>
-                <div>5%usdt</div>
+                <div class='overText'>{{aNum[1]}}</div>
             </div>
             <div class="cell">
                 <div>实际到账</div>
-                <div>0usdt</div>
+                <div class='overText'>{{aNum[2]}}</div>
             </div>
-            <div class='btn' @click='submit'>
+            <div class='btn'  @click='submit'>
                 兑换
             </div>
         </div>
@@ -49,17 +54,58 @@ export default {
             user: '',
             InputImg: '../../../static/images/index/user.png',
             placeNum: '请输入兑换数量',
+            num: '',
+            rules: ''
         }
     },
-    methods : {
+    created () {
+        this.$axios.fetchPost('/portal',
+        {
+            source: "web",
+            version: "v1",
+            module: "Finance",
+            interface: "4004",
+            data: {}
+        }).then(res => {
+            if(res.success){
+                this.rules = res.data
+            }
+        })
+    },
+    computed: {
+        aNum (){
+            var a = (this.num * this.rules.toCashFee / 100).toFixed(2)
+            var b = (this.num * this.rules.toCashLoveFundFee / 100).toFixed(2)
+            var c = (this.num - a -b).toFixed(2)
+            var arr = [a,b,c]
+            return  arr
+        }
+    },
+    methods: {
         onClickLeft () {
+            this.$router.go(-1)
         },
         submit () {
-            Dialog.alert({
-                title: '提示',
-                message: '提交成功，等待客服处理！'
+            this.$axios.fetchPost('/portal',
+            {
+                source: "web",
+                version: "v1",
+                module: "Finance",
+                interface: "4007",
+                data: {num: this.num,type: 'credit_2'}
+            }).then(res => {
+                // this.$router.push('/conversion')
+                this.rules.total_ofc = this.rules.total_ofc  - this.num/10
+                if(res.success){
+                    this.num = ''
+                    Dialog.alert({
+                        title: '提示',
+                        message: res.message
+                    })
+                    
+                }
             })
-        }
+        },
     },
     components: {
         InputImg
@@ -69,6 +115,8 @@ export default {
 <style lang="less" scoped>
     #extract{
         width: 100%;
+        height: 100%;
+        overflow: hidden;
         .box{
             // width: 100%;
             padding: 0 16px;
@@ -80,6 +128,27 @@ export default {
                 height: 20px;
                 line-height: 20px;
                 margin:  10px 0;
+            }
+            .inputBox{
+                width: 100%;
+                height: 100%;
+                display: flex;
+                border: 1px solid #D8D8D8;
+                padding: 8px;
+                box-sizing: border-box;
+                justify-content: space-between;
+                border-radius:4px;
+                font-size: 14px;
+                input{
+                    // height: 20px;
+                    flex: 1;
+                    border: 0;
+                    font-size: 14px;
+                }
+                img{
+                    width: 17px;
+                    height: 20px;
+                }
             }
             .usdt{
                 margin-top: 30px;
@@ -121,6 +190,7 @@ export default {
                     width: 30%;
                 }
                 div:last-child{
+                    width: 50%;
                     text-align: right;
                 }
             }

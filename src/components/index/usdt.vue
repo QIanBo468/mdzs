@@ -4,6 +4,7 @@
             title="usdt"
             left-arrow
             :border="false"
+            @click-left="onClickLeft"
         />
         <div class='statis'>
             <div>当前余额</div>
@@ -16,9 +17,9 @@
                     <span>充币</span>   
                 <!-- </router-link> -->
             </div>
-            <div>
+            <div @click='$router.push("/extract")'>
                 <img src="../../../static/images/index/extract.png" alt="">
-                <span>提现</span>  
+                <span>提币</span>  
             </div>
             <div>
                 <img src="../../../static/images/index/transfer.png" alt="">
@@ -63,15 +64,22 @@
                 </van-list>
             </van-tab>
             <van-tab title="支出">
-                <div class="list" v-for='(item, index) in list' :key='index'>
-                    <ul>
-                        <li class='overText'>{{item.remark}}</li>
-                        <li>{{item.createdAt}}</li>
-                    </ul>
-                    <div  :class='[item.type == 1 ? "blue": "","overText"]'>
-                        {{item.num}}
+                <van-list
+                v-model="loading"
+                :finished="finished"
+                finished-text="没有更多了"
+                @load="onLoad"
+                >
+                    <div class="list" v-for='(item, index) in list' :key='index'>
+                        <ul>
+                            <li class='overText'>{{item.remark}}</li>
+                            <li>{{item.createdAt}}</li>
+                        </ul>
+                        <div  :class='[item.type == 1 ? "blue": "","overText"]'>
+                            {{item.num}}
+                        </div>
                     </div>
-                </div>
+                </van-list>
             </van-tab>
         </van-tabs>
     </div>
@@ -105,27 +113,9 @@ export default {
         // })
     },
     methods: {
-        // onLoad() {
-            // if (this.lastPage && this.lastPage < this.page) {
-            //     this.finished = true
-            //     this.loading = false;
-            // }else{
-                
-        //         this.$axios.fetchPost('/portal',
-        //         {
-        //             source: "web",
-        //             version: "v1",
-        //             module: "Finance",
-        //             interface: "4006",
-        //             data: {lastId: this.lastId,page: this.page ++}
-        //         }).then(res => {
-        //             this.list = this.list.concat(res.data.list)
-        //             this.lastPage = res.data.lastPage
-        //             this.loading = false;
-        //             this.lastId = res.data.lastId
-        //         })
-        //     }
-        // },
+        onClickLeft () {
+            this.$router.go(-1)
+        },
         acChange(){
             this.finished = false
             this.loading = false

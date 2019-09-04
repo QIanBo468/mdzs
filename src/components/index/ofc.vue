@@ -1,16 +1,17 @@
 <template>
-    <div id='usdt'>
+    <div id='ofc'>
          <van-nav-bar
-            title="usdt"
+            title="ofc"
             left-arrow
             :border="false"
+            @click-left="onClickLeft"
         />
         <div class='statis'>
             <div>当前余额</div>
-            <div>123845.00000000</div>
+            <div>{{ofc.creditValue}}</div>
         </div>
         <div class='deposit' style="height: 40px;diplay:flex;">
-            <div>
+            <div @click="skip">
                 <img src="../../../static/images/index/chongzhi.png" alt="">
                 <span>兑换</span>   
             </div>
@@ -23,67 +24,147 @@
                 <span>转账</span>  
             </div>
         </div>
-        <van-tabs v-model="active">
+        <van-tabs v-model="active" @change="acChange">
             <van-tab title="所有明细">
-                <div class="list" v-for='(item, index) in 5' :key='index'>
-                    <ul>
-                        <li class='overText'>矿机收益</li>
-                        <li>2019.07.12 13:45:12</li>
-                    </ul>
-                    <div>
-                        2.19230000
+                <van-list
+                v-model="loading"
+                :finished="finished"
+                finished-text="没有更多了"
+                @load="onLoad"
+                >
+                    <div class="list" v-for='(item, index) in list' :key='index'>
+                        <ul>
+                            <li class='overText'>{{item.remark}}</li>
+                            <li>{{item.createdAt}}</li>
+                        </ul>
+                        <div  :class='[item.type == 1 ? "blue": "","overText"]'>
+                            {{item.num}}
+                        </div>
                     </div>
-                </div>
+                </van-list>
             </van-tab>
             <van-tab title="收入">
-                <div class="list" v-for='(item, index) in 5' :key='index'>
-                    <ul>
-                        <li class='overText'>矿机收益2</li>
-                        <li>2019.07.12 13:45:12</li>
-                    </ul>
-                    <div>
-                        2.19230000
+                <van-list
+                v-model="loading"
+                :finished="finished"
+                finished-text="没有更多了"
+                @load="onLoad"
+                >
+                    <div class="list" v-for='(item, index) in list' :key='index'>
+                        <ul>
+                            <li class='overText'>{{item.remark}}</li>
+                            <li>{{item.createdAt}}</li>
+                        </ul>
+                        <div  :class='[item.type == 1 ? "blue": "","overText"]'>
+                            {{item.num}}
+                        </div>
                     </div>
-                </div>
+                </van-list>
             </van-tab>
             <van-tab title="支出">
-                <div class="list" v-for='(item, index) in 5' :key='index'>
-                    <ul>
-                        <li class='overText'>矿机收益3</li>
-                        <li>2019.07.12 13:45:12</li>
-                    </ul>
-                    <div>
-                        2.19230000
+                <van-list
+                v-model="loading"
+                :finished="finished"
+                finished-text="没有更多了"
+                @load="onLoad"
+                >
+                    <div class="list" v-for='(item, index) in list' :key='index'>
+                        <ul>
+                            <li class='overText'>{{item.remark}}</li>
+                            <li>{{item.createdAt}}</li>
+                        </ul>
+                        <div  :class='[item.type == 1 ? "blue": "","overText"]'>
+                            {{item.num}}
+                        </div>
                     </div>
-                </div>
+                </van-list>
             </van-tab>
         </van-tabs>
     </div>
 </template>
 <script>
+import {Toast} from 'vant'
+import { setTimeout } from 'timers';
 export default {
     data () {
         return {
-            active: 0
+            active: 0,
+            ofc: {},
+            list: [],
+            finished: false,
+            loading: false,
+            lastPage: null,
+            page: 1,
+            lastId: 0,
         }
     },
     created () {
-        this.$axios.fetchPost('/portal',
-        {
-            source: "web",
-            version: "v1",
-            module: "Captcha",
-            interface: "1001",
-            data: {}
-        }).then(res => {
-            console.log(res)
-            this.userInfo = res.data
-        })
+        // this.$axios.fetchPost('/portal',
+        // {
+        //     source: "web",
+        //     version: "v1",
+        //     module: "Captcha",
+        //     interface: "1001",
+        //     data: {}
+        // }).then(res => {
+        //     console.log(res)
+        //     this.userInfo = res.data
+        // })
+    },
+    methods: {
+        onClickLeft () {
+            this.$router.go(-1)
+        },
+        skip () {
+            this.$router.push({path:'/exchange'})
+        },
+        acChange(){
+            this.finished = false
+            this.loading = false
+            this.lastPage = null
+            this.page = 1
+            this.lastId = 0
+            this.list = []
+            setTimeout(()=> {
+
+                this.onLoad ()
+            },1000)
+        },
+        onLoad () {
+            let type = this.active,direction = ''
+            if( type == 0 ){
+                direction = ''
+            }else if(type == 1) {
+                direction = '1'
+            }else{
+                direction = '-1'
+            }
+            if (this.lastPage && this.lastPage < this.page) {
+                this.finished = true
+                this.loading = false;
+                console.log(123)
+            }else{
+                this.$axios.fetchPost('/portal',
+                {
+                    source: "web",
+                    version: "v1",
+                    module: "Finance",
+                    interface: "2100",
+                    data: {lastId: this.lastId,page: this.page ++,creditType: 'credit_1',direction: direction}
+                }).then(res => {
+                    this.lastPage = res.data.lastPage
+                    this.lastId = res.data.lastId
+                    this.ofc = res.data
+                    this.loading = false;
+                    this.list = this.list.concat(res.data.list)
+                })
+            }
+        }
     }
 }
 </script>
 <style lang="less">
-    #usdt{
+    #ofc{
         .van-nav-bar{
             background:linear-gradient(180deg,#FFCA31 0%,#FBA328 100%);
             .van-icon {
@@ -112,7 +193,7 @@ export default {
     }
 </style>
 <style lang="less" scoped>
-#usdt{
+#ofc{
     width: 100%;
     height: 100%;
     background: #F8F8F8
@@ -168,6 +249,9 @@ export default {
         text-align: right;
         font-size: 16px;
         color: #F84D4D;
+    }
+    .blue{
+        color: #1890FF;
     }
 }
 .deposit{

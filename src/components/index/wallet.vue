@@ -3,6 +3,7 @@
         <van-nav-bar
             title="我的钱包"
             left-arrow
+            @click-left="onClickLeft"
         />
         <div class='list'>
             <router-link to='/usdt'>
@@ -15,7 +16,7 @@
             </router-link>
         </div>
         <div class='list ' >
-            <router-link to='usdt' class='bgyellow'>
+            <router-link to='/ofc' class='bgyellow'>
                 <img src="../../../static/images/index/quan.png" width="32px" height="32px" alt="">
                 <div class='num'>
                     <div>{{ofc.name}}</div>
@@ -25,7 +26,7 @@
             </router-link>
         </div>
         <div class='list '>
-            <router-link to='usdt' class='bgred'>
+            <router-link to='/fund' class='bgred'>
             <img src="../../../static/images/index/aixin.png" width="32px" height="32px" alt="">
             <div class='num'>
                 <div>{{LoveFund.name}}</div>
@@ -36,14 +37,14 @@
         </div>
         
         <div class='list '>
-            <router-link to='usdt' class='bggray'>
+            <a href="javascript:;" class='bggray'>
             <img src="../../../static/images/index/f.png" width="32px" height="32px" alt="">
             <div class='num'>
                 <div>{{fu.name}}</div>
                 <div>{{fu.have}}</div>
             </div>
             <img src="../../../static/images/index/big.png" width="9px" height="16px" alt="">
-            </router-link>
+            </a>
         </div>
         
     </div>
@@ -75,7 +76,9 @@ export default {
         })
     },
     methods: {
-        
+        onClickLeft () {
+            this.$router.go(-1)
+        },
     }
 }
 </script>

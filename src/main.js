@@ -80,7 +80,7 @@ Validator.extend('password', {
     zh_CN: field => field + '密码必须由数字和字母组成6~20位'
   },
   validate: value => {
-    return value.length < 6 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/.test(value)
+    return /^(\w){6,20}$/.test(value)
   }
 })
 Vue.prototype.$axios = api;

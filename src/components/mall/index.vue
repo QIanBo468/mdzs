@@ -5,20 +5,36 @@
             <div class='goodList' v-for='(item, index) in goodsList' :key='index'>
                 <img :src="item.image" alt="">
                 <ul>
-                    <li>{{item.title}}</li>
-                    <li>算力：70G</li>
+                    <li class='overText'>{{item.title}}</li>
+                    <li>算力：{{item.calculation}}</li>
                     <li class="red">租赁价格：{{item.price}}</li>
                 </ul>
-                <div class='btn_'>购买</div>
+                <div class='btn_' @click='buy(item)'>购买</div>
             </div>
         </div>
+        <van-action-sheet v-model="show" title="请选择支付方式">
+            <van-radio-group v-model="radio" @change="payment">
+            <van-cell-group>
+                <van-cell title="usdt" clickable @click="radio = '0'">
+                <van-radio slot="right-icon" name="0" />
+                </van-cell>
+                <van-cell title="ofc" clickable @click="radio = '1'">
+                <van-radio slot="right-icon" name="1" />
+                </van-cell>
+            </van-cell-group>
+            </van-radio-group>
+        </van-action-sheet>
     </div>
 </template>
 <script>
+import { Dialog } from 'vant'
 export default {
     data () {
         return {
             goodsList: [],
+            show: false,
+            radio: '',
+            goodInfo: '',
         }
     },
     created () {
@@ -30,20 +46,41 @@ export default {
             version: "v1",
             data: {}
         }).then(res => {
-            console.log(res)
             this.goodsList = res.data.list
         })
-        // this.$axios.fetchPost('/portal',
-        // {
-        //     interface: "3000",
-        //     module: "Investment",
-        //     source: "web",
-        //     version: "v1",
-        //     data: {id:'3',way: 0}
-        // }).then(res => {
-        //     console.log(res)
-        //     // this.goodsList = res.data.list
-        // })
+        
+    },
+    methods: {
+        buy (id) {
+            this.goodInfo = id
+            this.show = true,
+            this.radio = ''
+        },
+        payment() {
+            if(this.radio){
+
+            
+                this.show = false
+                Dialog.confirm({
+                title: '购买提醒',
+                message: '是否购买'+ this.goodInfo.title
+                }).then(() => {
+                    this.$axios.fetchPost('/portal',
+                    {
+                        interface: "3000",
+                        module: "Investment",
+                        source: "web",
+                        version: "v1",
+                        data: {id: this.goodInfo.id,way: this.radio}
+                    }).then(res => {
+                        console.log(res)
+                    })
+                }).catch(() => {
+                });
+            }
+            // console.log(this.radio)
+            
+        }
     }
 }
 </script>
@@ -83,6 +120,7 @@ export default {
                 }
                 ul{
                     flex: 1;
+                    overflow: hidden;
                     padding-top: 10px;
                     box-sizing: border-box;
                     li{

@@ -28,7 +28,7 @@
                     v-model="obj.password"
                 />
             </van-cell-group>
-            <van-cell-group :border='false' style="text-align: right">
+            <van-cell-group :border='false' style="text-align: right;margin-top: 10px">
                 <router-link to='/password' class="forget">忘记密码</router-link>
             </van-cell-group>
             <van-cell-group :border='false' style="margin-top: 60px;text-align: center">
@@ -36,7 +36,7 @@
             </van-cell-group>
         </div>
     </div>
-</template>
+</template> k
 <script>
 import {Toast} from 'vant'
 export default {

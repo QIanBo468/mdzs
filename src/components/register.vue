@@ -11,7 +11,10 @@
                     placeholder="请输入手机号"
                     left-icon="contact"
                     maxlength="11"
+                    name="account"
                     v-model="fromObj.account"
+                    :error="errors.has('account')"
+                    v-validate="'required|phone'"
                 />
 
                 <van-field
@@ -19,6 +22,7 @@
                     left-icon="contact"
                     v-model="fromObj.password"
                     name="password"
+                    type="password"
                     :error="errors.has('password')"
                     v-validate="'required|password'"
                 >
@@ -28,10 +32,19 @@
                     placeholder="请输入支付密码"
                     v-model="fromObj.safeword"
                     left-icon="contact"
+                    name='safeword'
+                    maxlength="6"
+                    type='password'
+                    :error="errors.has('safeword')"
+                    v-validate="'required|numeric|min:6'"
+                    
                 />
                 <van-field
                     placeholder="请输入邀请码"
                     left-icon="contact"
+                    name='inviteCode'
+                    v-validate="'required'"
+                    :error="errors.has('inviteCode')"
                     v-model="fromObj.inviteCode"
                 />
             </van-cell-group>
@@ -62,21 +75,24 @@ export default {
             this.$router.go(-1)
         },
         submit () {
-                    this.$router.push('/authentication')
-            this.$axios.fetchPost('/portal',
-            {
-                source: "web",
-                version: "v1",
-                module: "Account",
-                interface: "1002",
-                data: this.fromObj
-            }).then(res => {
-                if (res.success) {
-                    // this.$cookies.set('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
-                }else{
-                    Toast(res.message)
-                }
+            this.$validator.validateAll().then(function(result) {
+
             })
+            // this.$axios.fetchPost('/portal',
+            // {
+            //     source: "web",
+            //     version: "v1",
+            //     module: "Account",
+            //     interface: "1002",
+            //     data: this.fromObj
+            // }).then(res => {
+            //     if (res.success) {
+            //         this.$router.push('/authentication')
+            //         this.$cookies.set('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
+            //     }else{
+            //         Toast(res.message)
+            //     }
+            // })
         }
     }
 }

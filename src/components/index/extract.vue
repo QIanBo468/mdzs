@@ -59,8 +59,20 @@ export default {
             placeNum: '请输入提币数量',
         }
     },
+    created () {
+        this.$axios.fetchPost('/portal',
+            {
+                source: "web",
+                version: "v1",
+                module: "User",
+                interface: "8000",
+                data: {}
+            }).then(res => {
+            })
+    },
     methods : {
         onClickLeft () {
+            this.$router.go(-1)
         },
         aaa(obj){
             if(obj == ''){
