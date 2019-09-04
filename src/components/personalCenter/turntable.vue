@@ -304,14 +304,14 @@ export default {
 .content {
   box-sizing: border-box;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   height: auto;
   background: linear-gradient(
     180deg,
     rgba(253, 89, 102, 1) 0%,
     rgba(244, 45, 61, 1) 100%
   );
-  padding-bottom: 50px;
+  /* padding-bottom: 50px; */
 }
 .van-nav-bar {
   background: none;
@@ -494,7 +494,7 @@ export default {
 .intrudce {
   margin: auto;
   width: 100%;
-  padding: 15px 60px;
+  /* padding: 15px 60px; */
   color: #fff;
   font-size: 14px;
 }

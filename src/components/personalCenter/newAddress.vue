@@ -5,15 +5,15 @@
       <div class="add">
         <div class="adds">
           <p>姓名</p>
-          <input type="text" placeholder="请输入姓名" />
+          <input type="text" placeholder="请输入姓名" v-model="name"/>
         </div>
         <div class="adds">
           <p>地址</p>
-          <input type="text" placeholder="请输入有效地址" />
+          <input type="text" placeholder="请输入有效地址" v-model="address"/>
         </div>
       </div>
       <div class="sure">
-        <button>保存</button>
+        <button @click="submit">保存</button>
       </div>
     </div>
   </div>
@@ -22,12 +22,42 @@
 <script>
 export default {
   data () {
-    return {}
+    return {
+      name: '',
+      address: ''
+    }
   },
   computed: {},
   methods: {
     onClickLeft () {
       this.$router.go(-1)
+    },
+    submit () {
+      this.$axios
+        .fetchPost('/portal', {
+          interface: '8001',
+          module: 'User',
+          source: 'web',
+          version: 'v1',
+          data: {
+            name: this.name,
+            address: this.address
+          }
+        })
+        .then(res => {
+          console.log(res)
+          if (res.code == 0) {
+            this.$toast({
+              message: res.message,
+              duration: 1000
+            })
+            setTimeout(() => {
+              this.$router.push('my_Address')
+            }, 1000)
+          } else {
+            this.$toast(res.message)
+          }
+        })
     }
   },
   created () {}

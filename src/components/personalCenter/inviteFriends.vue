@@ -5,8 +5,8 @@
       <div class="title">
         <h2>ofc邀请您注册及下载</h2>
         <div>
-          <span>邀请人：丢丢</span>
-          <span>ID:83738472</span>
+          <span>邀请人：{{info.nickname}}</span>
+          <span>ID:{{info.id}}</span>
         </div>
       </div>
       <div class="con">
@@ -16,7 +16,7 @@
           <button @click="copy(num)">复制</button>
         </div>
         <div class="bottom">
-          <img src="../../assets/img/ewm.png" alt />
+          <img :src="qrcode" alt />
           <p>长按二维码识别</p>
           <!-- <button @click="show=true">邀请好友</button> -->
         </div>
@@ -61,7 +61,9 @@ export default {
   data () {
     return {
       // show: true,
-      num: '312875'
+      num: '',
+      qrcode: '',
+      info: ''
     }
   },
   methods: {
@@ -77,6 +79,21 @@ export default {
       }
       document.body.removeChild(input)
     }
+  },
+  created () {
+    this.$axios
+      .fetchPost('/portal', {
+        interface: '7000',
+        module: 'User',
+        source: 'web',
+        version: 'v1'
+      })
+      .then(res => {
+        console.log(res)
+        this.num = res.data.inviteCode
+        this.qrcode = res.data.qrCode
+        this.info = res.data
+      })
   }
 }
 </script>

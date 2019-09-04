@@ -4,18 +4,42 @@
     <div class="main">
       <h2>微信二维码</h2>
       <div class="box">
-        <img src="../../assets/img/ewm.png" alt />
+        <img :src="qrcode" alt />
       </div>
       <div class="title">
-        <p>客服电话：0531-1232344</p>
-        <p>客服时间:08:00-19:00</p>
+        <p>客服电话：{{phone}}</p>
+        <p>客服时间:{{time}}</p>
       </div>
     </div>
   </dir>
 </template>
 
 <script>
-export default {};
+export default {
+  data () {
+    return {
+      time: '',
+      qrcode: '',
+      phone: ''
+    }
+  },
+  created () {
+    this.$axios
+      .fetchPost('/portal', {
+        interface: '7001',
+        module: 'User',
+        source: 'web',
+        version: 'v1'
+      })
+      .then(res => {
+        console.log('联系我们', res)
+        this.time = res.data.kf_time
+        this.qrcode = res.data.wx_qrCode
+        this.phone = res.data.kf_mobile
+      })
+  },
+  methods: {}
+}
 </script>
 
 <style scoped>

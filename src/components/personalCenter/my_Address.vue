@@ -7,16 +7,17 @@
       right-text="添加"
       @click-right="onClickRight"
     />
-    <van-swipe-cell :on-close="onClose">
+
+    <van-swipe-cell :on-close="onClose" v-for="(item,index) in list" :key="index">
       <div class="address_list">
         <div class="list_address">
-          <span>奔跑的小米</span>
-          <span>sjdhffkj27364829hdjkfhfkdj</span>
+          <span>{{item.name}}</span>
+          <span>{{item.address}}</span>
         </div>
+        <!-- <input type="radio" name="radios" :value="1" v-model="param" /> -->
       </div>
-
       <template slot="right">
-        <van-button square type="danger" text="立即删除" @click="deletes" />
+        <van-button square type="danger" text="立即删除" @click="deletes(item.id)" />
       </template>
     </van-swipe-cell>
   </div>
@@ -25,14 +26,17 @@
 <script>
 export default {
   data () {
-    return {}
+    return {
+      list: ''
+      // param: '1'
+    }
   },
   computed: {},
   methods: {
     onClickLeft () {
       this.$router.go(-1)
     },
-    deletes () {
+    deletes (id) {
       this.$dialog
         .confirm({
           title: '',
@@ -40,6 +44,22 @@ export default {
         })
         .then(() => {
           // 确定
+          this.$axios.fetchPost('/portal', {
+            interface: '8002',
+            module: 'User',
+            source: 'web',
+            version: 'v1',
+            data: {
+              id: id
+            }
+          })
+            .then(res => {
+              console.log(res)
+              if (res.code == 0) {
+                this.$toast(res.message)
+                this.get_address()
+              }
+            })
         })
         .catch(() => {
           // on cancel
@@ -59,9 +79,26 @@ export default {
     },
     onClickRight () {
       this.$router.push('newAddress')
+    },
+    get_address () {
+      this.$axios
+        .fetchPost('/portal', {
+          interface: '8000',
+          module: 'User',
+          source: 'web',
+          version: 'v1',
+          data: {}
+        })
+        .then(res => {
+          console.log('我的地址', res)
+          this.list = res.data
+          console.log(this.list)
+        })
     }
   },
-  created () {}
+  created () {
+    this.get_address()
+  }
 }
 </script>
 <style scoped>
