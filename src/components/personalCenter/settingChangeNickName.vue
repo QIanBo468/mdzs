@@ -19,6 +19,7 @@
 </template>
 
 <script>
+import { Toast } from 'vant'
 export default {
   data() {
     return {
@@ -41,6 +42,7 @@ export default {
           nickname: this.nickname,
         }
       }).then(res => {
+        Toast(res.message)
         // console.log(res)
       })
     },

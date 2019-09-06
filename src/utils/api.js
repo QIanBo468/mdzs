@@ -22,7 +22,7 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use((res) => {
 // 对响应数据做些事
   if ((res.data.code == 4500 && res.data.message == '该接口需要进行Auth认证，请核实认证信息后重试') || (res.data.code == 4700 && res.data.message == '登录异常，请重新登录')) {
-    Toast(res.data.message)
+    Toast('登录异常，请重新登录')
     router.push({name: 'Login'})
   }
   if (!res.data.success) {

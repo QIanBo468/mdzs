@@ -61,8 +61,8 @@ export default {
         return {
             isShowLoding: false,
             fromObj: {
-                frontImage: '../../static/images/zheng.png',
-                backImage: '../../static/images/fan.png',
+                frontImage: './static/images/zheng.png',
+                backImage: './static/images/fan.png',
                 realName: '',
                 identity: '',
             }

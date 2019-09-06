@@ -27,7 +27,7 @@
     </div>
 </template>
 <script>
-import { Dialog } from 'vant'
+import { Dialog, Toast } from 'vant'
 export default {
     data () {
         return {
@@ -71,7 +71,7 @@ export default {
                         version: "v1",
                         data: {id: this.goodInfo.id,way: this.radio}
                     }).then(res => {
-                        console.log(res)
+                        Toast(res.message)
                     })
                 }).catch(() => {
                 });

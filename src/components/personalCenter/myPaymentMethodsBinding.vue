@@ -403,8 +403,15 @@ export default {
 }
 
 .bind-btn {
+    width: 343px;
+    height: 44px;
+    background: red;
+    margin: 0 auto;
+    background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
+    border-radius: 22px;
+    color: #fff;
   margin-bottom: 41px;
-  background: url("../../assets/img/big_btn.png");
+  // background: url("../../assets/img/big_btn.png");
   color: #fff;
 }
 

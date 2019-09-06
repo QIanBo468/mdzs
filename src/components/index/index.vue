@@ -150,11 +150,12 @@ export default {
             interface: "4004",
             data: {}
         }).then(res => {
-            let text = ''
-            res.data.forEach((element, index) => {
-                text += index+1 +'.' + element.title + '      '
-            });
-            this.text = text
+            // let text = ''
+            // res.data.forEach((element, index) => {
+            //     text += index+1 +'.' + element.title + '      '
+            // });
+            // console.log()
+            this.text = res.data[0].title
         })
     },
     methods : {

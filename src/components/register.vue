@@ -61,8 +61,10 @@
             </van-cell-group>
             <van-cell-group :border='false'>
                 <van-button  class='btn' @click="submit">下一步</van-button>
-                <div class='agreement'>
-                    <img class='imgIcon' src='../../static/images/index/gouxuan.png'>已阅读并同意以下协议：《ofc服务协议》
+                <div class='agreement' @click="flag = !flag">
+                    <img class='imgIcon' v-if='flag' src='../../static/images/index/gouxuan.png'>
+                    <img class='imgIcon' v-if='!flag' src='../../static/images/index/gouxuan_A.png'>
+                    已阅读并同意以下协议：《ofc服务协议》
                 </div>
             </van-cell-group>
         </div>
@@ -79,6 +81,7 @@ export default {
                 safeword: '',
                 inviteCode: '',
             },
+            flag: true,
         }
     },
     methods : {
@@ -87,6 +90,10 @@ export default {
         },
         submit () {
             var that = this
+            if(this.flag){
+                Toast('请勾选并同意用户协议')
+                return
+            }
             this.$validator.validateAll().then(function(result) {
                 if(result){
                     that.$axios.fetchPost('/portal',

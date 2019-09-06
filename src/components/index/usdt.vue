@@ -128,7 +128,6 @@ export default {
             if (this.lastPage && this.lastPage < this.page) {
                 this.finished = true
                 this.loading = false;
-                console.log(123)
             }else{
                 this.$axios.fetchPost('/portal',
                 {

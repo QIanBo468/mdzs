@@ -40,6 +40,9 @@
             <van-cell-group :border='false' style="margin-top: 60px;text-align: center">
                 <van-button class='btn' @click="submit">登录</van-button>
             </van-cell-group>
+            <van-cell-group :border='false' @click="$router.push('/register')" style="margin-top: 10px;text-align: center;color: #999">
+                没有账号？去注册
+            </van-cell-group>
         </div>
     </div>
 </template> k
@@ -49,8 +52,8 @@ export default {
     data () {
         return {
             obj: {
-                account: '14589986651',
-                password: '123abc'
+                account: '',
+                password: ''
             }
         }
     },
@@ -68,9 +71,14 @@ export default {
                     data: that.obj
                 }).then(res => {
                     if (res.success) {
+                        // if(res.data.status == -2){
+                        //     Toast('未通过实名认证')
+                        //     return 
+                        // }
                         that.userInfo = res.data
                         that.$cookies.set('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
-                        that.$router.go(-1)
+                        // that.$router.push('/login')
+                        that.$router.push('/index')
                     }else{
                         Toast(res.message)
                     }
@@ -82,7 +90,7 @@ export default {
             
         },
         onClickLeft () {
-            this.$router.go(-1)
+            this.$router.push('/index')
         }
     }
 }

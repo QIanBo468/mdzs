@@ -36,7 +36,7 @@
       </div>
     </div>
   </van-cell-group>
-
+  <div class='btn' @click='submit'>退出登录</div>
 </div>
 </template>
 
@@ -50,6 +50,19 @@ export default {
   },
 
   methods: {
+    submit () {
+      this.$axios.fetchPost('/portal', {
+        source: "web",
+        version: "v1",
+        module: "Account",
+        interface: "2000",
+        data: {}
+      }).then(res => {
+        if(res.success) {
+          this.$router.push('/login')
+        }
+      })
+    },
     getData() {
       this.$axios.fetchPost('/portal', {
         source: "web",
@@ -187,5 +200,17 @@ export default {
   height: 100%;
   opacity: 0;
 }
-
+.btn{
+   width: 343px;
+    height: 44px;
+    background: red;
+    margin: 0 auto;
+    background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
+    border-radius: 22px;
+    color: #fff;
+    text-align: center;
+    line-height: 44px;
+    font-size: 16px;
+    margin-top: 300px;
+}
 </style>

@@ -8,7 +8,7 @@
         />
         <div class='statis'>
             <div>累计获得收益（ofc）</div>
-            <div>123845.00000000</div>
+            <div>{{earnings.total}}</div>
         </div>
         <div class='firstTitle'>
             <span></span>
