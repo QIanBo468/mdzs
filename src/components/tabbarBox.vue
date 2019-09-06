@@ -2,7 +2,7 @@
     <div class='tabbar'>
         <router-view style="flex:1; "/>
         <van-tabbar v-model="active" style="height: 50px;    position: sticky">
-            <van-tabbar-item  to='/tabbarBox'>
+            <van-tabbar-item  to='/index'>
                 <span class='red'>首页</span>
                 <img
                 slot="icon"
@@ -43,20 +43,20 @@ export default {
         return {
             active: 0,
             icon: {
-                active: '../../static/images/index/index_active.png',
-                normal: '../../static/images/index/index.png',
+                active: './static/images/index/index_active.png',
+                normal: './static/images/index/index.png',
             },
             mall: {
-                active: '../../static/images/index/kuangji_active.png',
-                normal: '../../static/images/index/kuangji.png',
+                active: './static/images/index/kuangji_active.png',
+                normal: './static/images/index/kuangji.png',
             },
             deal: {
-                active: '../../static/images/index/deal_active.png',
-                normal: '../../static/images/index/deal.png',
+                active: './static/images/index/deal_active.png',
+                normal: './static/images/index/deal.png',
             },
             user: {
-                active: '../../static/images/index/user_active.png',
-                normal: '../../static/images/index/user_ico.png',
+                active: './static/images/index/user_active.png',
+                normal: './static/images/index/user_ico.png',
             }
         }
     },

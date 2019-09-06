@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style>
-@import'./utils/utils.less';
+/* @import'./utils/utils.less'; */
 html,body{
   width: 100%;
   height: 100%;
@@ -26,5 +26,13 @@ html,body{
   /* text-align: center;
   color: #2c3e50; */
   /* margin-top: 60px; */
+}
+.van-nav-bar .van-icon{
+    color: #111;
+}
+.overText{
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
 }
 </style>

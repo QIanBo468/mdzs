@@ -6,7 +6,7 @@
                 <img :src="item.image" alt="">
                 <ul>
                     <li class='overText'>{{item.title}}</li>
-                    <li>算力：{{item.calculation}}</li>
+                    <li>算力：{{item.calculation}}G</li>
                     <li class="red">租赁价格：{{item.price}}</li>
                 </ul>
                 <div class='btn_' @click='buy(item)'>购买</div>
@@ -53,13 +53,11 @@ export default {
     methods: {
         buy (id) {
             this.goodInfo = id
-            this.show = true,
+            this.show = true
             this.radio = ''
         },
         payment() {
             if(this.radio){
-
-            
                 this.show = false
                 Dialog.confirm({
                 title: '购买提醒',

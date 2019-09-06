@@ -10,7 +10,7 @@
             <div class='statisTitle'>当前余额</div>
             <div class='transferBox'>
                 <div>{{live.creditValue}}</div>
-                <div>转账</div>
+                <div @click='$router.push({path: "/transfer",query:{type:"LoveFund"}})'>转账</div>
             </div>
         </div>
         <van-tabs v-model="active" @change="acChange">
@@ -87,7 +87,7 @@ export default {
     },
     methods: {
         onClickLeft () {
-            this.$router.go(-1)
+            this.$router.push('/wallet')
         },
         acChange(){
             this.finished = false

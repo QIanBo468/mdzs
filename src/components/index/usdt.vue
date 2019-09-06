@@ -11,7 +11,7 @@
             <div>{{usdt.creditValue}}</div>
         </div>
         <div class='deposit' style="height: 40px;diplay:flex;">
-            <div>
+            <div @click='$router.push("/charge")'>
                 <!-- <router-link to='/charge'> -->
                     <img src="../../../static/images/index/chongzhi.png" alt="">
                     <span>充币</span>   
@@ -21,7 +21,7 @@
                 <img src="../../../static/images/index/extract.png" alt="">
                 <span>提币</span>  
             </div>
-            <div>
+            <div @click='$router.push({path: "/transfer",query:{type:"usdt"}})'>
                 <img src="../../../static/images/index/transfer.png" alt="">
                 <span>转账</span>  
             </div>
@@ -100,21 +100,10 @@ export default {
         }
     },
     created () {
-        // this.$axios.fetchPost('/portal',
-        // {
-        //     source: "web",
-        //     version: "v1",
-        //     module: "Finance",
-        //     interface: "2100",
-        //     data: {lastId: 0,page: 1,creditType: 'credit_2 ',direction: ''}
-        // }).then(res => {
-        //     this.usdt = res.data
-        //     this.list = res.data.list
-        // })
     },
     methods: {
         onClickLeft () {
-            this.$router.go(-1)
+            this.$router.push('/wallet')
         },
         acChange(){
             this.finished = false
@@ -124,7 +113,6 @@ export default {
             this.lastId = 0
             this.list = []
             setTimeout(()=> {
-
                 this.onLoad ()
             },1000)
         },

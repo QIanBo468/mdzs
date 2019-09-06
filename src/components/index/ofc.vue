@@ -19,7 +19,7 @@
                 <img src="../../../static/images/index/extract.png" alt="">
                 <span>提现</span>  
             </div> -->
-            <div>
+            <div @click='$router.push({path: "/transfer",query:{type:"ofc"}})'>
                 <img src="../../../static/images/index/transfer.png" alt="">
                 <span>转账</span>  
             </div>
@@ -113,7 +113,7 @@ export default {
     },
     methods: {
         onClickLeft () {
-            this.$router.go(-1)
+            this.$router.push('/wallet')
         },
         skip () {
             this.$router.push({path:'/exchange'})

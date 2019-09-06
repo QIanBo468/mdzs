@@ -6,26 +6,30 @@
             @click-left="onClickLeft"
         />
         <div class='register'>
-            <van-cell-group style="margin: 50px auto 201px">
+            <van-cell-group style="margin: 50px auto 201px" :border=false>
                 <van-field
                     placeholder="请输入手机号"
-                    left-icon="contact"
                     maxlength="11"
                     name="account"
                     v-model="fromObj.account"
                     :error="errors.has('account')"
                     v-validate="'required|phone'"
-                />
-
+                >
+                <template slot='left-icon'>
+                    <img class='inputIcon' src='../../static/images/index/account.png'/>
+                </template>
+                </van-field>
                 <van-field
                     placeholder="请输入密码（最少6位 数字+字母）"
-                    left-icon="contact"
                     v-model="fromObj.password"
                     name="password"
                     type="password"
                     :error="errors.has('password')"
                     v-validate="'required|password'"
                 >
+                <template slot='left-icon'>
+                    <img class='inputIcon' src='../../static/images/index/password.png'/>
+                </template>
                 </van-field>
 
                 <van-field
@@ -37,8 +41,11 @@
                     type='password'
                     :error="errors.has('safeword')"
                     v-validate="'required|numeric|min:6'"
-                    
-                />
+                >
+                <template slot='left-icon'>
+                    <img class='inputIcon' src='../../static/images/index/password.png'/>
+                </template>
+                </van-field>
                 <van-field
                     placeholder="请输入邀请码"
                     left-icon="contact"
@@ -46,12 +53,16 @@
                     v-validate="'required'"
                     :error="errors.has('inviteCode')"
                     v-model="fromObj.inviteCode"
-                />
+                >
+                <template slot='left-icon'>
+                    <img class='inputIcon' src='../../static/images/index/code.png'/>
+                </template>
+                </van-field>
             </van-cell-group>
             <van-cell-group :border='false'>
                 <van-button  class='btn' @click="submit">下一步</van-button>
                 <div class='agreement'>
-                    已阅读并同意以下协议：《ofc服务协议》
+                    <img class='imgIcon' src='../../static/images/index/gouxuan.png'>已阅读并同意以下协议：《ofc服务协议》
                 </div>
             </van-cell-group>
         </div>
@@ -75,24 +86,26 @@ export default {
             this.$router.go(-1)
         },
         submit () {
+            var that = this
             this.$validator.validateAll().then(function(result) {
-
+                if(result){
+                    that.$axios.fetchPost('/portal',
+                    {
+                        source: "web",
+                        version: "v1",
+                        module: "Account",
+                        interface: "1002",
+                        data: that.fromObj
+                    }).then(res => {
+                        if (res.success) {
+                            that.$router.push('/authentication')
+                            that.$cookies.set('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
+                        }else{
+                            Toast(res.message)
+                        }
+                    })
+                }
             })
-            // this.$axios.fetchPost('/portal',
-            // {
-            //     source: "web",
-            //     version: "v1",
-            //     module: "Account",
-            //     interface: "1002",
-            //     data: this.fromObj
-            // }).then(res => {
-            //     if (res.success) {
-            //         this.$router.push('/authentication')
-            //         this.$cookies.set('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
-            //     }else{
-            //         Toast(res.message)
-            //     }
-            // })
         }
     }
 }
@@ -105,7 +118,31 @@ export default {
             font-size: 12px;
             color: #999;
             margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 20px;
+            line-height: 20px;
             text-align: center;
         }
+    }
+    .inputIcon{
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+    }
+    .btn{
+        width: 343px;
+        height: 44px;
+        background: red;
+        margin: 0 auto;
+        background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
+        border-radius: 22px;
+        color: #fff;
+    }
+    .imgIcon{
+        width: 13px;
+        height: 13px;
+        margin-right: 10px;
     }
 </style>

@@ -14,9 +14,9 @@
             @load="onLoad"
             >
                 <div class='record' v-for='(item, index) in list' :key='index'>
-                    <div v-if='item.status == 0' class='status'>申请中</div>
+                    <div v-if='item.status == 0' class='status red'>提币中</div>
                     <div v-if='item.status == 1' class='status'>提现成功</div>
-                    <div v-if='item.status == -1' class='status'>提现失败</div>
+                    <div v-if='item.status == -1' class='status red'>提现失败</div>
                     <ul>
                         <li>
                             <div>钱包地址</div>
@@ -100,7 +100,7 @@ export default {
                 .status{
                     font-size: 12px;
                     text-align: right;
-                    color: #F84D4D;
+                    color: #1890FF;
                     margin-bottom: 10px;
                 }
                 .red{

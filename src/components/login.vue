@@ -11,22 +11,28 @@
             <van-cell-group  style="margin-top: 50px">
                 <van-field
                     placeholder="请输入手机号"
-                    left-icon="manager-o"
                     v-model="obj.account"
                     name="phone"
                     v-validate="'required|phone'"
                     :error="errors.has('phone')"
                     
-                />
+                >
+                <template slot='left-icon'>
+                    <img class='inputIcon' src='../../static/images/index/account.png'/>
+                </template>
+                </van-field>
                 <van-field
                     placeholder="请输入密码"
-                    left-icon="bag-o"
                     type="password"
                     v-validate="'required'"
                     name='password'
                     :error="errors.has('password')"
                     v-model="obj.password"
-                />
+                >
+                <template slot='left-icon'>
+                    <img class='inputIcon' src='../../static/images/index/password.png'/>
+                </template>
+                </van-field>
             </van-cell-group>
             <van-cell-group :border='false' style="text-align: right;margin-top: 10px">
                 <router-link to='/password' class="forget">忘记密码</router-link>
@@ -82,8 +88,20 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.btn{
+    width: 343px;
+    height: 44px;
+    background: red;
+    margin: 0 auto;
+    background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
+    border-radius: 22px;
+    color: #fff;
+}
+.inputIcon{
+    width: 20px;
+    height: 20px;
+}
 #loginBox {
-    
     .login{
         width: 343px;
         margin:  0 auto;

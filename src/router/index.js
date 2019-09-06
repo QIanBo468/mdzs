@@ -160,10 +160,10 @@ export default new Router({
     },
     {
       path: '/',
-      redirect: '/tabbarBox'
+      redirect: '/index'
     },
     {
-      path: '/tabbarBox',
+      path: '/index',
       name: 'tabbarBox',
       component: tabbarBox,
       children: [

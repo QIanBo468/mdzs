@@ -4,6 +4,7 @@
             title="转账记录"
             left-arrow
             :border="false"
+            @click-left='$router.go(-1)'
         />
         <div class='box'>
             <van-list
@@ -17,19 +18,19 @@
                     <ul>
                         <li>
                             <div>会员ID</div>
-                            <div>2387489273</div>
+                            <div>{{item.id}}</div>
                         </li>
                         <li>
                             <div>提交时间</div>
-                            <div>2019.08.12 14:12:12</div>
+                            <div>{{item.createdAt}}</div>
                         </li>
                         <li>
                             <div>钱包类型</div>
-                            <div>usde</div>
+                            <div>{{item.creditName}}</div>
                         </li>
                         <li>
                             <div>转账数量</div>
-                            <div class='red'>2019.08.12 14:12:12</div>
+                            <div class='red'>{{item.money}}</div>
                         </li>
                     </ul>
                 </div>
@@ -47,7 +48,17 @@ export default {
             page: 1,
             lastPage: null,
             lastId: 0,
+            status: '',
         }
+    },
+    created() {
+        var type = this.$route.query.type,status = '3102'
+        if(type == 'usdt'){
+            status = '3101'
+        }else if(type == 'ofc'){
+            status = '3100'
+        }
+        this.status = status
     },
     methods: {
         onLoad() {
@@ -61,8 +72,8 @@ export default {
                     source: "web",
                     version: "v1",
                     module: "Finance",
-                    interface: "4002",
-                    data: {lastId: this.lastId,page: this.page ++}
+                    interface:  this.status,
+                    data: {lastId: this.lastId,page: this.page ++,isOut: true}
                 }).then(res => {
                     this.list = this.list.concat(res.data.list)
                     this.lastPage = res.data.lastPage

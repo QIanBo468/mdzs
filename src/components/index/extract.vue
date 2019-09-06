@@ -24,22 +24,34 @@
                     
                 </template>
             </InputImg> -->
+            
             <div class="inputBox" style="width: 343px;height: 40px;margin: 0 auto">
-                <input type="text" v-model="address">
-                <img :src="InputImg" alt="" @click="$router.push({path: '/address', query:{usdt: usdtNum}})">
+                <van-field
+                    placeholder="请输入钱包地址"
+                    :border="false"
+                    name="address"
+                    v-model="address"
+                    :error="errors.has('address')"
+                    v-validate="'required'"
+                />
+                <img v-if='imgFlag' :src="InputImg" alt="" @click="$router.push({path: '/address', query:{usdt: usdtNum}})">
+                <img v-else style="width: 19px;height: 19px" src="../../../static/images/index/empty.png" alt="" @click="address = ''">
             </div>
             <div class='title'>
                 提币数量
             </div>
             <div class="inputBox" style="width: 343px;height: 40px;margin: 0 auto 40px">
-                <input type="number" v-model="num">
-                <span class='red' @click="num = usdtNum">全部</span>
+                <van-field
+                    type="number"
+                    placeholder="请输入提币数量"
+                    :border="false"
+                    name="num"
+                    v-model="num"
+                    :error="errors.has('num')"
+                    v-validate="'required'"
+                />
+                <div class='red' style="width: 35px;" @click="num = usdtNum">全部</div>
             </div>
-            <!-- <InputImg style="width: 343px;height: 40px;margin: 0 auto 40px" :placeholder='placeNum'>
-                <template slot="right"> 
-                    
-                </template>
-            </InputImg> -->
             <div class='cell'>
                 <div>手续费</div>
                 <div class='overText'>{{money.serve}}</div>
@@ -56,7 +68,6 @@
 </template>
 <script>
 import { Toast,Dialog } from 'vant'
-import InputImg from '../../views/inputImg'
 export default {
     data () {
         return {
@@ -68,6 +79,7 @@ export default {
             placeNum: '请输入提币数量',
             usdtNum: '',
             charge: '',
+            imgFlag: false,
         }
     },
     computed : {
@@ -77,6 +89,15 @@ export default {
                 practical: this.num - this.num * this.charge / 100,
             }
             return obj
+        }
+    },
+    watch: {
+        address () {
+            if(!this.address) {
+                this.imgFlag = true
+            }else{
+                this.imgFlag = false
+            }
         }
     },
     created () {
@@ -94,42 +115,44 @@ export default {
         })
     },
     methods : {
+        changeInput() {
+            console.log(this.address)
+        },
         onClickLeft () {
             this.$router.push('/usdt')
         },
-        aaa(obj){
-            if(obj == ''){
-                this.InputImg  =  '../../../static/images/index/user.png';
-            }else{
-                this.InputImg  =  '../../../static/images/index/empty.png';
-            }
-        },
         submit () {
-            this.$axios.fetchPost('/portal',
-            {
-                source: "web",
-                version: "v1",
-                module: "Finance",
-                interface: "4001",
-                data: {amount: this.num,address: this.address }
-            }).then(res => {
-                if(res.success){
-                    // this.list = res.data
-                    this.num = ''
-                    Dialog.alert({
-                        title: '提示',
-                        message: res.message
+            var that = this
+            this.$validator.validateAll().then(function(result) {
+                if(result){
+                    that.$axios.fetchPost('/portal',
+                    {
+                        source: "web",
+                        version: "v1",
+                        module: "Finance",
+                        interface: "4001",
+                        data: {amount: that.num,address: that.address }
+                    }).then(res => {
+                        if(res.success){
+                            that.num = ''
+                            Dialog.alert({
+                                title: '提示',
+                                message: res.message
+                            })
+                        }
                     })
                 }
             })
         }
     },
     components: {
-        InputImg
     }
 }
 </script>
 <style lang="less" scoped>
+    .van-cell{
+        padding: 0
+    }
     #extract{
         width: 100%;
         overflow: hidden;
@@ -168,6 +191,15 @@ export default {
                 font-size: 23px;
                 color: #333;
                 margin: 5px auto 38px;
+            }
+            .btn{
+                width: 343px;
+                height: 44px;
+                background: red;
+                margin: 0 auto;
+                background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
+                border-radius: 22px;
+                color: #fff;
             }
             .inputBox{
                 width: 100%;

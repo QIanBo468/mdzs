@@ -6,15 +6,22 @@
             @click-left="onClickLeft"
         />
         <div class="noticeList">
-            <router-link :to="{ path: '/noticeDetails', query: { id: item.id}}"  v-for="(item, index) in noticeList" :key='index'>
-                <ul>
-                    <li>{{item.title}}</li>
-                    <li></li>
-                </ul>
-                <div>
-                    <img src="../../../static/images/index/more.png" alt="">
-                </div>
-            </router-link>
+            <van-list
+            v-model="loading"
+            :finished="finished"
+            finished-text="没有更多了"
+            @load="onLoad"
+            >
+                <router-link :to="{ path: '/noticeDetails', query: { id: item.id}}"  v-for="(item, index) in noticeList" :key='index'>
+                    <ul>
+                        <li>{{item.title}}</li>
+                        <li></li>
+                    </ul>
+                    <div>
+                        <img src="../../../static/images/index/more.png" alt="">
+                    </div>
+                </router-link>
+            </van-list>
         </div>
     </div>
 </template>
@@ -22,25 +29,52 @@
 export default {
     data () {
         return {
-            noticeList: []
+            noticeList: [],
+            lastPage: null,
+            lastId: 0,
+            finished: false,
+            loading: false,
+            page:1,
         }
     },
     created () {
-        this.$axios.fetchPost('/portal',
-        {
-            source: "web",
-            version: "v1",
-            module: "Content",
-            interface: "3000",
-            data: {lastId: 0,page: 1}
-        }).then(res => {
-            this.noticeList = res.data.list
-        })
+        // this.$axios.fetchPost('/portal',
+        // {
+        //     source: "web",
+        //     version: "v1",
+        //     module: "Content",
+        //     interface: "3000",
+        //     data: {lastId: 0,page: 1}
+        // }).then(res => {
+        //     this.noticeList = res.data.list
+        // })
     },
     methods : {
         onClickLeft () {
             this.$router.go(-1)
-        }
+        },
+        onLoad() {
+            if (this.lastPage && this.lastPage < this.page) {
+                this.finished = true
+                this.loading = false;
+            }else{
+                
+                this.$axios.fetchPost('/portal',
+                {
+                    source: "web",
+                    version: "v1",
+                    module: "Content",
+                    interface: "3000",
+                    data: {lastId: this.lastId,page: this.page ++}
+                }).then(res => {
+                    // this.list = this.list.concat(res.data.list)
+                    this.noticeList = this.noticeList.concat(res.data.list)
+                    this.lastPage = res.data.lastPage
+                    this.loading = false;
+                    this.lastId = res.data.lastId
+                })
+            }
+        },
     }
 }
 </script>
