@@ -3,7 +3,7 @@
         <trannav title="挂买" :leftj="true" ></trannav>
         <div class="cont">
                 <div class="contmodule">
-                    <div><span>挂买数量</span><span>剩余：{{ofc}}ofc</span></div>
+                    <div><span>挂买数量</span></div>
                     <input type="number" v-model="uploaddata.num" placeholder="请输入挂买数量">
                 </div>
                 <div class="contmodule">
