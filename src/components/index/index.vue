@@ -121,6 +121,20 @@ export default {
         console.log(document.getElementById('box'))
     },
     created () {
+        let  status = this.$cookies.get('status')
+        // if(status == -1){
+        //     Toast('未通过实名认证')
+        //     this.$router.push('/login')
+        //     return
+        // }else if(status == -2){
+        //     Toast('未认证')
+        //     this.$router.push('/login')
+        //     return 
+        // }else if(status ==  0) {
+        //     Toast('申请中')
+        //     this.$router.push('/login')
+        //     return
+        // }
         this.$axios.fetchPost('/portal',
         {
             source: "web",

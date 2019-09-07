@@ -18,7 +18,7 @@
                     <ul>
                         <li>
                             <div>会员ID</div>
-                            <div>{{item.id}}</div>
+                            <div>{{item.toUserId}}</div>
                         </li>
                         <li>
                             <div>提交时间</div>

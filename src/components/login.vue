@@ -72,16 +72,18 @@ export default {
                 }).then(res => {
                     if (res.success) {
                         that.$cookies.set('status', res.data.status)
-                        // if(res.data.status == -1){
-                        //     Toast('未通过实名认证')
-                        //     return 
-                        // }else if(res.data.status == -2){
-                        //     Toast('未认证')
-                        //     return 
-                        // }else if(res.data.status ==  0) {
-                        //     Toast('申请中')
-                        //     return
-                        // }
+                        if(res.data.status == -1){
+                            Toast('未通过实名认证')
+                            this.$router.push('/authentication')
+                            return 
+                        }else if(res.data.status == -2){
+                            Toast('未认证')
+                            this.$router.push('/authentication')
+                            return 
+                        }else if(res.data.status ==  0) {
+                            Toast('申请中')
+                            return
+                        }
                         that.userInfo = res.data
                         that.$cookies.set('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
                         // that.$router.push('/login')
