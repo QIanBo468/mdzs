@@ -83,6 +83,7 @@ Validator.extend('password', {
     return /^(\w){6,20}$/.test(value)
   }
 })
+
 Vue.prototype.$axios = api;
 Vue.use(VueCookies)
 Vue.use(Vant)

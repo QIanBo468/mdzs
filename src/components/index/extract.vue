@@ -135,6 +135,7 @@ export default {
                     }).then(res => {
                         if(res.success){
                             that.num = ''
+                            that.address = ''
                             Dialog.alert({
                                 title: '提示',
                                 message: res.message

@@ -79,7 +79,7 @@ export default {
                 "source":"web",
                 "version":"v1",
                 "module":"Account",
-                "interface":"1001",
+                "interface":"1003",
                 "data":
                     {"account": this.obj.account,}
                 }).then(res => {

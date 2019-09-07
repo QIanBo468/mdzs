@@ -11,6 +11,7 @@
             <div class='usdt' @click='show = true'>
                 <img :src="typeImg" alt="">
                 {{type}}
+                <img class="imgDown" src="../../../static/images/index/pullDown.png" alt="">
             </div>
             <div class='money'>
                 {{money}}
@@ -74,8 +75,14 @@
         <van-action-sheet v-model="show" title="请选择转账用户">
             <van-radio-group v-model="radio" @change="select">
                 <van-cell-group>
-                    <van-cell :title="item.name" clickable @click="radio = item.name" v-for='(item,index) in list' :key='index' v-if='item.use'>
-                    <van-radio slot="right-icon" :name="item.name" />
+                    <van-cell clickable @click="radio = item.name" v-for='(item,index) in list' :key='index' v-if='item.use'>
+                        <template slot="default">
+                            <div style="height: 22px;display:flex;">
+                                <img :src="iconObj[index]" style="width: 22px;margin-right: 10px" alt="">
+                                {{item.name}} 
+                            </div>
+                        </template>
+                        <van-radio slot="right-icon" :name="item.name" />
                     </van-cell>
                     <!-- <van-cell title="单选框 2" clickable @click="radio = '2'">
                     <van-radio slot="right-icon" name="2" />
@@ -98,7 +105,7 @@ export default {
             placesNum: '请输入转账数量',
             placesCode: '请输入验证码',
             codeText: '获取验证码',
-            codeTime: 3,
+            codeTime: 60,
             show: false,
             radio: 1,
             disabled: true,
@@ -110,7 +117,12 @@ export default {
             },
             typeImg: '../../../static/images/index/usdt.png',
             list: {},
-            type: ''
+            type: '',
+            iconObj: {
+                ofc: '../../../static/images/index/ofc.png',
+                usdt: '../../../static/images/index/usdt.png',
+                LoveFund:'../../../static/images/index/fund.png'
+            }
         }
     },
     created () {
@@ -181,7 +193,7 @@ export default {
                             if(that.codeTime <= 0){
                                 clearInterval(time)
                                 that.codeText = '获取验证码'
-                                that.codeTime = 3
+                                that.codeTime = 60
                             }else{
                                 that.codeTime -- 
                                 that.codeText = that.codeTime + 's'
@@ -273,6 +285,9 @@ export default {
                     margin-right: 10px;
                     height: 22px;
                     width: 22px;
+                }
+                .imgDown{
+                    margin-left: 5px;
                 }
             }
             .money{

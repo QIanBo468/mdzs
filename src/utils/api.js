@@ -9,6 +9,7 @@ axios.defaults.timeout = 5000
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
 axios.defaults.baseURL = '/api'
 axios.interceptors.request.use((config) => {
+  // this.$cookies.set('status', res.data.status)
   let token = VueCookies.get('accessToken')
   if (token) {
     config.headers.Authorization = token
@@ -25,6 +26,11 @@ axios.interceptors.response.use((res) => {
     Toast('登录异常，请重新登录')
     router.push({name: 'Login'})
   }
+  // if (VueCookies.get('status') != 1) {
+  //   Toast('认证状态')
+  //   router.push({name: 'Login'})
+  // }
+  // console.log()
   if (!res.data.success) {
     return Promise.resolve(res)
   } else {

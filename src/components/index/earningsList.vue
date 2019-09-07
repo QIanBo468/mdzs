@@ -15,7 +15,7 @@
             >
                 <div class="list" v-for='(item, index) in list' :key='index'>
                         <ul>
-                            <li class='overText'>{{item.creditName}}</li>
+                            <li class='overText'>{{item.remark}}</li>
                             <li>{{item.createdAt}}</li>
                         </ul>
                         <div>

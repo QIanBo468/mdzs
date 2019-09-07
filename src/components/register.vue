@@ -105,6 +105,7 @@ export default {
                         data: that.fromObj
                     }).then(res => {
                         if (res.success) {
+                            that.$cookies.set('status', res.data.status)
                             that.$router.push('/authentication')
                             that.$cookies.set('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
                         }else{
@@ -118,6 +119,10 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+    #registerBox{
+        width: 100%;
+        height: 100%;
+    }
     .register{
         width: 343px;
         margin: 0 auto;

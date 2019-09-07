@@ -71,9 +71,16 @@ export default {
                     data: that.obj
                 }).then(res => {
                     if (res.success) {
-                        // if(res.data.status == -2){
+                        that.$cookies.set('status', res.data.status)
+                        // if(res.data.status == -1){
                         //     Toast('未通过实名认证')
                         //     return 
+                        // }else if(res.data.status == -2){
+                        //     Toast('未认证')
+                        //     return 
+                        // }else if(res.data.status ==  0) {
+                        //     Toast('申请中')
+                        //     return
                         // }
                         that.userInfo = res.data
                         that.$cookies.set('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
