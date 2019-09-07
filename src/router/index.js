@@ -29,7 +29,6 @@ import address from '@/components/index/address'
 import mall from '@/components/mall'
 import extractRecord from '@/components/index/extractRecord'
 
-
 // import charge from '@/components/index/'
 import settingRoutes from './setting-pay-method.js'
 Vue.use(Router)

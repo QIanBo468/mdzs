@@ -13,7 +13,7 @@
                     v-model="obj.account"
                     name="phone"
                     maxlength="11"
-                    v-validate="'required|phone'"
+                    v-validate="'required|phones'"
                     :error="errors.has('phone')"
                 >
                 <template slot='left-icon'>
@@ -60,7 +60,8 @@ export default {
             obj: {},
             time: 60,
             btntxt: '发送验证码',
-            disabled: false
+            disabled: false,
+            captcha: '验证码'
         }
     },
     methods : {
@@ -122,6 +123,8 @@ export default {
                             that.$router.go('-1')
                         }
                     })
+                }else{
+                    Toast(that.errors.items[0].msg)
                 }
             })
         }
