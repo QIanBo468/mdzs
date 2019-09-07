@@ -83,10 +83,10 @@
                 </div>
             </div>
         <!-- 上传支付凭证 -->
-        <div class="uploadpz" v-if="title == 1&&bothdata.transactionLog">
+        <div class="uploadpz" v-if="title == 1">
             <div>上传支付凭证</div>
-            <div v-if="state == true"><van-uploader v-model="fileList" multiple preview-size="100" :max-count="1" :after-read="afterRead" /></div>
-            <div v-else><img :src="bothdata.transactionLog.voucher" alt=""></div>
+            <div v-if="state"><van-uploader v-model="fileList" multiple preview-size="100" :max-count="1" :after-read="afterRead" /></div>
+            <div v-else><img v-if="bothdata.transactionLog" :src="bothdata.transactionLog.voucher" alt=""></div>
         </div>
         <!-- 交易密码 -->
         <div class="transmm" v-if="title == 1 && state ==true">
@@ -114,6 +114,9 @@ export default {
                 return {}
             } ,//获得的详情
         }
+    },
+    mounted(){
+        
     },
     data(){
         return {

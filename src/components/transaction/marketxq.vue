@@ -57,7 +57,7 @@ export default {
 
 <style lang="less" scoped>
 .bothse{
-    height: 100vh;
+    // height: 100vh;
     box-sizing: border-box;
     padding:40px 0 36px;
     border: 1px solid transparent;
