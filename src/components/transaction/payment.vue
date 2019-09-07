@@ -70,7 +70,7 @@ export default {
 
             })
             .then(res=>{
-                // console.log('详情',res.data)
+                console.log('详情',res.data)
                 if(res.code == 0){  
                     _this.bothdata = res.data
                     console.log( _this.state)

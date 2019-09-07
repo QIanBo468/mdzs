@@ -3,11 +3,11 @@
         <trannav title="挂买" :leftj="true" ></trannav>
         <div class="cont">
                 <div class="contmodule">
-                    <div>挂买数量</div>
+                    <div><span>挂买数量</span><span>剩余：{{ofc}}ofc</span></div>
                     <input type="number" v-model="uploaddata.num" placeholder="请输入挂买数量">
                 </div>
                 <div class="contmodule">
-                    <div>挂买售价</div>
+                    <div><span>挂买售价</span><span>最低售价：{{price}}</span></div>
                     <input type="number" v-model="uploaddata.price" placeholder="请输入售价">
                 </div>
                 <div class="contmodule">
@@ -29,10 +29,35 @@ export default {
                 num:'',
                 price:'',
                 mm:''
-            }
+            },
+            ofc:'0',//ofc
+            price:'',//最低售价
         }
     },
+    created(){
+        this. getofc()
+    },
     methods:{
+            //获取ofc数量
+        getofc(){
+            var _this = this;
+            _this.$axios.fetchPost('/portal',{
+                interface: "4003",
+                module: "Finance",
+                source: "web",
+                version: "v1",
+                data:{}
+            })
+            .then(res =>{
+                console.log('ofc',res)
+                 if(res.code == 0){
+                   _this.ofc = res.data.ofc.have
+                   _this.price = res.data.price.have
+                }else if(res.code == 4800){
+                    _this.$toast(res.message)
+                }
+            })
+        },
         // 点击确定
         yesbuy(){
 
@@ -96,11 +121,16 @@ export default {
 .contmodule{
     padding:20px 0 0;
     div{
-       
             font-size:14px;
             font-weight:400;
             color:rgba(255,255,255,1);
-        
+        &:first-child{
+            display: flex;
+            justify-content: space-between;
+            span{
+                display: block;
+            }
+        }
     }
     input{
         height:40px;
