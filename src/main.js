@@ -48,7 +48,7 @@ const dictionary = {
       email: '邮箱',
       password: '密码',
       task_name: '任务名称',
-      phone: '手机',
+      phone: '手机号',
       task_type: '任务类型',
       task_template: '任务模板',
       task_tine_type: '时间类型',
@@ -60,19 +60,20 @@ const dictionary = {
       implementation_plan: '实施方案',
       assessment_standard: '考核指标',
       grading_standard: '评分标准',
-      score: '考核分值'
+      score: '考核分值',
+      captcha: '验证码'
     }
   }
 }
 
 Validator.updateDictionary(dictionary)
 
-Validator.extend('phone', {
+Validator.extend('phones', {
   messages: {
     zh_CN: field => field + '必须是11位手机号码'
   },
   validate: value => {
-    return value.length === 11 && /^[0-9A-Za-z]{6,20}$/.test(value)
+    return value.length === 11 && /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/.test(value)
   }
 })
 Validator.extend('password', {

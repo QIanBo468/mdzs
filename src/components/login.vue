@@ -13,7 +13,7 @@
                     placeholder="请输入手机号"
                     v-model="obj.account"
                     name="phone"
-                    v-validate="'required|phone'"
+                    v-validate="'required|phones'"
                     :error="errors.has('phone')"
                     
                 >
@@ -99,8 +99,7 @@ export default {
                     }
                 })
                 } else {
-                    // console.log(errors)
-                    Toast('格式有误')
+                    Toast(that.errors.items[0].msg)
                 }
             })
             

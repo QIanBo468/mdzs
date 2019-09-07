@@ -120,9 +120,9 @@ export default {
     },
     data(){
         return {
-            wx:'../../../../static/images/icon/weixin.png',
-            fubao:'../../../../static/images/icon/zhifubao.png',
-            yh:'../../../../static/images/icon/yinhangka.png',
+            wx:'.../../static/images/icon/weixin.png',
+            fubao:'.../../static/images/icon/zhifubao.png',
+            yh:'.../../static/images/icon/yinhangka.png',
             fileList: [],
             chuan:{
                 id:'',
