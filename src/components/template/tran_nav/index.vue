@@ -19,6 +19,10 @@ export default {
         leftj:{
             type:Boolean,
             default:false
+        },
+        teshu:{
+            type:Number,
+            default:0
         }
     },
     data(){
@@ -28,7 +32,12 @@ export default {
     methods:{
         // 返回上一页面
         goback(){
-            this.$router.go(-1)
+            if(this.teshu == 1){
+                this.$router.replace({path:'/transmarket',query:{lstate:1}})
+            }else{
+                this.$router.go(-1)
+            }
+            
         }
     },
     components:{

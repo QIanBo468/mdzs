@@ -69,7 +69,10 @@ export default {
     };
   },
   created() {
-    this.getrecord(); 
+    this.getrecord();
+    if(this.$route.query.lstate ){
+      this.tabstate = this.$route.query.lstate
+    } 
   },
   mounted() {
     window.addEventListener("scroll", this.scrollFn,true);
@@ -176,7 +179,7 @@ export default {
     buyin(index) {
       var list = this.bodylist;
       let buyid = list[index].id;
-      this.$router.push({ path: "/marketxq", query: { id: buyid } });
+      this.$router.replace({ path: "/marketxq", query: { id: buyid } });
     },
     // 出售
     chushou(index) {

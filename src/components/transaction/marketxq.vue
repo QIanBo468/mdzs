@@ -1,7 +1,7 @@
 <template>
     <div class="htmlBox">
         <div>
-        <trannav title="交易详情" :leftj="true" ></trannav>
+        <trannav title="交易详情" :leftj="true" :teshu='1'></trannav>
         <div class="bothse">
             <marketxinxi :title='0' :bothdata="bothdata"></marketxinxi>
             <router-link :to="'/payment?id='+id" ><div class="buyin">买入</div></router-link>
