@@ -84,6 +84,11 @@ export default {
             flag: true,
         }
     },
+    created () {
+        if(this.$route.query.from){
+            this.fromObj.inviteCode = this.$route.query.from
+        }
+    },
     methods : {
         onClickLeft () {
             this.$router.go(-1)

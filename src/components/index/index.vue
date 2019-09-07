@@ -121,7 +121,7 @@ export default {
         console.log(document.getElementById('box'))
     },
     created () {
-        let  status = this.$cookies.get('status')
+        // let  status = this.$cookies.get('status')
         // if(status == -1){
         //     Toast('未通过实名认证')
         //     this.$router.push('/login')

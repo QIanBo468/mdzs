@@ -231,6 +231,8 @@ export default {
                                 title: '提示',
                                 message: res.message
                             })
+                        }else{
+                            Toast(res.message)
                         }
                     })
                 }
