@@ -1,11 +1,12 @@
 <template>
-    <div >
+    <div class="htmlBox">
+        <div>
         <trannav title="交易详情" :leftj="true" ></trannav>
         <div class="bothse">
             <marketxinxi :title='0' :bothdata="bothdata"></marketxinxi>
             <router-link :to="'/payment?id='+id" ><div class="buyin">买入</div></router-link>
         </div>
-       
+       </div>
         
     </div>
 </template>
@@ -56,6 +57,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.htmlBox{
+    border:1px solid red;
+    height: 100%;
+    background:rgba(0,22,114,1);
+}
 .bothse{
     // height: 100vh;
     box-sizing: border-box;

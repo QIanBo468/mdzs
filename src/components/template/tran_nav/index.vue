@@ -1,7 +1,7 @@
 <template>
     <div>
         <van-nav-bar class="nav" @click-left="goback"  :border="false">
-            <van-icon slot="left" class="back" v-if="leftj"><img src="/static/images/icon/leftback.png" alt=""></van-icon>
+            <van-icon slot="left" class="back" v-if="leftj"><img src="../../../../static/images/icon/leftback.png" alt=""></van-icon>
             <van-icon slot="title" class="title" >{{title}}</van-icon>
         </van-nav-bar>
     </div>

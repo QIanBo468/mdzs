@@ -9,7 +9,7 @@
         <div class="centerbottom">
             <div class="todaybothdata">
                 <div>今日总交易量</div>
-                <div>{{cont.count}}ofc</div>
+                <div>{{cont.count}}</div>
             </div>
 
             <div class="flex_both">
