@@ -120,9 +120,9 @@ export default {
     },
     data(){
         return {
-            wx:'/static/images/icon/weixin.png',
-            fubao:'/static/images/icon/zhifubao.png',
-            yh:'/static/images/icon/yinhangka.png',
+            wx:'../../../../static/images/icon/weixin.png',
+            fubao:'../../../../static/images/icon/zhifubao.png',
+            yh:'../../../../static/images/icon/yinhangka.png',
             fileList: [],
             chuan:{
                 id:'',
@@ -203,6 +203,7 @@ export default {
 .marketmod{
     margin :10px 0 0;
     background:#0D2179; 
+    
     padding:0 16px;
 }
 
