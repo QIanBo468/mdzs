@@ -118,7 +118,7 @@
 
     <div class="empty"></div>
 
-    <van-button class="bind-btn" @click="bind">立即绑定</van-button>
+    <van-button :disabled="cannotBind" class="bind-btn" @click="bind">立即绑定</van-button>
   </div>
 
 </div>
@@ -146,6 +146,8 @@ export default {
     return {
       type,
       id,
+
+      cannotBind: false,
 
       title,
       captcha: "",
@@ -231,6 +233,7 @@ export default {
         param.id = this.id
       }
 
+      this.cannotBind = true
       this.$axios.fetchPost('/portal', {
         source: "web",
         version: "v1",
@@ -248,6 +251,11 @@ export default {
         } else {
           this.$toast("绑定支付方式成功")
         }
+        setTimeout(() => {
+          this.back()
+        }, 500)
+      }).catch((err) => {
+        this.cannotBind = false
       })
     },
 
@@ -400,6 +408,7 @@ export default {
 
 .empty {
   flex-grow: 1;
+  min-height: 30px;
 }
 
 .bind-btn {

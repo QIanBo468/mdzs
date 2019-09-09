@@ -107,6 +107,7 @@ export default {
           }
         }).then(res => {
           // console.log(res)
+          this.$toast("更换头像成功")
         })
       }).catch(err => {
         console.log(err)
