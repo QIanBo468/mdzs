@@ -118,7 +118,6 @@ export default {
         text
     },
     mounted() {
-        console.log(document.getElementById('box'))
     },
     created () {
         // let  status = this.$cookies.get('status')
@@ -143,18 +142,18 @@ export default {
             interface: "4005",
             data: {}
         }).then(res => {
-            let text = []
-            res.data.forEach((element, index) => {
-                text.push({
-                    text: element,
-                    key: index,
-                    time: 1000*Math.floor(Math.random()*10)
-                })
-            });
-            this.classList = text
-            console.log(text)
-            this.createDM ()
-            // this.text = text
+            if(res.success){
+                let text = []
+                res.data.forEach((element, index) => {
+                    text.push({
+                        text: element,
+                        key: index,
+                        time: 1000*Math.floor(Math.random()*10)
+                    })
+                });
+                this.classList = text
+                this.createDM ()
+            }
         })
         this.$axios.fetchPost('/portal',
         {
@@ -169,7 +168,8 @@ export default {
             //     text += index+1 +'.' + element.title + '      '
             // });
             // console.log()
-            this.text = res.data[0].title
+            if(res.success) this.text = res.data[0].title
+            
         })
     },
     methods : {

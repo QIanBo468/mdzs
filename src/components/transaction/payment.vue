@@ -4,7 +4,7 @@
             <trannav title="付款" :leftj="true" ></trannav>
             <marketxinxi :title='1' :state='state'  ref="dianji" @imgshow='imgshow' :bothdata="bothdata"></marketxinxi>
             <div class="buyin" v-if="state"  @click="qdfu">确认付款</div>
-            <div class="buyins" v-else>
+            <div class="buyins" v-if="state==false&&bothdata.onOffer !=0">
                 <div @click="qued">确认</div>
                 <div @click="tousu">投诉</div>
             </div>
@@ -134,10 +134,9 @@ export default {
                 }
             })
             .then(res=>{
-                console.log('点击确认',res)
                 if(res.code == 0){
-                     this.$dialog.alert({
-                        message: '提交成功，等待卖家确认！'
+                    this.$dialog.alert({
+                        message: res.message
                     }).then(() => {});
                 }else if(res.code == 4800 ){
                     _this.$toast(res.message)

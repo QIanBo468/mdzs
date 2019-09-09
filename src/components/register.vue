@@ -6,14 +6,14 @@
             @click-left="onClickLeft"
         />
         <div class='register'>
-            <van-cell-group style="margin: 50px auto 201px" :border=false>
+            <van-cell-group style="margin: 50px auto 201px" >
                 <van-field
                     placeholder="请输入手机号"
                     maxlength="11"
                     name="account"
                     v-model="fromObj.account"
                     :error="errors.has('account')"
-                    v-validate="'required|phone'"
+                    v-validate="'required|phones'"
                 >
                 <template slot='left-icon'>
                     <img class='inputIcon' src='../../static/images/index/account.png'/>
@@ -95,12 +95,12 @@ export default {
         },
         submit () {
             var that = this
-            if(this.flag){
-                Toast('请勾选并同意用户协议')
-                return
-            }
             this.$validator.validateAll().then(function(result) {
                 if(result){
+                    if(that.flag){
+                        Toast('请勾选并同意用户协议')
+                        return
+                    }
                     that.$axios.fetchPost('/portal',
                     {
                         source: "web",
@@ -117,6 +117,9 @@ export default {
                             Toast(res.message)
                         }
                     })
+                }else{
+                    console.log(that.errors)
+                    Toast(that.errors.items[0].msg)
                 }
             })
         }

@@ -30,7 +30,12 @@
                 <template slot='left-icon'>
                     <img class='inputIcon' src='../../static/images/index/code.png'/>
                 </template>
-                <van-button slot="button" round size="small" plain type="primary" :disabled = disabled @click='sendCode' class='code'>{{btntxt}}</van-button>
+                <template slot="button">
+                    <div @click='sendCode' class='code'>
+                        {{btntxt}}
+                    </div>
+                </template>
+                <!-- <van-button slot="button" round size="small" plain type="primary" :disabled = disabled  ></van-button> -->
                 </van-field>
 
                 <van-field
@@ -152,10 +157,15 @@ export default {
     }
     .code{
         // width:78px;
-        // height:24px;
-        // border-radius:12px;
-        // // border:1px solid rgba(248,77,77,1);
-        // background: none;
+        padding: 0 6px;
+        height:24px;
+        box-sizing: border-box;
+        border-radius:12px;
+        border:1px solid rgba(248,77,77,1);
+        // background: #F84D4D;
+        color: #F84D4D;
+        text-align: center;
+        font-size: 12px;
         // co
     }
 </style>

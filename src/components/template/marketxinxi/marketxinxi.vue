@@ -86,7 +86,8 @@
         <div class="uploadpz" v-if="title == 1">
             <div>上传支付凭证</div>
             <div v-if="state"><van-uploader v-model="fileList" multiple preview-size="100" :max-count="1" :after-read="afterRead" /></div>
-            <div v-else><img v-if="bothdata.transactionLog" :src="bothdata.transactionLog.voucher" alt=""></div>
+            <div v-if="chuan.voucher!=''&&state!=true"><img  :src="chuan.voucher" alt=""></div>
+            <div v-if="bothdata.transactionLog&&state!=true"><img :src="bothdata.transactionLog.voucher" alt=""></div>
         </div>
         <!-- 交易密码 -->
         <div class="transmm" v-if="title == 1 && state ==true">
@@ -123,7 +124,7 @@ export default {
             wx:'.../../static/images/icon/weixin.png',
             fubao:'.../../static/images/icon/zhifubao.png',
             yh:'.../../static/images/icon/yinhangka.png',
-            fileList: [],
+            fileList: [ ],
             chuan:{
                 id:'',
                 voucher:'',
@@ -138,6 +139,9 @@ export default {
         
         // this.fileList.push(imglist)
     },
+    destroyed(){
+        Object.assign(this.$data.chuan,this.$options.data().chuan)
+    },
     methods:{
         afterRead(file) {
             // 此时可以自行将文件上传至服务器
@@ -150,6 +154,9 @@ export default {
             .then(res=>{
                 console.log('图片上传',res)
                 if(res.code == 0){
+                    let ss={
+                        url:res.data.file
+                    }
                     _this.chuan.voucher = res.data.file;
                     _this.chuan.id = _this.bothdata.id
                 }else{
@@ -167,6 +174,9 @@ export default {
             }else if(_this.chuan.safeword == ''){
                 _this.$toast('请输入支付密码');
                 return false;
+            }else if(_this.chuan.safeword.length != 6){
+                this.$toast('安全密码必须由 6 位数字组成');
+                return false
             }
             _this.$axios.fetchPost('/portal',{
                 interface: "1004",
@@ -180,10 +190,9 @@ export default {
                 if(res.code == 0){
                     _this.$toast(res.message);
                     setTimeout(()=>{
-                         _this.$parent.changefuk()
+                        _this.$parent.changefuk()
                     },1200)
-                   
-                }else if(res.code == 4800 ){
+                }else if(res.code >= 4800 && res.code < 4900 ){
                     _this.$toast(res.message)
                 }
             })
@@ -333,4 +342,9 @@ export default {
         color:#fff;
     }
 }
+</style>
+<style>
+.van-uploader__upload{
+    background:#0D2179;
+}    
 </style>

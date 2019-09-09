@@ -197,7 +197,11 @@ export default {
           if(data.safeword == ''){
               this.$toast('请输入支付密码');
               return false;
+          }else if(data.safeword.length != 6){
+              this.$toast('安全密码必须由 6 位数字组成');
+              return false
           }
+          
           this.$axios.fetchPost('/portal',{
               interface: "1007",
               module: "Attachment",
@@ -216,7 +220,7 @@ export default {
                       this.bodylist = [];
                       this.getrecord();
                   },1300)
-              }else if(res.code == 4800){
+              }else if(res.code >= 4800 && res.code < 4900){
                   this.$toast(res.message)
               }
           })

@@ -76,6 +76,9 @@ export default {
             }else if(_this.uploaddata.mm == ''){
                 _this.$toast('请输入交易密码');
                 return false;
+            }else if(_this.uploaddata.mm.length != 6){
+                _this.$toast('安全密码必须由 6 位数字组成');
+                return false
             }
 
             let data={
@@ -102,7 +105,7 @@ export default {
                     setTimeout(()=>{
                         Object.assign(_this.$data.uploaddata,_this.$options.data().uploaddata)
                     },1300)
-                }else if(res.code == 4800){
+                }else if(res.code >= 4800 && res.code < 4900){
                     _this.$toast(res.message)
                 }
             })
