@@ -18,7 +18,7 @@
         <div class="login_pass" @click="empty_huancun">
           <span>清空缓存</span>
           <div class="huancun">
-            <span>300M</span>
+            <span>{{huancun}}M</span>
             <img src="../../assets/img/more_small.png" alt />
           </div>
         </div>
@@ -37,7 +37,11 @@
 <script>
 export default {
   data () {
-    return {}
+    return {
+      huancun:'',
+      max:99,
+      min:0
+    }
   },
   computed: {},
   methods: {
@@ -45,9 +49,22 @@ export default {
       this.$router.go(-1)
     },
     empty_huancun () {
+      this.$dialog({
+        message:'成功清空'+this.huancun+'M缓存！'
+      })
+      .then(()=>{
+        this.huancun = 0;
+      })
+    },
+    // 获取缓存
+    get_huancun(max=100,min=1){
+
+      this.huancun =Math.floor(Math.random() * (max - min)) + min   
     }
   },
-  created () {}
+  created () {
+    this.get_huancun()
+  }
 }
 </script>
 <style scoped>

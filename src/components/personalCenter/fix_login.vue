@@ -89,10 +89,11 @@ export default {
 }
 .sure {
   padding: 15px;
-  position: fixed;
+  /* position: fixed;
   bottom: 260px;
   left: 0;
-  right: 0;
+  right: 0; */
+   margin-top: 55px;
 }
 .sure button {
   background: #f45c68;

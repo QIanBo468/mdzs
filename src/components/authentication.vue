@@ -81,17 +81,18 @@ export default {
         },
         submit () {
             var img = this.fromObj.frontImage
-            if(this.fromObj.frontImage.indexOf('/static/images/') != -1){
-                Toast('请上传身份证正面')
-                return
-            }
-            if(this.fromObj.backImage.indexOf('/static/images/') != -1){
-                Toast('请上传身份证反面')
-                return
-            }
+            
             var that = this
             this.$validator.validateAll().then(function(result) {
                 if (result) {
+                    if(this.fromObj.frontImage.indexOf('/static/images/') != -1){
+                        Toast('请上传身份证正面')
+                        return
+                    }
+                    if(this.fromObj.backImage.indexOf('/static/images/') != -1){
+                        Toast('请上传身份证反面')
+                        return
+                    }
                     that.$axios.fetchPost('/portal',
                         {
                             source: "web",
@@ -105,6 +106,8 @@ export default {
                                 that.$router.push('/index') 
                             }
                         })
+                }else{
+                    Toast(that.errors.items[0].msg)
                 }
             })
         },
