@@ -134,10 +134,9 @@ export default {
                 }
             })
             .then(res=>{
-                console.log('点击确认',res)
                 if(res.code == 0){
-                     this.$dialog.alert({
-                        message: '提交成功，等待卖家确认！'
+                    this.$dialog.alert({
+                        message: res.message
                     }).then(() => {});
                 }else if(res.code == 4800 ){
                     _this.$toast(res.message)

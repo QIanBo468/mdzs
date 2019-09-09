@@ -7,7 +7,7 @@ import VueCookies from 'vue-cookies'
 axios.defaults.timeout = 5000
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
-axios.defaults.baseURL = '/api'
+// axios.defaults.baseURL = '/api'
 axios.interceptors.request.use((config) => {
   // this.$cookies.set('status', res.data.status)
   let token = VueCookies.get('accessToken')
@@ -37,7 +37,7 @@ axios.interceptors.response.use((res) => {
     return res
   }
 }, (error) => {
-  console.log('网络异常')
+  Toast('网络异常')
   return Promise.reject(error)
 })
 
