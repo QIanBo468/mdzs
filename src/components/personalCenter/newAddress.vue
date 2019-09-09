@@ -5,11 +5,11 @@
       <div class="add">
         <div class="adds">
           <p>姓名</p>
-          <input type="text" placeholder="请输入姓名" v-model="name"/>
+          <input type="text" placeholder="请输入姓名" v-model="name" />
         </div>
         <div class="adds">
           <p>地址</p>
-          <input type="text" placeholder="请输入有效地址" v-model="address"/>
+          <input type="text" placeholder="请输入有效地址" v-model="address" />
         </div>
       </div>
       <div class="sure">
@@ -21,47 +21,47 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      name: '',
-      address: ''
-    }
+      name: "",
+      address: ""
+    };
   },
   computed: {},
   methods: {
-    onClickLeft () {
-      this.$router.go(-1)
+    onClickLeft() {
+      this.$router.go(-1);
     },
-    submit () {
+    submit() {
       this.$axios
-        .fetchPost('/portal', {
-          interface: '8001',
-          module: 'User',
-          source: 'web',
-          version: 'v1',
+        .fetchPost("/portal", {
+          interface: "8001",
+          module: "User",
+          source: "web",
+          version: "v1",
           data: {
             name: this.name,
             address: this.address
           }
         })
         .then(res => {
-          console.log(res)
+          console.log(res);
           if (res.code == 0) {
             this.$toast({
               message: res.message,
               duration: 1000
-            })
+            });
             setTimeout(() => {
-              this.$router.push('my_Address')
-            }, 1000)
+              this.$router.push("my_Address");
+            }, 1000);
           } else {
-            this.$toast(res.message)
+            this.$toast(res.message);
           }
-        })
+        });
     }
   },
-  created () {}
-}
+  created() {}
+};
 </script>
 <style scoped>
 .newaddress {
@@ -94,10 +94,11 @@ export default {
 }
 .sure {
   padding: 15px;
-  position: fixed;
+  margin-top: 55px;
+  /* position: fixed;
   bottom: 220px;
   left: 0;
-  right: 0;
+  right: 0; */
 }
 button {
   background: #f45c68;
