@@ -178,9 +178,8 @@ export default {
           .then(res => {
             console.log('结束', res)
             if (res.code == 0) {
-              _this.winnum = Number(res.data.status) - Number(1)
-              console.log('结束', _this.winnum)
-              if (_this.click_flag && _this.winnum) {
+              _this.winnum = Number(res.data.status) - Number(1);
+              if (_this.click_flag && _this.winnum>=0) {
                 _this.indexa = ''
                 _this.indexb = ''
                 _this.rotating(_this.winnum)
@@ -470,6 +469,9 @@ export default {
   padding-top: 8px;
   font-size: 16px;
   color: #ffffff;
+}
+.content>>>.van-dialog__content{
+      padding: 15px 55px;
 }
 .van-dialog__content > span {
   color: #000;
