@@ -169,7 +169,6 @@ export default {
     },
 
     clickSms() {
-      this.$toast("验证码已发送")
       this.counter = 60
       let timer = setInterval(() => {
         if (this.counter === 0) {
@@ -201,7 +200,12 @@ export default {
             account: res.data.account,
           },
         }).then(res => {
-          console.log(res)
+          // console.log(res)
+          if (res.code !== 0) {
+            this.$toast(res.message)
+            return
+          }
+          this.$toast("验证码发送成功")
         })
       })
     },
