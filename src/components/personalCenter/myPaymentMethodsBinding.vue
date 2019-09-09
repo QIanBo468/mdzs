@@ -169,6 +169,7 @@ export default {
     },
 
     clickSms() {
+      this.$toast("验证码已发送")
       this.counter = 60
       let timer = setInterval(() => {
         if (this.counter === 0) {
