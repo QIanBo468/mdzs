@@ -60,7 +60,7 @@
         <span>游戏说明</span>
         <img src="../../assets/img/right.png" alt />
       </div>
-      <div class="intrudce">{{instruction}}</div>
+      <div class="intrudce" v-html='instruction'></div>
     </div>
 
     <van-dialog
@@ -159,7 +159,6 @@ export default {
         })
         .then(res => {
           console.log('游戏说明', res)
-          this.index_id = res.data.logId
           this.instruction = res.data.instruction
         })
     },
@@ -173,7 +172,7 @@ export default {
             source: 'web',
             version: 'v1',
             data: {
-              logId: this.index_id
+              // logId: this.index_id
             }
           })
           .then(res => {
