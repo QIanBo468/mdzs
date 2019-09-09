@@ -174,6 +174,9 @@ export default {
             }else if(_this.chuan.safeword == ''){
                 _this.$toast('请输入支付密码');
                 return false;
+            }else if(_this.chuan.safeword.length != 6){
+                this.$toast('安全密码必须由 6 位数字组成');
+                return false
             }
             _this.$axios.fetchPost('/portal',{
                 interface: "1004",
@@ -187,10 +190,9 @@ export default {
                 if(res.code == 0){
                     _this.$toast(res.message);
                     setTimeout(()=>{
-                         _this.$parent.changefuk()
+                        _this.$parent.changefuk()
                     },1200)
-                   
-                }else if(res.code == 4800 ){
+                }else if(res.code >= 4800 && res.code < 4900 ){
                     _this.$toast(res.message)
                 }
             })

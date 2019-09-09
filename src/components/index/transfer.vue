@@ -99,7 +99,7 @@ export default {
     data () {
         return {
             user: '',
-            InputImg: '../../../static/images/index/user.png',
+            InputImg: './static/images/index/user.png',
             imgFlag: true,
             placesUser: '请输入会员ID',
             placesNum: '请输入转账数量',
@@ -115,13 +115,13 @@ export default {
                 id: '',
                 captcha: ''
             },
-            typeImg: '../../../static/images/index/usdt.png',
+            typeImg: './static/images/index/usdt.png',
             list: {},
             type: '',
             iconObj: {
-                ofc: '../../../static/images/index/ofc.png',
-                usdt: '../../../static/images/index/usdt.png',
-                LoveFund:'../../../static/images/index/fund.png'
+                ofc: './static/images/index/ofc.png',
+                usdt: './static/images/index/usdt.png',
+                LoveFund:'./static/images/index/fund.png'
             }
         }
     },
@@ -225,6 +225,11 @@ export default {
                         data: that.form
                     }).then(res => {
                         if(res.success){
+                            that.form = {
+                                amount: '',
+                                id: '',
+                                captcha: ''
+                            }
                             that.list[that.type].have = that.money - that.form.amount
                             that.money = that.money - that.form.amount
                             Dialog.alert({

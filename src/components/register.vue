@@ -6,7 +6,7 @@
             @click-left="onClickLeft"
         />
         <div class='register'>
-            <van-cell-group style="margin: 50px auto 201px" :border=false>
+            <van-cell-group style="margin: 50px auto 201px" >
                 <van-field
                     placeholder="请输入手机号"
                     maxlength="11"

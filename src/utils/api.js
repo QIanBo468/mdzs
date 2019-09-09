@@ -37,7 +37,7 @@ axios.interceptors.response.use((res) => {
     return res
   }
 }, (error) => {
-  console.log('网络异常')
+  Toast('网络异常')
   return Promise.reject(error)
 })
 
