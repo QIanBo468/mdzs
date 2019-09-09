@@ -20,7 +20,7 @@
       class="uploader"
       :after-read="upload"
       />
-    <van-button class="submit-btn" @click="submit">提交</van-button>
+    <van-button :disabled="cannotBind" class="submit-btn" @click="submit">提交</van-button>
   </div>
 </div>
 </template>
@@ -31,6 +31,8 @@ export default {
     return {
       feedback: "",
       fileList: [],
+
+      cannotBind: false,
     }
   },
 
@@ -61,16 +63,23 @@ export default {
           this.uploadOne(list, i + 1)
         }
       }).catch(err => {
+        this.$toast("错误" + err)
         console.log(err)
       })
     },
 
     submit() {
+      if (!this.feedback) {
+        this.$toast("反馈内容必填")
+        return
+      }
+
       let list = []
       for (let i = 0; i < this.fileList.length; i++) {
         list.push(this.fileList[i].file._url)
       }
 
+      this.cannotBind = true
       this.$axios.fetchPost('/portal', {
         source: "web",
         version: "v1",
@@ -84,9 +93,14 @@ export default {
         // console.log(res)
         if (res.code === 0) {
           this.$toast("新增反馈成功")
+          setTimeout(() => {
+            this.back()
+          }, 500)
         } else {
           this.$toast(res.message)
         }
+      }).catch((err) => {
+        this.cannotBind = false
       })
     },
   },
@@ -119,6 +133,9 @@ export default {
 
 .submit-btn {
   background: url("../../assets/img/big_btn.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  border: none;
   color: #fff;
 }
 

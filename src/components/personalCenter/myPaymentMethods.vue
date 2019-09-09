@@ -9,56 +9,66 @@
     @load="load"
     class="list"
   >
-    <div
+    <van-swipe-cell
       v-for="(item, i) in list"
       :key="i"
-      class="item"
-      @click="clickItem(item)"
+      :on-close="onClose"
     >
-      <div class="item-left">
-        <template v-if="item.type === 1">
-          <img class="item-logo" src="../../../static/images/icon/zhifubao.png" />
-          <div v-if="item.account">
-            <div>账户名称: {{ item.realName }}</div>
-            <div>账号: {{ item.account }}</div>
-          </div>
-          <div v-else>
-            <div>绑定支付宝账号</div>
-            <div class="item-bind-msg">立即到账，方便快捷</div>
-          </div>
-        </template>
+      <div class="item" @click="clickItem(item)">
+        <div class="item-left">
+          <template v-if="item.type === 1">
+            <img class="item-logo" src="../../../static/images/icon/zhifubao.png" />
+            <div v-if="item.account">
+              <div>账户名称: {{ item.realName }}</div>
+              <div>账号: {{ item.account }}</div>
+            </div>
+            <div v-else>
+              <div>绑定支付宝账号</div>
+              <div class="item-bind-msg">立即到账，方便快捷</div>
+            </div>
+          </template>
 
-        <template v-else-if="item.type === 2">
-          <img class="item-logo" src="../../../static/images/icon/weixin.png" />
-          <div v-if="item.account">
-            <div>账户名称: {{ item.realName }}</div>
-            <div>账号: {{ item.account }}</div>
-          </div>
-          <div v-else>
-            <div>绑定微信账号</div>
-            <div class="item-bind-msg">立即到账，方便快捷</div>
-          </div>
-        </template>
+          <template v-else-if="item.type === 2">
+            <img class="item-logo" src="../../../static/images/icon/weixin.png" />
+            <div v-if="item.account">
+              <div>账户名称: {{ item.realName }}</div>
+              <div>账号: {{ item.account }}</div>
+            </div>
+            <div v-else>
+              <div>绑定微信账号</div>
+              <div class="item-bind-msg">立即到账，方便快捷</div>
+            </div>
+          </template>
 
-        <template v-else>
-          <img class="item-logo" src="../../../static/images/icon/yinhangka.png" />
-          <div v-if="item.account">
-            <div>账户名称: {{ item.realName }}</div>
-            <div>账号: {{ item.account | accountNo }}</div>
-            <div>开户行: {{ item.bankName + item.bankAddress }}</div>
-          </div>
-          <div v-else>
-            <div>绑定个人银行卡</div>
-            <div class="item-bind-msg">至少绑定一张银行卡</div>
-          </div>
-        </template>
+          <template v-else>
+            <img class="item-logo" src="../../../static/images/icon/yinhangka.png" />
+            <div v-if="item.account">
+              <div>账户名称: {{ item.realName }}</div>
+              <div>账号: {{ item.account | accountNo }}</div>
+              <div>开户行: {{ item.bankName + item.bankAddress }}</div>
+            </div>
+            <div v-else>
+              <div>绑定个人银行卡</div>
+              <div class="item-bind-msg">至少绑定一张银行卡</div>
+            </div>
+          </template>
+        </div>
+
+        <div class="item-right">
+          <span class="item-right-bind" v-if="!item.account">去绑定</span>
+          <van-icon name="arrow"></van-icon>
+        </div>
       </div>
-
-      <div class="item-right">
-        <span class="item-right-bind" v-if="!item.account">去绑定</span>
-        <van-icon name="arrow"></van-icon>
-      </div>
-    </div>
+      <template #right v-if="item.account">
+        <van-button
+          class="delete-btn"
+          square
+          type="danger"
+          text="立即删除"
+          @click="deleteItem(item, i)"
+        />
+      </template>
+    </van-swipe-cell>
   </van-list>
 
 </div>
@@ -93,6 +103,18 @@ export default {
       this.$router.go(-1)
     },
 
+    onClose (clickPosition, instance) {
+      switch (clickPosition) {
+        case 'left':
+        case 'cell':
+        case 'outside':
+          instance.close()
+          break
+        case 'right':
+          break
+      }
+    },
+
     load() {
       this.loading = true;
 
@@ -109,6 +131,32 @@ export default {
           id: item.id,
           type: item.type,
         },
+      })
+    },
+
+    deleteItem(item, i) {
+      this.$dialog.confirm({
+        title: "",
+        message: "确认删除吗？",
+      }).then(() => {
+        this.$axios.fetchPost('/portal', {
+          source: "web",
+          version: "v1",
+          module: "Finance",
+          interface: "1904",
+          data: {
+            id: item.id,
+          }
+        }).then(res => {
+          // console.log(res)
+          if (res.code !== 0) {
+            this.$toast(res.message)
+            return
+          }
+          this.list.splice(i, 1)
+          this.$toast("删除成功")
+        })
+      }).catch((err) => {
       })
     },
 
@@ -229,6 +277,10 @@ export default {
     color: #999;
     font-size: 12px;
   }
+}
+
+.delete-btn {
+  height: 100%;
 }
 
 </style>
