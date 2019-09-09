@@ -92,7 +92,6 @@ export default {
                                 that.$router.push('/index')
                             }
                         }
-                        // that.$router.push('/login')
                     }else{
                         Toast(res.message)
                     }

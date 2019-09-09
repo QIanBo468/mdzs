@@ -1,5 +1,5 @@
 <template>
-    <div >
+    <div id='marketxinxi' >
         <!-- <trannav title="交易详情" :leftj="true" v-if="title == 0"></trannav> -->
         <!-- <trannav title="付款" :leftj="true" v-if="title == 1"></trannav> -->
         <div class="marketmod markettop" v-if="bothdata">
@@ -344,7 +344,7 @@ export default {
 }
 </style>
 <style>
-.van-uploader__upload{
-    background:#0D2179;
+#marketxinxi .van-uploader__upload{
+    background:#0D2179!important;
 }    
 </style>
