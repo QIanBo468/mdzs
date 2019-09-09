@@ -15,7 +15,6 @@
                     name="phone"
                     v-validate="'required|phones'"
                     :error="errors.has('phone')"
-                    
                 >
                 <template slot='left-icon'>
                     <img class='inputIcon' src='../../static/images/index/account.png'/>
@@ -40,8 +39,8 @@
             <van-cell-group :border='false' style="margin-top: 60px;text-align: center">
                 <van-button class='btn' @click="submit">登录</van-button>
             </van-cell-group>
-            <van-cell-group :border='false' @click="$router.push('/register')" style="margin-top: 10px;text-align: center;color: #999">
-                没有账号？去注册
+            <van-cell-group :border='false' style="margin-top: 10px;text-align: center;color: #999">
+                <span  @click="$router.push('/register')">没有账号？去注册</span>
             </van-cell-group>
         </div>
     </div>

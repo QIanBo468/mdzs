@@ -49,19 +49,10 @@ const dictionary = {
       password: '密码',
       task_name: '任务名称',
       phone: '手机号',
-      task_type: '任务类型',
-      task_template: '任务模板',
-      task_tine_type: '时间类型',
-      task_tine_value: '时间类型值',
-      assisting_department: '协助单位',
-      responsible_department: '责任单位',
-      target_area: '目标新增面积',
-      target_cahnge_number: '目标改造数量',
-      implementation_plan: '实施方案',
-      assessment_standard: '考核指标',
-      grading_standard: '评分标准',
-      score: '考核分值',
-      captcha: '验证码'
+      captcha: '验证码',
+      account: '手机号',
+      safeword: '支付密码',
+      inviteCode: '邀请码'
     }
   }
 }
