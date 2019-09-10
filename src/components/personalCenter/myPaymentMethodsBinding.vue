@@ -50,11 +50,15 @@
           v-model="account"
           type="number"
           placeholder="请输入银行卡号"
+          @blur="enterAccount"
           clearable
         />
       </div>
       <div>
-        <div class="label">开户行</div>
+        <div class="label">
+        开户行
+        <span v-if="bankName">（{{ bankName }}）</span>
+        </div>
         <van-field
           class="input"
           v-model="bankAddress"
@@ -125,6 +129,8 @@
 </template>
 
 <script>
+import BIN from "./bank"
+
 export default {
   data() {
     let type = this.$route.query.type
@@ -148,6 +154,7 @@ export default {
       id,
 
       cannotBind: false,
+      bankName: "",
 
       title,
       captcha: "",
@@ -166,6 +173,15 @@ export default {
   methods: {
     back() {
       this.$router.go(-1)
+    },
+
+    enterAccount() {
+      BIN.getBankBin(this.account).then((data) => {
+        this.bankName = data.bankName || ""
+      }).catch((err) => {
+        this.bankName = ""
+        console.log(err)
+      })
     },
 
     clickSms() {
