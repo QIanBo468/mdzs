@@ -193,7 +193,11 @@ export default {
     confirms (action, done) {
       if (action == 'confirm') {
         done()
-        this.click_flag = true
+        // this.click_flag = true
+        setTimeout(() => {
+           this.$router.push('/')
+        }, 1000);
+       
       } else {
         this.click_flag = true
         this.get_list()

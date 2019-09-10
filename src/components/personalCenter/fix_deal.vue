@@ -14,25 +14,25 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      current: '',
-      newPwd: '',
-      checkPwd: ''
-    }
+      current: "",
+      newPwd: "",
+      checkPwd: ""
+    };
   },
   computed: {},
   methods: {
-    onClickLeft () {
-      this.$router.go(-1)
+    onClickLeft() {
+      this.$router.go(-1);
     },
-    fix_pass () {
+    fix_pass() {
       this.$axios
-        .fetchPost('/portal', {
-          interface: '2002',
-          module: 'User',
-          source: 'web',
-          version: 'v1',
+        .fetchPost("/portal", {
+          interface: "2002",
+          module: "User",
+          source: "web",
+          version: "v1",
           data: {
             oldSafeword: this.current,
             safeword: this.newPwd,
@@ -40,13 +40,16 @@ export default {
           }
         })
         .then(res => {
-          console.log('修改支付密码', res)
-          this.$toast(res.message)
-        })
+          console.log("修改支付密码", res);
+          this.$toast(res.message);
+          this.current = '';
+          this.newPwd = "";
+          this.checkPwd='';
+        });
     }
   },
-  created () {}
-}
+  created() {}
+};
 </script>
 <style scoped>
 .fix_deal {
