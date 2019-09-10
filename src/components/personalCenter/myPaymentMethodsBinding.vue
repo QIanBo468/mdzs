@@ -169,15 +169,7 @@ export default {
     },
 
     clickSms() {
-      this.counter = 60
-      let timer = setInterval(() => {
-        if (this.counter === 0) {
-          clearInterval(timer)
-          return
-        }
-        this.counter--
-      }, 1000)
-
+      
       this.$axios.fetchPost('/portal', {
         source: "web",
         version: "v1",
@@ -205,7 +197,17 @@ export default {
             this.$toast(res.message)
             return
           }
+          if(res.success) {
+            this.counter = 60
+            let timer = setInterval(() => {
+            if (this.counter === 0) {
+              clearInterval(timer)
+              return
+            }
+            this.counter--
+          }, 1000)
           this.$toast("验证码发送成功")
+          }
         })
       })
     },

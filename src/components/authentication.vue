@@ -6,7 +6,7 @@
             @click-left="onClickLeft"
             :border='false'
         />
-        <van-cell-group style="margin: 60px auto 40px;width: 344px">
+        <van-cell-group class='infoBox'>
             <van-field
                 type="text"
                 label="姓名"
@@ -29,7 +29,7 @@
                 :error="errors.has('identity')"
             />
         </van-cell-group>
-        <van-cell-group title="上传身份证照片" :border='false' style="margin:0 auto 120px;width: 344px">
+        <van-cell-group title="上传身份证照片" :border='false' class='uploading'>
             <van-row type="flex" justify="space-between">
                 <div class='uploaderBox'>
                     <van-uploader :after-read="afterRead" >
@@ -52,7 +52,7 @@
                 </div>
             </van-row>
         </van-cell-group>
-        <van-cell-group style="margin: 0 auto 10px;width: 344px">
+        <van-cell-group class='btnBox'>
             <van-button class='btn' @click='submit'>提交</van-button>
         </van-cell-group>
     </div>
@@ -85,11 +85,11 @@ export default {
             var that = this
             this.$validator.validateAll().then(function(result) {
                 if (result) {
-                    if(this.fromObj.frontImage.indexOf('/static/images/') != -1){
+                    if(that.fromObj.frontImage.indexOf('/static/images/') != -1){
                         Toast('请上传身份证正面')
                         return
                     }
-                    if(this.fromObj.backImage.indexOf('/static/images/') != -1){
+                    if(that.fromObj.backImage.indexOf('/static/images/') != -1){
                         Toast('请上传身份证反面')
                         return
                     }
@@ -103,7 +103,7 @@ export default {
                         }).then(res => {
                             Toast(res.message)
                             if(res.success) {
-                                that.$router.push('/index') 
+                                that.$router.push('/login')
                             }
                         })
                 }else{
@@ -169,6 +169,9 @@ export default {
         border-radius: 22px;
         color: #fff;
     }
+    .btnBox{
+        margin: 0 auto 10px;width: 344px
+    }
     .imgBox{
         width: 162px;
         height: 98px
@@ -189,5 +192,13 @@ export default {
         background: rgba(0,0,0,0.5);
         text-align: center;
         line-height: 98px
+    }
+    .uploading{
+        margin:0 auto 120px;
+        width: 344px
+    }
+    .infoBox{
+        margin: 60px auto 40px;
+        width: 344px
     }
 </style>

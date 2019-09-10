@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '@/components/login'
 import Password from '@/components/password'
 import authentication from '@/components/authentication'
+import result from '@/components/result'
 import register from '@/components/register'
 import index from '@/components/index'
 import tabbarBox from '@/components/tabbarBox'
@@ -56,6 +57,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: register
+    },
+    {
+      path: '/result',
+      name: 'result',
+      component: result
     },
     {
       path: '/notice',

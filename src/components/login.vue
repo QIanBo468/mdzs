@@ -70,7 +70,7 @@ export default {
                     data: that.obj
                 }).then(res => {
                     if (res.success) {
-                        // that.$cookies.set('status', res.data.status)
+                        that.$cookies.set('status', res.data.status)
                         that.userInfo = res.data
                         that.$cookies.set('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
                         if(confirm('是否直接进入')){

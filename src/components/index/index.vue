@@ -123,11 +123,11 @@ export default {
         // let  status = this.$cookies.get('status')
         // if(status == -1){
         //     Toast('未通过实名认证')
-        //     this.$router.push('/login')
+        //     this.$router.push('/authentication')
         //     return
         // }else if(status == -2){
         //     Toast('未认证')
-        //     this.$router.push('/login')
+        //     this.$router.push('/authentication')
         //     return 
         // }else if(status ==  0) {
         //     Toast('申请中')
@@ -187,7 +187,7 @@ export default {
             data: that.classList, // 弹幕数据
             config: {
                 // 全局配置项
-                duration: 30000, // 弹幕循环周期(单位：毫秒)
+                duration: 15000, // 弹幕循环周期(单位：毫秒)
                 defaultColor: '#fff', // 弹幕默认颜色
                 fontSize: 12,
             },

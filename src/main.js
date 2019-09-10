@@ -52,7 +52,9 @@ const dictionary = {
       captcha: '验证码',
       account: '手机号',
       safeword: '支付密码',
-      inviteCode: '邀请码'
+      inviteCode: '邀请码',
+      realName: '姓名',
+      identity: '身份证号'
     }
   }
 }
