@@ -25,7 +25,7 @@
                 </template>
             </InputImg> -->
             
-            <div class="inputBox" style="width: 343px;height: 40px;margin: 0 auto">
+            <div class="inputBox">
                 <van-field
                     placeholder="请输入钱包地址"
                     :border="false"
@@ -40,7 +40,7 @@
             <div class='title'>
                 提币数量
             </div>
-            <div class="inputBox" style="width: 343px;height: 40px;margin: 0 auto 40px">
+            <div class="inputBox" style="margin: 0 auto 40px">
                 <van-field
                     type="number"
                     placeholder="请输入提币数量"
@@ -203,17 +203,18 @@ export default {
                 color: #fff;
             }
             .inputBox{
-                width: 100%;
-                height: 100%;
+                width: 343px;height: 40px;
+                // width: 100%;
+                // height: 100%;
                 display: flex;
                 border: 1px solid #D8D8D8;
-                padding: 8px;
+                padding: 6px;
                 box-sizing: border-box;
                 justify-content: space-between;
                 border-radius:4px;
                 font-size: 14px;
                 input{
-                    // height: 20px;
+                    height: 20px;
                     flex: 1;
                     border: 0;
                     font-size: 14px;

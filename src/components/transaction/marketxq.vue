@@ -4,7 +4,8 @@
         <trannav title="交易详情" :leftj="true" :teshu='1'></trannav>
         <div class="bothse">
             <marketxinxi :title='0' :bothdata="bothdata"></marketxinxi>
-            <router-link :to="'/payment?id='+id" ><div class="buyin">买入</div></router-link>
+            <div class="buyin" @click='submit'>买入</div>
+            <!-- <router-link :to="'/payment?id='+id" ></router-link> -->
         </div>
        </div>
         
@@ -47,6 +48,21 @@ export default {
                 }else if(res.code == 4800){
                     _this.$toast(res.message)
                 }
+            })
+        },
+        submit() {
+            var _this = this;
+            _this.$axios.fetchPost('/portal',{
+                interface: "1004",
+                module: "Attachment",
+                source: "web",
+                version: "v1",
+                data:{
+                    id:_this.id
+                }
+
+            }).then(res => {
+                _this.$router.push({path:'/payment',query:{id: _this.id}})
             })
         }
     },

@@ -35,9 +35,9 @@
           <div>{{item.price}}</div>
         </div>
 
-        <div class="list_model clickview" @click="chexiao(index)" v-if="item.onComplaint == 0&&item.onOffer == 1">
+        <div class="list_model clickview" v-if="item.onComplaint == 0&&item.onOffer == 1">
           <div></div>
-          <div>撤销</div>
+          <div  @click="chexiao(index)">撤销</div>
         </div>
       </div>
     </div>

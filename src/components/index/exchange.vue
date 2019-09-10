@@ -20,7 +20,7 @@
                 兑换数量
             </div>
             <!-- <InputImg  :placeholder='placeNum' @changeInp='changeVal' :value='user' > -->
-            <div class='inputBox' style="width: 343px;height: 40px;margin: 0 auto">
+            <div class='inputBox'>
                 <input type="number" v-model="num" placeholder="请输入兑换数量">
 
             </div>
@@ -130,11 +130,12 @@ export default {
                 margin:  10px 0;
             }
             .inputBox{
-                width: 100%;
-                height: 100%;
                 display: flex;
                 border: 1px solid #D8D8D8;
                 padding: 8px;
+                width: 343px;
+                height: 40px;
+                margin: 0 auto;
                 box-sizing: border-box;
                 justify-content: space-between;
                 border-radius:4px;

@@ -179,7 +179,7 @@ export default {
                 return false
             }
             _this.$axios.fetchPost('/portal',{
-                interface: "1004",
+                interface: "1008",
                 module: "Attachment",
                 source: "web",
                 version: "v1",
