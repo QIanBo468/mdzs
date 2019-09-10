@@ -3,7 +3,7 @@
         <div>
         <trannav title="交易详情" :leftj="true" :teshu='1'></trannav>
         <div class="bothse">
-            <marketxinxi :title='0' :bothdata="bothdata"></marketxinxi>
+            <marketxinxi :title='0' :islook='islook' :bothdata="bothdata"></marketxinxi>
             <div class="buyin" @click='submit'>买入</div>
             <!-- <router-link :to="'/payment?id='+id" ></router-link> -->
         </div>
@@ -20,6 +20,7 @@ export default {
         return {
             id:'',//传来的id
             bothdata:{},//详情里的数据
+            islook:false,
         }
     },
     created(){
@@ -44,6 +45,9 @@ export default {
                 // console.log('详情',res.data)
                 if(res.code == 0){  
                     _this.bothdata = res.data
+                     if(res.data.payment && res.data.payment.length >3){
+                        _this.islook=true;
+                    }
                     console.log( _this.bothdata)
                 }else if(res.code == 4800){
                     _this.$toast(res.message)

@@ -2,7 +2,7 @@
     <div>
         <div class="bothse">
             <trannav title="付款" :leftj="true" ></trannav>
-            <marketxinxi :title='1' :state='state'  ref="dianji" @imgshow='imgshow' :bothdata="bothdata"></marketxinxi>
+            <marketxinxi :title='1' :state='state' :islook='islook'  ref="dianji" @imgshow='imgshow' :bothdata="bothdata"></marketxinxi>
             <div class="buyin" v-if="state"  @click="qdfu">确认付款</div>
             <div class="buyins" v-if="state==false&&bothdata.onOffer !=0">
                 <div @click="qued">确认</div>
@@ -34,6 +34,7 @@ export default {
 
             id:'',//传来的id
             bothdata:{},//详情里的数据
+            islook:false,
         }
     },
     created(){
@@ -73,6 +74,9 @@ export default {
                 console.log('详情',res.data)
                 if(res.code == 0){  
                     _this.bothdata = res.data
+                    if(res.data.payment && res.data.payment.length >3){
+                        _this.islook=true;
+                    }
                     console.log( _this.state)
                 }else if(res.code == 4800){
                     _this.$toast(res.message)
@@ -96,6 +100,9 @@ export default {
                 // console.log('详情',res.data)
                 if(res.code == 0){  
                     _this.bothdata = res.data
+                    if(res.data.payment && res.data.payment.length >3){
+                        _this.islook=true;
+                    }
                     console.log( _this.state)
                 }else if(res.code == 4800){
                     _this.$toast(res.message)

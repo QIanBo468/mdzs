@@ -38,7 +38,7 @@
         <div class="marketmod lastdiv">
             <div class="maihome">卖家账号</div>
             
-            <div class="xincont" v-for="(item,index) in bothdata.payment" :key="index">
+            <div class="xincont" v-if="islooks == true? index<3:true " v-for="(item,index) in bothdata.payment" :key="index">
                 <div class="contimg"><img :src="item.type == 1? fubao:item.type == 2? wx:yh " alt=""></div>
                 <div class="cont_ent">
                     <div>账号名称：{{item.realName}}</div>
@@ -66,7 +66,7 @@
                 </div>
             </div> -->
 
-            <!-- <div class="lookmore">查看更多</div> -->
+            <div class="lookmore" v-if="islook" @click="qiehuanlook">查看更多</div>
             <!-- <div class="buyin" v-if="title == 0">买入</div> -->
             
         </div>
@@ -109,16 +109,19 @@ export default {
             type:Boolean,
             default: true, //true  需要输入交易密码
         },
+        islook:false,//true显示，false不显示
         bothdata:{
             type:Object,
             default(){
                 return {}
             } ,//获得的详情
+        },
+        islook:{
+            type:Boolean,
+            default:true
         }
     },
-    mounted(){
-        
-    },
+
     data(){
         return {
             wx:'.../../static/images/icon/weixin.png',
@@ -130,19 +133,24 @@ export default {
                 voucher:'',
                 safeword:'',
             },
+            islooks:true,
         }
     },
     created(){
-        // let imglist = {
-        //     url: this.bothdata.voucher
-        // };
         
-        // this.fileList.push(imglist)
+    },
+    mounted(){
+   
+        
     },
     destroyed(){
         Object.assign(this.$data.chuan,this.$options.data().chuan)
     },
     methods:{
+        // 切换look
+        qiehuanlook(){
+            this.islooks = false
+        },
         afterRead(file) {
             // 此时可以自行将文件上传至服务器
             console.log(file.file);
