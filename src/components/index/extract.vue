@@ -125,12 +125,12 @@ export default {
             var that = this
             this.$validator.validateAll().then(function(result) {
                 if(result){
-                    that.$axios.fetchPost('/portal',
+                    that.$axios.fetchPost('/portal/digiccy',
                     {
                         source: "web",
                         version: "v1",
-                        module: "Finance",
-                        interface: "4001",
+                        module: "Wallet",
+                        interface: "2003",
                         data: {amount: that.num,address: that.address }
                     }).then(res => {
                         if(res.success){
@@ -140,6 +140,8 @@ export default {
                                 title: '提示',
                                 message: res.message
                             })
+                        }else if(res.code == 4800){
+                            Toast(res.message)
                         }
                     })
                 }

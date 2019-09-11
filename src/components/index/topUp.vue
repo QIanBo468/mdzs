@@ -1,12 +1,19 @@
 <template>
     <div id='conversion'>
-         <van-nav-bar
+        <van-nav-bar
             title="充币记录"
             left-arrow
             :border="false"
+            @click-left="$router.go(-1)"
         />
         <div class='box'>
-            <div class='record' v-for='item in 4' :key='item'>
+            <van-list
+            v-model="loading"
+            :finished="finished"
+            finished-text="没有更多了"
+            @load="onLoad"
+            >
+                <div class='record' v-for='item in 4' :key='item'>
                 <div class='status'>充币中</div>
                 <ul>
                     <li>
@@ -27,12 +34,46 @@
                     </li>
                 </ul>
             </div>
+            </van-list>
         </div>
     </div>
 </template>
 <script>
 export default {
-    
+    data () {
+        return {
+            list: [],
+            finished: false,
+            loading: false,
+            page: 1,
+            lastPage: null,
+            lastId: 0,
+            status: '',
+        }
+    },
+    methods: {
+        onLoad() {
+            if (this.lastPage && this.lastPage < this.page) {
+                this.finished = true
+                this.loading = false;
+            }else{
+                
+                this.$axios.fetchPost('/portal/digiccy',
+                {
+                    source: "web",
+                    version: "v1",
+                    module: "Wallet",
+                    interface:  1002,
+                    data: {lastId: this.lastId,page: this.page ++,isOut: true}
+                }).then(res => {
+                    this.list = this.list.concat(res.data.list)
+                    this.lastPage = res.data.lastPage
+                    this.loading = false;
+                    this.lastId = res.data.lastId
+                })
+            }
+        },
+    }
 }
 </script>
 <style lang="less">
