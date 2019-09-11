@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="box">
         <div class="bothse">
             <trannav title="付款" :leftj="true" ></trannav>
             <marketxinxi :title='1' :state='state' :islook='islook'  ref="dianji" @imgshow='imgshow' :bothdata="bothdata"></marketxinxi>
@@ -185,6 +185,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.box{
+    width: 100%;
+    min-height: 100%;
+    background:rgba(0,22,114,1);
+}
 .van-popup--center {
     background: #040A24;
     overflow: hidden;
@@ -192,8 +197,9 @@ export default {
 .bothse{
     padding:40px 0 36px;
     border: 1px solid transparent;
-    height: 100%;
-    background:rgba(0,22,114,1);
+    // min-height: 100%;
+    box-sizing: border-box;
+    
     a{
         display: block;
     }
