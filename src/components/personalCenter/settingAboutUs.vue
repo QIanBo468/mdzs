@@ -9,7 +9,7 @@
       </div>
 
       <div class="licence">
-        <h3 class="licence-head">用户注册协议</h3>
+        <!-- <h3 class="licence-head">用户注册协议</h3> -->
         <div v-html="content"></div>
       </div>
 
