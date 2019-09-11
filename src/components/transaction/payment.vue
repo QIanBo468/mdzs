@@ -187,6 +187,7 @@ export default {
 .bothse{
     padding:40px 0 36px;
     border: 1px solid transparent;
+    height: 100%;
     background:rgba(0,22,114,1);
     a{
         display: block;
