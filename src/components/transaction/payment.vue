@@ -131,24 +131,25 @@ export default {
         //点击确定
         qued(){
             var _this = this;
-            _this.$axios.fetchPost('/portal',{
-                interface: "1005",
-                module: "Attachment",
-                source: "web",
-                version: "v1",
-                data:{
-                    id:_this.id
-                }
-            })
-            .then(res=>{
-                if(res.code == 0){
-                    this.$dialog.alert({
-                        message: res.message
-                    }).then(() => {});
-                }else if(res.code == 4800 ){
-                    _this.$toast(res.message)
-                }
-            })
+            _this.$refs.dianji.tousuque()
+            // _this.$axios.fetchPost('/portal',{
+            //     interface: "1005",
+            //     module: "Attachment",
+            //     source: "web",
+            //     version: "v1",
+            //     data:{
+            //         id:_this.id
+            //     }
+            // })
+            // .then(res=>{
+            //     if(res.code == 0){
+            //         this.$dialog.alert({
+            //             message: res.message
+            //         }).then(() => {});
+            //     }else if(res.code == 4800 ){
+            //         _this.$toast(res.message)
+            //     }
+            // })
         },
         //点击投诉
         tousu(){

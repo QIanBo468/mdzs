@@ -85,8 +85,8 @@
         <!-- 上传支付凭证 -->
         <div class="uploadpz" v-if="title == 1">
             <div>上传支付凭证</div>
-            <div v-if="state"><van-uploader v-model="fileList" multiple preview-size="100" :max-count="1" :after-read="afterRead" /></div>
-            <div v-if="chuan.voucher!=''&&state!=true"><img  :src="chuan.voucher" alt=""></div>
+            <div v-if="state ||bothdata.onOffer ==3"><van-uploader v-model="fileList" multiple preview-size="100" :max-count="1" :after-read="afterRead" /></div>
+            <div v-if="chuan.voucher!=''&&state!=true&&bothdata.onOffer !=3"><img  :src="chuan.voucher" alt=""></div>
             <div v-if="bothdata.transactionLog&&state!=true"><img :src="bothdata.transactionLog.voucher" alt=""></div>
         </div>
         <!-- 交易密码 -->
@@ -193,7 +193,34 @@ export default {
                 }
             })
         },
-
+        // 有投诉的确认
+        tousuque(){
+            var _this = this;
+            if(_this.bothdata.onOffer == 3){
+                if(_this.chuan.voucher == ''){
+                    _this.$toast('请上传支付凭证');
+                    return false;
+                }
+            }
+            _this.$axios.fetchPost('/portal',{
+                interface: "1005",
+                module: "Attachment",
+                source: "web",
+                version: "v1",
+                data:{
+                    id:_this.chuan.id 
+                }
+            })
+            .then(res=>{
+                if(res.code == 0){
+                    this.$dialog.alert({
+                        message: res.message
+                    }).then(() => {});
+                }else if(res.code == 4800 ){
+                    _this.$toast(res.message)
+                }
+            })
+        },
         // 需提交的 方法
         upqd(){
             var _this = this;
