@@ -199,7 +199,13 @@ export default {
     goxq(index){
         let list = this.bodylist;
         let id = list[index].id;
-        if(list[index].onOffer != 1){
+        console.log(list[index].onOffer)
+        // return false;
+         if(list[index].onOffer == 3){
+          // console.log(list[index].onOffer)
+          this.$router.push({path:'/payment',query:{id:id,states:true}})
+        }
+        if(list[index].onOffer != 1 && list[index].onOffer != 3){
           this.$router.push({path:'/payment',query:{id:id,states:false}})
         }
         
