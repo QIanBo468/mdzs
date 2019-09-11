@@ -178,7 +178,17 @@ export default {
                     _this.chuan.voucher = res.data.file;
                     _this.chuan.id = _this.bothdata.id
                     _this.show = false;
+                    
                 }else{
+                    _this.$dialog.confirm({
+                        title: '',
+                        showCancelButton:false,
+                        message: '上传失败，请重新上传'
+                        }).then(() => {
+                        // on confirm
+                            _this.fileList = [];
+                            _this.show = false;
+                        })
                      _this.$toast(res.message)
                 }
             })
