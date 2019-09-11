@@ -149,11 +149,11 @@ export default {
                     // that.isidentity_img_just = false;
                 }, 2500)
                 }else{
-                Toast(res.message)
+                    Toast('上传失败')
                 }
             }).catch( res => {
                 this.isShowLoding = false;
-                Toast(res.message)
+                Toast('上传失败')
             })
         },
     }
