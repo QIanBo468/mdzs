@@ -149,6 +149,7 @@ export default {
                     // that.isidentity_img_just = false;
                 }, 2500)
                 }else{
+                    this.isShowLoding = false;
                     Toast('上传失败')
                 }
             }).catch( res => {
