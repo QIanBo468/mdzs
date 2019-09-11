@@ -104,6 +104,7 @@ export default {
                     _this.$toast(res.message)
                     setTimeout(()=>{
                         Object.assign(_this.$data.uploaddata,_this.$options.data().uploaddata)
+                        _this.getofc()
                     },1300)
                 }else if(res.code >= 4800 && res.code < 4900){
                     _this.$toast(res.message)

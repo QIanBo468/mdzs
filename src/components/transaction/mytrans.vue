@@ -199,8 +199,10 @@ export default {
     goxq(index){
         let list = this.bodylist;
         let id = list[index].id;
-        if(list[index].onOffer != 1)
-        this.$router.push({path:'/payment',query:{id:id,states:false}})
+        if(list[index].onOffer != 1){
+          this.$router.push({path:'/payment',query:{id:id,states:false}})
+        }
+        
     }
   },
   components: {}
