@@ -1,5 +1,5 @@
 <template>
-    <div id='marketxinxi' >
+    <div id='marketxinxi'>
         <!-- <trannav title="交易详情" :leftj="true" v-if="title == 0"></trannav> -->
         <!-- <trannav title="付款" :leftj="true" v-if="title == 1"></trannav> -->
         <div class="marketmod markettop" v-if="bothdata">
@@ -94,6 +94,13 @@
             <div>交易密码</div>
             <input type="password" v-model="chuan.safeword" placeholder="请输入交易密码" />
         </div>
+        
+        <van-overlay  :show="show" />
+        <div class="share" v-if="show">
+             <van-loading class="quzhong" color="#fff" size="50" />
+        </div> 
+        
+       
     </div>
 </template>
 
@@ -134,6 +141,7 @@ export default {
                 safeword:'',
             },
             islooks:true,
+            show:false,
         }
     },
     created(){
@@ -156,10 +164,12 @@ export default {
             console.log(file.file);
             let cont = new FormData();
             cont.append('file',file.file)
+            this.show = true;
             var _this = this;
 
             _this.$axios.fetchPost('/upload', cont)
             .then(res=>{
+                
                 console.log('图片上传',res)
                 if(res.code == 0){
                     let ss={
@@ -167,6 +177,7 @@ export default {
                     }
                     _this.chuan.voucher = res.data.file;
                     _this.chuan.id = _this.bothdata.id
+                    _this.show = false;
                 }else{
                      _this.$toast(res.message)
                 }
@@ -349,6 +360,21 @@ export default {
         font-weight:400;
         color:#fff;
     }
+}
+.share{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top:0;
+    left: 0;
+    z-index: 99;
+    // background:rgba(0,0,0,0.5);
+   
+}
+.quzhong{
+    position: fixed;
+    top:45%;
+    left:45%;
 }
 </style>
 <style>
