@@ -147,17 +147,17 @@ export default {
             console.log("折线图", res);
             if (res.code == 0) {
                 _this.cont = res.data
-                // var list = res.data.list
-                console.log(res.data.series.yData)
-                _this.xarr = res.data.series.xData
-             
-                _this.yarr = res.data.series.yData
-                // console.log(list)
-                // for(var i  in list){
-                //     _this.yarr.push(list[i].price);
-                //     _this.xarr.push('');
-                // }
-    
+                var list = res.data.list
+                console.log(list)
+                for(var i  in list){
+                    _this.yarr.push(list[i].price);
+                    _this.xarr.push('');
+                }
+            
+                
+        
+
+                
             } else if (res.code == 4800) {
                 _this.$toast(res.message);
             }
