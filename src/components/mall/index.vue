@@ -7,7 +7,7 @@
                 <ul>
                     <li class='overText'>{{item.title}}</li>
                     <li>算力：{{item.calculation}}G</li>
-                    <li class="red">租赁价格：{{item.price}}</li>
+                    <li class="red">租赁价格：{{item.price}}usdt</li>
                 </ul>
                 <div class='btn_' @click='buy(item)'>购买</div>
             </div>

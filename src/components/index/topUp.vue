@@ -13,24 +13,20 @@
             finished-text="没有更多了"
             @load="onLoad"
             >
-                <div class='record' v-for='item in 4' :key='item'>
-                <div class='status'>充币中</div>
+                <div class='record' v-for='(item, index) in list' :key='index'>
+                <div class='status' :class='item.status==1 ? "active" : ""'>{{statusArr[item.status]}}</div>
                 <ul>
                     <li>
-                        <div>会员ID</div>
-                        <div>2387489273</div>
+                        <div>充币地址</div>
+                        <div>{{item.address}}</div>
                     </li>
                     <li>
                         <div>提交时间</div>
-                        <div>2019.08.12 14:12:12</div>
-                    </li>
-                    <li>
-                        <div>钱包类型</div>
-                        <div>usde</div>
+                        <div>{{item.createdAt}}</div>
                     </li>
                     <li>
                         <div>充币数量</div>
-                        <div class='red'>2019.08.12 14:12:12</div>
+                        <div class='red'>{{item.amount}}</div>
                     </li>
                 </ul>
             </div>
@@ -49,6 +45,11 @@ export default {
             lastPage: null,
             lastId: 0,
             status: '',
+            statusArr:{
+                '-1':'已驳回',
+                '0': '充值中',
+                '1': "已通过",
+            }
         }
     },
     methods: {
@@ -98,6 +99,9 @@ export default {
                     color: #F84D4D;
                     margin-bottom: 10px;
                 }
+                .active{
+                    color: #1890FF;
+                }
                 .red{
                     color: #F84D4D;
                 }
@@ -114,6 +118,9 @@ export default {
                     }
                     div:last-child{
                         width: 70%;
+                        overflow: hidden;
+                        text-overflow:ellipsis;
+                        white-space: nowrap;
                     }
                 }
                 li:last-child{

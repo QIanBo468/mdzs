@@ -13,7 +13,7 @@
         <div v-html="content"></div>
       </div>
 
-      <div class="copy">copyright@med</div>
+      <!-- <div class="copy">copyright@med</div> -->
     </div>
   </div>
 </template>

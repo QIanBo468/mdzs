@@ -40,7 +40,7 @@
             <div class='title'>
                 提币数量
             </div>
-            <div class="inputBox" style="margin: 0 auto 40px">
+            <div class="inputBox" style="margin-bottom: 40px">
                 <van-field
                     type="number"
                     placeholder="请输入提币数量"

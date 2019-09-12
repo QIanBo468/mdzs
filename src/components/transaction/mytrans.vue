@@ -201,7 +201,7 @@ export default {
         let id = list[index].id;
         console.log(list[index].onOffer)
         // return false;
-         if(list[index].onOffer == 3){
+        if(list[index].onOffer == 3){
           // console.log(list[index].onOffer)
           this.$router.push({path:'/payment',query:{id:id,states:true}})
         }
