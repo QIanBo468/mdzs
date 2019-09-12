@@ -4,7 +4,7 @@
             <trannav title="付款" :leftj="true" ></trannav>
             <marketxinxi :title='1' :state='state' :islook='islook'  ref="dianji" @imgshow='imgshow' :bothdata="bothdata"></marketxinxi>
             <div class="buyin" v-if="state"  @click="qdfu">确认付款</div>
-            <div class="buyins" v-if="state==false&&bothdata.onOffer !=0">
+            <div class="buyins" v-if="state==false&&bothdata.onOffer !=0&&bothdata.onOffer !=-1">
                 <div @click="qued">确认</div>
                 <div @click="tousu">投诉</div>
             </div>
@@ -14,7 +14,6 @@
             <div class="tan"><img :src="tu" alt=""></div>
             <div class="quxiao" @click="show =false"><img src="../../../static/images/icon/quxiao.png" alt=""></div>
         </van-popup>
-       
 
         
         

@@ -201,13 +201,17 @@ export default {
         let id = list[index].id;
         console.log(list[index].onOffer)
         // return false;
-        if(list[index].onOffer == 3){
+        if(list[index].onOffer == 3 && this.tabstate != 1){
           // console.log(list[index].onOffer)
           this.$router.push({path:'/payment',query:{id:id,states:true}})
         }
         if(list[index].onOffer != 1 && list[index].onOffer != 3){
           this.$router.push({path:'/payment',query:{id:id,states:false}})
         }
+        if(list[index].onOffer == 3){
+          this.$router.push({path:'/payment',query:{id:id,states:false}})
+        }
+
         
     }
   },
