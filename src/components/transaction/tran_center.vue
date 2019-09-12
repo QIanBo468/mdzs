@@ -49,10 +49,11 @@ export default {
             cont:'', //获取的数据
             yarr:[],
             xarr:[],
+            newlist:[],
         }
     },
     created(){
-        this.getzheimg()
+        this.getzheimg();
     },
     mounted() {
         
@@ -102,7 +103,27 @@ export default {
                       
                 }, 
    
-            }]
+            }
+           
+            ]
+             // {
+            //     data: this.yarr,
+            //     type: 'line',
+            //     smooth: true,//折点是圆弧状的
+
+            //     symbol: 'circle',     //折点设定为实心点
+            //     symbolSize: 10,   //设定实心点的大小
+
+            //       itemStyle : {    
+            //         normal : {    
+            //             lineStyle:{    
+            //                 color:'#ffffff'    
+            //             },
+            //             color: 'red'   
+            //         }  
+                      
+            //     }, 
+            // }
         }
         
     },
@@ -126,17 +147,36 @@ export default {
             console.log("折线图", res);
             if (res.code == 0) {
                 _this.cont = res.data
-                var list = res.data.list
-                console.log(list)
-                for(var i  in list){
-                    _this.yarr.push(list[i].price);
-                    _this.xarr.push('');
-                }
+                // var list = res.data.list
+                console.log(res.data.series.yData)
+                _this.xarr = res.data.series.xData
+             
+                _this.yarr = res.data.series.yData
+                // console.log(list)
+                // for(var i  in list){
+                //     _this.yarr.push(list[i].price);
+                //     _this.xarr.push('');
+                // }
+    
             } else if (res.code == 4800) {
                 _this.$toast(res.message);
             }
             });
         },
+        formatDateTime (date) {  
+                var y = date.getFullYear();  
+                var m = date.getMonth() + 1;  
+                m = m < 10 ? ('0' + m) : m;  
+                var d = date.getDate();  
+                d = d < 10 ? ('0' + d) : d;  
+                var h = date.getHours();  
+                h=h < 10 ? ('0' + h) : h;  
+                var minute = date.getMinutes();  
+                minute = minute < 10 ? ('0' + minute) : minute;  
+                var second=date.getSeconds();  
+                second=second < 10 ? ('0' + second) : second;  
+                return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;  
+            },
     },
     components:{
         'chart':ECharts
