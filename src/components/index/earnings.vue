@@ -46,7 +46,7 @@
         </div>
         <div class="list" v-for='(item, index) in earnings.list' :key='index'>
             <ul>
-                <li class='overText'>{{item.creditName}}</li>
+                <li class='overText'>{{item.remark}}</li>
                 <li>{{item.createdAt}}</li>
             </ul>
             <div>
@@ -181,7 +181,8 @@ export default {
     box-sizing: border-box;
     border-bottom: 1px solid #f9f9f9;
     ul{
-        width: 120px;
+        // width: 120px;
+        max-width: 200px;
         overflow: hidden;
         height: 100%;
         li{

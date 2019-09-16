@@ -126,9 +126,14 @@ export default {
         }
     },
     created () {
-        this.type = this.$route.query.type
+        let type = ''
+        if( this.$route.query.type =='LoveFund'){
+            this.type = '爱心基金'
+        }else{
+            this.type = this.$route.query.type
+        }
+        this.typeImg = this.iconObj[this.$route.query.type]
         this.radio = this.$route.query.type
-        console.log(this.type)
         this.$axios.fetchPost('/portal',
         {
             source: "web",
@@ -139,13 +144,19 @@ export default {
         }).then(res => {
             if(res.success){
                 this.list = res.data
-                this.money = res.data[this.type].have
+                var obj =  ''
+                if(this.type == '爱心基金') {
+                    obj = 'LoveFund'
+                }else{
+                    obj = this.type
+                }
+                this.money = res.data[obj].have
             }
         })
     },
     methods : {
         onClickLeft () {
-            if(this.$route.query.type =='LoveFund'){
+            if(this.$route.query.type =='爱心基金'){
                 this.$router.push('/fund')
             }else if(this.$route.query.type =='ofc'){
                 this.$router.push('/ofc')

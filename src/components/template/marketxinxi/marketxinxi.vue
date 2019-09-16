@@ -79,7 +79,7 @@
 
                 <div class="list_model">
                     <div>买家手机号</div>
-                    <div>{{bothdata.buyer.mobile}}</div>
+                    <div>{{bothdata.buyer.account}}</div>
                 </div>
             </div>
         <!-- 上传支付凭证 -->

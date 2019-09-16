@@ -63,12 +63,12 @@ export default {
                 this.loading = false;
             }else{
                 
-                this.$axios.fetchPost('/portal',
+                this.$axios.fetchPost('/portal/digiccy',
                 {
                     source: "web",
                     version: "v1",
-                    module: "Finance",
-                    interface: "4002",
+                    module: "Wallet",
+                    interface: "2002",
                     data: {lastId: this.lastId,page: this.page ++}
                 }).then(res => {
                     this.list = this.list.concat(res.data.list)

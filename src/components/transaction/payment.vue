@@ -14,7 +14,6 @@
             <div class="tan"><img :src="tu" alt=""></div>
             <div class="quxiao" @click="show =false"><img src="../../../static/images/icon/quxiao.png" alt=""></div>
         </van-popup>
-       
 
         
         

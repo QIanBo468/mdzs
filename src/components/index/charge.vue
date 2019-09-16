@@ -2,9 +2,11 @@
     <div id='charge'>
         <van-nav-bar
             title="充币"
+            right-text="充币记录"
             left-arrow
             :border="false"
             @click-left='$router.go(-1)'
+            @click-right= '$router.push("/topUp")'
         />
         <div class='chargeBox'>
             <div>
@@ -27,12 +29,12 @@ export default {
         }
     },
     created () {
-        this.$axios.fetchPost('/portal',
+        this.$axios.fetchPost('/portal/digiccy',
         {
             source: "web",
             version: "v1",
-            module: "Finance",
-            interface: "5000",
+            module: "Wallet",
+            interface: "2004",
             data: {}
         }).then(res => {
             if(res.success) {
