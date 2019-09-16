@@ -208,6 +208,9 @@ export default {
         if(list[index].onOffer == 3&&this.tabstate == 1){
           this.$router.push({path:'/payment',query:{id:id,states:false}})
         }
+        // if(list[index].onOffer == 2&&this.tabstate == 0){
+        //    this.$router.push({path:'/payment',query:{id:id,states:true}})
+        // }
         if(list[index].onOffer != 1&&list[index].onOffer !=3){
           this.$router.push({path:'/payment',query:{id:id,states:false}})
         }
