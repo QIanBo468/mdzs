@@ -153,11 +153,7 @@ export default {
                     _this.yarr.push(list[i].price);
                     _this.xarr.push('');
                 }
-            
-                
-        
 
-                
             } else if (res.code == 4800) {
                 _this.$toast(res.message);
             }
