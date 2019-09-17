@@ -26,6 +26,7 @@
             <img class='imgIcon' src="../../../static/images/index/more.png" alt="" @click='$router.push("/notice")'>
         </template>
         </van-notice-bar>
+        <div class="hold"></div>
         <van-grid :column-num="2" class='connected' :border='false'>
             <van-grid-item
                 v-for="(value, index) in userList"
@@ -39,7 +40,24 @@
                 </router-link>
             </van-grid-item>
         </van-grid>
-        
+        <div class="hold"></div>
+        <div class="present">
+            <div class="title">ofc当前价格</div>
+            <div class='box_sm'>
+                <div class="list">
+                    <img src="../../../static/images/index/ofc.png" alt="">
+                    <span>1.00000000 ofc ≈ </span>
+                    <span class='red'> {{rateObj.CNY}} CNY</span>
+                </div>
+                <div class="list">
+                    <img src="../../../static/images/index/ofc.png" alt="">
+                    <span>1.00000000 ofc ≈ </span>
+                    <span class='red'>{{rateObj.USDT}} usdt</span>
+                </div>
+                
+            </div>
+        </div>
+        <div class="hold"></div>
     </div>
 </template>
 <script>
@@ -111,7 +129,8 @@ export default {
                     text: '更多'
                 }
             ],
-            classList: []
+            classList: [],
+            rateObj: {},
         }
     },
     component: {
@@ -171,6 +190,22 @@ export default {
             if(res.success) this.text = res.data[0].title
             
         })
+        
+        this.$axios.fetchPost('/portal',
+        {
+            source: "web",
+            version: "v1",
+            module: "Attachment",
+            interface: "2003",
+        }).then(res => {
+            // let text = ''
+            // res.data.forEach((element, index) => {
+            //     text += index+1 +'.' + element.title + '      '
+            // });
+            // console.log()
+            if(res.success) this.rateObj = res.data
+            
+        })
     },
     methods : {
         message (obj) {
@@ -188,8 +223,8 @@ export default {
             config: {
                 // 全局配置项
                 duration: 15000, // 弹幕循环周期(单位：毫秒)
-                defaultColor: '#fff', // 弹幕默认颜色
-                fontSize: 12,
+                defaultColor: '#e6e6e6', // 弹幕默认颜色
+                fontSize: 14,
             },
             avoidOverlap: false,
             });
@@ -216,6 +251,10 @@ export default {
     height: 100%;
     overflow: scroll;
 }
+.hold{
+    background: #f8f8f8;
+    height: 10px;
+}
 .banner{
     width: 100%;
     height: 200px;
@@ -236,6 +275,35 @@ export default {
 }
 .tabBox{
     margin: 20px 0 29px;
+}
+.present{
+    height: 154px;
+    padding: 5px 16px;
+    box-sizing: border-box;
+    .title{
+        height: 45px;
+        line-height: 45px;
+        border-bottom: 1px solid #eee;
+        font-size: 18px;
+    }
+    .box_sm{
+        .list{
+            height: 22px;
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+            padding: 15px 0;
+            img{
+                height: 22px;
+                width: 22px;
+                margin-right: 10px;
+            }
+            .red{
+                color: #FB4B48;
+                margin-left: 6px;
+            }
+        }
+    }
 }
 .connected{
     // width: 343px;

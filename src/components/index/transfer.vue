@@ -68,6 +68,14 @@
                 />
                 <div class='red time' @click='time'>{{codeText}}</div>
             </div>
+            <div class='cell' v-if='radio == "ofc"'>
+                <div>扣除手续费</div>
+                <div class='overText'>{{count.fee}}</div>
+            </div>
+            <div class="cell" v-if='radio == "ofc"'>
+                <div>扣除爱心基金</div>
+                <div class='overText'>{{count.love}}</div>
+            </div>
             <div class='btn' @click="submit">
                 转账
             </div>
@@ -108,7 +116,7 @@ export default {
             codeTime: 60,
             show: false,
             radio: 1,
-            disabled: true,
+            disabled: false,
             money: '',
             form: {
                 amount: '',
@@ -122,7 +130,8 @@ export default {
                 ofc: './static/images/index/ofc.png',
                 usdt: './static/images/index/usdt.png',
                 LoveFund:'./static/images/index/fund.png'
-            }
+            },
+            procedure: ''
         }
     },
     created () {
@@ -133,30 +142,58 @@ export default {
             this.type = this.$route.query.type
         }
         this.typeImg = this.iconObj[this.$route.query.type]
-        this.radio = this.$route.query.type
+        this.radio = this.type
+        
+        this.getInfo()
+
         this.$axios.fetchPost('/portal',
-        {
-            source: "web",
-            version: "v1",
-            module: "Finance",
-            interface: "4003",
-            data: {}
-        }).then(res => {
-            if(res.success){
-                this.list = res.data
-                var obj =  ''
-                if(this.type == '爱心基金') {
-                    obj = 'LoveFund'
-                }else{
-                    obj = this.type
-                }
-                this.money = res.data[obj].have
-            }
-        })
+                {
+                    source: "web",
+                    version: "v1",
+                    module: "Finance",
+                    interface: "3004",
+                    data: {}
+                }).then(res => {
+                    if(res.success){
+                        // console.log(res.data)
+                        this.procedure = res.data
+                    }else{
+                        Toast(res.message)
+                    }
+                })
+    },
+    computed : {
+        count () {
+            var obj = {}
+            obj.fee = (this.form.amount * this.procedure.fee / 100).toFixed(8)
+            obj.love = (this.form.amount * this.procedure.love / 100).toFixed(8)
+            return obj
+        }
     },
     methods : {
+        getInfo () {
+            this.$axios.fetchPost('/portal',
+            {
+                source: "web",
+                version: "v1",
+                module: "Finance",
+                interface: "4003",
+                data: {}
+            }).then(res => {
+                if(res.success){
+                    this.list = res.data
+                    var obj =  ''
+                    if(this.type == '爱心基金') {
+                        obj = 'LoveFund'
+                    }else{
+                        obj = this.type
+                    }
+                    this.money = res.data[obj].have
+                }
+            })
+        },
         onClickLeft () {
-            if(this.$route.query.type =='爱心基金'){
+            if(this.$route.query.type =='LoveFund'){
                 this.$router.push('/fund')
             }else if(this.$route.query.type =='ofc'){
                 this.$router.push('/ofc')
@@ -241,12 +278,18 @@ export default {
                                 id: '',
                                 captcha: ''
                             }
-                            that.list[that.type].have = that.money - that.form.amount
-                            that.money = that.money - that.form.amount
+                            // if('')
+                            var type = that.type
+                            if(type == '爱心基金'){
+                                type = 'LoveFund'
+                            }
+                            // that.list[type].have = that.money - that.form.amount
+                            // that.money = that.money - that.form.amount
                             Dialog.alert({
                                 title: '提示',
                                 message: res.message
                             })
+                            that.getInfo()
                         }else{
                             Toast(res.message)
                         }
@@ -366,7 +409,7 @@ export default {
                 color: #666;
                 display: flex;
                 justify-content: space-between;
-                margin-bottom: 10px;
+                margin-top: 10px;
                 div{
                     width: 30%;
                 }

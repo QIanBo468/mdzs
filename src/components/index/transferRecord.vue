@@ -14,7 +14,9 @@
             @load="onLoad"
             >
                 <div class='record' v-for='(item, index) in list' :key='index'>
-                    <!-- <div class='status'>审核</div> -->
+                    <div v-if='item.status == 0' class='status red'>转账中</div>
+                    <div v-if='item.status == 1' class='status'>转账成功</div>
+                    <div v-if='item.status == 2' class='status red'>转账失败</div>
                     <ul>
                         <li>
                             <div>会员ID</div>
@@ -27,6 +29,14 @@
                         <li>
                             <div>钱包类型</div>
                             <div>{{item.creditName}}</div>
+                        </li>
+                        <li v-if='type == "ofc"'>
+                            <div>手续费</div>
+                            <div>- {{item.fee}}</div>
+                        </li>
+                        <li v-if='type == "ofc"'>
+                            <div>爱心基金</div>
+                            <div>- {{item.love}}</div>
                         </li>
                         <li>
                             <div>转账数量</div>
@@ -49,6 +59,7 @@ export default {
             lastPage: null,
             lastId: 0,
             status: '',
+            type: '',
         }
     },
     created() {
@@ -59,6 +70,7 @@ export default {
             status = '3100'
         }
         this.status = status
+        this.type = this.$route.query.type
     },
     methods: {
         onLoad() {
@@ -104,8 +116,8 @@ export default {
                 .status{
                     font-size: 12px;
                     text-align: right;
-                    color: #F84D4D;
-                    margin-bottom: 10px;
+                    color: #1890FF;
+                    margin-bottom: 5px;
                 }
                 .red{
                     color: #F84D4D;

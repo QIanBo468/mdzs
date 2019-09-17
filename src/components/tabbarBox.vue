@@ -11,7 +11,7 @@
                 >
             </van-tabbar-item>
             <van-tabbar-item  to='/mall'>
-                <span class='red'>商城</span>
+                <span class='red'>矿机商城</span>
                 <img
                 slot="icon"
                 slot-scope="props"
