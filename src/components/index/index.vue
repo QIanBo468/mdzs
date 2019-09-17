@@ -32,12 +32,12 @@
                 v-for="(value, index) in userList"
                 :key="index"
             >
-                <router-link :to='value.to'>
+                <a @click="deal(value.to)" >
             <div style="height:62px;display:flex;width: 112px;align-items: center;color: #111">
                     <van-image :src="value.icon" width="50px" height="50px"/>
                     <div style="margin-left: 10px;font-size: 13px">{{value.title}}</div>
             </div>
-                </router-link>
+                </a>
             </van-grid-item>
         </van-grid>
         <div class="hold"></div>
@@ -141,16 +141,23 @@ export default {
     created () {
         // let  status = this.$cookies.get('status')
         // if(status == -1){
-        //     Toast('未通过实名认证')
-        //     this.$router.push('/authentication')
+        //     this.$dialog.confirm({
+        //         title: '提示',
+        //         message: 未通过实名认证
+        //     }).then(() => {
+        //         this.$router.push('/authentication')
+        //     })
         //     return
         // }else if(status == -2){
-        //     Toast('未认证')
-        //     this.$router.push('/authentication')
+        //     this.$dialog.confirm({
+        //         title: '提示',
+        //         message: '未认证'
+        //     }).then(() => {
+        //         this.$router.push('/authentication')
+        //     })
         //     return 
         // }else if(status ==  0) {
         //     Toast('申请中')
-        //     this.$router.push('/login')
         //     return
         // }
         this.$axios.fetchPost('/portal',
@@ -210,10 +217,63 @@ export default {
     methods : {
         message (obj) {
             if(obj.to){
+                let  status = this.$cookies.get('status')
+                if(status == -1){
+                    this.$dialog.confirm({
+                        title: '提示',
+                        message: '未通过实名认证'
+                    }).then(() => {
+                        this.$router.push('/authentication')
+                    }).catch(() => {
+
+                    })
+                    return
+                }else if(status == -2){
+                    this.$dialog.confirm({
+                        title: '提示',
+                        message: '未认证'
+                    }).then(() => {
+                        this.$router.push('/authentication')
+                    }).catch(() => {
+                        
+                    })
+                    return 
+                }else if(status ==  0) {
+                    Toast('申请中')
+                    return
+                }
                 this.$router.push(obj.to)
             }else{
                 Toast('功能暂未开放')
             }
+        },
+        deal(to) {
+            let  status = this.$cookies.get('status')
+            if(status == -1){
+                this.$dialog.confirm({
+                    title: '提示',
+                    message: '未通过实名认证'
+                }).then(() => {
+                    this.$router.push('/authentication')
+                }).catch(() => {
+
+                })
+                return
+            }else if(status == -2){
+                this.$dialog.confirm({
+                    title: '提示',
+                    message: '未认证'
+                }).then(() => {
+                    this.$router.push('/authentication')
+                }).catch(() => {
+                    
+                })
+                return 
+            }else if(status ==  0) {
+                Toast('申请中')
+                return
+            }
+            this.$router.push(to)
         },
         createDM () {
             var that = this

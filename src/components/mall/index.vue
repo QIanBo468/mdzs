@@ -52,6 +52,29 @@ export default {
     },
     methods: {
         buy (id) {
+            let  status = this.$cookies.get('status')
+            if(status == -1){
+                this.$dialog.confirm({
+                    title: '提示',
+                    message: '未通过实名认证'
+                }).then(() => {
+                    this.$router.push('/authentication')
+                }).catch(() => {
+                });
+                return
+            }else if(status == -2){
+                this.$dialog.confirm({
+                    title: '提示',
+                    message: '未认证'
+                }).then(() => {
+                    this.$router.push('/authentication')
+                }).catch(() => {
+                });
+                return 
+            }else if(status ==  0) {
+                Toast('申请中')
+                return
+            }
             this.goodInfo = id
             this.show = true
             this.radio = ''

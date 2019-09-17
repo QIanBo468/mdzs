@@ -108,7 +108,7 @@ export default {
             let data={
                 status:1,
                 num : _this.uploaddata.num,
-                price : _this.uploaddata.price,
+                unitPrice : _this.uploaddata.price,
                 safeword : _this.uploaddata.mm
             };
             // data.status = 0;
