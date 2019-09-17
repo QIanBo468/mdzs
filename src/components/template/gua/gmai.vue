@@ -7,13 +7,19 @@
                     <input type="number" v-model="uploaddata.num" placeholder="请输入挂卖数量">
                 </div>
                 <div class="contmodule">
-                    <div><span>挂卖售价</span><span>最低售价：{{price}}</span></div>
+                    <div><span>挂卖单价</span></div>
+                    <!-- <div><span>挂卖售价</span><span>最低售价：{{price}}</span></div> -->
                     <input type="number" v-model="uploaddata.price" placeholder="请输入售价">
                 </div>
                 <div class="contmodule">
                     <div>交易密码</div>
                     <input type="password" v-model="uploaddata.mm" placeholder="请输入交易密码">
                 </div>
+
+                <div class="contmodule">
+                    <div><span>挂卖总价</span><span>{{bothprice}}CNY</span></div>
+                </div>
+
                 <div class="queding" @click="yesmai()">确定</div>
             </div>
     </div>
@@ -30,11 +36,29 @@ export default {
                 num:'',
                 price:'',
                 mm:''
-            }
+            },
+            bothprice:'0.00',//总价CNY
         }
     },
     created(){
         this. getofc()
+    },
+    computed:{
+        suannum(){
+            return this.uploaddata.num
+        },
+        suanprice(){
+            return this.uploaddata.price
+        }
+    },
+    watch:{
+        suannum(val){
+            console.log(val)
+            this.bothprice = val * this.uploaddata.price
+        },
+        suanprice(val){
+            this.bothprice = val * this.uploaddata.num
+        }
     },
     methods:{
         //获取ofc数量
