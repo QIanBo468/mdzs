@@ -13,20 +13,20 @@
             </div>
 
             <div class="flex_both">
-                <router-link to="/hangon?gstate=0" class="flex_model">
+                <a href='javascript:;' @click='deal("/hangon?gstate=0")' class="flex_model">
                     <div><img src="../../../static/images/icon/gmay.png" /></div>
                     <div>挂买</div>
-                </router-link>
-                <router-link to="/hangon?gstate=1" class="flex_model">
+                </a>
+                <a href='javascript:;' @click='deal("/hangon?gstate=1")' to="/hangon?gstate=1" class="flex_model">
                     <div><img src="../../../static/images/icon/gmai.png" /></div>
                     <div>挂卖</div>
-                </router-link>
+                </a>
             </div>
             <!-- 最后一行 -->
-            <router-link to="/transmarket" class="last_view">
+            <a @click='deal("/transmarket")'  class="last_view">
                 <div><img src="../../../static/images/icon/trans_icon.png" alt=""></div>
                 <div>交易市场</div>
-            </router-link>
+            </a>
         </div>
 
 
@@ -155,6 +155,34 @@ export default {
                 _this.$toast(res.message);
             }
             });
+        },
+        deal(url){
+            let  status = this.$cookies.get('status')
+            if(status == -1){
+                this.$dialog.confirm({
+                    title: '提示',
+                    message: '未通过实名认证'
+                }).then(() => {
+                    this.$router.push('/authentication')
+                }).catch(() => {
+
+                })
+                return
+            }else if(status == -2){
+                this.$dialog.confirm({
+                    title: '提示',
+                    message: '未认证'
+                }).then(() => {
+                    this.$router.push('/authentication')
+                }).catch(() => {
+                    
+                })
+                return 
+            }else if(status ==  0) {
+                Toast('申请中')
+                return
+            }
+            this.$router.push(url)
         },
         formatDateTime (date) {  
                 var y = date.getFullYear();  

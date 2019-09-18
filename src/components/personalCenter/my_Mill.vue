@@ -12,7 +12,7 @@
               <p>租赁价格：{{item.amount}}usdt</p>
               <div class="price">
                 <p>累计收益：</p>
-                <p>{{item.grantedYield}}usdt</p>
+                <p>{{item.grantedYield}}ofc</p>
               </div>
             </div>
           </div>

@@ -21,11 +21,11 @@
             </div>
             <!-- <InputImg  :placeholder='placeNum' @changeInp='changeVal' :value='user' > -->
             <div class='inputBox'>
-                <input type="number" v-model="num" placeholder="请输入兑换数量">
+                <input type="number" v-model="num" placeholder="请输入usdt数量">
 
             </div>
             <div class='remarks'>
-                备注：ofc兑换usdt比例为1 ：{{rules.toUsdt}}
+                备注：usdt兑换ofc比例为1 ：{{rules.toUsdt}}
             </div>
             <div class='cell'>
                 <div>手续费</div>

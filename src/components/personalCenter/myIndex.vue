@@ -8,7 +8,7 @@
         <img :src="avatar" alt class="headpic" />
 
         <div class="headtext">
-          <p>{{info.nickname}}</p>
+          <p>账号：{{info.account}}</p>
           <p>ID：{{info.id}}</p>
           <p>级别：{{info.level}}</p>
         </div>

@@ -73,25 +73,26 @@ export default {
                         that.$cookies.set('status', res.data.status)
                         that.userInfo = res.data
                         that.$cookies.set('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
-                        if(confirm('是否直接进入')){
+                        // if(confirm('是否直接进入')){
+                        //     that.$router.push('/index')
+                        // }else{
+                            // if(res.data.status == -1){
+                            //     Toast('未通过实名认证')
+                            //     // that.$router.push('/authentication')
+                            //     return 
+                            // }else if(res.data.status == -2){
+                            //     Toast('未认证')
+                            //     // that.$router.push('/authentication')
+                            //     return 
+                            // }else if(res.data.status ==  0) {
+                            //     Toast('申请中')
+                            //     return
+                            // }else if(res.data.status == 1){
+                            //     Toast('登陆成功')
+                            // }
+                            
                             that.$router.push('/index')
-                        }else{
-                            if(res.data.status == -1){
-                                Toast('未通过实名认证')
-                                that.$router.push('/authentication')
-                                return 
-                            }else if(res.data.status == -2){
-                                Toast('未认证')
-                                that.$router.push('/authentication')
-                                return 
-                            }else if(res.data.status ==  0) {
-                                Toast('申请中')
-                                return
-                            }else if(res.data.status == 1){
-                                Toast('登陆成功')
-                                that.$router.push('/index')
-                            }
-                        }
+                        // }
                     }else{
                         Toast(res.message)
                     }
