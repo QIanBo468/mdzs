@@ -18,7 +18,7 @@
                 <van-cell title="usdt" clickable @click="radio = '0'">
                 <van-radio slot="right-icon" name="0" />
                 </van-cell>
-                <van-cell title="ofc" clickable @click="radio = '1'">
+                <van-cell :title="price" clickable @click="radio = '1'">
                 <van-radio slot="right-icon" name="1" />
                 </van-cell>
             </van-cell-group>
@@ -35,6 +35,8 @@ export default {
             show: false,
             radio: '',
             goodInfo: '',
+            change: '',
+            price: '',
         }
     },
     created () {
@@ -46,6 +48,7 @@ export default {
             version: "v1",
             data: {}
         }).then(res => {
+            this.change = res.data.change
             this.goodsList = res.data.list
         })
         
@@ -75,6 +78,7 @@ export default {
                 Toast('申请中')
                 return
             }
+            this.price ='ofc 价格：（' + this.change * id.price +')'
             this.goodInfo = id
             this.show = true
             this.radio = ''
