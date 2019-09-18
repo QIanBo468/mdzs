@@ -132,23 +132,20 @@ export default {
         //  折线图
         getzheimg(){
             var _this = this;
-            let data={
-                lastId :0,
-                page:1
-            }
+           
             _this.$axios.fetchPost("/portal", {
                 interface: "2000",
                 module: "Attachment",
                 source: "web",
                 version: "v1",
-                data: data
+                data:{}
             })
             .then(res => {
             console.log("折线图", res);
             if (res.code == 0) {
                 _this.cont = res.data
-                var list = res.data.list
-                console.log(list)
+                var list = res.data
+                
                 for(var i  in list){
                     _this.yarr.push(list[i].price);
                     _this.xarr.push('');
