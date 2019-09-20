@@ -74,11 +74,11 @@ export default {
                 
             },
             grid: {
-left: '2%',
-right: '2%',
-bottom: '3%',
-containLabel: true
-},
+            left: '2%',
+            right: '2%',
+            bottom: '3%',
+            containLabel: true
+            },
             yAxis: {
                 // type: 'value',
                 data:[0,0.007,0.07,0.7,7,70,700,7000,70000],
