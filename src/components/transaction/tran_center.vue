@@ -77,6 +77,7 @@ export default {
             left: '2%',
             right: '2%',
             bottom: '3%',
+            top:'4%',
             containLabel: true
             },
             yAxis: {
