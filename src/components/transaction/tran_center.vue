@@ -56,7 +56,7 @@ export default {
         this.getzheimg();
     },
     mounted() {
-        
+        console.log('21',this.yarr)
         
         this.orgOptions = {
             xAxis: {
@@ -73,8 +73,15 @@ export default {
                 } 
                 
             },
+            grid: {
+left: '2%',
+right: '2%',
+bottom: '3%',
+containLabel: true
+},
             yAxis: {
-                type: 'value',
+                // type: 'value',
+                data:[0,0.007,0.07,0.7,7,70,700,7000,70000],
                 axisLine:{  
                     lineStyle:{  
                         color:'#fff',  
@@ -82,7 +89,7 @@ export default {
                     }  
                 }, 
                 axisLabel:{
-                    formatter:'{value}k'
+                    formatter:'{value}'
                 }
             },
             series: [{
@@ -147,9 +154,11 @@ export default {
                 var list = res.data
                 
                 for(var i  in list){
-                    _this.yarr.push(list[i].price);
+                    
+                    _this.yarr.push(Number(list[i].price));
                     _this.xarr.push('');
                 }
+                _this.yarr = _this.yarr.splice(3,1)
 
             } else if (res.code == 4800) {
                 _this.$toast(res.message);
