@@ -22,7 +22,7 @@ axios.interceptors.request.use((config) => {
 // 返回状态判断(添加响应拦截器)
 axios.interceptors.response.use((res) => {
 // 对响应数据做些事
-  if ((res.data.code == 4500 && res.data.message == '该接口需要进行Auth认证，请核实认证信息后重试') || (res.data.code == 4700 && res.data.message == '登录异常，请重新登录')) {
+  if ((res.data.code == 4500 && res.data.message == '该接口需要进行Auth认证，请核实认证信息后重试') || (res.data.code == 4700 && (res.data.message == '登录异常，请重新登录' || res.data.message == '您的账号已被冻结，请联系管理员')) ) {
     Toast('登录异常，请重新登录')
     router.push({name: 'Login'})
   }

@@ -186,7 +186,8 @@ export default {
       var list = this.bodylist;
       this.shouid = list[index].id;
 
-      this.show = !this.show
+      // this.show = !this.show
+      this.$router.replace({ path: "/marketxq", query: { id:this.shouid,type:1} });
     },
     // // 点击确定
     clickqd() {

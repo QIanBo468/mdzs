@@ -34,10 +34,20 @@
                 <div>{{bothdata.seller.account}}</div>
             </div>
         </div>
+        <div class="marketmod" v-if='$route.query.type'>
+            <div class="list_model">
+                <div>买家昵称</div>
+                <div>{{bothdata.buyer.nickname}}</div>
+            </div>
+
+            <div class="list_model">
+                <div>买家手机号</div>
+                <div>{{bothdata.buyer.account}}</div>
+            </div>
+        </div>
         <!-- 卖家账号 -->
-        <div class="marketmod lastdiv">
-            <div class="maihome">卖家账号</div>
-            
+        <div class="marketmod lastdiv" v-if='!$route.query.type '>
+            <div class="maihome" >卖家账号</div>
             <div class="xincont" v-if="islooks == true? index<3:true " v-for="(item,index) in bothdata.payment" :key="index">
                 <div class="contimg"><img :src="item.type == 1? fubao:item.type == 2? wx:yh " alt=""></div>
                 <div class="cont_ent">
@@ -83,24 +93,27 @@
                 </div>
             </div>
         <!-- 上传支付凭证 -->
-        <div class="uploadpz" v-if="title == 1">
+        {{$route.query.tabstate}}
+        <div class="uploadpz" v-if="title == 1 && ($route.query.tabstate != 1) ">
             <div>上传支付凭证</div>
             <div v-if="state"><van-uploader v-model="fileList" multiple preview-size="100" :max-count="1" :after-read="afterRead" /></div>
-            <div v-if="chuan.voucher!=''&&state!=true&&bothdata.onOffer !=3"><img  :src="chuan.voucher" alt=""></div>
+            <div v-if="chuan.voucher!=''&&state!=true"><img  :src="chuan.voucher" alt=""></div>
             <div v-if="bothdata.transactionLog&&state!=true"><img :src="bothdata.transactionLog.voucher" alt=""></div>
         </div>
         <!-- 交易密码 -->
-        <div class="transmm" v-if="title == 1 && state ==true">
+        <div class="transmm" v-if="title == 1 && state ==true && $route.query.tabstate != 1">
             <div>交易密码</div>
             <input type="password" v-model="chuan.safeword" placeholder="请输入交易密码" />
         </div>
-        
+        <div class="transmm" v-if="$route.query.type">
+            <div>交易密码</div>
+            <input type="password" v-model="chuan.safeword" placeholder="请输入交易密码" />
+        </div>
         <van-overlay  :show="show" />
         <div class="share" v-if="show">
-             <van-loading class="quzhong" color="#fff" size="50" />
+            <van-loading class="quzhong" color="#fff" size="50" />
         </div> 
-        
-       
+        <div class="buyin" v-if='$route.query.type' @click='sell'>出售</div>
     </div>
 </template>
 
@@ -148,7 +161,6 @@ export default {
         
     },
     mounted(){
-   
         
     },
     destroyed(){
@@ -189,7 +201,44 @@ export default {
                             _this.fileList = [];
                             _this.show = false;
                         })
-                     _this.$toast(res.message)
+                    _this.$toast(res.message)
+                }
+            })
+        },
+        sell () {
+            let data={
+                id: this.$route.query.id,
+                safeword:this.chuan.safeword
+            };
+            if(data.safeword == ''){
+                this.$toast('请输入支付密码');
+                return false;
+            }else if(data.safeword.length != 6){
+                this.$toast('安全密码必须由 6 位数字组成');
+                return false
+            }
+            // console.log(data)
+            this.$axios.fetchPost('/portal',{
+                interface: "1007",
+                module: "Attachment",
+                source: "web",
+                version: "v1",
+                data:data
+            })
+            .then(res=>{
+                console.log('出售',res)
+                if(res.code == 0){
+                    this.$toast('出售成功');
+                    setTimeout(()=>{
+                        // this.show = !this.show;
+                        // this.page= 1,
+                        // this.lastId= 0,
+                        // this.bodylist = [];
+                        this.$router.go(-1)
+                        // this.getrecord();
+                    },1300)
+                }else if(res.code >= 4800 && res.code < 4900){
+                    this.$toast(res.message)
                 }
             })
         },

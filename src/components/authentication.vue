@@ -101,9 +101,11 @@ export default {
                             interface: "3001",
                             data: that.fromObj
                         }).then(res => {
-                            Toast(res.message)
                             if(res.success) {
-                                that.$router.push('/login')
+                                Toast(res.message)
+                                that.$router.go(-1)
+                            }else{
+                                Toast(res.message)
                             }
                         })
                 }else{

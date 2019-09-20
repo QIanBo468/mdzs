@@ -110,9 +110,10 @@ export default {
                         data: that.fromObj
                     }).then(res => {
                         if (res.success) {
-                            that.$cookies.set('status', res.data.status)
-                            that.$router.push('/authentication')
-                            that.$cookies.set('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
+                            Toast('注册成功')
+                            // that.$cookies.set('status', res.data.status)
+                            that.$router.push('/login')
+                            // that.$cookies.set('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
                         }else{
                             Toast(res.message)
                         }

@@ -15,7 +15,7 @@
         <van-action-sheet v-model="show" title="请选择支付方式">
             <van-radio-group v-model="radio" @change="payment">
             <van-cell-group>
-                <van-cell title="usdt" clickable @click="radio = '0'">
+                <van-cell :title="usdtPrice" clickable @click="radio = '0'">
                 <van-radio slot="right-icon" name="0" />
                 </van-cell>
                 <van-cell :title="price" clickable @click="radio = '1'">
@@ -37,6 +37,7 @@ export default {
             goodInfo: '',
             change: '',
             price: '',
+            usdtPrice: ''
         }
     },
     created () {
@@ -78,7 +79,8 @@ export default {
                 Toast('申请中')
                 return
             }
-            this.price ='ofc 价格：（' + this.change * id.price +')'
+            this.usdtPrice = 'usdt 数量：（'+ id.price +')'
+            this.price ='ofc 数量：（' + this.change * id.price +')'
             this.goodInfo = id
             this.show = true
             this.radio = ''
