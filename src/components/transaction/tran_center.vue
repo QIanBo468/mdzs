@@ -74,10 +74,18 @@ export default {
                 
             },
             grid: {
+<<<<<<< HEAD
                 left: '2%',
                 right: '2%',
                 bottom: '3%',
                 containLabel: true
+=======
+            left: '2%',
+            right: '2%',
+            bottom: '3%',
+            top:'4%',
+            containLabel: true
+>>>>>>> 8652b9dc0426729ab2015004c5a2e9267c98ef98
             },
             yAxis: {
                 // type: 'value',
