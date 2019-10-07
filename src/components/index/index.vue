@@ -239,12 +239,12 @@ export default {
                     })
                     return 
                 }else if(status ==  0) {
-                    Toast('申请中')
+                    Toast('认证已提交，后台审核中')
                     return
                 }
                 this.$router.push(obj.to)
             }else{
-                Toast('功能暂未开放')
+                Toast('正在开发中，敬请期待')
             }
         },
         deal(to) {
@@ -270,7 +270,7 @@ export default {
                 })
                 return 
             }else if(status ==  0) {
-                Toast('申请中')
+                Toast('认证已提交，后台审核中')
                 return
             }
             this.$router.push(to)
@@ -309,7 +309,7 @@ export default {
 #index{
     width: 100%;
     height: 100%;
-    overflow: scroll;
+    overflow-y: auto;
 }
 .hold{
     background: #f8f8f8;

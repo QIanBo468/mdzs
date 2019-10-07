@@ -12,7 +12,7 @@
         </div>
         <div class='deposit' style="height: 40px;diplay:flex;">
             <div @click="skip">
-                <img src="../../../static/images/index/chongzhi.png" alt="">
+                <img src="../../../static/images/index/exchange.png" alt="">
                 <span>兑换</span>   
             </div>
             <!-- <div>
@@ -116,7 +116,7 @@ export default {
             this.$router.push('/wallet')
         },
         skip () {
-            this.$router.push({path:'/exchange'})
+            this.$router.push({path:'/exchange',query: {'type': 1}})
         },
         acChange(){
             this.finished = false

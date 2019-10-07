@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class='tranBox'>
     <div class="bothse">
         <trannav :title="title" ></trannav>
         <div class="echarts">
@@ -74,10 +74,10 @@ export default {
                 
             },
             grid: {
-            left: '2%',
-            right: '2%',
-            bottom: '3%',
-            containLabel: true
+                left: '2%',
+                right: '2%',
+                bottom: '3%',
+                containLabel: true
             },
             yAxis: {
                 // type: 'value',
@@ -88,6 +88,13 @@ export default {
                         width:2  
                     }  
                 }, 
+                splitLine: {
+                    show: true,
+                    lineStyle:{
+                        color: '#243785',
+                        type: 'dotted'
+                    }
+                },
                 axisLabel:{
                     formatter:'{value}'
                 }
@@ -96,41 +103,27 @@ export default {
                 data: this.yarr,
                 type: 'line',
                 smooth: true,//折点是圆弧状的
-
                 symbol: 'circle',     //折点设定为实心点
-                symbolSize: 10,   //设定实心点的大小
-
-                  itemStyle : {    
+                symbolSize: 8,   //设定实心点的大小
+                itemStyle : {    
                     normal : {    
                         lineStyle:{    
                             color:'#ffffff'    
                         },
-                        color: 'red'   
+                        // color: new ECharts.graphic.LinearGradient(0, 0, 0, 1,[{
+                        //         offset: 0, color: '#fff' // 0% 处的颜色
+                        //     }, {
+                        //         offset: 0.7, color: '#2A3C89' // 100% 处的颜色
+                        //     }, {
+                        //         offset: 1, color: '#0D2279' // 100% 处的颜色
+                        //     }]
+                        // ),
+                        color: 'red',
+                        // areaStyle: {normal: {}},   
                     }  
-                      
                 }, 
-   
             }
-           
             ]
-             // {
-            //     data: this.yarr,
-            //     type: 'line',
-            //     smooth: true,//折点是圆弧状的
-
-            //     symbol: 'circle',     //折点设定为实心点
-            //     symbolSize: 10,   //设定实心点的大小
-
-            //       itemStyle : {    
-            //         normal : {    
-            //             lineStyle:{    
-            //                 color:'#ffffff'    
-            //             },
-            //             color: 'red'   
-            //         }  
-                      
-            //     }, 
-            // }
         }
         
     },
@@ -139,7 +132,6 @@ export default {
         //  折线图
         getzheimg(){
             var _this = this;
-           
             _this.$axios.fetchPost("/portal", {
                 interface: "2000",
                 module: "Attachment",
@@ -188,7 +180,7 @@ export default {
                 })
                 return 
             }else if(status ==  0) {
-                Toast('申请中')
+                Toast('认证已提交，后台审核中')
                 return
             }
             this.$router.push(url)
@@ -219,16 +211,23 @@ export default {
     color:#fff;
     font-weight:500;
 }
+.tranBox{
+    overflow-y: auto;
+    width: 100%;
+    height: 100%;
+    background:rgba(0,22,114,1);
+}
 .bothse{
-    height: 100%;;
+    height: 100%;
+    // overflow: auto;
     padding:44px 0 0;
     box-sizing: border-box;
-    background:rgba(0,22,114,1);
+    // background:rgba(0,22,114,1);
 }
 .echarts{
     
-    margin:10px 0 20px 0;
-    width: 100vw;
+    margin:10px auto 20px ;
+    width: 355px;
     height:240px;
     background:rgba(255,255,255,0.05);
     color: #fff;

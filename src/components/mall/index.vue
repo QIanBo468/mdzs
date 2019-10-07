@@ -76,7 +76,7 @@ export default {
                 });
                 return 
             }else if(status ==  0) {
-                Toast('申请中')
+                Toast('认证已提交，后台审核中')
                 return
             }
             this.usdtPrice = 'usdt 数量：（'+ id.price +')'
@@ -131,7 +131,7 @@ export default {
         }
         .box{
             flex: 1;
-            overflow: scroll;
+            overflow-y: auto;
             margin-top: 10px;
             .goodList{
                 margin-bottom: 10px;

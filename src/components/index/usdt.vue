@@ -21,6 +21,10 @@
                 <img src="../../../static/images/index/extract.png" alt="">
                 <span>提币</span>  
             </div>
+            <div @click="$router.push({path:'/exchange',query: {'type': 2}})">
+                <img src="../../../static/images/index/exchange.png" alt="">
+                <span>兑换</span>   
+            </div>
             <div @click='$router.push({path: "/transfer",query:{type:"usdt"}})'>
                 <img src="../../../static/images/index/transfer.png" alt="">
                 <span>转账</span>  

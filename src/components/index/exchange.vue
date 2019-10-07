@@ -5,23 +5,28 @@
         right-text="兑换记录"
         left-arrow
         @click-left="onClickLeft"
-        @click-right='$router.push("/conversion")'
+        @click-right='$router.push("/conversion?type="+$route.query.type)'
         />
         <div class='box'>
             <div class='usdt'>
-                <img src="../../../static/images/index/ofc.png" alt="">
-                ofc
+                <img src="../../../static/images/index/ofc.png" alt="" v-if='$route.query.type == 1'>
+                <img src="../../../static/images/index/usdt.png"  v-else>
+                {{title}}
             </div>
-            <div class='money'>
+            <div class='money' v-if='$route.query.type == 1'>
                 <!-- {{$route.query.creditValue}} -->
                 {{rules.total_ofc}}
+            </div>
+            <div class='money' v-else>
+                <!-- {{$route.query.creditValue}} -->
+                {{rules.total_usdt}}
             </div>
             <div class='title'>
                 兑换数量
             </div>
             <!-- <InputImg  :placeholder='placeNum' @changeInp='changeVal' :value='user' > -->
             <div class='inputBox'>
-                <input type="number" v-model="num" placeholder="请输入usdt数量">
+                <input type="number" v-model="num" placeholder="请输入兑换数量">
 
             </div>
             <div class='remarks'>
@@ -39,10 +44,19 @@
                 <div>实际到账</div>
                 <div class='overText'>{{aNum[2]}}</div>
             </div>
-            <div class='btn'  @click='submit'>
+            <div class='btn'  @click='isPop '>
                 兑换
             </div>
         </div>
+        <van-dialog
+        v-model="show"
+        title="提示"
+        show-cancel-button
+        @confirm='submit'
+        >
+        <van-field v-model="password" type='password' placeholder="请输入支付密码" />
+        <!-- <img src="https://img.yzcdn.cn/vant/apple-3.jpg"> -->
+        </van-dialog>
     </div>
 </template>
 <script>
@@ -51,14 +65,22 @@ import InputImg from '../../views/inputImg'
 export default {
     data () {
         return {
+            show: false,
             user: '',
             InputImg: '../../../static/images/index/user.png',
             placeNum: '请输入兑换数量',
             num: '',
-            rules: ''
+            rules: '',
+            password: '',
+            title: 'ofc'
         }
     },
     created () {
+        var title  = this.$route.query.type
+        console.log()
+        if(title == 2){
+            this.title = 'usdt'
+        }
         this.$axios.fetchPost('/portal',
         {
             source: "web",
@@ -74,9 +96,9 @@ export default {
     },
     computed: {
         aNum (){
-            var a = (this.num * this.rules.toCashFee / 100).toFixed(2)
-            var b = (this.num * this.rules.toCashLoveFundFee / 100).toFixed(2)
-            var c = (this.num - a -b).toFixed(2)
+            var a = (this.num * this.rules.toCashFee / 100).toFixed(8)
+            var b = (this.num * this.rules.toCashLoveFundFee / 100).toFixed(8)
+            var c = (this.num - a - b).toFixed(8)
             var arr = [a,b,c]
             return  arr
         }
@@ -85,17 +107,37 @@ export default {
         onClickLeft () {
             this.$router.go(-1)
         },
+        isPop(){
+            if(this.num == ''){
+                this.$toast('请输入兑换数量')
+                return
+            }
+            this.show = true
+            this.password = ""
+        },
         submit () {
+            // this.show = true
+            if(this.password.length != 6) {
+                this.$toast('支付密码六位组成')
+                return 
+            }
+            var type = 'credit_2'
+            var code = '4007'
+            if( this.$route.query.type == 2){
+                type = 'credit_1'
+                code = '4009'
+            }
             this.$axios.fetchPost('/portal',
             {
                 source: "web",
                 version: "v1",
                 module: "Finance",
-                interface: "4007",
-                data: {num: this.num,type: 'credit_2'}
+                interface: code,
+                data: {num: this.num,type: type,safeword: this.password}
             }).then(res => {
                 // this.$router.push('/conversion')
-                this.rules.total_ofc = this.rules.total_ofc  - this.num/10
+                this.rules.total_ofc = (this.rules.total_ofc  - this.num*10).toFixed(8)
+                this.rules.total_usdt = (this.rules.total_usdt  - this.num/10).toFixed(8)
                 if(res.success){
                     this.num = ''
                     Dialog.alert({
@@ -103,6 +145,8 @@ export default {
                         message: res.message
                     })
                     
+                }else{
+                    this.$toast(res.message)
                 }
             })
         },
@@ -116,11 +160,15 @@ export default {
     #extract{
         width: 100%;
         height: 100%;
+        display: flex;
+        flex-direction: column;
         overflow: hidden;
         .box{
-            // width: 100%;
+            flex: 1;
+            box-sizing: border-box;
+            overflow-y: auto;
             padding: 0 16px;
-            margin: 0 auto;
+            margin: 0 auto 20px;
             border-top: 10px solid #f8f8f8;
             .title{
                 font-size: 14px;
@@ -200,6 +248,14 @@ export default {
                 text-align: center;
                 line-height: 40px;
                 font-size: 16px;
+                width: 21.4375rem;
+                height: 2.75rem;
+                background: red;
+                margin: 0 auto;
+                background: -webkit-gradient(linear,left top,left bottom,from(#fd5966),to(#e71122));
+                background: linear-gradient(180deg,#fd5966,#e71122);
+                border-radius: 1.375rem;
+                color: #fff;
             }
             .red{
                 color: #F84D4D;

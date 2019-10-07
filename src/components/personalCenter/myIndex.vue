@@ -108,6 +108,9 @@ export default {
 }
 </script>
 <style scoped>
+.myIndex{
+  overflow-y: auto;
+}
 .my_header {
   background: url(../../assets/img/gerenzhongxin_bg.png) no-repeat;
   background-size: 100% 100%;

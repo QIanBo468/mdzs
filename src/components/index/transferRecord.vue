@@ -32,11 +32,11 @@
                         </li>
                         <li v-if='type == "ofc"'>
                             <div>手续费</div>
-                            <div>- {{item.fee}}</div>
+                            <div>{{item.fee}}</div>
                         </li>
                         <li v-if='type == "ofc"'>
                             <div>爱心基金</div>
-                            <div>- {{item.love}}</div>
+                            <div>{{item.love}}</div>
                         </li>
                         <li>
                             <div>转账数量</div>

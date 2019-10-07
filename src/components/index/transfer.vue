@@ -69,11 +69,11 @@
                 <div class='red time' @click='time'>{{codeText}}</div>
             </div>
             <div class='cell' v-if='radio == "ofc"'>
-                <div>扣除手续费</div>
+                <div>手续费</div>
                 <div class='overText'>{{count.fee}}</div>
             </div>
             <div class="cell" v-if='radio == "ofc"'>
-                <div>扣除爱心基金</div>
+                <div>爱心基金</div>
                 <div class='overText'>{{count.love}}</div>
             </div>
             <div class='btn' @click="submit">

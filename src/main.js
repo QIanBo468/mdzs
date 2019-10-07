@@ -66,7 +66,7 @@ Validator.extend('phones', {
     zh_CN: field => field + '必须是11位手机号码'
   },
   validate: value => {
-    return value.length === 11 && /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/.test(value)
+    return value.length === 11 && /^1(3|4|5|6|7|8|9)\d{9}$/.test(value)
   }
 })
 Validator.extend('password', {

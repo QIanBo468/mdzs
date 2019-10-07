@@ -61,6 +61,10 @@ export default {
             this.$router.go(-1)
         },
         onLoad () {
+            var type = 1
+            if(this.$route.query.type == 2) {
+                type = 2
+            }
             if (this.lastPage && this.lastPage < this.page) {
                 this.finished = true
                 this.loading = false;
@@ -72,7 +76,7 @@ export default {
                     version: "v1",
                     module: "Finance",
                     interface: "4008",
-                    data: {lastId: this.lastId,page: this.page ++}
+                    data: {lastId: this.lastId,page: this.page ++,type: type}
                 }).then(res => {
                     if(res.success){
                         this.lastPage = res.data.lastPage
