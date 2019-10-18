@@ -41,6 +41,14 @@ export default {
     }
 }
 </script>
+<style lang="less">
+    .noticeDetails{
+        img{
+            width: 100%;
+            overflow: hidden;
+        }
+    }
+</style>
 <style lang="less" scoped>
     .noticeDetails{
         width: 100%;
@@ -52,6 +60,7 @@ export default {
             overflow: scroll;
             border-top: 10px solid #f6f6f6;
             padding: 10px 16px 0;
+            
             .title{
                 font-size: 14px;
                 font-weight: 600;

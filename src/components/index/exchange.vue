@@ -5,7 +5,7 @@
         right-text="兑换记录"
         left-arrow
         @click-left="onClickLeft"
-        @click-right='$router.push("/conversion?type="+$route.query.type)'
+        @click-right='$router.push("/conversion?type="+ $route.query.type)'
         />
         <div class='box'>
             <div class='usdt'>
@@ -136,9 +136,9 @@ export default {
                 data: {num: this.num,type: type,safeword: this.password}
             }).then(res => {
                 // this.$router.push('/conversion')
-                this.rules.total_ofc = (this.rules.total_ofc  - this.num*10).toFixed(8)
-                this.rules.total_usdt = (this.rules.total_usdt  - this.num/10).toFixed(8)
                 if(res.success){
+                    this.rules.total_ofc = (this.rules.total_ofc  - this.num*10).toFixed(8)
+                    this.rules.total_usdt = (this.rules.total_usdt  - this.num/10).toFixed(8)
                     this.num = ''
                     Dialog.alert({
                         title: '提示',

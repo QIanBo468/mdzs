@@ -74,22 +74,14 @@ export default {
                 
             },
             grid: {
-<<<<<<< HEAD
                 left: '2%',
                 right: '2%',
                 bottom: '3%',
                 containLabel: true
-=======
-            left: '2%',
-            right: '2%',
-            bottom: '3%',
-            top:'4%',
-            containLabel: true
->>>>>>> 8652b9dc0426729ab2015004c5a2e9267c98ef98
             },
             yAxis: {
-                // type: 'value',
-                data:[0,0.007,0.07,0.7,7,70,700,7000,70000],
+                type: 'log',
+                // data:[0,0.007,0.07,0.7,7,70,700,7000,70000],
                 axisLine:{  
                     lineStyle:{  
                         color:'#fff',  
@@ -99,7 +91,7 @@ export default {
                 splitLine: {
                     show: true,
                     lineStyle:{
-                        color: '#243785',
+                        color: '#7D86AE',
                         type: 'dotted'
                     }
                 },
