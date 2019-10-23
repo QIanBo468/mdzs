@@ -2,15 +2,12 @@
     <div id='extract'>
         <van-nav-bar
         title="提币"
-        right-text="提币记录"
         left-arrow
         @click-left="onClickLeft"
-        @click-right= '$router.push("/extractRecord")'
         />
         <div class='box'>
-            <div class='usdt'>
-                <img src="../../../static/images/index/usdt.png" alt="">
-                usdt
+            <div class="usdt">
+                <img width="27px;" height="32px" src="../../../static/images/index/B@3x.png">BAT
             </div>
             <div class='money'>
                 {{$route.query.usdt}}
@@ -74,7 +71,7 @@ export default {
             user: '',
             address: '',
             num: '',
-            InputImg: '../../../static/images/index/user.png',
+            InputImg: '../../../static/images/index/yaoqing@3x.png',
             placesite: '请输入钱包地址',
             placeNum: '请输入提币数量',
             usdtNum: '',
@@ -154,20 +151,38 @@ export default {
 </script>
 <style lang="less" scoped>
     .van-cell{
-        padding: 0
+        padding: 0;
+        background: transparent;
+    }
+    .van-nav-bar{
+        background: #0D0900;
+    }
+    .van-nav-bar__title{
+        color: #fff;
+    }
+    .van-icon{
+        color: #fff;
+    }
+    [class*=van-hairline]::after{
+        border: none;
+    }
+    /deep/.van-field__control{
+        color: #fff;
     }
     #extract{
         width: 100%;
         overflow: hidden;
+        height: 100%;
+        background: #0D0900;
         .box{
             // width: 100%;
             padding: 0 16px;
             overflow: hidden;
             margin: 0 auto;
-            border-top: 10px solid #f8f8f8;
+            // border-top: 10px solid #f8f8f8;
             .title{
                 font-size: 14px;
-                color: #666;
+                color: #fff;
                 height: 20px;
                 line-height: 20px;
                 margin:  10px 0;
@@ -178,12 +193,12 @@ export default {
                 display: flex;
                 justify-content: center;
                 font-size: 22px;
-                color: #F84D4D;
+                color: #fff;
                 align-items: center;
                 img{
                     margin-right: 10px;
-                    height: 22px;
-                    width: 22px;
+                    height: 32px;
+                    width: 27px;
                 }
             }
             .money{
@@ -192,7 +207,7 @@ export default {
                 line-height: 32px;
                 width: 343px;
                 font-size: 23px;
-                color: #333;
+                color: #fff;
                 margin: 5px auto 38px;
             }
             .btn{
@@ -200,8 +215,8 @@ export default {
                 height: 44px;
                 background: red;
                 margin: 0 auto;
-                background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
-                border-radius: 22px;
+                background:linear-gradient(90deg,#494EFE 0%,#0900F8 100%);
+                border-radius: 6px;
                 color: #fff;
             }
             .inputBox{
@@ -209,8 +224,9 @@ export default {
                 // width: 100%;
                 // height: 100%;
                 display: flex;
-                border: 1px solid #D8D8D8;
+                // border: 1px solid #D8D8D8;
                 padding: 6px;
+                background: #1D1C3B;
                 box-sizing: border-box;
                 justify-content: space-between;
                 border-radius:4px;
@@ -220,6 +236,8 @@ export default {
                     flex: 1;
                     border: 0;
                     font-size: 14px;
+                    color: #f00;
+                    background: #1D1C3B;
                 }
                 img{
                     width: 17px;
@@ -235,7 +253,7 @@ export default {
                 width: 100%;
                 overflow: hidden;
                 line-height: 18px;
-                color: #666;
+                color: #DEE7FF;
                 display: flex;
                 justify-content: space-between;
                 margin-bottom: 10px;
@@ -253,7 +271,7 @@ export default {
                 font-size: 16px;
             }
             .red{
-                color: #F84D4D;
+                color: #DEE7FF;
             }
         }
     }

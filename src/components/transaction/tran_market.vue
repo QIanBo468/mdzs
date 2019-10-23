@@ -1,6 +1,6 @@
 <template>
-  <div class="bothse">
-    <trannav :title="title" :leftj="true"></trannav>
+  <div class="bothse-market">
+    <!-- <trannav :title="title" :leftj="true"></trannav> -->
     <div class="titletab">
       <div
         class="tablist"
@@ -60,7 +60,20 @@ export default {
 
       page: 1, //页数
       lastId: 0, //lastid
-      bodylist: [], //列表
+      bodylist: [
+        {orderNo: 93849384,
+        offerChinese: '匹配中',
+        num: 900,
+        unitPrice: '0.20395746CNY',
+        price: '2000.0000000000CNY'
+        },
+         {orderNo: 93849384,
+        offerChinese: '匹配中',
+        num: 900,
+        unitPrice: '0.20395746CNY',
+        price: '2000.0000000000CNY'
+        }
+      ], //列表
       lastpage: "", //最后一页
 
       show: false, //弹出层
@@ -232,48 +245,43 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.bothse {
+.bothse-market {
   height: 100vh;
-  padding: 40px 0 0;
-  background: rgba(0, 22, 114, 1);
+  padding: 0 15px;
+  background: #0B0C21;
 }
 .titletab {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #0d2179;
-
+  background: #121E4D;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
   .tablist {
     width: 50%;
-    line-height: 44px;
+    line-height: 35px;
     text-align: center;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 400;
     color: rgba(216, 216, 216, 1);
     position: relative;
   }
   .tabact {
     color: #fff;
-    &:after {
-      content: "";
-      width: 20px;
-      height: 3px;
-      background: rgba(248, 77, 77, 1);
-      border-radius: 2px;
-      position: absolute;
-      bottom: 0;
-      left: 44%;
-    }
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    background: linear-gradient(90deg,#494EFE 0%,  #0900F8 100%);
   }
 }
 .bodylist {
-  padding: 0 16px 20px;
-  background: rgba(0, 22, 114, 1);
+  // padding: 0  20px;
+  // background: #1D1C3B;
   .listmodule {
     margin: 10px 0 0;
+    box-sizing: border-box;
     padding: 0 10px 20px;
     border-radius: 6px;
-    background: #0d2179;
+    background: #1D1C3B;
   }
 }
 .list_model {
@@ -284,29 +292,31 @@ export default {
   align-items: center;
   font-size: 14px;
   font-weight: 400;
-  color: rgba(255, 255, 255, 1);
+  color: #fff;
 }
 .first_div {
   box-shadow: 0px 0px 0px 0px rgba(255, 255, 255, 0.1);
-  border-bottom: 1px solid #253786;
+  // border-bottom: 1px solid #253786;
   div:first-child {
-    color: rgba(216, 216, 216, 1);
+    color: #D8D8D8;
   }
   div:last-child {
-    color: rgba(254, 128, 0, 1);
+    color: #FF2626;
   }
 }
-.maijia {
-  color: rgba(248, 77, 77, 1);
-}
+// .maijia {
+//   color: rgba(248, 77, 77, 1);
+// }
 .clickview {
+  color: #fff;
   div:last-child {
     width: 76px;
     line-height: 26px;
+    
     background: linear-gradient(
-      180deg,
-      rgba(86, 204, 242, 1) 0%,
-      rgba(47, 128, 237, 1) 100%
+      90deg,
+      #494EFE 0%,
+      #0900F8 100%
     );
     opacity: 0.79;
     text-align: center;

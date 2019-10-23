@@ -2,15 +2,13 @@
     <div id='charge'>
         <van-nav-bar
             title="充币"
-            right-text="充币记录"
             left-arrow
             :border="false"
             @click-left='$router.go(-1)'
-            @click-right= '$router.push("/topUp")'
         />
         <div class='chargeBox'>
             <div>
-                <img src="../../../static/images/index/usdt.png">usdt
+                <img width="27px;" height="32px" src="../../../static/images/index/B@3x.png">BAT
             </div>
             <img class='img' :src="obj.qrCode" alt="">
             <div class='encoding'>{{obj.address}}</div>
@@ -64,11 +62,27 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+.van-nav-bar{
+    background: #0B0C21;
+
+}
+/deep/.van-nav-bar__title{
+     color: #fff;   
+}
+.van-icon{
+    color: #fff;
+}
+#charge{
+    width: 100%;
+    height: 100%;
+    background: #0B0C21;
+}
     .chargeBox{
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        background: #0B0C21;
         .img{
             width: 110px;
             height: 110px;
@@ -79,11 +93,11 @@ export default {
             display: flex;
             align-items: center;
             font-size: 22px;
-            color: #F84D4D;
+            color: #9AB5FF;
             img{
                 margin-right: 10px;
                 width: 27px;
-                height: 27px;
+                height: 32px;
             }
         }
         .encoding{
@@ -96,9 +110,9 @@ export default {
             text-align: center;
             line-height: 28px;
             color: #fff;
-            border-radius: 22px;
-            // background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
-            background: #FC5461;
+            border-radius: 6px;
+            background:linear-gradient(90deg,#494EFE 0%,#0900F8 100%);
+            // background: #FC5461;
             margin: 10px auto 50px;
         }
         .remark{

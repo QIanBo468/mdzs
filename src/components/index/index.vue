@@ -1,5 +1,5 @@
 <template>
-    <div id='index'>
+    <!-- <div id='index'>
         <div id='box' class='banner'>
             <div class='bannerTitle'>首页</div>
         </div>
@@ -58,6 +58,26 @@
             </div>
         </div>
         <div class="hold"></div>
+    </div> -->
+    <div id="index">
+        <div class="indexbox">
+        <nav>行情</nav>
+        <div class="indexlist" v-for="(item, index) of list" :key="index">
+            <div class="listtitle">
+                <div class="listname">
+                    <h3>{{item.name}}/</h3><span>{{item.subhead}}</span>
+                </div>
+                <span>交易量: {{item.jiaoyi}}</span>
+            </div>
+            <div class="jiage">
+                <h3>{{item.chazhi}}</h3>
+                <span>≈￥{{item.yuedeng}}</span>
+            </div>
+            <div class="amount">
+                <div class="amount-btn">{{item.amount}}</div>
+            </div>
+        </div>
+        </div>
     </div>
 </template>
 <script>
@@ -71,6 +91,13 @@ export default {
         return {
             active: 0,
             text: '',
+            list: [
+                {name: 'MEET', subhead:'ETH',jiaoyi: 556, chazhi: 0.38473884, yuedeng: 0.10, amount: '+24.03%'},
+                {name: 'MEET', subhead:'ETH',jiaoyi: 556, chazhi: 0.38473884, yuedeng: 0.10, amount: '+24.03%'},
+                {name: 'MEET', subhead:'ETH',jiaoyi: 556, chazhi: 0.38473884, yuedeng: 0.10, amount: '+24.03%'},
+                {name: 'MEET', subhead:'ETH',jiaoyi: 556, chazhi: 0.38473884, yuedeng: 0.10, amount: '+24.03%'},
+                {name: 'MEET', subhead:'ETH',jiaoyi: 556, chazhi: 0.38473884, yuedeng: 0.10, amount: '+24.03%'},
+            ],
             userList: [
                 {
                     to: '/earnings',
@@ -94,41 +121,6 @@ export default {
                 }
             ]
             ,
-            List: [
-                {
-                    icon: './static/images/index/business.png',
-                    text: '商业信息'
-                },
-                {
-                    icon: './static/images/index/live.png',
-                    text: '草根直播'
-                },
-                {
-                    icon: './static/images/index/game.png',
-                    text: '游戏世界'
-                },
-                {
-                    icon: './static/images/index/lottery.png',
-                    text: '幸运博彩'
-                },
-                {
-                    icon: './static/images/index/travel.png',
-                    text: '旅游信息'
-                },
-                {
-                    icon: './static/images/index/chat.png',
-                    text: '交友聊天'
-                },
-                {
-                    icon: './static/images/index/dial.png',
-                    text: '转盘抽奖',
-                    to: 'turntable'
-                },
-                {
-                    icon: './static/images/index/moreB.png',
-                    text: '更多'
-                }
-            ],
             classList: [],
             rateObj: {},
         }
@@ -310,7 +302,96 @@ export default {
     width: 100%;
     height: 100%;
     overflow-y: auto;
+    background: #0B0C21;
+    color: #fff;
+    nav{
+        font-size: 18px;
+        margin-top: 15px;
+        margin-bottom: 19px;
+    }
+    .indexbox{
+        height: 100%;
+        padding: 0 15px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .indexlist{
+        width: 100%;
+        height: 80px;
+        background: #191B4B;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        padding: 12px 14px;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        .listtitle{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            .listname{
+                
+                display: flex;
+                align-items: center;
+                h3{
+                    color: #ffffff;
+                    font-size: 18px;
+                    margin: 0;
+                    margin-bottom: 12px;
+                }
+                span{
+                    color: #E3E3E9;
+                    font-size: 11px;
+                    margin-bottom: 11px;
+                }
+            }
+
+        }
+        .jiage{
+            flex: 1;
+             display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: center;
+                h3{
+                    color: #ffffff;
+                    font-size: 18px;
+                    margin: 0;
+                    margin-bottom: 12px;
+                }
+                span{
+                    color: #E3E3E9;
+                    font-size: 11px;
+                }
+        }
+        .amount{
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .amount-btn{
+                width: 80px;
+                height: 30px;
+                text-align: center;
+                line-height: 30px;
+                background: linear-gradient(90deg ,#494EFE 0%, #0900F8 100%);
+                border-radius: 18px;
+            }
+        }
+    }
 }
+
+
+
+
+
+
+
+
+
+
 .hold{
     background: #f8f8f8;
     height: 10px;

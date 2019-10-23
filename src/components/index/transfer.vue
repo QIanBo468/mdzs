@@ -1,22 +1,22 @@
 <template>
     <div id='extract'>
         <van-nav-bar
-        title="转账"
+        title="转出到BAT交易"
         right-text="转账记录"
         left-arrow
         @click-left="onClickLeft"
         @click-right='$router.push({path:"/transferRecord",query:{type:type}})'
         />
         <div class='box'>
-            <div class='usdt' @click='show = true'>
-                <img :src="typeImg" alt="">
-                {{type}}
-                <img class="imgDown" src="../../../static/images/index/pullDown.png" alt="">
+            <div class='usdt'>
+                <img src="../../../static/images/index/B@3x.png" alt="">
+                BAT
+                <!-- <img class="imgDown" src="../../../static/images/index/pullDown.png" alt=""> -->
             </div>
             <div class='money'>
-                {{money}}
+                {{money}}123
             </div>
-            <div class='title'>
+            <!-- <div class='title'>
                 会员ID
             </div>
 
@@ -29,7 +29,7 @@
                     :error="errors.has('id')"
                     v-validate="'required'"
                 />
-            </div>
+            </div> -->
 
             <!-- <InputImg style="width: 343px;height: 40px;margin: 0 auto" :placeholder='placesUser'>
                 <template slot="right"> 
@@ -38,6 +38,7 @@
             </InputImg> -->
 
             <div class='title'>
+                <div class="g"></div>
                 转账数量
             </div>
 
@@ -53,7 +54,11 @@
             </div>
 
             <div class='title'>
+                <div class="g"></div>
                 验证码
+                <div class="phon">
+                    {{hintPhone}}
+                </div>
             </div>
 
             <div class="inputBox">
@@ -113,6 +118,7 @@ export default {
             placesNum: '请输入转账数量',
             placesCode: '请输入验证码',
             codeText: '获取验证码',
+            hintPhone: '(133****5332)',
             codeTime: 60,
             show: false,
             radio: 1,
@@ -123,12 +129,12 @@ export default {
                 id: '',
                 captcha: ''
             },
-            typeImg: './static/images/index/usdt.png',
+            typeImg:'../../../static/images/index/usdt.png',
             list: {},
             type: '',
             iconObj: {
                 ofc: './static/images/index/ofc.png',
-                usdt: './static/images/index/usdt.png',
+                BAT: './static/images/index/B@3x.png',
                 LoveFund:'./static/images/index/fund.png'
             },
             procedure: ''
@@ -209,7 +215,7 @@ export default {
             }else if(type == 'ofc'){
                 this.typeImg  = '../../../static/images/index/ofc.png'
             }else{
-                this.typeImg  = '../../../static/images/index/usdt.png'
+                this.typeImg  = '../../../static/images/index/B@3x.png'
             }
                 
             this.type = this.radio
@@ -217,10 +223,10 @@ export default {
             this.show = false
         },
         time () {
-            if(!this.form.id){
-                Toast('会员ID不能为空')
-                return
-            }
+            // if(!this.form.id){
+            //     Toast('会员ID不能为空')
+            //     return
+            // }
             if(this.codeText == '获取验证码'){
                 var that = this;
                 that.$axios.fetchPost('/portal',
@@ -322,17 +328,33 @@ export default {
 <style lang="less" scoped>
     #extract{
         width: 100%;
+        height: 100%;
+        background: #000;
+        position: relative;
+        .phon{
+            font-size: 12px;
+            margin-left: 5px;
+        }
         .box{
             // width: 100%;
             padding: 0 16px;
             margin: 0 auto;
-            border-top: 10px solid #f8f8f8;
+            // border-top: 10px solid #f8f8f8;
             .title{
                 font-size: 14px;
-                color: #666;
+                color: #fff;
                 height: 20px;
                 line-height: 20px;
-                margin:  10px 0;
+                margin:  20px 0;
+                display: flex;
+                .g{
+                    height: 20px;
+                    // line-height: 20px;
+                    width: 5px;
+                    background:linear-gradient(180deg,#494EFE 0%,#0C04F8 100%);
+                    margin-right: 10px;
+                    border-radius: 8px;
+                }
             }
             .usdt{
                 margin-top: 30px;
@@ -340,12 +362,12 @@ export default {
                 display: flex;
                 justify-content: center;
                 font-size: 22px;
-                color: #F84D4D;
+                color: #9AB5FF;
                 align-items: center;
                 img{
                     margin-right: 10px;
-                    height: 22px;
-                    width: 22px;
+                    height: 32px;
+                    width: 27px;
                 }
                 .imgDown{
                     margin-left: 5px;
@@ -357,7 +379,7 @@ export default {
                 line-height: 32px;
                 width: 343px;
                 font-size: 23px;
-                color: #333;
+                color: #fff;
                 margin: 5px auto 38px;
             }
             .van-cell{
@@ -368,20 +390,25 @@ export default {
                 height: 44px;
                 background: red;
                 margin: 0 auto;
-                background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
-                border-radius: 22px;
+                background:linear-gradient(90deg,#494EFE 0%,#0C04F8 100%);
+                border-radius: 8px;
                 color: #fff;
+                position: fixed;
+                bottom: 10px;
             }
             .inputBox{
                 height: 100%;
                 display: flex;
-                border: 1px solid #D8D8D8;
+                // border: 1px solid #D8D8D8;
+                background: #1D1C3B;
                 padding: 8px;
                 width: 343px;
-                height: 40px;
+                height: 50px;
+                line-height: 50px;
                 margin: 0 auto;
                 box-sizing: border-box;
                 justify-content: space-between;
+                align-items: center;
                 border-radius:4px;
                 font-size: 14px;
                 input{
@@ -391,8 +418,13 @@ export default {
                     font-size: 14px;
                 }
                 .time{
-                    width: 90px;
-                    text-align: right
+                    width: 85px;
+                    height: 24px;
+                    border: 1px solid #BEC6E4;
+                    line-height: 24px;
+                    border-radius: 12px;
+                    font-size: 12px;
+                    text-align: center;
                 }
                 img{
                     width: 17px;
@@ -425,8 +457,32 @@ export default {
                 font-size: 16px;
             }
             .red{
-                color: #F84D4D;
+                color: #BEC6E4;
             }
+        }
+        /deep/.van-cell__value{
+            background: #1D1C3B;
+            
+        }
+        /deep/.van-field__control{
+            color: #f8f8f8;
+        }
+        .van-nav-bar{
+            background: #000;
+            // background:linear-gradient(180deg,#3FCFFE 0%,#39B2F8 100%);
+            // background: #fff;
+            .van-icon {
+                color: #fff;
+            }
+            .van-nav-bar__title{
+                color: #fff;
+            }
+            .van-nav-bar__text{
+                color: #fff;
+            }
+        }
+        .van-hairline--bottom::after{
+            border: none;
         }
     }
 </style>

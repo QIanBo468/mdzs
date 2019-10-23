@@ -1,7 +1,12 @@
 <template>
     <div class="htmlBox">
         <div>
-        <trannav title="交易详情" :leftj="true" :teshu='1'></trannav>
+            <van-nav-bar
+            title="交易详情"
+            left-arrow
+            @click-left="onClickLeft"
+            ></van-nav-bar>
+        <!-- <trannav title="交易详情" :leftj="true" :teshu='1'></trannav> -->
         <div class="bothse">
             <marketxinxi ref='child' :title='0' :islook='islook' :bothdata="bothdata"></marketxinxi>
             <div class="buyin" v-if='!$route.query.type' @click='submit'>买入</div>
@@ -9,7 +14,6 @@
             <!-- <router-link :to="'/payment?id='+id" ></router-link> -->
         </div>
         </div>
-        
     </div>
 </template>
 
@@ -54,6 +58,9 @@ export default {
                     _this.$toast(res.message)
                 }
             })
+        },
+        onClickLeft() {
+            this.$router.push({path: '/transaction'})
         },
         submit() {
             var _this = this;
@@ -116,17 +123,31 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.van-nav-bar{
+    background: #0B0C21;
+    color: #fff;
+}
+.van-nav-bar__title{
+    color: #fff;
+}
+.van-icon{
+    color: #fff;
+}
+[class*=van-hairline]::after{
+    border: none;
+}
 .htmlBox{
-    border:1px solid red;
+    // border:1px solid red;
     height: 100%;
-    background:rgba(0,22,114,1);
+    background:#0B0C21 ;
+    // margin-bottom: 50px;
 }
 .bothse{
     // height: 100vh;
     box-sizing: border-box;
-    padding:40px 0 36px;
-    border: 1px solid transparent;
-    background:rgba(0,22,114,1);
+    // padding:40px 0 36px;
+    // border: 1px solid transparent;
+    background:#0B0C21;
     a{
         display: block;
     }

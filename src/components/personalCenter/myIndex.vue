@@ -2,7 +2,7 @@
   <div class="myIndex">
     <div class="my_header">
       <van-nav-bar title="我的">
-        <van-icon name="setting-o" size="20" slot="right" @click="onClickRight" />
+        <!-- <van-icon name="setting-o" size="20" slot="right" @click="onClickRight" /> -->
       </van-nav-bar>
       <div class="top">
         <img :src="avatar" alt class="headpic" />
@@ -14,62 +14,79 @@
         </div>
       </div>
     </div>
+        <div class='listbat'>
+          <router-link to='/usdt'>
+              <img src="../../../static/images/index/yitai@3x.png" width="50px" height="50px" alt="">
+              <div class='num'>
+                  <div>BAT钱包</div>
+                  <div>{{menoy}}</div>
+              </div>
+              <img  src="../../../static/images/index/in@3x(2).png" width="19px" height="19px" alt="">
+          </router-link>
+        </div>
     <div class="my_list">
       <router-link class="list" to="my_Mill">
         <div class="my_first">
-          <img src="../../assets/img/wodekuangji.png" alt />
-          <p>我的矿机</p>
+          <img src="../../../static/images/index/shiming.png" alt />
+          <p>实名认证</p>
         </div>
-        <img src="../../assets/img/more_small.png" alt />
+        <img width="22px" height="22px" src="../../../static/images/index/in@3x.png" alt />
       </router-link>
       <router-link class="list" to='/mytrans'>
         <div class="my_first">
-          <img src="../../assets/img/wodejiaoyi.png" alt />
+          <img src="../../../static/images/index/jiaoyi.png" alt />
           <p>我的交易</p>
         </div>
-        <img src="../../assets/img/more_small.png" alt />
+        <img width="22px" height="22px" src="../../../static/images/index/in@3x.png" alt />
       </router-link>
-      <router-link class="list" to="myPaymentMethods">
+      <!-- <router-link class="list" to="myPaymentMethods">
         <div class="my_first">
           <img src="../../assets/img/wodeshoukuanfangshi.png" alt />
           <p>我的收款方式</p>
         </div>
         <img src="../../assets/img/more_small.png" alt />
-      </router-link>
-      <router-link class="list" to="my_recommend">
+      </router-link> -->
+      <!-- <router-link class="list" to="my_recommend">
         <div class="my_first">
           <img src="../../assets/img/wodetuijian.png" alt />
           <p>我的推荐</p>
         </div>
         <img src="../../assets/img/more_small.png" alt />
-      </router-link>
-      <router-link class="list" to="my_team">
+      </router-link> -->
+      <!-- <router-link class="list" to="my_team">
         <div class="my_first">
           <img src="../../assets/img/wodetuandui.png" alt />
           <p>我的团队</p>
         </div>
         <img src="../../assets/img/more_small.png" alt />
-      </router-link>
+      </router-link> -->
       <router-link class="list" to="my_Address">
         <div class="my_first">
-          <img src="../../assets/img/dizhiben.png" alt />
+          <img src="../../../static/images/index/dizhi.png" alt />
           <p>地址本</p>
         </div>
-        <img src="../../assets/img/more_small.png" alt />
+        <img width="22px" height="22px" src="../../../static/images/index/in@3x.png" alt />
       </router-link>
-      <router-link class="list" to="safeCenter">
+      <!-- <router-link class="list" to="safeCenter">
         <div class="my_first">
           <img src="../../assets/img/zhanghuyuanquan.png" alt />
           <p>账户与安全</p>
         </div>
         <img src="../../assets/img/more_small.png" alt />
-      </router-link>
-      <router-link class="list" to="feedback">
+      </router-link> -->
+      <router-link class="list" to="feedbackNew">
         <div class="my_first">
-          <img src="../../assets/img/wentifankui.png" alt />
+          <img src="../../../static/images/index/zhanhu@3x.png" alt />
           <p>问题反馈</p>
         </div>
-        <img src="../../assets/img/more_small.png" alt />
+        <img width="22px" height="22px" src="../../../static/images/index/in@3x.png" alt />
+      </router-link>
+        <router-link class="list" to="Login">
+        <div class="my_first">
+          <img src="../../../static/images/index/tuichu@3x.png" alt />
+          <p>安全退出</p>
+        </div>
+        <img  width="22px" height="22px" class="arrow" src="../../../static/images/index/in@3x.png" alt />
       </router-link>
     </div>
   </div>
@@ -80,7 +97,8 @@ export default {
   data () {
     return {
       info: '',
-      avatar: ''
+      avatar: '',
+      menoy: 12345678
     }
   },
   computed: {},
@@ -110,9 +128,10 @@ export default {
 <style scoped>
 .myIndex{
   overflow-y: auto;
+  background: #0B0C21;
 }
 .my_header {
-  background: url(../../assets/img/gerenzhongxin_bg.png) no-repeat;
+  background: url(../../../static/images/index/bg@3x.png) no-repeat;
   background-size: 100% 100%;
   width: 100%;
   height: 160px;
@@ -164,25 +183,69 @@ export default {
 }
 .my_list {
   padding: 20px;
+  border-radius: 6px;
 }
 .list {
-  background: #fff;
+  background: #1D1C3B;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 0.5px solid #707070;
+ 
+  padding:0 10px;
 }
 .my_first {
   display: flex;
   align-items: center;
 }
 .my_first > img {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
 }
 .my_first > p {
+  /* width: 100%; */
   font-size: 14px;
-  color: #333333;
+  color: #fff;
   margin-left: 10px;
+
 }
+/* .list:first-child{
+  border: none;
+} */
+.list:last-child{
+  border: none;
+}
+
+ .listbat a{
+          background:linear-gradient(90deg,#4A66FA 0%,#7482FC 100%);
+          width: 343px;
+          margin: 15px auto 0;
+          height: 100px;
+          border-radius: 6px;
+          padding: 22px  20px 22px 15px;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+      
+ }
+   .listbat a .num{
+          flex: 1;
+          overflow: hidden;
+          color: #fff;
+          margin-left: 10px;
+   }
+.listbat a .num div{
+              height: 22px;
+              line-height: 22px;
+              font-size: 16px;
+          }
+.listbat a .num div:last-child{
+              height: 32px;
+              line-height: 32px;
+              font-size: 23px;
+          }
+      
+      /* img{
+          width: 20px;
+      } */
 </style>

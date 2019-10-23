@@ -2,7 +2,7 @@
     <div id='marketxinxi'>
         <!-- <trannav title="交易详情" :leftj="true" v-if="title == 0"></trannav> -->
         <!-- <trannav title="付款" :leftj="true" v-if="title == 1"></trannav> -->
-        <div class="marketmod markettop" v-if="bothdata">
+        <div class="marketmod markettop" v-if='bothdata'>   <!-- v-if='bothdata'-->
             <div class="list_model first_div">
                 <div>单号：{{bothdata.orderNo}}</div>
                 <div>{{bothdata.offerChinese}}</div>
@@ -46,9 +46,9 @@
             </div>
         </div>
         <!-- 卖家账号 -->
-        <div class="marketmod lastdiv" v-if='!$route.query.type '>
+        <div class="marketmod lastdiv" v-if='!$route.query.type '>  <!-- v-if='!$route.query.type ' -->
             <div class="maihome" >卖家账号</div>
-            <div class="xincont" v-if="islooks == true? index<3:true " v-for="(item,index) in bothdata.payment" :key="index">
+            <div class="xincont" v-if="islooks == true? index<3:true" v-for="(item,index) in bothdata.payment" :key="index">
                 <div class="contimg"><img :src="item.type == 1? fubao:item.type == 2? wx:yh " alt=""></div>
                 <div class="cont_ent">
                     <div>账号名称：{{item.realName}}</div>
@@ -58,7 +58,7 @@
                     <div @click="$emit('imgshow',item.qrCode)" v-if="title == 1&& item.qrCode !=null" class="zfphoto"><img :src="item.qrCode" alt=""></div>
                 </div>
             </div>
-            <!-- <div class="xincont">
+            <div class="xincont">
                 <div class="contimg"><img src="/static/images/icon/zhifubao.png" alt=""></div>
                 <div class="cont_ent">
                     <div>账号名称：张小闹</div>
@@ -66,7 +66,7 @@
                     <div>账号类型：支付宝支付</div>
                     <div @click="$emit('imgshow','http://mapopen-pub-webserviceapi.bj.bcebos.com/images/direction.png')"  v-if="title == 1" class="zfphoto"><img src="http://mapopen-pub-webserviceapi.bj.bcebos.com/images/direction.png" alt=""></div>
                 </div>
-            </div>
+            </div> 
             <div class="xincont">
                 <div class="contimg"><img src="/static/images/icon/yinhangka.png" alt=""></div>
                 <div class="cont_ent">
@@ -74,7 +74,7 @@
                     <div>账号：2839******47299</div>
                     <div>账号类型：中国工商银行</div>
                 </div>
-            </div> -->
+            </div>
 
             <div class="lookmore" v-if="islook" @click="qiehuanlook">查看更多</div>
             <!-- <div class="buyin" v-if="title == 0">买入</div> -->
@@ -94,7 +94,7 @@
             </div>
         <!-- 上传支付凭证 -->
         {{$route.query.tabstate}}
-        <div class="uploadpz" v-if="title == 1 && ($route.query.tabstate != 1) ">
+        <div class="uploadpz" v-if="title == 1 && ($route.query.tabstate != 1) ">  <!--v-if="title == 1 && ($route.query.tabstate != 1) "-->
             <div>上传支付凭证</div>
             <div v-if="state"><van-uploader v-model="fileList" multiple preview-size="100" :max-count="1" :after-read="afterRead" /></div>
             <div v-if="chuan.voucher!=''&&state!=true"><img  :src="chuan.voucher" alt=""></div>
@@ -144,6 +144,26 @@ export default {
 
     data(){
         return {
+            bothdata: {
+                orderNo: 123123123,
+                offerChinese: '匹配中',
+                num: 900,
+                unitPrice: '0.2CNY',
+                price: '2000CNY',
+                seller: {
+                    nickname: '测试名称',
+                    account: '18374637463',
+                },
+                buyer:{
+                    nickname: '1名称',
+                    account: 13354678912,
+                },
+                payment: {
+                    realName: '张小闹',
+                    account: 283947299,
+                    typeName: '微信支付'
+                }
+            },
             wx:'.../../static/images/icon/weixin.png',
             fubao:'.../../static/images/icon/zhifubao.png',
             yh:'.../../static/images/icon/yinhangka.png',
@@ -310,13 +330,24 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
+.first_div[data-v-7c382fe0]{
+    border: none;
+}
+
+#marketxinxi{
+    width: 100%;
+    height: 100%;
+    background:#0B0C21;
+    padding-bottom: 50px;
+}
 .bothse{
     height:100vh;
-    background:rgba(0,22,114,1);
+    background:#0B0C21;
 } 
 .marketmod{
     margin :10px 0 0;
-    background:#0D2179; 
+    background:#1D1C3B; 
     
     padding:0 16px;
 }
@@ -338,15 +369,15 @@ export default {
             color:rgba(216,216,216,1);
         }
         div:last-child{
-            color:rgba(254,128,0,1);
+            color:#f00;
         }
     }
-    .maijia{
-        color:rgba(248,77,77,1);
-    }
+    // .maijia{
+    //     color:rgba(248,77,77,1);
+    // }
 .lastdiv{
     padding:20px 16px 36px;
-    background:#0D2179; 
+    background:#1D1C3B; 
 }
 .maihome{
     font-size:16px;
@@ -381,13 +412,14 @@ export default {
     color:rgba(216,216,216,1);
 }
 .buyin{
-    margin:115px 16px 0;
+    margin:52px 16px 30px;
     line-height: 44px;
-    border-radius:20px;
-    background:linear-gradient(180deg,#44A5D8 0%,#276CD4 100%);
-    opacity:0.79;
+    border-radius:8px;
+    background:linear-gradient(180deg,#494EFE 0%,#0900F8 100%);
+    // opacity:0.79;
     text-align: center;
     color:#fff;
+    font-size: 17px;
 }
 .zfphoto{
     width: 100px;
@@ -402,7 +434,7 @@ export default {
 }
 .uploadpz{
     margin-top:10px;
-    background:#0D2179; 
+    background:#1D1C3B; 
     padding:20px 16px;
     div{
         &:first-child{
@@ -428,7 +460,7 @@ export default {
     height:44px;
     align-items:center;
     display: flex;
-    background:#0D2179;
+    background:#1D1C3B;
 
     div{
         &:first-child{
@@ -441,7 +473,7 @@ export default {
     }
     input{
         border:none;
-        background:#0D2179;
+        background:#1D1C3B;
         font-size:14px;
         font-weight:400;
         color:#fff;
@@ -465,6 +497,6 @@ export default {
 </style>
 <style>
 #marketxinxi .van-uploader__upload{
-    background:#0D2179!important;
+    background:#1D1C3B!important;
 }    
 </style>

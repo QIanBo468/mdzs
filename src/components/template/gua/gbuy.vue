@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="guabuy">
         <trannav title="挂买" :leftj="true" ></trannav>
         <div class="cont">
                 <div class="contmodule">
@@ -142,8 +142,21 @@ export default {
 </script>
 
 <style lang="less" scoped>
+/deep/.van-nav-bar{
+    background: #0B0C21;
+    color: #fff;
+}
+.van-nav-bar__title{
+    color: #fff;
+}
+.guabuy{
+    height: 100%;
+    width: 100%;
+    background: #0B0C21;
+}
 .cont{
     padding:0 16px;
+    background: #0B0C21;
 }
 .contmodule{
     padding:20px 0 0;
@@ -161,7 +174,7 @@ export default {
     }
     input{
         height:40px;
-        background:#0D2179; 
+        background:#1D1C3B; 
         border-radius:4px;
         border:none;
         width:100%;
@@ -193,7 +206,7 @@ input::-webkit-input-placeholder{
     font-size:16px;
     font-weight:400;
     color:rgba(255,255,255,1);
-    background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
-    border-radius:22px;
+    background:linear-gradient(90deg,#494EFE 0%,#0900F8 100%);
+    border-radius:8px;
 }     
 </style>

@@ -11,8 +11,8 @@
             <img class='img' src="../../static/images/index/success.png" alt="">
             <div class='title'>提交成功</div>
             <div class='explain'>客服审核中，请耐心等待！</div>
-            <van-cell-group :border='false' style="margin-top: 60px;text-align: center">
-                <van-button class='btn' @click="submit">登录</van-button>
+            <van-cell-group :border='false' style="margin-top: 60px;text-align: center; background: #0D0900;">
+                <button class='btn' @click="submit">确认</button>
             </van-cell-group>
         </div>
     </div>
@@ -44,9 +44,11 @@ export default {
     height: 44px;
     background: red;
     margin: 0 auto;
-    background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
-    border-radius: 22px;
+    background:linear-gradient(90deg,#494EFE 0%,#0900F8 100%);
+    border-radius: 6px;
     color: #fff;
+    border: none;
+    font-size: 17px;
 }
 .inputIcon{
     width: 20px;
@@ -56,6 +58,7 @@ export default {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    background: #0D0900;
     .login{
         width: 343px;
         margin:  0 auto;
@@ -69,21 +72,21 @@ export default {
     }
     .title{
         font-size: 20px;
-        color: #333;
+        color: #fff;
         margin-bottom: 9px;
         height: 28px;
         line-height: 28px;
     }
     .explain{
-        color: #888888;
+        color: #DEE7FF;
         font-size: 14px;
         margin-bottom: 258px;
     }
 }
 .img{
-    width: 65px;
-    height: 65px;
-    margin: 30px auto 16px;
+    width: 33px;
+    height: 33px;
+    margin: 50px auto 50px;
 }
 .forget{
     font-size: 12px;

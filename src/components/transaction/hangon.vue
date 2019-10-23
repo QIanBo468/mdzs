@@ -36,7 +36,7 @@ export default {
     height: 100vh;
     padding:44px 0 36px;
     border: 1px solid transparent;
-    background:rgba(0,22,114,1);
+    background:#0B0C21;
     a{
         display: block;
     }

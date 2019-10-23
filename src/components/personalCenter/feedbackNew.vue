@@ -20,7 +20,9 @@
       class="uploader"
       :after-read="upload"
       />
+      <div class="wentibut">
     <van-button :disabled="cannotBind" class="submit-btn" @click="submit">提交</van-button>
+      </div>
   </div>
 </div>
 </template>
@@ -109,7 +111,7 @@ export default {
 
 <style lang="less" scoped>
 .root {
-  background: #f8f8f8;
+  background: #0D0900;
   height: 100vh;
 }
 
@@ -130,13 +132,58 @@ export default {
 .uploader {
   margin: 10px 0 40px;
 }
-
+.wentibut{
+  width: 100%;
+  // position: fixed;
+  // bottom: 0;
+  display: flex;
+  justify-content: center;
+}
 .submit-btn {
-  background: url("../../assets/img/big_btn.png");
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  bottom: 15px;
+  width: 90%;
+  background-image: linear-gradient(90deg,#494efe, #0900F8);
   border: none;
   color: #fff;
 }
-
+.van-hairline--top-bottom::after, .van-hairline-unset--top-bottom::after{
+  border-width:0px 0px !important;
+}
+.van-cell:not(:last-child)::after{
+  border: none;
+}
+.van-cell{
+   color: #fff;
+  background: #1D1C3B;
+}
+/deep/.van-field__control {
+  color: #fff;
+}
+.van-cell__value{
+            background: #f8f8f8;
+        }
+input{
+  color: #f8f8f8 !important;
+}
+        .van-hairline--bottom::after{
+            border: none;
+        }
+          .van-nav-bar{
+            background: #0D0900;
+        }
+           .van-icon {
+                color: #fff;
+            }
+            .van-nav-bar__title{
+                color: #fff;
+            }
+            .van-nav-bar__text{
+                color: #fff;
+            }
+            /deep/.van-uploader__upload{
+              background: transparent;
+            }
 </style>

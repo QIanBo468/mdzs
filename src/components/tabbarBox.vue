@@ -3,23 +3,23 @@
         <router-view style="flex:1; "/>
         <van-tabbar v-model="active" style="height: 50px;    position: sticky">
             <van-tabbar-item  to='/index'>
-                <span class='red'>首页</span>
+                <span class='red'>行情</span>
                 <img
                 slot="icon"
                 slot-scope="props"
                 :src="props.active ? icon.active : icon.normal"
                 >
             </van-tabbar-item>
-            <van-tabbar-item  to='/mall'>
+            <!-- <van-tabbar-item  to='/mall'>
                 <span class='red'>矿机商城</span>
                 <img
                 slot="icon"
                 slot-scope="props"
                 :src="props.active ? mall.active : mall.normal"
                 >
-            </van-tabbar-item>
+            </van-tabbar-item> -->
             <van-tabbar-item to="/transaction" >
-                <span class='red'>交易中心</span>
+                <span class='red'>交易市场</span>
                 <img
                 slot="icon"
                 slot-scope="props"
@@ -43,20 +43,20 @@ export default {
         return {
             active: 0,
             icon: {
-                active: './static/images/index/index_active.png',
-                normal: './static/images/index/index.png',
+                active: './static/images/index/dating@3x.png',
+                normal: './static/images/index/dating-s@3x.png',
             },
             mall: {
-                active: './static/images/index/kuangji_active.png',
-                normal: './static/images/index/kuangji.png',
+                active: './static/images/index/huobi-ss@3x.png',
+                normal: './static/images/index/huobi-s@3x.png',
             },
             deal: {
-                active: './static/images/index/deal_active.png',
-                normal: './static/images/index/deal.png',
+                active: './static/images/index/huobi-s@3x.png',
+                normal: './static/images/index/huobi-ss@3x.png',
             },
             user: {
-                active: './static/images/index/user_active.png',
-                normal: './static/images/index/user_ico.png',
+                active: './static/images/index/more-s@3x.png',
+                normal: './static/images/index/more@3x.png',
             }
         }
     },
@@ -79,10 +79,19 @@ export default {
         display: flex;
         flex-direction: column;
     }
+        /deep/.van-hairline--top-bottom::after, .van-hairline-unset--top-bottom::after{
+        border-width: 0px;
+    }
+    .van-tabbar-item{
+        background: #0b0c21;
+        border: 1px solid #0b0c21;
+        // border-width: 0px;
+    }
     .van-tabbar-item--active {
 
         .red{
-            color: #F84D4D
+            color: #358eea;
+            font-size: 11px;
         }
     }
 </style>

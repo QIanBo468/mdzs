@@ -65,10 +65,12 @@ export default {
 </script>
 <style scoped>
 .newaddress {
-  background: #f8f8f8;
+  background: #0D0900;
+  width: 100%;
+  height: 100%;
 }
 .new_add {
-  background: #fff;
+  background: #0D0900;
   margin-top: 10px;
   height: 100%;
   position: relative;
@@ -77,36 +79,59 @@ export default {
   padding: 20px;
 }
 .adds > p {
-  color: #666666;
+  color: #fff;
   font-size: 14px;
 }
 .adds > input {
   width: 100%;
   height: 40px;
   border: none;
-  border: 1px solid #d8d8d8;
+  background: #1D1C3B;
+  /* border: 1px solid #d8d8d8; */
   border-radius: 4px;
   padding: 0 0 0 7px;
+  color: #fff;
 }
 .adds >>> input::placeholder {
   color: #999999;
   font-size: 15px;
 }
 .sure {
-  padding: 15px;
-  margin-top: 55px;
-  /* position: fixed;
-  bottom: 220px;
-  left: 0;
-  right: 0; */
+  /* padding: 15px; */
+  /* margin-top: 55px; */
+  width: 100%;
+  /* background: #ffffff; */
+  position: fixed;
+  bottom: 20px;
+  display: flex;
+  justify-content: center;
 }
 button {
-  background: #f45c68;
-  width: 100%;
+  background: linear-gradient(90deg, #494EFE 0%,#0900F8 100%);
+  width: 95%;
   border: none;
-  padding: 15px;
+  height: 45px;
+  /* padding: 15px; */
   color: #fff;
   font-size: 16px;
-  border-radius: 23px;
+  border-radius: 6px;
+  line-height: 45px;
+
+}
+
+.van-nav-bar{
+  background: #0D0900;
+}
+.van-nav-bar__title{
+  color: #ffffff;
+}
+.van-nav-bar__text[data-v-14179e7b]{
+  color: #ffffff;
+}
+[class*=van-hairline]::after{
+  border: none;
+}
+.van-icon{
+  color: #ffffff;
 }
 </style>

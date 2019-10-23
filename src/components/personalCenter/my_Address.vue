@@ -1,7 +1,7 @@
 <template>
   <div class="my_address">
     <van-nav-bar
-      title="地址本"
+      title="地址簿"
       left-arrow
       @click-left="onClickLeft"
       right-text="添加"
@@ -10,7 +10,9 @@
 
     <van-swipe-cell :on-close="onClose" v-for="(item,index) in list" :key="index">
       <div class="address_list">
+        <img :src="item.auther" alt="">
         <div class="list_address">
+          
           <span>{{item.name}}</span>
           <span>{{item.address}}</span>
         </div>
@@ -27,7 +29,10 @@
 export default {
   data () {
     return {
-      list: ''
+      // list: ''
+      list: [
+        { name: '张三', address: 'asdasfvzxvzxcvbsrd', auther: require('../../../static/images/index/1@3x.png')}
+      ]
       // param: '1'
     }
   },
@@ -102,27 +107,53 @@ export default {
 }
 </script>
 <style scoped>
+.van-nav-bar{
+  background: #0D0900;
+}
+.van-nav-bar__title{
+  color: #ffffff;
+}
+.van-nav-bar__text[data-v-14179e7b]{
+  color: #ffffff;
+}
+[class*=van-hairline]::after{
+  border: none;
+}
+.van-icon{
+  color: #ffffff;
+}
+
+.van-button--danger{   /*滑块的颜色 */
+  background: #EC5218;
+}
 .my_address {
-  background: #f8f8f8;
+  background: #0D0900;
   height: 100vh;
 }
 .address_list {
   padding: 15px;
-  background: #fff;
+  background: #1D1C3B;
+  
   margin-top: 10px;
+  display: flex;
+  align-items: center;
 }
-
+.address_list > img{
+  width: 33px;
+  height: 33px;
+  margin-right: 5px;
+}
 .list_address {
   display: flex;
   justify-content: center;
   flex-direction: column;
 }
 .list_address > span:nth-child(1) {
-  color: #333333;
+ color: #ffffff;
   font-size: 15px;
 }
 .list_address > span:nth-child(2) {
-  color: #666666;
+  color: #ffffff;
   font-size: 13px;
   margin-top: 5px;
 }

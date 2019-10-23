@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="shiming">
          <van-nav-bar
             title="实名认证"
             left-arrow
@@ -8,6 +8,7 @@
         />
         <van-cell-group class='infoBox'>
             <van-field
+                class="xingming"
                 type="text"
                 label="姓名"
                 v-model="fromObj.realName"
@@ -52,9 +53,12 @@
                 </div>
             </van-row>
         </van-cell-group>
-        <van-cell-group class='btnBox'>
+        <!-- <van-cell-group class='btnBox'>
             <van-button class='btn' @click='submit'>提交</van-button>
-        </van-cell-group>
+        </van-cell-group> -->
+        <div class="btn">
+            <button @click='submit'>提交</button>
+        </div>
     </div>
 </template>
 <script>
@@ -163,18 +167,64 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+
+.van-nav-bar{
+  background: #0D0900;
+}
+.van-nav-bar__title{
+  color: #ffffff;
+}
+.van-nav-bar__text[data-v-14179e7b]{
+  color: #ffffff;
+}
+[class*=van-hairline]::after{
+  border: none;
+}
+.van-icon{
+  color: #ffffff;
+}
+
+
+.van-cell{
+    background: #0D0900;
+    color: #fff;
+    border-bottom: 1px solid #707070;
+}
+
+.van-cell:not(:last-child)::after{
+    border-bottom: 1px solid #707070;
+}
+
+.van-cell-group{
+    background: transparent;
+}
+.shiming{
+    width: 100%;
+    height: 100%;
+    background: #0D0900;
+}
     .btn{
-        width: 343px;
-        height: 44px;
-        background: red;
+        position: fixed;
+        width: 100%;
+        bottom: 20px;
         margin: 0 auto;
-        background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
-        border-radius: 22px;
-        color: #fff;
+        background: transparent;
+        display: flex;
+        justify-content: center;
+        button{
+            width: 95%;
+            height: 44px;
+            background:linear-gradient(90deg,#494EFE 0%,#0900F8 100%);
+            border-radius: 6px;
+            text-align: center;
+            color: #fff;
+            border: none;
+            font-size: 17px;
+        }
     }
-    .btnBox{
-        margin: 0 auto 10px;width: 344px
-    }
+    // .btnBox{
+    //     margin: 0 auto 10px;width: 344px
+    // }
     .imgBox{
         width: 162px;
         height: 98px
@@ -198,10 +248,13 @@ export default {
     }
     .uploading{
         margin:0 auto 120px;
-        width: 344px
+        width: 344px;
     }
     .infoBox{
         margin: 60px auto 40px;
         width: 344px
     }
+    // xingming{
+    //     background: #0900F8;
+    // }
 </style>
