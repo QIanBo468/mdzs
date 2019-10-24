@@ -223,8 +223,20 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.van-nav-bar{
+  background: #0D0900;
+}
+/deep/.van-nav-bar__title{
+  color: #fff;
+}
+[class*=van-hairline]::after{
+  border: none;
+}
+.van-icon{
+  color: #fff;
+}
 .root {
-  background: #f8f8f8;
+  background: #0D0900;
   height: 100vh;
 }
 
@@ -234,7 +246,7 @@ export default {
 
 .list {
   padding: 0 8px;
-  background: #fff;
+  // background: #fff;
 }
 
 .item {
@@ -242,9 +254,10 @@ export default {
   justify-content: space-between;
   align-items: center;
   padding: 14px 10px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #0D0900;
   font-size: 14px;
-  color: #333;
+  color: #fff;
+  background: #1D1C3B;
 
   &:active {
     background: #f2f3f5;
@@ -274,7 +287,7 @@ export default {
   }
 
   &-bind-msg {
-    color: #999;
+    color: #CBD9FF;
     font-size: 12px;
   }
 }

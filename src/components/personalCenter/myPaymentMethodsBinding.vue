@@ -14,7 +14,10 @@
         />
       </div>
       <div>
-        <div class="label">{{ title }}</div>
+        <div class="label">
+          {{ title }}
+          <!-- 支付宝账号 -->
+          </div>
         <van-field
           class="input"
           v-model="account"
@@ -29,6 +32,7 @@
           :max-count="1"
           :after-read="upload"
           @delete="deleteQrCode"
+          class="uploading"
           />
       </div>
     </template>
@@ -66,7 +70,7 @@
           clearable
         />
       </div>
-      <div>
+      <!-- <div>
         <div class="label">身份证号</div>
         <van-field
           class="input"
@@ -85,10 +89,10 @@
           placeholder="请输入银行预留手机号"
           clearable
         />
-      </div>
+      </div> -->
     </template>
 
-    <div class="sms">
+    <!-- <div class="sms">
       <div class="label">验证码</div>
       <van-field
         class="input"
@@ -118,7 +122,7 @@
           </van-button>
         </template>
       </van-field>
-    </div>
+    </div> -->
 
     <div class="empty"></div>
 
@@ -389,8 +393,23 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.van-nav-bar{
+  background: #0D0900;
+}
+/deep/.van-nav-bar__title{
+  color: #fff;
+}
+[class*=van-hairline]::after{
+  border: none;
+}
+.van-icon{
+  color: #fff;
+}
+/deep/.van-field__control{
+  color: #fff;
+}
 .root {
-  background: #f8f8f8;
+  background: #0B0C21;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -403,22 +422,23 @@ export default {
 .main {
   flex-grow: 1;
   padding: 10px 16px 0;
-  background: #fff;
+  background: #0B0C21;
   display: flex;
   flex-direction: column;
 }
 
 .label {
-  color: #666;
+  color: #fff;
   font-size: 14px;
   margin: 10px 0;
 }
 
 .input {
-  border: 1px solid #d8d8d8;
+  // border: 1px solid #d8d8d8;
   border-radius: 4px;
   padding-top: 5px;
   padding-bottom: 5px;
+  background: #1D1C3B
 }
 
 .sms-button {
@@ -439,12 +459,13 @@ export default {
     height: 44px;
     background: red;
     margin: 0 auto;
-    background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
-    border-radius: 22px;
+    background:linear-gradient(90deg,#494EFE 0%,#0900F8 100%);
+    border-radius: 6px;
     color: #fff;
     margin-bottom: 41px;
-  // background: url("../../assets/img/big_btn.png");
-    color: #fff;
+    border: none;
 }
-
+/deep/.van-uploader__upload{
+  background: transparent;
+}
 </style>

@@ -39,13 +39,14 @@
         </div>
         <img width="22px" height="22px" src="../../../static/images/index/in@3x.png" alt />
       </router-link>
-      <!-- <router-link class="list" to="myPaymentMethods">
+      
+      <router-link class="list" to="myPaymentMethods">
         <div class="my_first">
-          <img src="../../assets/img/wodeshoukuanfangshi.png" alt />
+          <img src="../../../static/images/index/shoukuan@3x.png" alt />
           <p>我的收款方式</p>
         </div>
-        <img src="../../assets/img/more_small.png" alt />
-      </router-link> -->
+        <img width="22px" height="22px" src="../../../static/images/index/in@3x.png" alt />
+      </router-link>
       <!-- <router-link class="list" to="my_recommend">
         <div class="my_first">
           <img src="../../assets/img/wodetuijian.png" alt />
