@@ -30,6 +30,7 @@ import address from '@/components/index/address'
 import mall from '@/components/mall'
 import extractRecord from '@/components/index/extractRecord'
 
+
 // import charge from '@/components/index/'
 import settingRoutes from './setting-pay-method.js'
 Vue.use(Router)
@@ -205,7 +206,7 @@ export default new Router({
       name: 'transmarket',
       component: resolve => require(['@/components/transaction/tran_market'], resolve),
       meta: {
-        title: '交易市场', 
+        title: '交易市场',
       }
     },
 
@@ -223,6 +224,14 @@ export default new Router({
       component: resolve => require(['@/components/transaction/payment'], resolve),
       meta: {
         title: '付款'
+      }
+    },
+    {
+      path: '/tousu',
+      name: 'tousu',
+      component: resolve => require(['@/components/transaction/tousu'], resolve),
+      meta: {
+        title: '投诉'
       }
     },
     {

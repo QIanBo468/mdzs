@@ -157,24 +157,25 @@ export default {
         },
         //点击投诉
         tousu(){
-            var _this = this;
-            _this.$axios.fetchPost('/portal',{
-                interface: "1006",
-                module: "Attachment",
-                source: "web",
-                version: "v1",
-                data:{
-                    id:_this.id
-                }
-            })
-            .then(res=>{
-                console.log('点击投诉',res)
-                if(res.code == 0){
-                    _this.$toast(res.message)
-                }else if(res.code == 4800 ){
-                    _this.$toast(res.message)
-                }
-            })
+            this.$router.push('/tousu')
+            // var _this = this;
+            // _this.$axios.fetchPost('/portal',{
+            //     interface: "1006",
+            //     module: "Attachment",
+            //     source: "web",
+            //     version: "v1",
+            //     data:{
+            //         id:_this.id
+            //     }
+            // })
+            // .then(res=>{
+            //     console.log('点击投诉',res)
+            //     if(res.code == 0){
+            //         _this.$toast(res.message)
+            //     }else if(res.code == 4800 ){
+            //         _this.$toast(res.message)
+            //     }
+            // })
         }
     },
     components:{
