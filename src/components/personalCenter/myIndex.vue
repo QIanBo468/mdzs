@@ -25,7 +25,7 @@
           </router-link>
         </div>
     <div class="my_list">
-      <router-link class="list" to="my_Mill">
+      <router-link class="list" to="authentication">
         <div class="my_first">
           <img src="../../../static/images/index/shiming.png" alt />
           <p>实名认证</p>
