@@ -17,7 +17,7 @@
                     :error="errors.has('phone')"
                 >
                 <template slot='left-icon'>
-                    <img class='inputIcon' src='../../static/images/index/account.png'/>
+                    <img class='inputIcon' src='../../static/images/index/xingming 2@2x.png'/>
                 </template>
                 </van-field>
                 <van-field
@@ -28,7 +28,7 @@
                     :error="errors.has('captcha')"
                 >
                 <template slot='left-icon'>
-                    <img class='inputIcon' src='../../static/images/index/code.png'/>
+                    <img class='inputIcon' src='../../static/images/index/yaoqingma@2x.png'/>
                 </template>
                 <template slot="button">
                     <div @click='sendCode' class='code'>
@@ -47,7 +47,7 @@
                     :error="errors.has('password')"
                 >
                 <template slot='left-icon'>
-                    <img class='inputIcon' src='../../static/images/index/password.png'/>
+                    <img class='inputIcon' src='../../static/images/index/yaoqingma@2x.png'/>
                 </template>
                 </van-field>
             </van-cell-group>
@@ -137,6 +137,40 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+  #passwordBox{
+    width: 100%;
+    height: 100%;
+    background: #0b0c21;
+}
+.van-nav-bar{
+    background: #0b0c21;
+    
+}
+.van-nav-bar__title{
+    color: #ffffff;
+}
+.van-icon-arrow-left:before{
+    color: #ffffff;
+}
+/deep/.van-field--error .van-field__control, .van-field--error .van-field__control::placeholder{
+    color: #DEE7FF;
+}
+/deep/.van-field__control{
+    color: #DEE7FF;
+}
+.van-button--default{
+    border: 1px solid #0b0c21;
+}
+.van-cell-group {
+    background: #0b0c21;
+    border: none;
+}
+.van-hairline--top-bottom::after, .van-hairline-unset--top-bottom::after{
+    border-width: 0;
+}
+.van-cell{
+    background: none;
+}
     .password{
         width: 343px;
         margin: 0 auto;
@@ -149,9 +183,10 @@ export default {
     .btn{
         width: 343px;
         height: 44px;
-        background: red;
+        // background: red;
         margin: 0 auto;
-        background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
+        background-image: linear-gradient(90deg,#494efe, #0b02f8);
+        // background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
         border-radius: 22px;
         color: #fff;
     }
@@ -161,9 +196,9 @@ export default {
         height:24px;
         box-sizing: border-box;
         border-radius:12px;
-        border:1px solid rgba(248,77,77,1);
+        border:1px solid #DEE7FF;
         // background: #F84D4D;
-        color: #F84D4D;
+        color: #DEE7FF;
         text-align: center;
         font-size: 12px;
         // co

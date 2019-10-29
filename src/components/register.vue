@@ -16,7 +16,7 @@
                     v-validate="'required|phones'"
                 >
                 <template slot='left-icon'>
-                    <img class='inputIcon' src='../../static/images/index/account.png'/>
+                    <img class='inputIcon' src='../../static/images/index/xingming 2@2x.png'/>
                 </template>
                 </van-field>
                 <van-field
@@ -28,7 +28,7 @@
                     v-validate="'required|password'"
                 >
                 <template slot='left-icon'>
-                    <img class='inputIcon' src='../../static/images/index/password.png'/>
+                    <img class='inputIcon' src='../../static/images/index/jihuoma@2x.png'/>
                 </template>
                 </van-field>
 
@@ -43,7 +43,7 @@
                     v-validate="'required|numeric|min:6'"
                 >
                 <template slot='left-icon'>
-                    <img class='inputIcon' src='../../static/images/index/password.png'/>
+                    <img class='inputIcon' src='../../static/images/index/jihuoma@2x.png'/>
                 </template>
                 </van-field>
                 <van-field
@@ -55,7 +55,7 @@
                     v-model="fromObj.inviteCode"
                 >
                 <template slot='left-icon'>
-                    <img class='inputIcon' src='../../static/images/index/code.png'/>
+                    <img class='inputIcon' src='../../static/images/index/yaoqingma@2x.png'/>
                 </template>
                 </van-field>
             </van-cell-group>
@@ -131,7 +131,45 @@ export default {
     #registerBox{
         width: 100%;
         height: 100%;
+        background: #0b0c21;
     }
+    .van-nav-bar{
+    background: #0b0c21;
+    
+}
+.van-nav-bar__title{
+    color: #ffffff;
+}
+.van-icon-arrow-left:before{
+    color: #ffffff;
+}
+/deep/.van-field--error .van-field__control, .van-field--error .van-field__control::placeholder{
+    color: #DEE7FF;
+}
+/deep/.van-field__control{
+    color: #DEE7FF;
+}
+.van-button--default{
+    border: 1px solid #0b0c21;
+}
+.van-cell-group {
+    background: #0b0c21;
+    border: none;
+}
+.van-hairline--top-bottom::after, .van-hairline-unset--top-bottom::after{
+    border-width: 0;
+}
+.van-cell{
+    background: #0b0c21;
+}
+.van-hairline--bottom::after{
+    border: none;
+}
+/deep/input:-webkit-autofill {
+box-shadow: 0 0 0px 1000px #0b0c21 inset !important;
+ -webkit-text-fill-color: white;
+ border: 1px solid #0b0c21;
+}
     .register{
         width: 343px;
         margin: 0 auto;
@@ -157,7 +195,8 @@ export default {
         height: 44px;
         background: red;
         margin: 0 auto;
-        background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
+        background-image: linear-gradient(90deg,#494efe, #0b02f8);
+        // background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
         border-radius: 22px;
         color: #fff;
     }
@@ -165,5 +204,18 @@ export default {
         width: 13px;
         height: 13px;
         margin-right: 10px;
+    }
+    .code{
+    // width:78px;
+    padding: 0 6px;
+    height:24px;
+    box-sizing: border-box;
+    border-radius:12px;
+    border:1px solid #999999;
+    // background: #F84D4D;
+    color: #999999;
+    text-align: center;
+    font-size: 12px;
+    // co
     }
 </style>
