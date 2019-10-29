@@ -41,7 +41,7 @@ export default {
         }
     },
     created(){
-        this.getofc()
+        //this.getofc()
     },
     computed:{
         suannum(){
@@ -107,18 +107,18 @@ export default {
             }
 
             let data={
-                status:0,
-                num :  _this.uploaddata.num,
-                unitPrice : _this.uploaddata.price,
-                safeword : _this.uploaddata.mm
+              creditType: 'credit_2',
+              amount :  _this.uploaddata.num,
+              unitPrice : _this.uploaddata.price,
+              safeword : _this.uploaddata.mm
             };
             // data.status = 0;
             // data.num = _this.uploaddata.num;
             // data.price = _this.uploaddata.price;
             // data.safeword = _this.uploaddata.safeword;
-            _this.$axios.fetchPost('/portal',{
-                interface: "1001",
-                module: "Attachment",
+            _this.$axios.fetchPost('/portal/C2C',{
+                interface: "2001",
+                module: "Market",
                 source: "web",
                 version: "v1",
                 data:data

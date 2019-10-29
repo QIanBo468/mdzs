@@ -5,6 +5,10 @@
   <div class="main">
     <template v-if="type !== 0">
       <div>
+
+
+
+
         <div class="label">账户名称</div>
         <van-field
           class="input"
@@ -25,6 +29,21 @@
           clearable
         />
       </div>
+
+      <div>
+        <div class="label">
+          输入交易密码
+          <!-- 支付宝账号 -->
+        </div>
+        <van-field
+          class="input"
+          type="password"
+          v-model="safeword"
+          :placeholder="'请输入交易密码'"
+          clearable
+        />
+      </div>
+
       <div>
         <div class="label">收款二维码</div>
         <van-uploader
@@ -70,26 +89,20 @@
           clearable
         />
       </div>
-      <!-- <div>
-        <div class="label">身份证号</div>
+      <div>
+        <div class="label">
+          输入交易密码
+          <!-- 支付宝账号 -->
+        </div>
         <van-field
           class="input"
-          v-model="idCard"
-          placeholder="请输入本人身份证号"
+          type="password"
+          v-model="safeword"
+          :placeholder="'请输入交易密码'"
           clearable
         />
       </div>
-      <div>
-        <div class="label">银行预留手机号</div>
-        <van-field
-          class="input"
-          v-model="mobile"
-          type="number"
-          maxlength="11"
-          placeholder="请输入银行预留手机号"
-          clearable
-        />
-      </div> -->
+
     </template>
 
     <!-- <div class="sms">
@@ -159,7 +172,7 @@ export default {
 
       cannotBind: false,
       bankName: "",
-
+      safeword:'',
       title,
       captcha: "",
       counter: 0,
@@ -237,7 +250,8 @@ export default {
         type: this.type,
         account: this.account,
         realName: this.realName,
-        captcha: this.captcha,
+        safeword:this.safeword
+        //captcha: this.captcha,
       }
 
       if (param.type === 0) {
@@ -254,17 +268,17 @@ export default {
         return
       }
 
-      let inter = "1901"
+      let inter = "1001"
       if (this.id) {
-        inter = "1903"
+        inter = "1003"
         param.id = this.id
       }
 
       this.cannotBind = true
-      this.$axios.fetchPost('/portal', {
+      this.$axios.fetchPost('/portal/C2C', {
         source: "web",
         version: "v1",
-        module: "Finance",
+        module: "Payment",
         interface: inter,
         data: param,
       }).then(res => {
@@ -297,6 +311,9 @@ export default {
         if (!param.account) {
           return this.title + "必填"
         }
+        if (param.safeword.length != 6) {
+          return '交易密码必须由 6 位数字组成'
+        }
         if (!param.qrCode) {
           return "收款二维码必传"
         }
@@ -317,32 +334,32 @@ export default {
           return "开户行必填"
         }
         if (!param.idCard) {
-          return "身份证号必填"
+          //return "身份证号必填"
         }
         if (!(/(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}$)/.test(param.idCard))) {
-          return "身份证号有误"
+          //return "身份证号有误"
         }
         if (!param.mobile) {
-          return "银行预留手机号必填"
+         // return "银行预留手机号必填"
         }
         if (!(/^1[3456789]\d{9}$/.test(param.mobile))) {
-          return "手机号码有误"
+         // return "手机号码有误"
         }
       }
 
-      if (!param.captcha) {
+      /*if (!param.captcha) {
         return "验证码必填"
       }
       if (param.captcha.length !== 6) {
         return "验证码为6位数字"
-      }
+      }*/
       return ""
     },
 
     upload(file) {
       let form = new FormData()
       form.append("file", file.file)
-      this.$axios.fetchPost("http://ofc.qdunzi.com/upload", form).then(res => {
+      this.$axios.fetchPost("http://bat.qdunzi.com/upload", form).then(res => {
         // console.log(res)
         this.qrCode = res.data.file
       }).catch(err => {
@@ -354,11 +371,11 @@ export default {
     },
 
     getData() {
-      this.$axios.fetchPost('/portal', {
+      this.$axios.fetchPost('/portal/C2C', {
         source: "web",
         version: "v1",
-        module: "Finance",
-        interface: "1902",
+        module: "Payment",
+        interface: "1003",
         data: {
           id: this.id,
         },

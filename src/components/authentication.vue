@@ -6,6 +6,28 @@
             @click-left="onClickLeft"
             :border='false'
         />
+
+      <div style="position: fixed;z-index: 9999;width: 100%;height: 100%;top: 50px;bottom: 0;background: #000;color:#fff;" v-if="status >0">
+        <div v-if="status == 1" style="margin:50% auto;width: 30%">
+           <div>
+             <img class='imgBox' :src="waitImg" alt="" style="width: 100%">
+           </div>
+          <div style="font-size: 20px;text-align: center;margin-top: 10%">
+            认证中.....
+          </div>
+        </div>
+
+        <div v-if="status == 2" style="margin:50% auto;width: 30%">
+          <div>
+            <img class='imgBox' :src="sureImg" alt="" style="width: 100%;">
+          </div>
+          <div style="font-size: 20px;text-align: center;margin-top: 10%">
+            认证成功
+          </div>
+        </div>
+
+      </div>
+
         <van-cell-group class='infoBox'>
             <van-field
                 class="xingming"
@@ -63,6 +85,7 @@
 </template>
 <script>
 import { Toast } from 'vant'
+import VueCookies from 'vue-cookies'
 export default {
     data () {
         return {
@@ -73,11 +96,26 @@ export default {
                 realName: '',
                 identity: '',
             },
+          waitImg:'./static/images/shenheimg.png',
+          sureImg:'./static/images/tongguos.png',
             isShowUpLoding: false,
+          status:''
         }
     },
     created () {
-        // Toast(123)
+       //查询用户的实名认证情况
+      this.$axios
+        .fetchPost('/portal', {
+          interface: '3000',
+          module: 'User',
+          source: 'web',
+          version: 'v1',
+          data: {}
+        })
+        .then(res => {
+          this.$cookies.set('status',res.data.status);
+          this.status = res.data.status;
+        })
     },
     methods : {
         onClickLeft () {
@@ -108,6 +146,10 @@ export default {
                             if(res.success) {
                                 Toast(res.message)
                                 that.$router.go(-1)
+                              setTimeout(() => {
+                                that.$router.go(-1)
+                              }, 2500)
+
                             }else{
                                 Toast(res.message)
                             }
@@ -167,6 +209,11 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+
+
+  /deep/.van-field__control {
+    color: #fff;
+  }
 
 .van-nav-bar{
   background: #0D0900;

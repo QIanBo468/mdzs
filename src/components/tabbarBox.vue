@@ -10,14 +10,6 @@
                 :src="props.active ? icon.active : icon.normal"
                 >
             </van-tabbar-item>
-            <!-- <van-tabbar-item  to='/mall'>
-                <span class='red'>矿机商城</span>
-                <img
-                slot="icon"
-                slot-scope="props"
-                :src="props.active ? mall.active : mall.normal"
-                >
-            </van-tabbar-item> -->
             <van-tabbar-item to="/transaction" >
                 <span class='red'>交易市场</span>
                 <img

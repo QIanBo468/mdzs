@@ -9,7 +9,7 @@
             </div>
             <div class="list_model">
                 <div>交易数量</div>
-                <div>{{bothdata.num}}</div>
+                <div>{{bothdata.amount}}BAT</div>
             </div>
 
             <div class="list_model">
@@ -31,7 +31,7 @@
 
             <div class="list_model">
                 <div>卖家手机号</div>
-                <div>{{bothdata.seller.account}}</div>
+                <div>{{bothdata.seller.mobile}}</div>
             </div>
         </div>
         <div class="marketmod" v-if='$route.query.type'>
@@ -42,13 +42,13 @@
 
             <div class="list_model">
                 <div>买家手机号</div>
-                <div>{{bothdata.buyer.account}}</div>
+                <div>{{bothdata.buyer.mobile}}</div>
             </div>
         </div>
         <!-- 卖家账号 -->
         <div class="marketmod lastdiv" v-if='!$route.query.type '>  <!-- v-if='!$route.query.type ' -->
             <div class="maihome" >卖家账号</div>
-            <div class="xincont" v-if="islooks == true? index<3:true" v-for="(item,index) in bothdata.payment" :key="index">
+            <div class="xincont" v-if="islooks == true? index<3:true" v-for="(item,index) in bothdata.account" :key="index">
                 <div class="contimg"><img :src="item.type == 1? fubao:item.type == 2? wx:yh " alt=""></div>
                 <div class="cont_ent">
                     <div>账号名称：{{item.realName}}</div>
@@ -81,7 +81,7 @@
             
         </div>
         <!-- 买家信息 -->
-            <div class="marketmod"  v-if="title == 1&& bothdata.buyer">
+            <div class="marketmod"  v-if="$route.query.title == 1 && bothdata.buyer">
                 <div class="list_model">
                     <div>买家昵称</div>
                     <div>{{bothdata.buyer.nickname}}</div>
@@ -89,19 +89,18 @@
 
                 <div class="list_model">
                     <div>买家手机号</div>
-                    <div>{{bothdata.buyer.account}}</div>
+                    <div>{{bothdata.buyer.mobile}}</div>
                 </div>
             </div>
         <!-- 上传支付凭证 -->
-        {{$route.query.tabstate}}
-        <div class="uploadpz" v-if="title == 1 && ($route.query.tabstate != 1) ">  <!--v-if="title == 1 && ($route.query.tabstate != 1) "-->
+        <div class="uploadpz" v-if="$route.query.title == 1 ">  <!--v-if="title == 1 && ($route.query.tabstate != 1) "-->
             <div>上传支付凭证</div>
             <div v-if="state"><van-uploader v-model="fileList" multiple preview-size="100" :max-count="1" :after-read="afterRead" /></div>
             <div v-if="chuan.voucher!=''&&state!=true"><img  :src="chuan.voucher" alt=""></div>
             <div v-if="bothdata.transactionLog&&state!=true"><img :src="bothdata.transactionLog.voucher" alt=""></div>
         </div>
         <!-- 交易密码 -->
-        <div class="transmm" v-if="title == 1 && state ==true && $route.query.tabstate != 1">
+        <div class="transmm" v-if="$route.query.title == 1">
             <div>交易密码</div>
             <input type="password" v-model="chuan.safeword" placeholder="请输入交易密码" />
         </div>
@@ -114,6 +113,7 @@
             <van-loading class="quzhong" color="#fff" size="50" />
         </div> 
         <div class="buyin" v-if='$route.query.type' @click='sell'>出售</div>
+
     </div>
 </template>
 
@@ -121,35 +121,22 @@
 export default {
     name:'marketxinxi',
     props:{
-        title:{
-            type:Number,
-            default: 0 , //0 交易详情 1 付款
-        },
-        state:{
-            type:Boolean,
-            default: true, //true  需要输入交易密码
-        },
+        title: 0 , //0 交易详情 1 付款
+        state:true, //true  需要输入交易密码
         islook:false,//true显示，false不显示
-        bothdata:{
-            type:Object,
-            default(){
-                return {}
-            } ,//获得的详情
-        },
-        islook:{
-            type:Boolean,
-            default:true
-        }
+        bothdata:{},
+        islook:true,
     },
 
     data(){
         return {
+            title:0,
             bothdata: {
                 orderNo: 123123123,
                 offerChinese: '匹配中',
                 num: 900,
-                unitPrice: '0.2CNY',
-                price: '2000CNY',
+                unitPrice: '0.2',
+                price: '2000',
                 seller: {
                     nickname: '测试名称',
                     account: '18374637463',
@@ -178,7 +165,7 @@ export default {
         }
     },
     created(){
-        
+
     },
     mounted(){
         
@@ -238,9 +225,9 @@ export default {
                 return false
             }
             // console.log(data)
-            this.$axios.fetchPost('/portal',{
-                interface: "1007",
-                module: "Attachment",
+            this.$axios.fetchPost('/portal/C2C',{
+                interface: "3000",
+                module: "Market",
                 source: "web",
                 version: "v1",
                 data:data

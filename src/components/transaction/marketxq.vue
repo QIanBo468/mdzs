@@ -26,19 +26,21 @@ export default {
             id:'',//传来的id
             bothdata:{},//详情里的数据
             islook:false,
+            title:0
         }
     },
     created(){
         this.id = this.$route.query.id;
+        this.title = this.$route.query.title
         this.getxq();
     },
     methods:{
         //获取数据详情
         getxq(){
             var _this = this;
-            _this.$axios.fetchPost('/portal',{
+            _this.$axios.fetchPost('/portal/C2C',{
                 interface: "1003",
-                module: "Attachment",
+                module: "Market",
                 source: "web",
                 version: "v1",
                 data:{
@@ -50,9 +52,6 @@ export default {
                 // console.log('详情',res.data)
                 if(res.code == 0){  
                     _this.bothdata = res.data
-                    if(res.data.payment && res.data.payment.length >3){
-                        _this.islook=true;
-                    }
                     console.log( _this.bothdata)
                 }else if(res.code == 4800){
                     _this.$toast(res.message)
@@ -151,14 +150,15 @@ export default {
     a{
         display: block;
     }
-} 
+}
 .buyin{
-    margin:115px 16px 0;
-    line-height: 44px;
-    border-radius:20px;
-    background:linear-gradient(180deg,#44A5D8 0%,#276CD4 100%);
-    opacity:0.79;
-    text-align: center;
-    color:#fff;
+  margin:52px 16px 30px;
+  line-height: 44px;
+  border-radius:8px;
+  background:linear-gradient(180deg,#494EFE 0%,#0900F8 100%);
+// opacity:0.79;
+  text-align: center;
+  color:#fff;
+  font-size: 17px;
 }
 </style>

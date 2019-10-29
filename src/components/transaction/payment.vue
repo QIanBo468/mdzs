@@ -59,9 +59,9 @@ export default {
         // 获取交易详情
         getjyxq(){
             var _this = this;
-            _this.$axios.fetchPost('/portal',{
-                interface: "6001",
-                module: "User",
+            _this.$axios.fetchPost('/portal/C2C',{
+                interface: "1002",
+                module: "Trade",
                 source: "web",
                 version: "v1",
                 data:{
@@ -85,9 +85,9 @@ export default {
         //获取数据详情
         getxq(){
             var _this = this;
-            _this.$axios.fetchPost('/portal',{
-                interface: "1003",
-                module: "Attachment",
+            _this.$axios.fetchPost('/portal/C2C',{
+                interface: "1002",
+                module: "Trade",
                 source: "web",
                 version: "v1",
                 data:{

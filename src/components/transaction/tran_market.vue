@@ -19,7 +19,7 @@
 
         <div class="list_model">
           <div>数量</div>
-          <div>{{item.num}}</div>
+          <div>{{item.amount}}</div>
         </div>
 
         <div class="list_model">
@@ -57,22 +57,11 @@ export default {
       title: "交易市场",
       tablist: ["买单列表", "卖单列表"], //头部切换
       tabstate: 0, //选中状态
-
+      interface:0,
       page: 1, //页数
       lastId: 0, //lastid
       bodylist: [
-        {orderNo: 93849384,
-        offerChinese: '匹配中',
-        num: 900,
-        unitPrice: '0.20395746CNY',
-        price: '2000.0000000000CNY'
-        },
-         {orderNo: 93849384,
-        offerChinese: '匹配中',
-        num: 900,
-        unitPrice: '0.20395746CNY',
-        price: '2000.0000000000CNY'
-        }
+
       ], //列表
       lastpage: "", //最后一页
 
@@ -154,15 +143,21 @@ export default {
     //挂单记录
     getrecord() {
       var _this = this;
+
+      if(_this.tabstate == 0){
+        //查询买单记录
+        _this.interface = '1002'
+      }else{
+        _this.interface = '1001'
+      }
       let data = {
         lastId: _this.lastId,
         page: _this.page,
-        type: _this.tabstate
       };
       _this.$axios
-        .fetchPost("/portal", {
-          interface: "1000",
-          module: "Attachment",
+        .fetchPost("/portal/C2C", {
+          interface: _this.interface,
+          module: "Market",
           source: "web",
           version: "v1",
           data: data
@@ -192,7 +187,7 @@ export default {
     buyin(index) {
       var list = this.bodylist;
       let buyid = list[index].id;
-      this.$router.replace({ path: "/marketxq", query: { id: buyid } });
+      this.$router.replace({ path: "/marketxq", query: { id: buyid ,title:1} });
     },
     // 出售
     chushou(index) {

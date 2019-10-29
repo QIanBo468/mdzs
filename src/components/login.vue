@@ -44,7 +44,7 @@
             </van-cell-group>
         </div>
     </div>
-</template> k
+</template>
 <script>
 import {Toast} from 'vant'
 export default {
@@ -115,10 +115,12 @@ export default {
     height: 44px;
     background: red;
     margin: 0 auto;
-    background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
+  /*  background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);*/
+  background:linear-gradient(180deg,#494EFE 0%,#0900F8 100%);
     border-radius: 22px;
     color: #fff;
 }
+
 .inputIcon{
     width: 20px;
     height: 20px;

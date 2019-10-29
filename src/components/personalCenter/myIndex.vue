@@ -19,7 +19,7 @@
               <img src="../../../static/images/index/yitai@3x.png" width="50px" height="50px" alt="">
               <div class='num'>
                   <div>BAT钱包</div>
-                  <div>{{menoy}}</div>
+                  <div>{{money}}</div>
               </div>
               <img  src="../../../static/images/index/in@3x(2).png" width="19px" height="19px" alt="">
           </router-link>
@@ -99,7 +99,7 @@ export default {
     return {
       info: '',
       avatar: '',
-      menoy: 12345678
+      money: 0.00
     }
   },
   computed: {},
@@ -123,6 +123,21 @@ export default {
         this.info = res.data
         this.avatar = res.data.avatar
       })
+
+    this.$axios
+      .fetchPost('/portal', {
+        interface: '1000',
+        module: 'Finance',
+        source: 'web',
+        version: 'v1',
+        data: {}
+      })
+      .then(res => {
+        console.log('钱包信息', res.data.credit_2)
+        // this.goodsList = res.data.list;
+        this.money = res.data.credit_2.value;
+      })
+
   }
 }
 </script>

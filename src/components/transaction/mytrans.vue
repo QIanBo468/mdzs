@@ -22,7 +22,7 @@
 
         <div class="list_model">
           <div>数量</div>
-          <div>{{item.num}}</div>
+          <div>{{item.amount}}BAT</div>
         </div>
 
         <div class="list_model">
@@ -35,7 +35,8 @@
           <div>{{item.price}}</div>
         </div>
 
-        <div class="list_model clickview" v-if="item.onComplaint == 0&&item.onOffer == 1">
+        <!--<div class="list_model clickview" v-if="item.onComplaint == 0&&item.onOffer == 1">-->
+          <div class="list_model clickview" >
           <div></div>
           <div  @click="chexiao(index)">撤销</div>
         </div>
@@ -53,11 +54,11 @@ export default {
       title: "我的交易",
       tablist: ["买单列表", "卖单列表"], //头部切换
       tabstate: 0, //选中状态
-
+      interface:0,
       page: 1, //页数
       lastId: 0, //lastid
       bodylist: [
-        {orderNo: 123, onOffer: 1 , offerChinese:' 匹配中',num: 123, unitPrice: 123, price: 123, onComplaint: 0}
+       /* {orderNo: 123, onOffer: 1 , offerChinese:' 匹配中',num: 123, unitPrice: 123, price: 123, onComplaint: 0}*/
       ], //列表
       lastpage: "" //最后一页
     };
@@ -134,12 +135,16 @@ export default {
       let data = {
         lastId: _this.lastId,
         page: _this.page,
-        type: _this.tabstate
       };
+      if(_this.tabstate == 0){
+        _this.interface = 1001;
+      }else{
+        _this.interface = 1000;
+      }
       _this.$axios
-        .fetchPost("/portal", {
-          interface: "6000",
-          module: "User",
+        .fetchPost("/portal/C2C", {
+          interface: _this.interface,
+          module: "Trade",
           source: "web",
           version: "v1",
           data: data

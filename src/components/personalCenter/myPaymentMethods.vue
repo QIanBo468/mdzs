@@ -161,50 +161,34 @@ export default {
     },
 
     getData(page) {
-      this.$axios.fetchPost('/portal', {
+      this.$axios.fetchPost('/portal/C2C', {
         source: "web",
         version: "v1",
-        module: "Finance",
-        interface: "1900",
+        module: "Payment",
+        interface: "2000",
         data: {
-          lastId: this.lastId,
-          page,
         }
       }).then(res => {
-        // console.log(res)
-        this.lastId = res.data.lastId
-        let list = res.data.list
-        this.total = res.data.total
-        this.list.push(...list)
+         console.log(Object.keys(res.data.alipay).length)
+       // this.lastId = res.data.lastId
 
+        if(Object.keys(res.data.alipay).length > 0){
+
+          //存在支付宝
+          this.$set(this.list,0,res.data.alipay)
+        }
+        if(Object.keys(res.data.wechat).length > 0){
+          console.log(res.data.wechat)
+          this.$set(this.list,1,res.data.wechat)
+        }
+      if(Object.keys(res.data.bankCard).length > 0){
+          this.$set(this.list,2,res.data.bankCard)
+        }
+        console.log(this.list)
         if (this.list.length - 3 >= this.total) {
           this.finished = true
         }
       })
-
-      /* let list = [
-        {
-          type: 1,
-          id: 1,
-          realName: "李小猫",
-          account: "12383747463",
-        },
-        {
-          type: 2,
-          id: 2,
-          realName: "李小猫",
-          account: "12383747463",
-        },
-        {
-          type: 0,
-          id: 3,
-          realName: "李小猫",
-          account: "3746374637463746123",
-          bankName: "招商银行",
-          bankAddress: "临沂北城支行",
-        },
-      ]
-      this.list.push(...list) */
     },
   },
 

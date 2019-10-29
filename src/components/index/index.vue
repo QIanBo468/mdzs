@@ -1,82 +1,29 @@
 <template>
-    <!-- <div id='index'>
-        <div id='box' class='banner'>
-            <div class='bannerTitle'>首页</div>
-        </div>
-        <text ></text>
-        <van-grid :column-num="4" class='tabBox' :border='false' >
-            <van-grid-item
-                v-for="(value, index) in List"
-                :key="index"
-                @click='message(value)'
-            >
-            <van-image :src="value.icon" width="47px"/>
-                <div style="font-size: 12px;margin-top: 8px">{{value.text}}</div>
-            </van-grid-item>
-        </van-grid>
-        <van-notice-bar
-        :text="text"
-        left-icon="volume-o"
-        color="#111"
-        background="#fff">
-        <template slot='left-icon'>
-            <img class='imgIcon' src="../../../static/images/index/gonggao.png" alt="">
-        </template>
-        <template slot='right-icon'>
-            <img class='imgIcon' src="../../../static/images/index/more.png" alt="" @click='$router.push("/notice")'>
-        </template>
-        </van-notice-bar>
-        <div class="hold"></div>
-        <van-grid :column-num="2" class='connected' :border='false'>
-            <van-grid-item
-                v-for="(value, index) in userList"
-                :key="index"
-            >
-                <a @click="deal(value.to)" >
-            <div style="height:62px;display:flex;width: 112px;align-items: center;color: #111">
-                    <van-image :src="value.icon" width="50px" height="50px"/>
-                    <div style="margin-left: 10px;font-size: 13px">{{value.title}}</div>
-            </div>
-                </a>
-            </van-grid-item>
-        </van-grid>
-        <div class="hold"></div>
-        <div class="present">
-            <div class="title">ofc当前价格</div>
-            <div class='box_sm'>
-                <div class="list">
-                    <img src="../../../static/images/index/ofc.png" alt="">
-                    <span>1.00000000 ofc ≈ </span>
-                    <span class='red'> {{rateObj.CNY}} CNY</span>
-                </div>
-                <div class="list">
-                    <img src="../../../static/images/index/ofc.png" alt="">
-                    <span>1.00000000 ofc ≈ </span>
-                    <span class='red'>{{rateObj.USDT}} usdt</span>
-                </div>
-                
-            </div>
-        </div>
-        <div class="hold"></div>
-    </div> -->
+
     <div id="index">
         <div class="indexbox">
         <nav>行情</nav>
-        <div class="indexlist" v-for="(item, index) of list" :key="index">
+          <van-list @load="onLoad">
+
+        <div class="indexlist"   v-for="(item, index) of list" :key="index" >
             <div class="listtitle">
                 <div class="listname">
-                    <h3>{{item.name}}/</h3><span>{{item.subhead}}</span>
+                    <h3>{{item.name}}/</h3><span>{{item.quote}}</span>
                 </div>
-                <span>交易量: {{item.jiaoyi}}</span>
+                <span  style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width: 80%">交易量: {{item.amount}}</span>
             </div>
             <div class="jiage">
-                <h3>{{item.chazhi}}</h3>
-                <span>≈￥{{item.yuedeng}}</span>
+                <h3 style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width: 90%">{{item.close}}</h3>
+                <span style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width: 70%">≈￥{{item.closeCNY}}</span>
             </div>
-            <div class="amount">
-                <div class="amount-btn">{{item.amount}}</div>
+            <div class="amount" v-if="item.floatRate >0">
+                <div class="amount-btn">{{item.floatRate}}</div>
             </div>
+          <div class="amount" v-else="item.floatRate<0">
+            <div class="amount-btn btn-low">{{item.floatRate}}</div>
+          </div>
         </div>
+          </van-list>
         </div>
     </div>
 </template>
@@ -91,12 +38,9 @@ export default {
         return {
             active: 0,
             text: '',
+          loading: false,
+          finished: false,
             list: [
-                {name: 'MEET', subhead:'ETH',jiaoyi: 556, chazhi: 0.38473884, yuedeng: 0.10, amount: '+24.03%'},
-                {name: 'MEET', subhead:'ETH',jiaoyi: 556, chazhi: 0.38473884, yuedeng: 0.10, amount: '+24.03%'},
-                {name: 'MEET', subhead:'ETH',jiaoyi: 556, chazhi: 0.38473884, yuedeng: 0.10, amount: '+24.03%'},
-                {name: 'MEET', subhead:'ETH',jiaoyi: 556, chazhi: 0.38473884, yuedeng: 0.10, amount: '+24.03%'},
-                {name: 'MEET', subhead:'ETH',jiaoyi: 556, chazhi: 0.38473884, yuedeng: 0.10, amount: '+24.03%'},
             ],
             userList: [
                 {
@@ -131,82 +75,39 @@ export default {
     mounted() {
     },
     created () {
-        // let  status = this.$cookies.get('status')
-        // if(status == -1){
-        //     this.$dialog.confirm({
-        //         title: '提示',
-        //         message: 未通过实名认证
-        //     }).then(() => {
-        //         this.$router.push('/authentication')
-        //     })
-        //     return
-        // }else if(status == -2){
-        //     this.$dialog.confirm({
-        //         title: '提示',
-        //         message: '未认证'
-        //     }).then(() => {
-        //         this.$router.push('/authentication')
-        //     })
-        //     return 
-        // }else if(status ==  0) {
-        //     Toast('申请中')
-        //     return
-        // }
-        this.$axios.fetchPost('/portal',
-        {
-            source: "web",
-            version: "v1",
-            module: "Content",
-            interface: "4005",
-            data: {}
-        }).then(res => {
-            if(res.success){
-                let text = []
-                res.data.forEach((element, index) => {
-                    text.push({
-                        text: element,
-                        key: index,
-                        time: 1000*Math.floor(Math.random()*10)
-                    })
-                });
-                this.classList = text
-                this.createDM ()
-            }
-        })
-        this.$axios.fetchPost('/portal',
-        {
-            source: "web",
-            version: "v1",
-            module: "Content",
-            interface: "4004",
-            data: {}
-        }).then(res => {
-            // let text = ''
-            // res.data.forEach((element, index) => {
-            //     text += index+1 +'.' + element.title + '      '
-            // });
-            // console.log()
-            if(res.success) this.text = res.data[0].title
-            
-        })
-        
-        this.$axios.fetchPost('/portal',
-        {
-            source: "web",
-            version: "v1",
-            module: "Attachment",
-            interface: "2003",
-        }).then(res => {
-            // let text = ''
-            // res.data.forEach((element, index) => {
-            //     text += index+1 +'.' + element.title + '      '
-            // });
-            // console.log()
-            if(res.success) this.rateObj = res.data
-            
-        })
+
     },
     methods : {
+
+      onLoad (){
+        setTimeout(() => {
+          this.$axios.fetchPost('/portal/Digiccy',
+            {
+              source: "web",
+              version: "v1",
+              module: "Market",
+              interface: "1000",
+              data: {}
+            }).then(res => {
+            if (res.success) {
+              let text = []
+              /*res.data.list.forEach((element, index) => {
+                      text.push({
+                          text: element,
+                          key: index,
+                          time: 1000*Math.floor(Math.random()*10)
+                      })
+                  });
+                  this.list = text*/
+              this.list = res.data.list;
+              console.log(this.list)
+              //this.createDM ()
+            }
+          })
+        },2000);
+
+      },
+
         message (obj) {
             if(obj.to){
                 let  status = this.$cookies.get('status')
@@ -379,6 +280,9 @@ export default {
                 background: linear-gradient(90deg ,#494EFE 0%, #0900F8 100%);
                 border-radius: 18px;
             }
+        }
+        .btn-low{
+          background: linear-gradient(90deg ,#f00 0%, #ee609c 100%)!important;
         }
     }
 }

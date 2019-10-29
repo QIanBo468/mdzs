@@ -9,7 +9,7 @@
         <div class="centerbottom">
             <div class="todaybothdata">
                 <div>今日总交易量</div>
-                <div>{{cont.count}}</div>
+                <div>{{cont}}</div>
             </div>
 
             <div class="flex_both">
@@ -58,109 +58,21 @@ export default {
     },
     created(){
         // this.getzheimg();
-    },
-    mounted() {
-        console.log('21',this.yarr)
-        
-        this.orgOptions = {
-            xAxis: {
-                type: 'category',
-                data: this.xarr,
-                axisLine:{  
-                    lineStyle:{  
-                        color:'#fff',  
-                        width:2  
-                    }  
-                }, 
-                axisLabel:{
-                    interval: 0
-                } 
-                
-            },
-                left: '2%',
-            grid: {
-                right: '2%',
-                bottom: '3%',
-                containLabel: true
-            },
-            yAxis: {
-                type: 'log',
-                // data:[0,0.007,0.07,0.7,7,70,700,7000,70000],
-                axisLine:{  
-                    lineStyle:{  
-                        color:'#fff',  
-                        width:2  
-                    }  
-                }, 
-                splitLine: {
-                    show: true,
-                    lineStyle:{
-                        color: '#7D86AE',
-                        type: 'dotted'
-                    }
-                },
-                axisLabel:{
-                    formatter:'{value}'
-                }
-            },
-            // series: [{
-            //     data: this.yarr,
-            //     type: 'line',
-            //     smooth: true,//折点是圆弧状的
-            //     symbol: 'circle',     //折点设定为实心点
-            //     symbolSize: 8,   //设定实心点的大小
-            //     itemStyle : {    
-            //         normal : {    
-            //             lineStyle:{    
-            //                 color:'#ffffff'    
-            //             },
-            //             // color: new ECharts.graphic.LinearGradient(0, 0, 0, 1,[{
-            //             //         offset: 0, color: '#fff' // 0% 处的颜色
-            //             //     }, {
-            //             //         offset: 0.7, color: '#2A3C89' // 100% 处的颜色
-            //             //     }, {
-            //             //         offset: 1, color: '#0D2279' // 100% 处的颜色
-            //             //     }]
-            //             // ),
-            //             color: 'red',
-            //             // areaStyle: {normal: {}},   
-            //         }  
-            //     }, 
-            // }
-            // ]
-        }
-        
-    },
-    
-    methods:{
-        //  折线图
-        // getzheimg(){
-        //     var _this = this;
-        //     _this.$axios.fetchPost("/portal", {
-        //         interface: "2000",
-        //         module: "Attachment",
-        //         source: "web",
-        //         version: "v1",
-        //         data:{}
-        //     })
-        //     .then(res => {
-        //     console.log("折线图", res);
-        //     if (res.code == 0) {
-        //         _this.cont = res.data
-        //         var list = res.data
-                
-        //         for(var i  in list){
-                    
-        //             _this.yarr.push(Number(list[i].price));
-        //             _this.xarr.push('');
-        //         }
-        //         _this.yarr = _this.yarr.splice(3,1)
 
-        //     } else if (res.code == 4800) {
-        //         _this.$toast(res.message);
-        //     }
-        //     });
-        // },
+      this.$axios
+        .fetchPost('/portal/C2C', {
+          interface: '1000',
+          module: 'Market',
+          source: 'web',
+          version: 'v1',
+          data: {}
+        })
+        .then(res => {
+          this.cont= res.data.today;
+        })
+
+    },
+    methods:{
         deal(url){
             let  status = this.$cookies.get('status')
             if(status == -1){
@@ -173,7 +85,7 @@ export default {
 
                 })
                 return
-            }else if(status == -2){
+            }else if(status == 0){
                 this.$dialog.confirm({
                     title: '提示',
                     message: '未认证'
@@ -183,29 +95,14 @@ export default {
                     
                 })
                 return 
-            }else if(status ==  0) {
+            }else if(status ==  1) {
                 Toast('认证已提交，后台审核中')
                 return
             }
             this.$router.push(url)
         },
-        formatDateTime (date) {  
-                var y = date.getFullYear();  
-                var m = date.getMonth() + 1;  
-                m = m < 10 ? ('0' + m) : m;  
-                var d = date.getDate();  
-                d = d < 10 ? ('0' + d) : d;  
-                var h = date.getHours();  
-                h=h < 10 ? ('0' + h) : h;  
-                var minute = date.getMinutes();  
-                minute = minute < 10 ? ('0' + minute) : minute;  
-                var second=date.getSeconds();  
-                second=second < 10 ? ('0' + second) : second;  
-                return y + '-' + m + '-' + d+' '+h+':'+minute+':'+second;  
-            },
     },
     components:{
-        'chart':ECharts,
         transmarket:transmarket
     }
 }

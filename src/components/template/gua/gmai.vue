@@ -3,7 +3,7 @@
         <trannav title="挂卖" :leftj="true" ></trannav>
         <div class="cont">
                 <div class="contmodule">
-                    <div><span>挂卖数量</span><span>剩余：{{ofc}}ofc</span></div>
+                    <div><span>挂卖数量</span><span>剩余：{{ofc}}BAT</span></div>
                     <input type="number" v-model="uploaddata.num" placeholder="请输入挂卖数量">
                 </div>
                 <div class="contmodule">
@@ -65,7 +65,7 @@ export default {
         getofc(){
             var _this = this;
             _this.$axios.fetchPost('/portal',{
-                interface: "4003",
+                interface: "1000",
                 module: "Finance",
                 source: "web",
                 version: "v1",
@@ -74,8 +74,7 @@ export default {
             .then(res =>{
                 console.log('ofc',res)
                  if(res.code == 0){
-                   _this.ofc = res.data.ofc.have
-                   _this.price = res.data.price.have
+                   _this.ofc = res.data.credit_2.value
                 }else if(res.code == 4800){
                     _this.$toast(res.message)
                 }
@@ -101,13 +100,13 @@ export default {
                 _this.$toast('请输入交易密码');
                 return false;
             }else if(_this.uploaddata.mm.length != 6){
-                _this.$toast('安全密码必须由 6 位数字组成');
+                _this.$toast('交易密码必须由 6 位数字组成');
                 return false
             }
 
             let data={
-                status:1,
-                num : _this.uploaddata.num,
+                creditType:'credit_2',
+              amount : _this.uploaddata.num,
                 unitPrice : _this.uploaddata.price,
                 safeword : _this.uploaddata.mm
             };
@@ -115,9 +114,9 @@ export default {
             // data.num = _this.uploaddata.num;
             // data.price = _this.uploaddata.price;
             // data.safeword = _this.uploaddata.safeword;
-            _this.$axios.fetchPost('/portal',{
-                interface: "1001",
-                module: "Attachment",
+            _this.$axios.fetchPost('/portal/C2C',{
+                interface: "2000",
+                module: "Market",
                 source: "web",
                 version: "v1",
                 data:data
