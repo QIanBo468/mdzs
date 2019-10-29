@@ -227,6 +227,7 @@ export default {
         box-sizing: border-box;
         display: flex;
         align-items: center;
+        justify-content: space-around;
         .listtitle{
             flex: 1;
             display: flex;

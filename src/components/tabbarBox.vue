@@ -1,8 +1,8 @@
 <template>
     <div class='tabbar'>
         <router-view style="flex:1; "/>
-        <van-tabbar v-model="active" style="height: 50px;    position: sticky">
-            <van-tabbar-item  to='/index'>
+        <van-tabbar v-model="actives" style="height: 50px;    position: sticky">
+            <van-tabbar-item  to='/index' name="1">
                 <span class='red'>行情</span>
                 <img
                 slot="icon"
@@ -10,7 +10,7 @@
                 :src="props.active ? icon.active : icon.normal"
                 >
             </van-tabbar-item>
-            <van-tabbar-item to="/transaction" >
+            <van-tabbar-item to="/transaction" name="2">
                 <span class='red'>交易市场</span>
                 <img
                 slot="icon"
@@ -18,7 +18,7 @@
                 :src="props.active ? deal.active : deal.normal"
                 >
             </van-tabbar-item>
-            <van-tabbar-item to='/myIndex'>
+            <van-tabbar-item to='/myIndex' name="3">
                 <span class='red'>我的</span>
                 <img
                 slot="icon"
@@ -33,7 +33,8 @@
 export default {
     data () {
         return {
-            active: 0,
+            active: 3,
+            actives: 3,
             icon: {
                 active: './static/images/index/dating@3x.png',
                 normal: './static/images/index/dating-s@3x.png',
@@ -53,12 +54,15 @@ export default {
         }
     },
     created () {
-        if(this.$route.path == '/mall') {
-            this.active = 1;
+        if(this.$route.path == '/index') {
+            console.log('index')
+            this.actives = '1';
         }else  if(this.$route.path == '/transaction') {
-            this.active = 2;
+            console.log('transaction')
+            this.actives = '2';
         }else if(this.$route.path == '/myIndex'){
-            this.active = 3
+            console.log('myIndex')
+            this.actives = '3'
         }
     }
 }
