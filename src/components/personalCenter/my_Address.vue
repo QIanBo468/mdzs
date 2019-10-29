@@ -7,14 +7,14 @@
       right-text="添加"
       @click-right="onClickRight"
     />
-
+    <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="get_address">
     <van-swipe-cell :on-close="onClose" v-for="(item,index) in list" :key="index">
       <div class="address_list">
-        <img :src="item.auther" alt="">
+        <!--<img :src="item.auther" alt="">-->
         <div class="list_address">
           
-          <span>{{item.name}}</span>
-          <span>{{item.address}}</span>
+          <span>姓名：{{item.name}}</span>
+          <span>地址钱包：{{item.address}}</span>
         </div>
         <!-- <input type="radio" name="radios" :value="1" v-model="param" /> -->
       </div>
@@ -22,6 +22,7 @@
         <van-button square type="danger" text="立即删除" @click="deletes(item.id)" />
       </template>
     </van-swipe-cell>
+    </van-list>
   </div>
 </template>
 
@@ -30,8 +31,12 @@ export default {
   data () {
     return {
       // list: ''
+      lastId: '',
+      page: 1,
+      loading: false,
+      finished: false,
       list: [
-        { name: '张三', address: 'asdasfvzxvzxcvbsrd', auther: require('../../../static/images/index/1@3x.png')}
+
       ]
       // param: '1'
     }
@@ -49,9 +54,9 @@ export default {
         })
         .then(() => {
           // 确定
-          this.$axios.fetchPost('/portal', {
-            interface: '8002',
-            module: 'User',
+          this.$axios.fetchPost('/portal/Digiccy', {
+            interface: '1004',
+            module: 'Address',
             source: 'web',
             version: 'v1',
             data: {
@@ -62,6 +67,8 @@ export default {
               console.log(res)
               if (res.code == 0) {
                 this.$toast(res.message)
+                this.lastId = 0;
+                this.page = 1;
                 this.get_address()
               }
             })
@@ -86,23 +93,57 @@ export default {
       this.$router.push('newAddress')
     },
     get_address () {
-      this.$axios
-        .fetchPost('/portal', {
-          interface: '8000',
-          module: 'User',
-          source: 'web',
-          version: 'v1',
-          data: {}
-        })
-        .then(res => {
-          console.log('我的地址', res)
-          this.list = res.data
-          console.log(this.list)
-        })
+
+      var lastid = ''
+      if (this.lastId) {
+        lastid = this.lastId
+      } else {
+        lastid = 0
+      }
+      var page = this.page++
+      setTimeout(() => {
+        this.$axios
+          .fetchPost('/portal/Digiccy', {
+            interface: '1000',
+            module: 'Address',
+            source: 'web',
+            version: 'v1',
+            data: {
+              lastId: lastid,
+              page: page,
+            }
+          })
+          .then(res => {
+            console.log('我的地址', res)
+            this.lastId = res.data.lastId
+
+            if (res.code == 0) {
+              if (res.data.list.length == 0) {
+                this.finished = true
+              } else {
+                var ret = res.data.list
+                if (page == 1) {
+                  this.list = ret
+                } else {
+                  for (var x in ret) {
+                    this.list.push(ret[x])
+                  }
+                }
+              }
+            } else {
+              this.finished = true
+            }
+            this.loading = false
+
+
+            //this.list = res.data
+            console.log(this.list)
+          })
+      }, 500)
     }
   },
   created () {
-    this.get_address()
+   // this.get_address()
   }
 }
 </script>

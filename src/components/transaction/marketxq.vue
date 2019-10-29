@@ -63,17 +63,22 @@ export default {
         },
         submit() {
             var _this = this;
-            _this.$axios.fetchPost('/portal',{
-                interface: "1004",
-                module: "Attachment",
+            _this.$axios.fetchPost('/portal/C2C',{
+                interface: "3001",
+                module: "Market",
                 source: "web",
                 version: "v1",
                 data:{
                     id:_this.id
                 }
-
             }).then(res => {
+              if(res.code == 0){
                 _this.$router.push({path:'/payment',query:{id: _this.id}})
+              }else{
+                this.$toast(res.message)
+              }
+
+
             })
         },
         sell () {

@@ -187,7 +187,7 @@ export default {
     buyin(index) {
       var list = this.bodylist;
       let buyid = list[index].id;
-      this.$router.replace({ path: "/marketxq", query: { id: buyid ,title:1} });
+      this.$router.replace({ path: "/marketxq", query: { id: buyid } });
     },
     // 出售
     chushou(index) {

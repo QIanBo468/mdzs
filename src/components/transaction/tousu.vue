@@ -33,15 +33,20 @@ export default {
     return {
       feedback: "",
       fileList: [],
-
+      id:'',
       cannotBind: false,
     }
   },
-
+  created(){
+    this.id = this.$route.query.id;
+    console.log(this.id)
+  },
   methods: {
     back() {
       this.$router.go(-1)
     },
+
+
 
     upload(file) {
       let list = []
@@ -82,21 +87,22 @@ export default {
       }
 
       this.cannotBind = true
-      this.$axios.fetchPost('/portal', {
+      this.$axios.fetchPost('/portal/C2C', {
         source: "web",
         version: "v1",
-        module: "Content",
-        interface: "5001",
+        module: "Trade",
+        interface: "2002",
         data: {
+          id:this.id,
           content: this.feedback,
-          imageList: list,
+          images: list,
         }
       }).then(res => {
         // console.log(res)
         if (res.code === 0) {
           this.$toast("新增投诉成功")
           setTimeout(() => {
-            this.back()
+            this.$router.push('/mytrans')
           }, 500)
         } else {
           this.$toast(res.message)

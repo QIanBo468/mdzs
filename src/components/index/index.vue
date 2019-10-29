@@ -6,7 +6,7 @@
           <van-list @load="onLoad">
 
         <div class="indexlist"   v-for="(item, index) of list" :key="index" >
-            <div class="listtitle">
+            <div class="listtitle" style="width: 25%;">
                 <div class="listname">
                     <h3>{{item.name}}/</h3><span>{{item.quote}}</span>
                 </div>

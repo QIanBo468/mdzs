@@ -11,18 +11,24 @@
       >{{item}}</div>
     </div>
     <div class="bodylist" >
-      <div class="listmodule" v-for="(item,index) in bodylist" :key="index" @click="goxq(index)">
+      <div class="listmodule" v-for="(item,index) in bodylist" :key="index" >
         <div class="list_model first_div">
           <div>单号：{{item.orderNo}}</div>
           <div>
-            <span :style=" {'color':item.onOffer == 1 ? '':'#1890FF'}">{{item.offerChinese}}</span>
+            <!--<span :style=" {'color':item.status != 3 ? '':'#1890FF'}">已完成</span>-->
+            <span v-if="item.status == 0" >匹配中</span>
+            <span v-if="item.status == 1" >待付款</span>
+            <span v-if="item.status == 2" >待确认</span>
+            <span v-if="item.status == 3" style="color:#1890FF">已完成</span>
+            <span v-if="item.status == -1" >申诉未付款</span>
+            <span v-if="item.status == -2" >申诉未确认</span>
             <!-- <span v-else-if="item.onOffer == 0" style="color:#1890FF;">已完成</span> -->
           </div>
         </div>
 
         <div class="list_model">
           <div>数量</div>
-          <div>{{item.amount}}BAT</div>
+          <div>{{item.amount}}</div>
         </div>
 
         <div class="list_model">
@@ -35,10 +41,11 @@
           <div>{{item.price}}</div>
         </div>
 
-        <!--<div class="list_model clickview" v-if="item.onComplaint == 0&&item.onOffer == 1">-->
-          <div class="list_model clickview" >
+
+        <div class="list_model clickview" >
           <div></div>
-          <div  @click="chexiao(index)">撤销</div>
+          <div  v-if="item.status > 0" @click="goxq(index)" class="details">详情</div>
+          <div  @click="chexiao(index)" v-if="item.status == 0" class="cancle">撤销</div>
         </div>
       </div>
     </div>
@@ -58,7 +65,6 @@ export default {
       page: 1, //页数
       lastId: 0, //lastid
       bodylist: [
-       /* {orderNo: 123, onOffer: 1 , offerChinese:' 匹配中',num: 123, unitPrice: 123, price: 123, onComplaint: 0}*/
       ], //列表
       lastpage: "" //最后一页
     };
@@ -135,12 +141,15 @@ export default {
       let data = {
         lastId: _this.lastId,
         page: _this.page,
+        //type: _this.tabstate
       };
+
       if(_this.tabstate == 0){
         _this.interface = 1001;
       }else{
         _this.interface = 1000;
       }
+
       _this.$axios
         .fetchPost("/portal/C2C", {
           interface: _this.interface,
@@ -168,9 +177,9 @@ export default {
         var _this = this;
         let list = _this.bodylist;
         let id = list[index].id;
-        _this.$axios.fetchPost("/portal", {
-          interface: "1002",
-          module: "Attachment",
+        _this.$axios.fetchPost("/portal/C2C", {
+          interface: "2003",
+          module: "Trade",
           source: "web",
           version: "v1",
           data: {
@@ -206,22 +215,32 @@ export default {
     goxq(index){
         let list = this.bodylist;
         let id = list[index].id;
-        console.log(list[index].onOffer)
+        console.log(list[index].status)
         // return false;
-        if(list[index].onOffer == 3 && this.tabstate != 1){
+
+      if(list[index].status < 0){
+        this.$toast("该订单已被投诉无法查看详情")
+        return false;
+      }
+
+        if(list[index].status == 3 && this.tabstate != 1){
           // console.log(list[index].onOffer)
           this.$router.push({path:'/payment',query:{id:id,states:true}})
         }
-         if(list[index].onOffer == 3 && this.tabstate == 1){
+         if(list[index].status == 3 && this.tabstate == 1){
           // console.log(list[index].onOffer)
           this.$router.push({path:'/payment',query:{id:id,states:true,tabstate:1}})
         }
-        if(list[index].onOffer != 1 && list[index].onOffer != 3){
+        if(list[index].status != 1 && list[index].status != 3){
           this.$router.push({path:'/payment',query:{id:id,states:false}})
         }
-        // if(list[index].onOffer == 2&&this.tabstate == 0){
-        //    this.$router.push({path:'/payment',query:{id:id,states:true}})
-        // }
+        if(list[index].status == 1){
+          this.$router.push({path:'/payment',query:{id:id,true:false,tabstate:0}})
+        }
+
+        /*if(list[index].status == 2&&this.tabstate == 0){
+           this.$router.push({path:'/payment',query:{id:id,states:true}})
+        }*/
 
 
         
@@ -276,7 +295,6 @@ export default {
 }
 .bodylist {
   margin: 0 15px;
-  background: #1D1C3B;
   .listmodule {
     margin: 10px 0 0;
     padding: 0 10px 20px;
@@ -308,7 +326,22 @@ export default {
 //   color: rgba(248, 77, 77, 1);
 // }
 .clickview {
-  div:last-child {
+
+
+.details{
+  width: 76px;
+  line-height: 26px;
+  background: linear-gradient(
+    90deg,
+    #d82a67 0%,
+    #ee609c 100%
+  );
+// opacity: 0.79;
+  text-align: center;
+  border-radius: 20px;
+}
+
+  .cancle {
     width: 76px;
     line-height: 26px;
     background: linear-gradient(

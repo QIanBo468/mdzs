@@ -3,26 +3,27 @@
         <div class="bothse">
             <trannav title="付款" :leftj="true" ></trannav>
             <marketxinxi :title='1' :state='state' :islook='islook'  ref="dianji" @imgshow='imgshow' :bothdata="bothdata"></marketxinxi>
-            <div class="buyin" v-if="state && $route.query.tabstate != 1"  @click="qdfu">确认付款</div>
-            <div class="buyins" v-if="state==false&&bothdata.onOffer !=0&&bothdata.onOffer !=-1">
+            <div class="buyin" v-if="state && $route.query.tabstate != 1 && bothdata.status==1 && bothdata.type ==1"  @click="qdfu">确认付款</div>
+            <div class="buyins" v-if="bothdata.type ==-1 &&bothdata.status !=-1">
                 <div @click="qued">确认</div>
                 <div @click="tousu">投诉</div>
             </div>
+
+          <div class="buyin" v-if="bothdata.type ==1 &&bothdata.status ==2">
+
+            <div @click="tousu">投诉</div>
+          </div>
         </div>
 
         <van-popup v-model="show">
             <div class="tan"><img :src="tu" alt=""></div>
             <div class="quxiao" @click="show =false"><img src="../../../static/images/icon/quxiao.png" alt=""></div>
         </van-popup>
-
-        
-        
     </div>
 </template>
 
 <script>
 import marketxinxi from '@/components/template/marketxinxi/marketxinxi';
-
 export default {
     name:'payment',
     data(){
@@ -30,7 +31,7 @@ export default {
             state:true ,//状态
             show:false,//弹框显隐
             tu:'',//弹出显示的图片
-
+            title:'',
             id:'',//传来的id
             bothdata:{},//详情里的数据
             islook:false,
@@ -73,7 +74,7 @@ export default {
                 console.log('详情',res.data)
                 if(res.code == 0){  
                     _this.bothdata = res.data
-                    if(res.data.payment && res.data.payment.length >3){
+                    if(res.data.account && res.data.account.length >3){
                         _this.islook=true;
                     }
                     console.log( _this.state)
@@ -99,7 +100,7 @@ export default {
                 // console.log('详情',res.data)
                 if(res.code == 0){  
                     _this.bothdata = res.data
-                    if(res.data.payment && res.data.payment.length >3){
+                    if(res.data.account && res.data.account.length >3){
                         _this.islook=true;
                     }
                     console.log( _this.state)
@@ -136,9 +137,9 @@ export default {
         qued(){
             var _this = this;
             // _this.$refs.dianji.tousuque()
-            _this.$axios.fetchPost('/portal',{
-                interface: "1005",
-                module: "Attachment",
+            _this.$axios.fetchPost('/portal/C2C',{
+                interface: "2001",
+                module: "Trade",
                 source: "web",
                 version: "v1",
                 data:{
@@ -157,7 +158,7 @@ export default {
         },
         //点击投诉
         tousu(){
-            this.$router.push('/tousu')
+            this.$router.push({ path: '/tousu', query: {id:this.id}})
             // var _this = this;
             // _this.$axios.fetchPost('/portal',{
             //     interface: "1006",
@@ -188,7 +189,7 @@ export default {
 .box{
     width: 100%;
     min-height: 100%;
-    background:rgba(0,22,114,1);
+    background:#1D1C3B;
 }
 .van-popup--center {
     background: #040A24;
@@ -205,13 +206,25 @@ export default {
     }
 }
 .buyin{
-    margin:115px 16px 0;
+    margin:35px 16px 0;
     line-height: 44px;
     border-radius:20px;
-    background:linear-gradient(180deg,#44A5D8 0%,#276CD4 100%);
+    /*background:linear-gradient(180deg,#44A5D8 0%,#276CD4 100%);*/
+  background:linear-gradient(180deg,#494EFE 0%,#0900F8 100%);
     opacity:0.79;
     text-align: center;
     color:#fff;
+        div {
+
+
+          border-radius: 22px;
+          background: linear-gradient(180deg, #44A5D8 0%, #276CD4 100%);
+          opacity: 0.79;
+
+        }
+
+
+
 }
 .buyins{
 

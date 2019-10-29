@@ -33,10 +33,27 @@ export default {
       this.$router.go(-1);
     },
     submit() {
+
+      if(this.name == ''){
+        this.$toast({
+          message: '姓名不可为空',
+          duration: 1000
+        });
+        return false;
+      }
+      if(this.address == ''){
+        this.$toast({
+          message: '地址不可为空',
+          duration: 1000
+        });
+        return false;
+      }
+
+
       this.$axios
-        .fetchPost("/portal", {
-          interface: "8001",
-          module: "User",
+        .fetchPost("/portal/Digiccy", {
+          interface: "1001",
+          module: "Address",
           source: "web",
           version: "v1",
           data: {

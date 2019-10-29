@@ -34,7 +34,7 @@
                 <div>{{bothdata.seller.mobile}}</div>
             </div>
         </div>
-        <div class="marketmod" v-if='$route.query.type'>
+        <div class="marketmod" v-if='$route.query.type && bothdata.buyer'>
             <div class="list_model">
                 <div>买家昵称</div>
                 <div>{{bothdata.buyer.nickname}}</div>
@@ -46,33 +46,45 @@
             </div>
         </div>
         <!-- 卖家账号 -->
-        <div class="marketmod lastdiv" v-if='!$route.query.type '>  <!-- v-if='!$route.query.type ' -->
+        <div class="marketmod lastdiv" v-if='!$route.query.type && bothdata.account '>  <!-- v-if='!$route.query.type ' -->
             <div class="maihome" >卖家账号</div>
-            <div class="xincont" v-if="islooks == true? index<3:true" v-for="(item,index) in bothdata.account" :key="index">
-                <div class="contimg"><img :src="item.type == 1? fubao:item.type == 2? wx:yh " alt=""></div>
-                <div class="cont_ent">
-                    <div>账号名称：{{item.realName}}</div>
-                    <div>账号：{{item.account}}</div>
-                    <div>账号类型：{{item.typeName}}</div>
-                    <div v-if="item.type == 0">账号类型：{{item.bankName}}</div>
-                    <div @click="$emit('imgshow',item.qrCode)" v-if="title == 1&& item.qrCode !=null" class="zfphoto"><img :src="item.qrCode" alt=""></div>
-                </div>
+           <!-- <div class="xincont" v-if="islooks == true? index<3:true" v-for="(item,index) in bothdata.account" :key="index">
+              <div class="contimg"><img :src="item.type == 1? fubao:item.type == 2? wx:yh " alt=""></div>
+              <div class="cont_ent">
+                <div>账号名称：{{item.realName}}</div>
+                <div>账号：{{item.account}}</div>
+                <div>账号类型：{{item.typeName}}</div>
+                <div v-if="item.type == 0">账号类型：{{item.bankName}}</div>
+                <div @click="$emit('imgshow',item.qrCode)" v-if="title == 1&& item.qrCode !=null" class="zfphoto"><img :src="item.qrCode" alt=""></div>
+              </div>
+            </div>-->
+
+
+          <div class="xincont" v-if="bothdata.account.wechat">
+            <div class="contimg"><img :src="wx" alt=""></div>
+            <div class="cont_ent">
+              <div>账号名称：{{bothdata.account.wechat.realName}}</div>
+              <div>账号：{{bothdata.account.wechat.account}}</div>
+              <div>账号类型：微信支付</div>
+              <div @click="$emit('imgshow',bothdata.account.wechat.qrCode)" v-if="title == 1&& bothdata.account.wechat.qrCode !=null"  class="zfphoto"><img :src="bothdata.account.wechat.qrCode" alt=""></div>
             </div>
-            <div class="xincont">
+          </div>
+
+          <div class="xincont" v-if="bothdata.account.alipay">
                 <div class="contimg"><img src="/static/images/icon/zhifubao.png" alt=""></div>
                 <div class="cont_ent">
-                    <div>账号名称：张小闹</div>
-                    <div>账号：283947299</div>
+                    <div>账号名称：{{bothdata.account.alipay.realName}}</div>
+                    <div>账号：{{bothdata.account.alipay.account}}</div>
                     <div>账号类型：支付宝支付</div>
-                    <div @click="$emit('imgshow','http://mapopen-pub-webserviceapi.bj.bcebos.com/images/direction.png')"  v-if="title == 1" class="zfphoto"><img src="http://mapopen-pub-webserviceapi.bj.bcebos.com/images/direction.png" alt=""></div>
+                    <div @click="$emit('imgshow',bothdata.account.alipay.qrCode)" v-if="title == 1&& bothdata.account.wechat.qrCode !=null"  class="zfphoto"><img :src="bothdata.account.alipay.qrCode" alt=""></div>
                 </div>
             </div> 
-            <div class="xincont">
+            <div class="xincont" v-if="bothdata.account.bankCard">
                 <div class="contimg"><img src="/static/images/icon/yinhangka.png" alt=""></div>
                 <div class="cont_ent">
-                    <div>账号名称：张小闹</div>
-                    <div>账号：2839******47299</div>
-                    <div>账号类型：中国工商银行</div>
+                    <div>账号名称：{{bothdata.account.bankCard.realName}}</div>
+                    <div>账号：{{bothdata.account.bankCard.account}}</div>
+                    <div>账号类型：{{bothdata.account.bankCard.bankName}}</div>
                 </div>
             </div>
 
@@ -81,7 +93,7 @@
             
         </div>
         <!-- 买家信息 -->
-            <div class="marketmod"  v-if="$route.query.title == 1 && bothdata.buyer">
+            <div class="marketmod"  v-if="title == 1&& bothdata.buyer">
                 <div class="list_model">
                     <div>买家昵称</div>
                     <div>{{bothdata.buyer.nickname}}</div>
@@ -93,14 +105,14 @@
                 </div>
             </div>
         <!-- 上传支付凭证 -->
-        <div class="uploadpz" v-if="$route.query.title == 1 ">  <!--v-if="title == 1 && ($route.query.tabstate != 1) "-->
+        <div class="uploadpz" v-if="title == 1 ">  <!--v-if="title == 1 && ($route.query.tabstate != 1) "-->
             <div>上传支付凭证</div>
-            <div v-if="state"><van-uploader v-model="fileList" multiple preview-size="100" :max-count="1" :after-read="afterRead" /></div>
+            <div v-if="state && bothdata.type==1"><van-uploader v-model="fileList" multiple preview-size="100" :max-count="1" :after-read="afterRead" /></div>
             <div v-if="chuan.voucher!=''&&state!=true"><img  :src="chuan.voucher" alt=""></div>
-            <div v-if="bothdata.transactionLog&&state!=true"><img :src="bothdata.transactionLog.voucher" alt=""></div>
+            <div v-if="bothdata.voucher&&state!=true" @click="$emit('imgshow',bothdata.voucher)" ><img :src="bothdata.voucher" alt=""></div>
         </div>
         <!-- 交易密码 -->
-        <div class="transmm" v-if="$route.query.title == 1">
+        <div class="transmm" v-if="title == 1 && state ==true && bothdata.type==1 ">
             <div>交易密码</div>
             <input type="password" v-model="chuan.safeword" placeholder="请输入交易密码" />
         </div>
@@ -130,27 +142,6 @@ export default {
 
     data(){
         return {
-            title:0,
-            bothdata: {
-                orderNo: 123123123,
-                offerChinese: '匹配中',
-                num: 900,
-                unitPrice: '0.2',
-                price: '2000',
-                seller: {
-                    nickname: '测试名称',
-                    account: '18374637463',
-                },
-                buyer:{
-                    nickname: '1名称',
-                    account: 13354678912,
-                },
-                payment: {
-                    realName: '张小闹',
-                    account: 283947299,
-                    typeName: '微信支付'
-                }
-            },
             wx:'.../../static/images/icon/weixin.png',
             fubao:'.../../static/images/icon/zhifubao.png',
             yh:'.../../static/images/icon/yinhangka.png',
@@ -290,9 +281,9 @@ export default {
                 this.$toast('安全密码必须由 6 位数字组成');
                 return false
             }
-            _this.$axios.fetchPost('/portal',{
-                interface: "1008",
-                module: "Attachment",
+            _this.$axios.fetchPost('/portal/C2C',{
+                interface: "2000",
+                module: "Trade",
                 source: "web",
                 version: "v1",
                 data:_this.chuan
@@ -326,7 +317,7 @@ export default {
     width: 100%;
     height: 100%;
     background:#0B0C21;
-    padding-bottom: 50px;
+    /*padding-bottom: 50px;*/
 }
 .bothse{
     height:100vh;
