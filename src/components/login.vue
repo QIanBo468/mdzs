@@ -56,6 +56,9 @@ export default {
             }
         }
     },
+  created () {
+    sessionStorage.setItem('accessToken', '')
+  },
     methods:{
         submit(){
             var that = this
