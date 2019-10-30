@@ -33,15 +33,15 @@
                 </template>
                 </van-field>
             </van-cell-group>
-            <van-cell-group :border='false' style="text-align: right;margin-top: 10px">
+            <!--<van-cell-group :border='false' style="text-align: right;margin-top: 10px">
                 <router-link to='/password' class="forget">忘记密码</router-link>
-            </van-cell-group>
+            </van-cell-group>-->
             <van-cell-group :border='false' style="margin-top: 60px;text-align: center">
                 <van-button class='btn' @click="submit">登录</van-button>
             </van-cell-group>
-            <van-cell-group :border='false' style="margin-top: 10px;text-align: center;color: #999">
+            <!--<van-cell-group :border='false' style="margin-top: 10px;text-align: center;color: #999">
                 <span  @click="$router.push('/register')">没有账号？去注册</span>
-            </van-cell-group>
+            </van-cell-group>-->
         </div>
     </div>
 </template>
@@ -72,7 +72,12 @@ export default {
                     if (res.success) {
                         that.$cookies.set('status', res.data.status)
                         that.userInfo = res.data
-                        that.$cookies.set('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
+                       // that.$cookies.set('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
+                      sessionStorage.setItem('accessToken', res.data.tokenType + " " + res.data.accessToken , res.data.expiresIn)
+                      //console.log(res.data.accessToken);
+                      //console.log(sessionStorage.getItem('accessToken'));
+                       // return false;
+
                         // if(confirm('是否直接进入')){
                         //     that.$router.push('/index')
                         // }else{

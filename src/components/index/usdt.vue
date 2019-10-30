@@ -9,27 +9,27 @@
         />
         <div class='statis'>
             <div>当前余额</div>
-            <div>{{usdt.creditValue}}</div>
+            <div>{{usdt.creditValue}}BAT</div>
         </div>
         </div>
         <div class='deposit' style="height: 40px;diplay:flex;">
             <div @click='$router.push("/charge")'>
                 <!-- <router-link to='/charge'> -->
                     <img src="../../../static/images/index/chongzhi.png" alt="">
-                    <span>充币</span>   
+                    <span>充币</span>
                 <!-- </router-link> -->
             </div>
             <div @click='$router.push({path: "/extract", query: {usdt: usdt.creditValue}})'>
                 <img src="../../../static/images/index/extract.png" alt="">
-                <span>提币</span>  
+                <span>提币</span>
             </div>
             <!-- <div @click="$router.push({path:'/exchange',query: {'type': 2}})">
                 <img src="../../../static/images/index/exchange.png" alt="">
-                <span>兑换</span>   
+                <span>兑换</span>
             </div> -->
             <div @click='$router.push({path: "/transfer",query:{type:"usdt"}})'>
                 <img src="../../../static/images/index/transfer.png" alt="">
-                <span>转账</span>  
+                <span>转账</span>
             </div>
         </div>
         <van-tabs v-model="active" @change="acChange">
@@ -81,7 +81,7 @@
                             <li class='overText'>{{item.remark}}</li>
                             <li>{{item.createdAt}}</li>
                         </ul>
-                        <div :class='[item.type == 1 ? "": "blue","overText"]'>  <!-- --> 
+                        <div :class='[item.type == 1 ? "": "blue","overText"]'>  <!-- -->
                             {{item.num}}
                         </div>
                     </div>
@@ -91,71 +91,69 @@
     </div>
 </template>
 <script>
-import { setTimeout } from 'timers';
-export default {
+  import { setTimeout } from 'timers';
+  export default {
     data () {
-        return {
-            active: 0,
-            usdt: {}, 
-            list: [
-                {remark: '提币', createdAt: '2019-10-23 11:19:21', type: 1, num: '+120000'},
-                 {remark: '提币', createdAt: '2019-10-23 11:19:21', type: 1, num: '+120000'}
-            ],
-            finished: false,
-            loading: false,
-            lastPage: null,
-            page: 1,
-            lastId: 0,
-        }
+      return {
+        active: 0,
+        usdt: {},
+        list: [],
+        finished: false,
+        loading: false,
+        lastPage: null,
+        page: 1,
+        lastId: 0,
+      }
     },
     created () {
     },
     methods: {
-        onClickLeft () {
-            this.$router.push('/myindex')
-        },
-        acChange(){
-            this.finished = false
-            this.loading = false
-            this.lastPage = null
-            this.page = 1
-            this.lastId = 0
-            this.list = []
-            setTimeout(()=> {
-                this.onLoad ()
-            },1000)
-        },
-        onLoad () {
-            let type = this.active,direction = ''
-            if( type == 0 ){
-                direction = ''
-            }else if(type == 1) {
-                direction = '1'
-            }else{
-                direction = '-1'
-            }
-            if (this.lastPage && this.lastPage < this.page) {
-                this.finished = true
-                this.loading = false;
-            }else{
-                this.$axios.fetchPost('/portal',
-                {
-                    source: "web",
-                    version: "v1",
-                    module: "Finance",
-                    interface: "2100",
-                    data: {lastId: this.lastId,page: this.page ++,creditType: 'credit_2 ',direction: direction}
-                }).then(res => {
-                    this.lastPage = res.data.lastPage
-                    this.lastId = res.data.lastId
-                    this.usdt = res.data
-                    this.loading = false;
-                    this.list = this.list.concat(res.data.list)
-                })
-            }
+      onClickLeft () {
+        this.$router.push({path:'myIndex'})
+      },
+      acChange(){
+        this.finished = false
+        this.loading = false
+        this.lastPage = null
+        this.page = 1
+        this.lastId = 0
+        this.list = []
+        setTimeout(()=> {
+          this.onLoad ()
+        },1000)
+      },
+      onLoad () {
+        let type = this.active,direction = ''
+        if( type == 0 ){
+          direction = ''
+        }else if(type == 1) {
+          direction = '1'
+        }else{
+          direction = '-1'
         }
+        if (this.lastPage && this.lastPage < this.page) {
+          this.finished = true
+          this.loading = false;
+        }else{
+          this.$axios.fetchPost('/portal',
+            {
+              source: "web",
+              version: "v1",
+              module: "Finance",
+              interface: "1001",
+              data: {lastId: this.lastId,page: this.page ++,creditType: 'credit_2 ',direction: direction}
+            }).then(res => {
+            console.log(res);
+            this.lastPage = res.data.lastPage
+            this.lastId = res.data.lastId
+            this.usdt = res.data
+            this.loading = false;
+            this.list = this.list.concat(res.data.list)
+          })
+        }
+      }
     }
-}
+  }
 </script>
 <style lang="less">
    #usdt{
@@ -206,7 +204,7 @@ export default {
         .van-tabs__content{
             background: #fff;
         }
-      
+
     }
 </style>
 <style lang="less" scoped>
@@ -231,7 +229,7 @@ export default {
         height: 32px;
         line-height: 32px;
         font-size: 23px;
-        
+
     }
 }
 
@@ -253,7 +251,7 @@ export default {
         height: 100%;
         li{
             font-size: 14px;
-            color: #ffffff;
+            color: #aaa;
             height: 20px;
             line-height: 20px;
         }
@@ -310,6 +308,6 @@ export default {
     // .{
     //     background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(244,45,61,1) 100%);
     // }
-    // 
-    // 
+    //
+    //
 </style>

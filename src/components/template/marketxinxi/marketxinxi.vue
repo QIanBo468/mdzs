@@ -60,7 +60,7 @@
             </div>-->
 
 
-          <div class="xincont" v-if="bothdata.account.wechat">
+          <div class="xincont" v-if="Object.keys(bothdata.account.wechat).length > 0">
             <div class="contimg"><img :src="wx" alt=""></div>
             <div class="cont_ent">
               <div>账号名称：{{bothdata.account.wechat.realName}}</div>
@@ -70,8 +70,8 @@
             </div>
           </div>
 
-          <div class="xincont" v-if="bothdata.account.alipay">
-                <div class="contimg"><img src="/static/images/icon/zhifubao.png" alt=""></div>
+          <div class="xincont" v-if="Object.keys(bothdata.account.alipay).length > 0">
+                <div class="contimg"><img :src="fubao" alt=""></div>
                 <div class="cont_ent">
                     <div>账号名称：{{bothdata.account.alipay.realName}}</div>
                     <div>账号：{{bothdata.account.alipay.account}}</div>
@@ -79,8 +79,8 @@
                     <div @click="$emit('imgshow',bothdata.account.alipay.qrCode)" v-if="title == 1&& bothdata.account.wechat.qrCode !=null"  class="zfphoto"><img :src="bothdata.account.alipay.qrCode" alt=""></div>
                 </div>
             </div> 
-            <div class="xincont" v-if="bothdata.account.bankCard">
-                <div class="contimg"><img src="/static/images/icon/yinhangka.png" alt=""></div>
+            <div class="xincont" v-if="Object.keys(bothdata.account.bankCard).length > 0">
+                <div class="contimg"><img :src="yh" alt=""></div>
                 <div class="cont_ent">
                     <div>账号名称：{{bothdata.account.bankCard.realName}}</div>
                     <div>账号：{{bothdata.account.bankCard.account}}</div>
@@ -107,16 +107,16 @@
         <!-- 上传支付凭证 -->
         <div class="uploadpz" v-if="title == 1 ">  <!--v-if="title == 1 && ($route.query.tabstate != 1) "-->
             <div>上传支付凭证</div>
-            <div v-if="state && bothdata.type==1"><van-uploader v-model="fileList" multiple preview-size="100" :max-count="1" :after-read="afterRead" /></div>
+            <div v-if="state && bothdata.type==1 && bothdata.status!=3 && bothdata.status!=2"><van-uploader v-model="fileList" multiple preview-size="100" :max-count="1" :after-read="afterRead" /></div>
             <div v-if="chuan.voucher!=''&&state!=true"><img  :src="chuan.voucher" alt=""></div>
-            <div v-if="bothdata.voucher&&state!=true" @click="$emit('imgshow',bothdata.voucher)" ><img :src="bothdata.voucher" alt=""></div>
+            <div v-if="bothdata.voucher&&bothdata.status!=1" @click="$emit('imgshow',bothdata.voucher)" ><img :src="bothdata.voucher" alt=""></div>
         </div>
         <!-- 交易密码 -->
-        <div class="transmm" v-if="title == 1 && state ==true && bothdata.type==1 ">
+        <div class="transmm" v-if="title == 1 && state ==true && bothdata.type==1 && bothdata.status!=3 && bothdata.status!=2">
             <div>交易密码</div>
             <input type="password" v-model="chuan.safeword" placeholder="请输入交易密码" />
         </div>
-        <div class="transmm" v-if="$route.query.type">
+        <div class="transmm" v-if="$route.query.type && bothdata.status!=2">
             <div>交易密码</div>
             <input type="password" v-model="chuan.safeword" placeholder="请输入交易密码" />
         </div>
@@ -405,7 +405,7 @@ export default {
     margin: 10px 0 0 0;
     background:#999;
     img{
-        width: 100px;
+       /* width: 100px;*/
         height:158px;
         display: block;
     }

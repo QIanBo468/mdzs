@@ -9,8 +9,8 @@
         <ul class='box'>
             <li v-for='(item, index) in list' :key='index' @click='select(index,item)' :class='active === index? "active": ""'>
                 <div class='info'>
-                    <p>{{item.name}}</p>
-                    <p>{{item.address}}</p>
+                    <p>姓名：{{item.name}}</p>
+                    <p>钱包地址：{{item.address}}</p>
                 </div>
                 <div class='img'>
                 </div>
@@ -25,20 +25,25 @@ export default {
             active: null,
             imgSrc: '../../../static/images/index/select.png',
             list: [],
+          lastId:0,
+          page: 1
         }
     },
     created() {
         this.usdt = this.$route.query.usdt
-        this.$axios.fetchPost('/portal',
-        {
-            source: "web",
-            version: "v1",
-            module: "User",
-            interface: "8000",
-            data: {}
+      this.$axios
+        .fetchPost('/portal/Digiccy', {
+          interface: '1000',
+          module: 'Address',
+          source: 'web',
+          version: 'v1',
+          data: {
+            lastId: this.lastId,
+            page: this.page,
+          }
         }).then(res => {
             if(res.success){
-                this.list = res.data
+                this.list = res.data.list
             }
         })
     },
@@ -55,6 +60,17 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+  .van-nav-bar{
+    background: #0D0900;
+    color: #fff;
+  }
+  .van-nav-bar__title{
+    color: #fff;
+  }
+  .van-nav-bar .van-icon{
+    color: #fff;
+  }
+
     #address{
         display: flex;
         flex-direction: column;
@@ -65,10 +81,10 @@ export default {
             flex: 1;
             padding-top: 10px;
             overflow: scroll;
-            background: #F8F8F8;
+            background: #0D0900;
             li{
                 height: 60px;
-                background: #fff;
+                background: #1D1C3B;
                 margin-bottom: 10px;
                 padding: 10px 16px;
                 box-sizing: border-box;
@@ -78,6 +94,7 @@ export default {
                     p{
                         padding: 0;
                         margin: 0;
+                      color: #fff;
                     }
                     flex: 1;
                     height: 100%;

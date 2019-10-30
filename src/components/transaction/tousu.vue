@@ -86,6 +86,10 @@ export default {
         list.push(this.fileList[i].file._url)
       }
 
+      if(list.length == 0){
+        this.$toast("投诉照片不能为空")
+        return false;
+      }
       this.cannotBind = true
       this.$axios.fetchPost('/portal/C2C', {
         source: "web",

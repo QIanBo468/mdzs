@@ -294,7 +294,8 @@ export default {
   }
 }
 .bodylist {
-  margin: 0 15px;
+  /*margin: 0 15px;*/
+  background: #0B0C21;
   .listmodule {
     margin: 10px 0 0;
     padding: 0 10px 20px;

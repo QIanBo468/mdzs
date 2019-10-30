@@ -63,11 +63,11 @@ export default {
                 this.loading = false;
             }else{
                 
-                this.$axios.fetchPost('/portal/digiccy',
+                this.$axios.fetchPost('/portal/Digiccy',
                 {
                     source: "web",
                     version: "v1",
-                    module: "Wallet",
+                    module: "Finance",
                     interface: "2002",
                     data: {lastId: this.lastId,page: this.page ++}
                 }).then(res => {
@@ -82,13 +82,26 @@ export default {
 }
 </script>
 <style lang="less">
+  .van-nav-bar{
+    background: #000;
+    color: #fff;
+  }
+  #extract .van-nav-bar .van-nav-bar__text{
+    color: #fff;
+  }
+  .van-nav-bar .van-icon{
+    color:#fff;
+  }
+  .van-nav-bar__title{
+    color:#fff;
+  }
     #transferRecord{
         display: flex;
         flex-direction: column;
         width: 100%;
         height: 100%;
         overflow: hidden;
-        background: #f8f8f8;
+        background: #000;
         .box{
             padding: 16px;
             overflow: scroll;

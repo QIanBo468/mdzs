@@ -27,12 +27,12 @@ export default {
         }
     },
     created () {
-        this.$axios.fetchPost('/portal/digiccy',
+        this.$axios.fetchPost('/portal/Digiccy',
         {
             source: "web",
             version: "v1",
-            module: "Wallet",
-            interface: "2004",
+            module: "Finance",
+            interface: "1000",
             data: {}
         }).then(res => {
             if(res.success) {
@@ -43,6 +43,30 @@ export default {
         })
     },
     methods: {
+
+      getInfo () {
+        this.$axios.fetchPost('/portal',
+          {
+            source: "web",
+            version: "v1",
+            module: "Finance",
+            interface: "4000",
+            data: {}
+          }).then(res => {
+          console.log(res);
+
+          if(res.success){
+            this.list = res.data
+            var obj =  ''
+            if(this.type=='BAT'){
+              obj = 'credit_1-credit_2'
+            }
+            this.fee = res.data.params[obj].feeRate;
+
+          }
+        })
+      },
+
         copy() {
             console.log(233)
             var clipboard = new Clipboard('.tag-read') 
@@ -102,7 +126,7 @@ export default {
         }
         .encoding{
             font-size: 14px;
-            color: #333;
+            color: #fff;
         }
         .btn{
             width: 110px;

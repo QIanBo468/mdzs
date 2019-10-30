@@ -3,7 +3,7 @@
     <div id="index">
         <div class="indexbox">
         <nav>行情</nav>
-          <van-list @load="onLoad">
+          <van-list @load="onLoad" v-model="loading" :finished="finished">
 
         <div class="indexlist"   v-for="(item, index) of list" :key="index" >
             <div class="listtitle" style="width: 25%;">
@@ -26,11 +26,15 @@
           </van-list>
         </div>
     </div>
+
+
+
 </template>
 <script>
 import Barrage from 'barrage-ui';
 import example from 'barrage-ui/example.json';
 
+import { Loading } from 'vant';
 import { Toast } from 'vant';
 import text from '../text'
 export default {
@@ -75,12 +79,12 @@ export default {
     mounted() {
     },
     created () {
-
+      console.log(this.$cookies.get('accessToken'));
     },
     methods : {
 
       onLoad (){
-        setTimeout(() => {
+
           this.$axios.fetchPost('/portal/Digiccy',
             {
               source: "web",
@@ -91,20 +95,16 @@ export default {
             }).then(res => {
             if (res.success) {
               let text = []
-              /*res.data.list.forEach((element, index) => {
-                      text.push({
-                          text: element,
-                          key: index,
-                          time: 1000*Math.floor(Math.random()*10)
-                      })
-                  });
-                  this.list = text*/
               this.list = res.data.list;
+              this.finished = true
               console.log(this.list)
               //this.createDM ()
             }
+            else {
+              this.finished = true
+            }
+            this.loading = false
           })
-        },2000);
 
       },
 
@@ -205,6 +205,7 @@ export default {
     overflow-y: auto;
     background: #0B0C21;
     color: #fff;
+
     nav{
         font-size: 18px;
         margin-top: 15px;
@@ -218,10 +219,12 @@ export default {
         align-items: center;
     }
     .indexlist{
-        width: 100%;
+      text-align: center;
+        width: 95%;
         height: 80px;
         background: #191B4B;
         border-radius: 6px;
+        margin-left: 2%;
         margin-bottom: 10px;
         padding: 12px 14px;
         box-sizing: border-box;

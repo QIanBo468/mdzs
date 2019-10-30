@@ -75,31 +75,55 @@ export default {
     methods:{
         deal(url){
             let  status = this.$cookies.get('status')
-            if(status == -1){
+          //查询认证情况
+          this.$axios
+            .fetchPost('/portal', {
+              interface: '3000',
+              module: 'User',
+              source: 'web',
+              version: 'v1',
+              data: {}
+            })
+            .then(res => {
+              status = res.data.status;
+
+              if(status == -1){
                 this.$dialog.confirm({
-                    title: '提示',
-                    message: '未通过实名认证'
+                  title: '提示',
+                  message: '未通过实名认证'
                 }).then(() => {
-                    this.$router.push('/authentication')
+                  this.$router.push('/authentication')
                 }).catch(() => {
 
                 })
                 return
-            }else if(status == 0){
+              }else if(status == 0){
                 this.$dialog.confirm({
-                    title: '提示',
-                    message: '未认证'
+                  title: '提示',
+                  message: '未认证'
                 }).then(() => {
-                    this.$router.push('/authentication')
+                  this.$router.push('/authentication')
                 }).catch(() => {
-                    
+
                 })
-                return 
-            }else if(status ==  1) {
-                Toast('认证已提交，后台审核中')
                 return
-            }
-            this.$router.push(url)
+              }else if(status ==  1) {
+                this.$dialog.confirm({
+                  title: '提示',
+                  message: '认证审核中。。。'
+                }).then(() => {
+                  this.$router.push('/authentication')
+                }).catch(() => {
+
+                })
+              }else{
+                this.$router.push(url)
+              }
+
+
+            })
+
+
         },
     },
     components:{

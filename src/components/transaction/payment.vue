@@ -3,15 +3,16 @@
         <div class="bothse">
             <trannav title="付款" :leftj="true" ></trannav>
             <marketxinxi :title='1' :state='state' :islook='islook'  ref="dianji" @imgshow='imgshow' :bothdata="bothdata"></marketxinxi>
+
+
             <div class="buyin" v-if="state && $route.query.tabstate != 1 && bothdata.status==1 && bothdata.type ==1"  @click="qdfu">确认付款</div>
-            <div class="buyins" v-if="bothdata.type ==-1 &&bothdata.status !=-1">
-                <div @click="qued">确认</div>
+            <div class="buyins" v-if="bothdata.type ==-1 && (bothdata.status ==2 ||bothdata.status ==1)  ">
+                <div :class="{'stop-mark':isok===1}" @click="qued">确认</div>
                 <div @click="tousu">投诉</div>
             </div>
 
           <div class="buyin" v-if="bothdata.type ==1 &&bothdata.status ==2">
-
-            <div @click="tousu">投诉</div>
+            <div  :class="isok?stopMark:''"  @click="tousu">投诉</div>
           </div>
         </div>
 
@@ -35,6 +36,8 @@ export default {
             id:'',//传来的id
             bothdata:{},//详情里的数据
             islook:false,
+            safepwd:'',
+            isok:0
         }
     },
     created(){
@@ -136,6 +139,7 @@ export default {
         //点击确定
         qued(){
             var _this = this;
+            _this.isok = 1;
             // _this.$refs.dianji.tousuque()
             _this.$axios.fetchPost('/portal/C2C',{
                 interface: "2001",
@@ -148,9 +152,11 @@ export default {
             })
             .then(res=>{
                 if(res.code == 0){
+                  _this.isok = 0;
                     this.$dialog.alert({
                         message: res.message
-                    }).then(() => {});
+                    });
+                  this.$router.go(-1)
                 }else if(res.code == 4800 ){
                     _this.$toast(res.message)
                 }
@@ -186,6 +192,37 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
+  .stop-mark{
+    background: #7d7e80!important;
+  }
+
+  .transmm{
+    margin-top:10px;
+    padding:0 16px;
+    height:44px;
+    align-items:center;
+    display: flex;
+    background:#1D1C3B;
+
+  div{
+  &:first-child{
+     font-size:14px;
+     font-weight:400;
+     color:rgba(255,255,255,1);
+     margin-right:20px;
+   }
+
+  }
+  input{
+    border:none;
+    background:#1D1C3B;
+    font-size:14px;
+    font-weight:400;
+    color:#fff;
+  }
+  }
+
 .box{
     width: 100%;
     min-height: 100%;
@@ -250,12 +287,12 @@ export default {
     }
 }
 .tan{
-    width:280px;
-    height:386px;   
+    width:290px;
+    /*height:386px;   */
     background: #fff;
     img{
-        width:280px;
-        height:386px; 
+        width:290px;
+       /* height:386px; */
     }   
 }
 .quxiao{

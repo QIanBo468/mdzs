@@ -2,8 +2,10 @@
     <div id='extract'>
         <van-nav-bar
         title="提币"
+        right-text="提币记录"
         left-arrow
         @click-left="onClickLeft"
+        @click-right='$router.push("/extractRecord")'
         />
         <div class='box'>
             <div class="usdt">
@@ -49,9 +51,26 @@
                 />
                 <div class='red' style="width: 35px;" @click="num = usdtNum">全部</div>
             </div>
+
+          <div class='title'>
+            安全密码
+          </div>
+          <div class="inputBox" style="margin-bottom: 40px">
+            <van-field
+              type="password"
+              placeholder="请输入安全密码"
+              :border="false"
+              name="safeword"
+              v-model="safeword"
+              :error="errors.has('safeword')"
+              v-validate="'required'"
+            />
+          </div>
+
+
             <div class='cell'>
                 <div>手续费</div>
-                <div class='overText'>{{money.serve}}</div>
+                <div class='overText'>{{this.charge}}%</div>
             </div>
             <div class="cell">
                 <div>实际到账</div>
@@ -71,12 +90,14 @@ export default {
             user: '',
             address: '',
             num: '',
-            InputImg: '../../../static/images/index/yaoqing@3x.png',
+            InputImg: require('../../../static/images/index/yaoqing@3x.png'),
             placesite: '请输入钱包地址',
             placeNum: '请输入提币数量',
             usdtNum: '',
             charge: '',
             imgFlag: false,
+            contract:'',
+            safeword:''
         }
     },
     computed : {
@@ -100,15 +121,17 @@ export default {
     created () {
         this.usdtNum = this.$route.query.usdt
         this.address = this.$route.query.address
-        this.$axios.fetchPost('/portal',
+        this.$axios.fetchPost('/portal/Digiccy',
         {
             source: "web",
             version: "v1",
             module: "Finance",
-            interface: "4000",
+            interface: "2000",
             data: {}
         }).then(res => {
-            this.charge = res.data.params
+            this.charge = res.data.params.feeRate,
+            this.contract = res.data.contractList[0].value
+          console.log(this.contract)
         })
     },
     methods : {
@@ -120,15 +143,23 @@ export default {
         },
         submit () {
             var that = this
+
+          if(that.safeword.length != 6){
+            Dialog.alert({
+              title: '提示',
+              message: '安全密码必须由6位数字组成'
+            })
+          }
+
             this.$validator.validateAll().then(function(result) {
                 if(result){
-                    that.$axios.fetchPost('/portal/digiccy',
+                    that.$axios.fetchPost('/portal/Digiccy',
                     {
                         source: "web",
                         version: "v1",
-                        module: "Wallet",
-                        interface: "2003",
-                        data: {amount: that.num,address: that.address }
+                        module: "Finance",
+                        interface: "2001",
+                        data: {amount: that.num,address: that.address ,creditType:'credit_2', contract:that.contract,safeword:that.safeword}
                     }).then(res => {
                         if(res.success){
                             that.num = ''
@@ -150,6 +181,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+  #extract .van-nav-bar .van-nav-bar__text{
+    color: #fff;
+  }
     .van-cell{
         padding: 0;
         background: transparent;
@@ -162,6 +196,9 @@ export default {
     }
     .van-icon{
         color: #fff;
+    }
+    .contmodule[data-v-cfcbe3a0] {
+      padding: 1.25rem 0 0;
     }
     [class*=van-hairline]::after{
         border: none;

@@ -327,9 +327,9 @@ export default {
         if (!param.account) {
           return "卡号必填"
         }
-        if (!(/^([1-9]{1})(\d{14}|\d{18})$/.test(param.account))) {
+       /* if (!(/^([1-9]{1})(\d{14}|\d{18}|\d{16})$/.test(param.account))) {
           return "银行卡号有误"
-        }
+        }*/
         if (!param.bankAddress) {
           return "开户行必填"
         }
