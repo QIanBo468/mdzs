@@ -2,8 +2,6 @@
     <div id='loginBox'>
         <van-nav-bar
             title="登录"
-            left-arrow
-            @click-left="onClickLeft"
             :border='false'
         />
         
@@ -111,9 +109,9 @@ export default {
             })
             
         },
-        onClickLeft () {
-            this.$router.push('/index')
-        }
+        // onClickLeft () {
+        //     this.$router.push('/index')
+        // }
     }
 }
 </script>
