@@ -6,6 +6,8 @@
             :border="false"
             @click-left='$router.go(-1)'
         />
+        <!-- right-text="充币记录"
+            @click-right='onClickRight' -->
         <div class='chargeBox'>
             <div>
                 <img width="27px;" height="32px" src="../../../static/images/index/B@3x.png">BAT
@@ -66,7 +68,9 @@ export default {
           }
         })
       },
-
+        onClickRight(){
+            this.$router.push('/topUp')
+        },
         copy() {
             console.log(233)
             var clipboard = new Clipboard('.tag-read') 

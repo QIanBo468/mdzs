@@ -20,11 +20,11 @@
                     <ul>
                         <li>
                             <div>钱包地址</div>
-                            <div>{{item.account}}</div>
+                            <div>{{item.orderNo}}</div>
                         </li>
                         <li>
                             <div>提币数量</div>
-                            <div>{{item.money}}</div>
+                            <div>{{item.realMoney}}</div>
                         </li>
                         <li>
                             <div>提交时间</div>
@@ -36,7 +36,7 @@
                         </li>
                         <li>
                             <div>到账数量</div>
-                            <div class='red'>{{item.realMoney}}</div>
+                            <div class='red'>{{item.money}}</div>
                         </li>
                     </ul>
                 </div>
@@ -62,15 +62,15 @@ export default {
                 this.finished = true
                 this.loading = false;
             }else{
-                
-                this.$axios.fetchPost('/portal/Digiccy',
+                this.$axios.fetchPost('/portal',
                 {
                     source: "web",
                     version: "v1",
                     module: "Finance",
                     interface: "2002",
-                    data: {lastId: this.lastId,page: this.page ++}
+                    data:{lastId: this.lastId,page: this.page ++,isOut:0,creditType:'credit_2'}
                 }).then(res => {
+                    console.log(res)
                     this.list = this.list.concat(res.data.list)
                     this.lastPage = res.data.lastPage
                     this.loading = false;

@@ -19,7 +19,7 @@
                     <span>充币</span>
                 <!-- </router-link> -->
             </div>
-            <div @click='$router.push({path: "/extract", query: {usdt: usdt.creditValue}})'>
+            <div @click='$router.push({path:"/extract", query: {usdt: usdt.creditValue}})'>
                 <img src="../../../static/images/index/extract.png" alt="">
                 <span>提币</span>
             </div>
@@ -27,7 +27,7 @@
                 <img src="../../../static/images/index/exchange.png" alt="">
                 <span>兑换</span>
             </div> -->
-            <div @click='$router.push({path: "/transfer",query:{type:"usdt"}})'>
+            <div @click='$router.push({path:"/transfer",query:{type:"usdt"}})'>
                 <img src="../../../static/images/index/transfer.png" alt="">
                 <span>转账</span>
             </div>
@@ -141,7 +141,7 @@
               version: "v1",
               module: "Finance",
               interface: "1001",
-              data: {lastId: this.lastId,page: this.page ++,creditType: 'credit_2 ',direction: direction}
+              data: {lastId: this.lastId,page: this.page ++,creditType: 'credit_2',direction: direction}
             }).then(res => {
             console.log(res);
             this.lastPage = res.data.lastPage

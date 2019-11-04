@@ -121,7 +121,7 @@ export default {
     created () {
         this.usdtNum = this.$route.query.usdt
         this.address = this.$route.query.address
-        this.$axios.fetchPost('/portal/Digiccy',
+        this.$axios.fetchPost('/portal',
         {
             source: "web",
             version: "v1",
@@ -129,9 +129,10 @@ export default {
             interface: "2000",
             data: {}
         }).then(res => {
-            this.charge = res.data.params.feeRate,
-            this.contract = res.data.contractList[0].value
-          console.log(this.contract)
+            console.log(res)
+            this.charge = res.data.params.feeRate
+            // this.contract = res.data.contractList[0].value
+        //   console.log(this.contract)
         })
     },
     methods : {
@@ -153,13 +154,13 @@ export default {
 
             this.$validator.validateAll().then(function(result) {
                 if(result){
-                    that.$axios.fetchPost('/portal/Digiccy',
+                    that.$axios.fetchPost('/portal',
                     {
                         source: "web",
                         version: "v1",
                         module: "Finance",
                         interface: "2001",
-                        data: {amount: that.num,address: that.address ,creditType:'credit_2', contract:that.contract,safeword:that.safeword}
+                        data: {amount: that.num,address: that.address ,creditType:'credit_2',safeword:that.safeword}   //, contract:that.contract,safeword:that.safeword
                     }).then(res => {
                         if(res.success){
                             that.num = ''

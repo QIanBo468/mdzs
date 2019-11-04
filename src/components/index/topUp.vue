@@ -59,14 +59,15 @@ export default {
                 this.loading = false;
             }else{
                 
-                this.$axios.fetchPost('/portal/digiccy',
+                this.$axios.fetchPost('/portal',
                 {
                     source: "web",
                     version: "v1",
-                    module: "Wallet",
-                    interface:  1002,
-                    data: {lastId: this.lastId,page: this.page ++,isOut: true}
+                    module: "Finance",
+                    interface:  2002,
+                    data: {lastId: this.lastId,page: this.page ++,isOut: true,creditType:'credit_2'}
                 }).then(res => {
+                    console.log(res)
                     this.list = this.list.concat(res.data.list)
                     this.lastPage = res.data.lastPage
                     this.loading = false;
@@ -84,7 +85,7 @@ export default {
         width: 100%;
         height: 100%;
         overflow: hidden;
-        background: #f8f8f8;
+        background: #0D0900;
         .box{
             padding: 16px;
             overflow: scroll;
