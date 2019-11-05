@@ -160,7 +160,7 @@ export default {
                         version: "v1",
                         module: "Finance",
                         interface: "2001",
-                        data: {amount: that.num,address: that.address ,creditType:'credit_2',safeword:that.safeword}   //, contract:that.contract,safeword:that.safeword
+                        data: {amount: that.num,account: that.address ,creditType:'credit_2',safeword:that.safeword}   //, contract:that.contract,safeword:that.safeword
                     }).then(res => {
                         if(res.success){
                             that.num = ''
