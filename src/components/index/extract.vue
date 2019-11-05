@@ -144,7 +144,7 @@ export default {
         },
         submit () {
             var that = this
-
+            // console.log(123123)
           if(that.safeword.length != 6){
             Dialog.alert({
               title: '提示',
@@ -162,6 +162,7 @@ export default {
                         interface: "2001",
                         data: {amount: that.num,account: that.address ,creditType:'credit_2',safeword:that.safeword}   //, contract:that.contract,safeword:that.safeword
                     }).then(res => {
+                        console.log(res)
                         if(res.success){
                             that.num = ''
                             that.address = ''
@@ -169,7 +170,7 @@ export default {
                                 title: '提示',
                                 message: res.message
                             })
-                        }else if(res.code == 4800){
+                        }else {
                             Toast(res.message)
                         }
                     })
