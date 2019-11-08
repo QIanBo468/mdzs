@@ -4,6 +4,7 @@
             title="公告"
             left-arrow
             @click-left="onClickLeft"
+            class="gg-title"
         />
         <div class="noticeList">
             <van-list
@@ -29,7 +30,11 @@
 export default {
     data () {
         return {
-            noticeList: [],
+            noticeList: [
+                {id:1,title:'1231',time:'2019-11-8 17:30'},
+                {id:2,title:'1231456',time:'2019-11-8 17:30'},
+                {id:3,title:'12314789',time:'2019-11-8 17:30'},
+            ],
             lastPage: null,
             lastId: 0,
             finished: false,
@@ -84,15 +89,31 @@ export default {
     text-overflow:ellipsis;
     white-space: nowrap;
 }
+.gg-title{
+    background: #0C0C0C;
+    border: none;
+    color: #fff;
+    .van-icon{
+        color: #fff;
+    }
+    .van-nav-bar__title {
+        color: #fff;
+    }
+  
+}
+// 底边线
+ [class*=van-hairline]::after{
+       border: none;
+   }
     #notice{
         width: 100%;
         height: 100%;
-        background: #F8F8F8;
+        background: #0C0C0C;
         .noticeList a{
             height: 63px;
             display: flex;
             // line-height: 63px;
-            background: #fff;
+            background: #212243;
             margin-top: 10px;
             padding: 10px 16px;
             align-items: center;

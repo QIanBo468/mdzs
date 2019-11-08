@@ -1,12 +1,15 @@
 <template>
     <div id='registerBox'>
         <van-nav-bar
-            title="注册账号"
             left-arrow
             @click-left="onClickLeft"
         />
         <div class='register'>
-            <van-cell-group style="margin: 50px auto 201px" >
+            <div class="rg-tiltes">
+                <p>注册</p>
+                <span>已有账号,返回 <router-link to="/login">登录</router-link></span>
+            </div>
+            <van-cell-group style="margin: 30px auto" >
                 <van-field
                     placeholder="请输入手机号"
                     maxlength="11"
@@ -16,8 +19,25 @@
                     v-validate="'required|phones'"
                 >
                 <template slot='left-icon'>
-                    <img class='inputIcon' src='../../static/images/index/xingming 2@2x.png'/>
+                    <img class='inputIcon' src='../../static/mdimg/shouji@3x.png'/>
                 </template>
+                </van-field>
+                <van-field
+                    placeholder="请输入验证码"
+                    name="captcha"
+                    v-validate="'required'"
+                    v-model='fromObj.captcha'
+                    :error="errors.has('captcha')"
+                >
+                <template slot='left-icon'>
+                    <img class='inputIcon' src='../../static/images/index/yzm@2x.png'/>
+                </template>
+                <template slot="button">
+                    <div @click='sendCode' class='code'>
+                        {{btntxt}}
+                    </div>
+                </template>
+                <!-- <van-button slot="button" round size="small" plain type="primary" :disabled = disabled  ></van-button> -->
                 </van-field>
                 <van-field
                     placeholder="请输入密码（最少6位 数字+字母）"
@@ -31,9 +51,35 @@
                     <img class='inputIcon' src='../../static/images/index/jihuoma@2x.png'/>
                 </template>
                 </van-field>
+                 <van-field
+                    placeholder="请再次输入密码"
+                    v-model="fromObj.passworded"
+                    name="password"
+                    type="password"
+                    :error="errors.has('password')"
+                    v-validate="'required|password'"
+                >
+                <template slot='left-icon'>
+                    <img class='inputIcon' src='../../static/images/index/jihuoma@2x.png'/>
+                </template>
+                </van-field>
 
                 <van-field
                     placeholder="请输入支付密码"
+                    v-model="fromObj.safeworded"
+                    left-icon="contact"
+                    name='safeword'
+                    maxlength="6"
+                    type='password'
+                    :error="errors.has('safeword')"
+                    v-validate="'required|numeric|min:6'"
+                >
+                <template slot='left-icon'>
+                    <img class='inputIcon' src='../../static/images/index/jihuoma@2x.png'/>
+                </template>
+                </van-field>
+                 <van-field
+                    placeholder="请再次输入支付密码"
                     v-model="fromObj.safeword"
                     left-icon="contact"
                     name='safeword'
@@ -55,16 +101,16 @@
                     v-model="fromObj.inviteCode"
                 >
                 <template slot='left-icon'>
-                    <img class='inputIcon' src='../../static/images/index/yaoqingma@2x.png'/>
+                    <img class='inputIcon' src='../../static/mdimg/shouji@3x.png'/>
                 </template>
                 </van-field>
             </van-cell-group>
             <van-cell-group :border='false'>
                 <van-button  class='btn' @click="submit">下一步</van-button>
                 <div class='agreement' @click="flag = !flag">
-                    <img class='imgIcon' v-if='flag' src='../../static/images/index/gouxuan.png'>
-                    <img class='imgIcon' v-if='!flag' src='../../static/images/index/gouxuan_A.png'>
-                    已阅读并同意以下协议：《ofc服务协议》
+                    <div class='imgIcon1' v-if='flag'></div>
+                    <img class='imgIcon'  v-if='!flag' src='../../static/mdimg/xuanze_btn@3x.png'>
+                    已阅读并同意《用户服务协议》
                 </div>
             </van-cell-group>
         </div>
@@ -76,11 +122,18 @@ export default {
     data () {
         return {
             fromObj: {
-                account: '',
-                password: '',
-                safeword: '',
-                inviteCode: '',
+                account: '', // 手机号
+                password: '', // 密码
+                passworded:'',// 确认密码
+                safeword: '', // 支付密码
+                safeworded:'', //确认支付密码
+                inviteCode: '',// 推荐人
+                captcha:null  // 手机验证码
             },
+            time: 60,
+            btntxt: '发送验证码',
+            disabled: false,
+            captcha: '验证码',
             flag: true,
         }
     },
@@ -92,6 +145,44 @@ export default {
     methods : {
         onClickLeft () {
             this.$router.go(-1)
+        },
+         sendCode () {
+            var phone = this.fromObj.account;
+            if(!(/^[1][3,4,5,7,8][0-9]{9}$/.test(phone))){ 
+                Toast("手机号码有误，请重填");  
+                return false; 
+            }
+            if(this.disabled == false){
+                this.$axios.fetchPost('/portal',
+                {
+                "source":"web",
+                "version":"v1",
+                "module":"Account",
+                "interface":"1003",
+                "data":
+                    {"account": this.obj.account,}
+                }).then(res => {
+                    Toast(res.message)
+                if(res.code == 0){
+                    this.disabled = true;
+                    var  that = this
+                    var times = setInterval(function() {
+                    that.time--;
+                    if( that.time > 0){
+                        that.btntxt = '重新获取('+ that.time +'s)'
+                    }else{
+                        clearInterval(times)
+                        that.time = 10
+                        that.btntxt = "获取验证码";
+                        that.disabled = false;
+                    } 
+                    }, 1000);
+                }
+                }).catch( res => {
+                Toast(res.message)
+                })
+            }
+
         },
         submit () {
             var that = this
@@ -150,7 +241,7 @@ export default {
     color: #DEE7FF;
 }
 .van-button--default{
-    border: 1px solid #0b0c21;
+    border: 1px solid #373751;
 }
 .van-cell-group {
     background: #0b0c21;
@@ -168,7 +259,7 @@ export default {
 /deep/input:-webkit-autofill {
 box-shadow: 0 0 0px 1000px #0b0c21 inset !important;
  -webkit-text-fill-color: white;
- border: 1px solid #0b0c21;
+ border: 1px solid #373751;
 }
     .register{
         width: 343px;
@@ -183,6 +274,33 @@ box-shadow: 0 0 0px 1000px #0b0c21 inset !important;
             height: 20px;
             line-height: 20px;
             text-align: center;
+            .imgIcon1{
+                width: 10px;
+                height: 10px;
+                background: #ccc;
+                margin-right: 4px;
+            }
+            img{
+               width: 24px;
+                height: 24px; 
+                z-index: 2;
+            }
+        }
+        .rg-tiltes{
+            padding: 10px;
+            p{
+                font-size: 18px;
+                color: #fff;
+                // margin: 0;
+                padding: 0;
+            }
+            span{
+                font-style: 16px;
+                color: #fff;
+            }
+            a{
+                color: #8FADFF;
+            }
         }
     }
     .inputIcon{
@@ -196,14 +314,14 @@ box-shadow: 0 0 0px 1000px #0b0c21 inset !important;
         background: red;
         margin: 0 auto;
         background-image: linear-gradient(90deg,#494efe, #0b02f8);
-        // background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
-        border-radius: 22px;
+        background: #4A66FA;
+        border-radius: 6px;
         color: #fff;
     }
     .imgIcon{
         width: 13px;
         height: 13px;
-        margin-right: 10px;
+        // margin-right: 10px;
     }
     .code{
     // width:78px;

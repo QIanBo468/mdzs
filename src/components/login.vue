@@ -15,7 +15,7 @@
                     :error="errors.has('phone')"
                 >
                 <template slot='left-icon'>
-                    <img class='inputIcon' src='../../static/images/index/xingming 2@2x.png'/>
+                    <img class='inputIcon' src='../../static/mdimg/shouji@3x.png'/>
                 </template>
                 </van-field>
                 <van-field
@@ -27,19 +27,19 @@
                     v-model="obj.password"
                 >
                 <template slot='left-icon'>
-                    <img class='inputIcon' src='../../static/images/index/jihuoma@2x.png'/>
+                    <img class='inputIcon' src='../../static/mdimg/mima@3x.png'/>
                 </template>
                 </van-field>
             </van-cell-group>
-            <!--<van-cell-group :border='false' style="text-align: right;margin-top: 10px">
+            <van-cell-group :border='false' style="text-align: right;margin-top: 10px">
                 <router-link to='/password' class="forget">忘记密码</router-link>
-            </van-cell-group>-->
+            </van-cell-group>
             <van-cell-group :border='false' style="margin-top: 60px;text-align: center">
                 <van-button class='btn' @click="submit">登录</van-button>
             </van-cell-group>
-            <!--<van-cell-group :border='false' style="margin-top: 10px;text-align: center;color: #999">
+            <van-cell-group :border='false' style="margin-top: 10px;text-align: center;color: #CBD9FF">
                 <span  @click="$router.push('/register')">没有账号？去注册</span>
-            </van-cell-group>-->
+            </van-cell-group>
         </div>
     </div>
 </template>
@@ -172,6 +172,7 @@ input:-internal-autofill-selected {
 }
 .van-nav-bar__title{
     color: #ffffff;
+    font-size: 20px;
 }
 .van-icon-arrow-left:before{
     color: #ffffff;
@@ -189,6 +190,8 @@ input:-internal-autofill-selected {
 .van-cell{
     background: #0b0c21;
     border-bottom: 1px solid #999;
+    padding: 10px 0;
+    margin-bottom: 20px;
 }
 .van-cell:not(:last-child)::after{
     border: none;
@@ -203,7 +206,8 @@ input:-internal-autofill-selected {
     margin: 0 auto;
     // background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
     background-image: linear-gradient(90deg,#494efe, #0b02f8);
-    border-radius: 22px;
+    background: #4A66FA;
+    border-radius: 6px;
     color: #fff;
 }
 .inputIcon{

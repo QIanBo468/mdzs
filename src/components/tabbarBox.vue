@@ -3,7 +3,7 @@
         <router-view style="flex:1; "/>
         <van-tabbar v-model="actives" style="height: 50px;    position: sticky">
             <van-tabbar-item  to='/index' name="1">
-                <span class='red'>行情</span>
+                <span class='red'>首页</span>
                 <img
                 slot="icon"
                 slot-scope="props"
@@ -11,7 +11,7 @@
                 >
             </van-tabbar-item>
             <van-tabbar-item to="/transaction" name="2">
-                <span class='red'>交易市场</span>
+                <span class='red'>商城</span>
                 <img
                 slot="icon"
                 slot-scope="props"
