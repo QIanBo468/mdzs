@@ -1,37 +1,37 @@
 <template>
     <div id='usdt'>
+        
         <div class="navstatis">
          <van-nav-bar
-            title="BAT钱包"
+            title="DOC"
             left-arrow
             :border="false"
             @click-left="onClickLeft"
         />
+        <div class="usdt-box">
         <div class='statis'>
-            <div>当前余额</div>
-            <div>{{usdt.creditValue}}BAT</div>
+            <div>余额</div>
+            <div>{{usdt.creditValue}}</div>
         </div>
         </div>
-        <div class='deposit' style="height: 40px;diplay:flex;">
+        </div>
+        <!-- <div class='deposit' style="height: 40px;diplay:flex;">
             <div @click='$router.push("/charge")'>
-                <!-- <router-link to='/charge'> -->
+                
                     <img src="../../../static/images/index/chongzhi.png" alt="">
                     <span>充币</span>
-                <!-- </router-link> -->
+          
             </div>
             <div @click='$router.push({path:"/extract", query: {usdt: usdt.creditValue}})'>
                 <img src="../../../static/images/index/extract.png" alt="">
                 <span>提币</span>
             </div>
-            <!-- <div @click="$router.push({path:'/exchange',query: {'type': 2}})">
-                <img src="../../../static/images/index/exchange.png" alt="">
-                <span>兑换</span>
-            </div> -->
+        
             <div @click='$router.push({path:"/transfer",query:{type:"usdt"}})'>
                 <img src="../../../static/images/index/transfer.png" alt="">
                 <span>转账</span>
             </div>
-        </div>
+        </div> -->
         <van-tabs v-model="active" @change="acChange">
             <van-tab title="全部">
                 <van-list
@@ -88,6 +88,7 @@
                 </van-list>
             </van-tab>
         </van-tabs>
+        
     </div>
 </template>
 <script>
@@ -164,7 +165,7 @@
             // margin-bottom: 20px;
         }
         .van-nav-bar{
-            background: transparent;
+            background: #0C0C0C;
             // background:linear-gradient(180deg,#3FCFFE 0%,#39B2F8 100%);
             // background: #fff;
             .van-icon {
@@ -212,15 +213,26 @@
     width: 100%;
     height: 100%;
     background: #0D0900;
+    .usdt-box{
+        // width: 100%;
+        height: 100%;
+        padding:  0 10px;
+    }
+    
 }
 .statis{
-    height: 107px;
+    width: 100%;
+    height: 130px;
     // background:linear-gradient(180deg,#39B2F8 0%, #2F80ED 100%);
     // background: #fff;
     padding: 30px  23px;
     box-sizing: border-box;
     color: #fff;
     font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    margin: 10px 15px 15px;
+    border-radius: 6px;
     div{
         height: 20px;
         line-height: 20px;

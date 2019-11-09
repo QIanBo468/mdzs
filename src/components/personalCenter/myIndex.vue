@@ -5,155 +5,207 @@
         <!-- <van-icon name="setting-o" size="20" slot="right" @click="onClickRight" /> -->
       </van-nav-bar>
       <div class="top">
-        <img :src="avatar" alt class="headpic" />
-
-        <div class="headtext">
-          <p>账号：{{info.account}}</p>
-          <p>ID：{{info.id}}</p>
-          <p>级别：{{info.level}}</p>
+        <div class="top-username">
+          <div class="headtext">
+            <p>{{info.account}}</p>
+            <div class="userid">
+              <p>ID：{{info.id}}</p>
+              <p>级别：{{info.level}}</p>
+            </div>
+          </div>
+          <img :src="avatar" alt class="headpic" />
+        </div>
+        <div class="zichan">
+          <div class="zican-cont">
+            <p>917.11</p>
+            <span>总资产(TG)</span>
+          </div>
+          <div class="zican-cont">
+            <p>917.11</p>
+            <span>总资产(TG)</span>
+          </div>
+          <div class="zican-cont">
+            <p>917.11</p>
+            <span>总资产(TG)</span>
+          </div>
         </div>
       </div>
     </div>
-        <div class='listbat'>
-          <router-link to='/usdt'>
-              <img src="../../../static/images/index/yitai@3x.png" width="50px" height="50px" alt="">
-              <div class='num'>
-                  <div>BAT钱包</div>
-                  <div>{{money}}</div>
-              </div>
-              <img  src="../../../static/images/index/in@3x(2).png" width="19px" height="19px" alt="">
-          </router-link>
+    <div class="listbat">
+      <!-- <router-link to="/usdt"> -->
+      <div class="listbat-cont">
+        <div class="num" @click="$router.push('charge')">
+          <img width="24px;" height="24px;" src="../../../static/mdimg/chongbi@3x.png" alt />
+          <div>充币</div>
         </div>
+
+        <div class="num" @click="$router.push('extract')">
+          <img width="24px;" height="24px;" src="../../../static/mdimg/tibi@3x.png" alt />
+          <div>提币</div>
+        </div>
+        <div class="num"  @click="$router.push('transfer')">
+          <img width="24px;" height="24px;" src="../../../static/mdimg/zhuanzhang@3x.png" alt />
+          <div>站内转账</div>
+        </div>
+        <!-- </router-link> -->
+      </div>
+    </div>
     <div class="my_list">
-      <router-link class="list" to="authentication">
+      <router-link class="list" to="inviteFriends">
         <div class="my_first">
-          <img src="../../../static/images/index/shiming.png" alt />
-          <p>实名认证</p>
+          <img src="../../../static/mdimg/yaoqing@3x.png" alt />
+          <p>邀请好友</p>
         </div>
-        <img width="22px" height="22px" src="../../../static/images/index/in@3x.png" alt />
+        <img width="22px" height="22px" src="../../../static/mdimg/in@3x.png" alt />
       </router-link>
-      <router-link class="list" to='/mytrans'>
+      <router-link class="list" to="zijin">
         <div class="my_first">
-          <img src="../../../static/images/index/jiaoyi.png" alt />
-          <p>我的交易</p>
+          <img src="../../../static/mdimg/zijin@3x.png" alt />
+          <p>资金明细</p>
         </div>
-        <img width="22px" height="22px" src="../../../static/images/index/in@3x.png" alt />
+        <img width="22px" height="22px" src="../../../static/mdimg/in@3x.png" alt />
       </router-link>
-      
+      <router-link class="list" to="jiangjin">
+        <div class="my_first">
+          <img src="../../../static/mdimg/jiangjin@3x.png" alt />
+          <p>奖金明细</p>
+        </div>
+        <img width="22px" height="22px" src="../../../static/mdimg/in@3x.png" alt />
+      </router-link>
+    </div>
+    <div class="my_list">
+      <router-link class="list" to="setting">
+        <div class="my_first">
+          <img src="../../../static/mdimg/geren@3x.png" alt />
+          <p>个人资料</p>
+          <!-- 实名认证 -->
+        </div>
+        <img width="22px" height="22px" src="../../../static/mdimg/in@3x.png" alt />
+      </router-link>
+      <router-link class="list" to="fix_login">
+        <div class="my_first">
+          <img src="../../../static/mdimg/denglu@3x.png" alt />
+          <p>登录密码</p>
+          <!-- 交易记录 -->
+        </div>
+        <img width="22px" height="22px" src="../../../static/mdimg/in@3x.png" alt />
+      </router-link>
+
       <router-link class="list" to="myPaymentMethods">
         <div class="my_first">
-          <img src="../../../static/images/index/shoukuan@3x.png" alt />
-          <p>我的收款方式</p>
+          <img src="../../../static/mdimg/zhifu@3x.png" alt />
+          <p>支付密码</p>
+          <!-- 收款方式 -->
         </div>
-        <img width="22px" height="22px" src="../../../static/images/index/in@3x.png" alt />
+        <img width="22px" height="22px" src="../../../static/mdimg/in@3x.png" alt />
       </router-link>
-      <!-- <router-link class="list" to="my_recommend">
-        <div class="my_first">
-          <img src="../../assets/img/wodetuijian.png" alt />
-          <p>我的推荐</p>
-        </div>
-        <img src="../../assets/img/more_small.png" alt />
-      </router-link> -->
-      <!-- <router-link class="list" to="my_team">
-        <div class="my_first">
-          <img src="../../assets/img/wodetuandui.png" alt />
-          <p>我的团队</p>
-        </div>
-        <img src="../../assets/img/more_small.png" alt />
-      </router-link> -->
+    </div>
+
+    <div class="my_list">
       <router-link class="list" to="my_Address">
         <div class="my_first">
-          <img src="../../../static/images/index/dizhi.png" alt />
+          <img src="../../../static/mdimg/dizhi@3x.png" alt />
           <p>地址本</p>
         </div>
-        <img width="22px" height="22px" src="../../../static/images/index/in@3x.png" alt />
+        <img width="22px" height="22px" src="../../../static/mdimg/in@3x.png" alt />
       </router-link>
-      <!-- <router-link class="list" to="safeCenter">
-        <div class="my_first">
-          <img src="../../assets/img/zhanghuyuanquan.png" alt />
-          <p>账户与安全</p>
-        </div>
-        <img src="../../assets/img/more_small.png" alt />
-      </router-link> -->
+    </div>
+
+    <div class="my_list">
+      
       <router-link class="list" to="feedbackNew">
         <div class="my_first">
-          <img src="../../../static/images/index/zhanhu@3x.png" alt />
+          <img src="../../../static/mdimg/yijian@3x.png" alt />
           <p>问题反馈</p>
         </div>
-        <img width="22px" height="22px" src="../../../static/images/index/in@3x.png" alt />
+        <img width="22px" height="22px" src="../../../static/mdimg/in@3x.png" alt />
       </router-link>
-        <router-link class="list" to="Login">
+      <router-link class="list" to="my_Address">
         <div class="my_first">
-          <img src="../../../static/images/index/tuichu@3x.png" alt />
+          <img src="../../../static/mdimg/kefu@3x.png" alt />
+          <p>客服</p>
+          <!-- 地址本 -->
+        </div>
+        <img width="22px" height="22px" src="../../../static/mdimg/in@3x.png" alt />
+      </router-link>
+      <router-link class="list" to="Login">
+        <div class="my_first">
+          <img src="../../../static/mdimg/tuichu@3x.png" alt />
           <p>安全退出</p>
         </div>
-        <img  width="22px" height="22px" class="arrow" src="../../../static/images/index/in@3x.png" alt />
+        <img
+          width="22px"
+          height="22px"
+          class="arrow"
+          src="../../../static/mdimg/in@3x.png"
+          alt
+        />
       </router-link>
     </div>
   </div>
+  <!-- </div> -->
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
-      info: '',
-      avatar: '',
-      money: 0.00
-    }
+      info: "",
+      avatar: "",
+      money: 0.0
+    };
   },
   computed: {},
   methods: {
-    onClickRight () {
-      this.$router.push('setting')
+    onClickRight() {
+      this.$router.push("setting");
     }
   },
-  created () {
+  created() {
     this.$axios
-      .fetchPost('/portal', {
-        interface: '1000',
-        module: 'User',
-        source: 'web',
-        version: 'v1',
+      .fetchPost("/portal", {
+        interface: "1000",
+        module: "User",
+        source: "web",
+        version: "v1",
         data: {}
       })
       .then(res => {
-        console.log('个人信息', res)
+        console.log("个人信息", res);
         // this.goodsList = res.data.list;
-        this.info = res.data
-        this.avatar = res.data.avatar
-      })
+        this.info = res.data;
+        this.avatar = res.data.avatar;
+      });
 
     this.$axios
-      .fetchPost('/portal', {
-        interface: '1000',
-        module: 'Finance',
-        source: 'web',
-        version: 'v1',
+      .fetchPost("/portal", {
+        interface: "1000",
+        module: "Finance",
+        source: "web",
+        version: "v1",
         data: {}
       })
       .then(res => {
-        console.log('钱包信息', res.data.credit_2)
+        console.log("钱包信息", res.data.credit_2);
         // this.goodsList = res.data.list;
         this.money = res.data.credit_2.value;
-      })
-
+      });
   }
-}
+};
 </script>
-<style scoped>
-.myIndex{
+<style scoped lang='less'>
+.myIndex {
   overflow-y: auto;
-  background: #0B0C21;
+  background: #0b0c21;
 }
 .my_header {
-  background: url(../../../static/images/index/bg@3x.png) no-repeat;
-  background-size: 100% 100%;
-  width: 100%;
-  height: 160px;
+  // width: 100%;
+  // height: 160px;
+  margin-bottom: 20px;
+  padding: 0 15px;
 }
 .van-nav-bar {
-  background: none;
+  background: #0b0c21;
 }
 .van-hairline--bottom::after {
   border-bottom-width: 0;
@@ -174,41 +226,59 @@ export default {
   margin-top: 5px;
 }
 .top {
-  margin-top: 27px;
-  padding-left: 27px;
+  background: url(../../../static/mdimg/bg@3x.png) no-repeat;
+  /* margin-top: 27px; */
+  background-size: 100% 100%;
+  padding: 27px 10px 0 10px;
+  margin-bottom: 20px;
   display: flex;
+  flex-direction: column;
+  height: 160px;
 }
-.headtext > p {
-  margin: 0;
-  text-align: left;
-  color: rgba(255, 255, 255, 1);
-}
-.headtext > p:nth-child(1) {
-  font-size: 16px;
-  font-weight: 500;
-}
-.headtext > p:nth-child(2) {
-  font-size: 13px;
-  font-weight: 400;
-  margin-top: 8px;
-}
-.headtext > p:nth-child(3) {
-  font-size: 12px;
-  font-weight: 400;
-  margin-top: 8px;
-}
-.my_list {
-  padding: 20px;
-  border-radius: 6px;
-}
-.list {
-  background: #1D1C3B;
+.top-username {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 0.5px solid #707070;
- 
-  padding:0 10px;
+  margin-bottom: 10px;
+  .headtext {
+    color: #fff;
+    p {
+      font-size: 16px;
+      margin: 0;
+    }
+    .userid {
+      display: flex;
+      margin-top: 10px;
+      p {
+        margin-right: 10px;
+        font-size: 12px;
+      }
+    }
+  }
+}
+.zichan {
+  display: flex;
+  color: #ffffff;
+  justify-content: space-between;
+  align-items: flex-end;
+  p {
+    font-size: 14px;
+  }
+  span {
+    font-size: 12px;
+  }
+}
+.my_list {
+  padding: 10px 15px;
+  border-radius: 6px;
+}
+.list {
+  background: #1d1c3b;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // border-bottom: 0.5px solid #707070;
+  padding: 0 10px;
 }
 .my_first {
   display: flex;
@@ -223,45 +293,36 @@ export default {
   font-size: 14px;
   color: #fff;
   margin-left: 10px;
-
 }
 /* .list:first-child{
   border: none;
 } */
-.list:last-child{
+.list:last-child {
   border: none;
 }
 
- .listbat a{
-          background:linear-gradient(90deg,#4A66FA 0%,#7482FC 100%);
-          width: 343px;
-          margin: 15px auto 0;
-          height: 100px;
-          border-radius: 6px;
-          padding: 22px  20px 22px 15px;
-          box-sizing: border-box;
-          display: flex;
-          align-items: center;
-      
- }
-   .listbat a .num{
-          flex: 1;
-          overflow: hidden;
-          color: #fff;
-          margin-left: 10px;
-   }
-.listbat a .num div{
-              height: 22px;
-              line-height: 22px;
-              font-size: 16px;
-          }
-.listbat a .num div:last-child{
-              height: 32px;
-              line-height: 32px;
-              font-size: 23px;
-          }
-      
-      /* img{
+.listbat {
+  height: 77px;
+  padding: 0 15px;
+  .listbat-cont {
+    width: 100%;
+    background: #212243;
+    height: 77px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    color: #ffffff;
+    font-size: 14px;
+    .num {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+}
+
+/* img{
           width: 20px;
       } */
 </style>

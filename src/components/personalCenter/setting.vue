@@ -1,6 +1,6 @@
 <template>
 <div class="root">
-  <van-nav-bar title="设置" left-arrow class="nav-top" @click-left="back" />
+  <van-nav-bar title="个人资料" left-arrow class="nav-top" @click-left="back" />
 
   <van-cell-group class="group">
     <div class="cell select-image-parent">
@@ -36,7 +36,7 @@
       </div>
     </div>
   </van-cell-group>
-  <div class='btn' @click='submit'>退出登录</div>
+
 </div>
 </template>
 
@@ -137,16 +137,24 @@ export default {
 
 <style lang="less" scoped>
 .root {
-  background: #f8f8f8;
+  background: #0C0C0C;
   height: 100vh;
 }
 
 .nav-top {
   margin-bottom: 10px;
+  background: #0C0C0C;
+  .van-nav-bar__title{
+    color: #fff;
+  }
+  .van-icon{
+    color: #fff;
+  }
 }
 
 .group {
   margin-bottom: 10px;
+  background: none;
 }
 
 .cell {
@@ -154,13 +162,14 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #f9f9f9;
+  // border-bottom: 1px solid #f9f9f9;
   font-size: 14px;
   padding: 0 16px;
-  color: rgba(102, 102, 102, 1);
+  color: #fff;
+  background: #1D1C3B;
 
   &:active {
-    background: #f2f3f5;
+    // background: #f2f3f5;
   }
 
   &-right {
@@ -168,7 +177,7 @@ export default {
     align-items: center;
     justify-content: flex-end;
     max-width: 80%;
-
+    color: #fff;
     &-img {
       width: 44px;
       height: 44px;
@@ -176,7 +185,7 @@ export default {
     }
 
     &-text {
-      color: #333;
+      color: #fff;
       width: 80%;
       line-height: 14px;
       flex-grow: 1;
@@ -184,7 +193,7 @@ export default {
 
     &-icon {
       margin-left: 6px;
-      color: #bbb;
+      color: #ddd;
       font-size: 16px;
     }
   }
@@ -201,17 +210,7 @@ export default {
   height: 100%;
   opacity: 0;
 }
-.btn{
-   width: 343px;
-    height: 44px;
-    background: red;
-    margin: 0 auto;
-    background:linear-gradient(180deg,rgba(253,89,102,1) 0%,rgba(231,17,34,1) 100%);
-    border-radius: 22px;
-    color: #fff;
-    text-align: center;
-    line-height: 44px;
-    font-size: 16px;
-    margin-top: 300px;
+[class*=van-hairline]::after{
+  border: none;
 }
 </style>

@@ -1,11 +1,12 @@
 <template>
 <div class='tranBox'>
-    <div class="bothse">
-        <trannav :title="title" ></trannav>
-        <!-- <div class="echarts">
-            <chart style="width:100%;" ref="chart1" :options="orgOptions" ></chart>
-        </div> -->
-
+    <trannav :title="title" ></trannav>
+    <div class="tran-banner">
+        <img width="230px" height="130px;" src="../../../static/mdimg/img@3x.png" alt="">
+        <p>暂未开放,敬请期待</p>
+    </div>
+    <!-- <div class="bothse">
+        
         <div class="centerbottom">
             <div class="todaybothdata">
                 <div>今日总交易量</div>
@@ -22,15 +23,9 @@
                     <div>挂卖</div>
                 </a>
             </div>
-
-            <!-- 最后一行 -->
-            <!-- <a @click='deal("/transmarket")'  class="last_view">
-                <div><img src="../../../static/images/icon/trans_icon.png" alt=""></div>
-                <div>交易市场</div>
-            </a> -->
         </div>
             <transmarket></transmarket>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -45,7 +40,7 @@ export default {
     name:'transaction',
     data(){
         return{
-            title:'交易市场',
+            title:'商城',
             orgOptions:{},
             cont:'', //获取的数据
             yarr:[],
@@ -133,6 +128,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.tran-banner{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #BEC6E4;
+    font-size: 14px;
+}
 /deep/.nav[data-v-1fe035a7]{
     background: #0B0C21;
 }
@@ -145,6 +150,7 @@ export default {
     width: 100%;
     height: 100%;
     background:#0B0C21;
+    position: relative;
 }
 .bothse{
     height: 100%;

@@ -44,8 +44,8 @@ export default {
                 normal: './static/images/index/huobi-s@3x.png',
             },
             deal: {
-                active: './static/images/index/huobi-s@3x.png',
-                normal: './static/images/index/huobi-ss@3x.png',
+                active: './static/mdimg/huobi-s@3x.png',
+                normal: './static/mdimg/huobi@3x.png',
             },
             user: {
                 active: './static/images/index/more-s@3x.png',

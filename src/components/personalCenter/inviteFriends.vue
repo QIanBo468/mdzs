@@ -3,11 +3,8 @@
     <van-nav-bar title="邀请好友" left-arrow @click-left="$router.go(-1)" :border="false" />
     <div class="main">
       <div class="title">
-        <h2>ofc邀请您注册及下载</h2>
-        <div>
-          <span>邀请人：{{info.nickname}}</span>
-          <span>ID:{{info.id}}</span>
-        </div>
+        <h2>锚定钻石邀请您注册及下载</h2>
+
       </div>
       <div class="con">
         <div class="top">
@@ -15,6 +12,7 @@
           <label>{{num}}</label>
           <button @click="copy(num)">复制</button>
         </div>
+        <img width="80%" src="../../../static/mdimg/zhixian@3x.png" alt="">
         <div class="bottom">
           <img :src="qrcode" alt />
           <p>长按二维码识别</p>
@@ -114,9 +112,9 @@ export default {
   width: 100%;
   min-height: 100vh;
   height: auto;
-  background: linear-gradient(180deg, #fd5966 0%, #f42d3d 100%);
   color: #fff;
   text-align: center;
+  background: #0C0C0C;
 }
 .title h2 {
   font-size: 20px;
@@ -135,10 +133,11 @@ export default {
 .con {
   width: 270px;
   height: 420px;
-  background: url(../../assets/img/yaoqing_bg.png) no-repeat;
+  background: linear-gradient(90deg,#4A66FA 0%, #7482FC 100%);
   background-size: 100% 100%;
   margin: 20px auto 0;
-  color: #f84d4d;
+  color: #fff;
+  border-radius: 6px;
 }
 .con .top {
   height: 166px;
@@ -159,12 +158,13 @@ export default {
 .main button {
   width: 80px;
   height: 28px;
-  background: url(../../assets/img/small_btn.png) no-repeat;
+    background: linear-gradient(90deg, #494EFE 0%, #0900F8 100%);
   background-size: 100% 100%;
   font-size: 12px;
   display: inline-block;
   color: #ffffff;
   margin-top: 10px;
+  border-radius: 18px;
 }
 .con .bottom {
   padding-top: 45px;

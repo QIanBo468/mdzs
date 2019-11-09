@@ -1,21 +1,49 @@
 <template>
   <div id='extract'>
     <van-nav-bar
-      title="转出到BAT商城"
+      title="转账"
       right-text="转账记录"
       left-arrow
       @click-left="onClickLeft"
       @click-right='$router.push({path:"/transferRecord",query:{type:type}})'
     />
     <div class='box'>
+      <div class="extract-banner">
       <div class='usdt'>
-        <img src="../../../static/images/index/B@3x.png" alt="">
-        BAT
+       <p>DOC可用余额</p> 
       </div>
       <div class='money'>
         {{money}}
       </div>
-
+      </div>
+      <div class='title'>
+        <div class="g"></div>
+        钱包地址
+      </div>
+ <div class="inputBox">
+        <van-field
+          placeholder="请输入钱包地址"
+          :border="false"
+          name="address"
+          v-model="address"
+          :error="errors.has('address')"
+          v-validate="'required'"
+        />
+        <img
+          v-if="imgFlag"
+          :src="InputImg"
+          alt
+          @click="$router.push({path: '/address', query:{usdt: usdtNum}})"
+        />
+        <img
+          v-else
+          style="width: 19px;height: 19px"
+          src="../../../static/images/index/empty.png"
+          alt
+        
+        />
+          <!-- @click="address = ''" -->
+      </div>
       <div class='title'>
         <div class="g"></div>
         转账数量
@@ -52,16 +80,15 @@
           v-validate="'required'"
           autocomplete="off"
         />
-        <div class='red time' @click='time'>{{codeText}}</div>
       </div>
-      <div class='cell' >
+      <!-- <div class='cell' >
         <div>手续费</div>
         <div class='overText'>{{fee}}%</div>
       </div>
       <div class="cell" >
         <div>实际支付金额</div>
         <div class='overText'>{{payMoney}}BAT</div>
-      </div>
+      </div> -->
       <div class='btn' @click="submit">
         转账
       </div>
@@ -92,6 +119,7 @@
   export default {
     data () {
       return {
+        address:'',
         user: '',
         InputImg: './static/images/index/user.png',
         imgFlag: true,
@@ -185,13 +213,14 @@
         })
       },
       onClickLeft () {
-        if(this.$route.query.type =='LoveFund'){
-          this.$router.push('/fund')
-        }else if(this.$route.query.type =='ofc'){
-          this.$router.push('/ofc')
-        }else{
-          this.$router.push('/usdt')
-        }
+        // if(this.$route.query.type =='LoveFund'){
+        //   this.$router.push('/fund')
+        // }else if(this.$route.query.type =='ofc'){
+        //   this.$router.push('/ofc')
+        // }else{
+        //   this.$router.push('/usdt')
+        // }
+        this.$router.push('myindex')
       },
       select () {
         var type = this.radio
@@ -345,6 +374,19 @@
     border-radius: 8px;
   }
   }
+  .extract-banner{
+        background: linear-gradient(90deg,  #4A66FA 0%, #7482FC 100% );
+        height: 120px;
+        border-radius: 6px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 15px;
+        p{
+            font-size: 16px;
+        }
+        margin-bottom: 10px;
+    }
   .usdt{
     margin-top: 30px;
     height: 27px;
@@ -366,10 +408,10 @@
     text-align: center;
     height: 32px;
     line-height: 32px;
-    width: 343px;
+    // width: 343px;
     font-size: 23px;
     color: #fff;
-    margin: 5px auto 38px;
+    // margin: 5px auto 38px;
   }
   .van-cell{
     padding: 0
@@ -444,6 +486,7 @@
     text-align: center;
     line-height: 40px;
     font-size: 16px;
+    background: #4A66FA;
   }
   .red{
     color: #BEC6E4;

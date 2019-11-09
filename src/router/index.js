@@ -29,7 +29,8 @@ import topUp from '@/components/index/topUp'
 import address from '@/components/index/address'
 import mall from '@/components/mall'
 import extractRecord from '@/components/index/extractRecord'
-
+import zijin from '@/components/personalCenter/zijin'
+import jiangjin from '@/components/personalCenter/jiangjin'
 
 // import charge from '@/components/index/'
 import settingRoutes from './setting-pay-method.js'
@@ -48,6 +49,16 @@ export default new Router({
       path: '/password',
       name: 'Password',
       component: Password
+    },
+    {
+      path: '/zijin',
+      name: 'zijin',
+      component: zijin
+    },
+    {
+      path: '/jiangjin',
+      name: 'jiangjin',
+      component: jiangjin
     },
     {
       path: '/authentication',

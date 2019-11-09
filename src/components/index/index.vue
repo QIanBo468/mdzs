@@ -15,6 +15,16 @@
           </div>
         </div>
       </div>
+      <div class="qianbao">
+        <router-link to="usdt" class="qianbao-doc">
+          <p>DOC</p>
+          <span>1234.12</span>
+        </router-link>
+        <router-link to="usdt" class="qianbao-tg">
+          <p>TG</p>
+          <span>1234.12</span>
+        </router-link>
+      </div>
       <van-list @load="onLoad" v-model="loading" :finished="finished">
         <div class="indexlist" v-for="(item, index) of list" :key="index">
           <div class="listtitle" style="width: 25%;">
@@ -249,6 +259,42 @@ export default {
   }
   .van-list{
       width: 100%;
+  }
+  .qianbao{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    .qianbao-doc{
+      width: 165px;
+      height: 90px;
+      background: url(../../../static/mdimg/bg_2@3x.png) no-repeat no-repeat;
+      background-size: 100%;
+      padding-left: 20px;
+      box-sizing: border-box;
+      color: #fff;
+      p{
+        font-size: 16px;
+      }
+      span{
+        font-size: 16px;
+      }
+    }
+    .qianbao-tg{
+      width: 165px;
+      height: 90px;
+      background: url(../../../static/mdimg/bg_1@3x.png) no-repeat no-repeat;
+      background-size: 100%;
+       padding-left: 20px;
+      box-sizing: border-box;
+      color: #fff;
+      p{
+        font-size: 16px;
+      }
+      span{
+        font-size: 16px;
+      }
+    }
   }
   .indexlist {
     text-align: center;

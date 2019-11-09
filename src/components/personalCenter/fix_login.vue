@@ -2,6 +2,21 @@
   <div class="fix_login">
     <van-nav-bar title="修改登录密码" left-arrow @click-left="onClickLeft" />
     <div class="login_list">
+      <div class="content-title">
+        <div class="shuxian"></div>安全验证(188****1234)
+      </div>
+      <div class="inputBox" style="margin-bottom: 40px">
+        <van-field
+          type="password"
+          placeholder="请输入验证码"
+          :border="false"
+          name="safeword"
+          v-model="safeword"
+          :error="errors.has('safeword')"
+          v-validate="'required'"
+        />
+        <div class="red time" @click="time">{{codeText}}</div>
+      </div>
       <van-field v-model="login_pwd" placeholder="请输入当前登录密码" label="请输入当前登录密码" type="password" />
       <van-field v-model="password" placeholder="请输入新密码" label="请输入新密码" type="password" />
       <van-field v-model="passPwd" placeholder="请再次输入新密码" label="确认新密码" type="password" />
@@ -72,7 +87,7 @@ export default {
 </script>
 <style scoped>
 .fix_login {
-  background: #f5f5f5;
+  background: #0D0900;
   min-height: 100vh;
   height: auto;
 }
@@ -86,6 +101,7 @@ export default {
   padding: 10px;
   color: #999999;
   font-size: 10px;
+  
 }
 .sure {
   padding: 15px;
@@ -104,4 +120,17 @@ export default {
   font-size: 16px;
   border-radius: 23px;
 }
+ .content-title {
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+  }
+     .shuxian {
+      width: 4px;
+      height: 16px;
+      background: #0b02f8;
+      margin-right: 10px;
+     }
 </style>
