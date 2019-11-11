@@ -158,9 +158,9 @@ export default {
                 "source":"web",
                 "version":"v1",
                 "module":"Account",
-                "interface":"1003",
+                "interface":"1001",
                 "data":
-                    {"account": this.obj.account,}
+                    {"account": this.fromObj.account,}
                 }).then(res => {
                     Toast(res.message)
                 if(res.code == 0){

@@ -13,20 +13,20 @@
               <p>级别：{{info.level}}</p>
             </div>
           </div>
-          <img :src="avatar" alt class="headpic" />
+          <img :src="info.avatar" alt class="headpic" />
         </div>
         <div class="zichan">
           <div class="zican-cont">
-            <p>917.11</p>
+            <p>{{info.TG}}</p>
             <span>总资产(TG)</span>
           </div>
           <div class="zican-cont">
-            <p>917.11</p>
-            <span>总资产(TG)</span>
+            <p>{{info.DOC_1}}</p>
+            <span>可用(DOC)</span>
           </div>
           <div class="zican-cont">
-            <p>917.11</p>
-            <span>总资产(TG)</span>
+            <p>{{info.DOC_2}}</p>
+            <span>冻结(DOC)</span>
           </div>
         </div>
       </div>
@@ -82,7 +82,7 @@
         </div>
         <img width="22px" height="22px" src="../../../static/mdimg/in@3x.png" alt />
       </router-link>
-      <router-link class="list" to="fix_login">
+      <router-link class="list" :to="{path:'fix_login',query:{account:info.mobile,type:0}}">
         <div class="my_first">
           <img src="../../../static/mdimg/denglu@3x.png" alt />
           <p>登录密码</p>
@@ -91,7 +91,7 @@
         <img width="22px" height="22px" src="../../../static/mdimg/in@3x.png" alt />
       </router-link>
 
-      <router-link class="list" to="myPaymentMethods">
+      <router-link class="list" :to="{path:'fix_login',query:{account:info.mobile,type:1}}">
         <div class="my_first">
           <img src="../../../static/mdimg/zhifu@3x.png" alt />
           <p>支付密码</p>
@@ -120,7 +120,7 @@
         </div>
         <img width="22px" height="22px" src="../../../static/mdimg/in@3x.png" alt />
       </router-link>
-      <router-link class="list" to="my_Address">
+      <router-link class="list" to="kefu">
         <div class="my_first">
           <img src="../../../static/mdimg/kefu@3x.png" alt />
           <p>客服</p>
@@ -150,7 +150,7 @@
 export default {
   data() {
     return {
-      info: "",
+      info: {},
       avatar: "",
       money: 0.0
     };
@@ -177,19 +177,19 @@ export default {
         this.avatar = res.data.avatar;
       });
 
-    this.$axios
-      .fetchPost("/portal", {
-        interface: "1000",
-        module: "Finance",
-        source: "web",
-        version: "v1",
-        data: {}
-      })
-      .then(res => {
-        console.log("钱包信息", res.data.credit_2);
-        // this.goodsList = res.data.list;
-        this.money = res.data.credit_2.value;
-      });
+    // this.$axios
+    //   .fetchPost("/portal", {
+    //     interface: "1000",
+    //     module: "Finance",
+    //     source: "web",
+    //     version: "v1",
+    //     data: {}
+    //   })
+    //   .then(res => {
+    //     console.log("钱包信息", res.data.credit_2);
+    //     // this.goodsList = res.data.list;
+    //     this.money = res.data.credit_2.value;
+    //   });
   }
 };
 </script>

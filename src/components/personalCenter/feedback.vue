@@ -1,14 +1,14 @@
 <template>
 <div class="root">
   <van-nav-bar
-    title="问题反馈"
+    title="反馈记录"
     left-arrow
     class="nav-top"
     @click-left="back"
   >
-    <template #right>
+    <!-- <template #right>
       <div class="nav-top-right" @click="goToFeedbackNew">我要反馈</div>
-    </template>
+    </template> -->
   </van-nav-bar>
 
   <van-list
@@ -112,7 +112,7 @@ export default {
         }
       })
 
-      /* this.list = [
+       this.list = [
         {
           content: "可不可以增加矿机的种类呢",
           createdAt: "2019.06.12 13:00:54",
@@ -130,7 +130,7 @@ export default {
           reply: "亲，这是正在处理中的意思，请耐心等待！",
           replyAt: "2019.06.12 13:00:54",
         },
-      ] */
+      ] 
     },
   },
 }
@@ -138,7 +138,7 @@ export default {
 
 <style lang="less" scoped>
 .root {
-  background: #f8f8f8;
+  background: #0D0900;
   height: 100vh;
 }
 
@@ -156,11 +156,11 @@ export default {
 
 .item {
   padding: 14px 10px;
-  border-bottom: 1px solid #eee;
+  // border-bottom: 1px solid #eee;
   border-radius: 6px;
   font-size: 14px;
-  color: #333;
-  background: #fff;
+  color: #fff;
+  background: #1D1C3B;
   margin-bottom: 10px;
 
   &:active {
@@ -183,12 +183,12 @@ export default {
     &-feedback {
       display: flex;
       flex-direction: column;
-      color: #666;
+      color: #fff;
     }
 
     &-date {
       margin-top: 5px;
-      color: #999;
+      color: #A1937D;
       font-size: 12px;
     }
 
@@ -203,16 +203,18 @@ export default {
     display: flex;
     justify-content: flex-end;
     padding-top: 8px;
-    border-top: 1px solid #f8f8f8;
+    // border-top: 1px solid #f8f8f8;
 
     &-reply {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      color: #666;
+      color: #fff;
     }
   }
 
 }
-
+[class*=van-hairline]::after{
+  border: none;
+}
 </style>

@@ -1,6 +1,6 @@
 <template>
 <div class="root">
-  <van-nav-bar title="我要反馈" left-arrow class="nav-top" @click-left="back" />
+  <van-nav-bar title="我要反馈" left-arrow class="nav-top" @click-left="back"  right-text="反馈记录" @click-right="onClickRight" />
 
   <div class="main">
     <van-field
@@ -42,7 +42,9 @@ export default {
     back() {
       this.$router.go(-1)
     },
-
+    onClickRight() {
+      this.$router.push('feedback')
+    },
     upload(file) {
       let list = []
       if (file.length) {
@@ -58,7 +60,7 @@ export default {
     uploadOne(list, i) {
       let form = new FormData()
       form.append("file", list[i])
-      this.$axios.fetchPost("http://bat.qdunzi.com/upload", form).then(res => {
+      this.$axios.fetchPost("http://zuanshi.qdunzi.cn/upload", form).then(res => {
         // console.log(res)
         list[i]._url = res.data.file
         if (i + 1 < list.length) {

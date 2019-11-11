@@ -31,6 +31,7 @@ import mall from '@/components/mall'
 import extractRecord from '@/components/index/extractRecord'
 import zijin from '@/components/personalCenter/zijin'
 import jiangjin from '@/components/personalCenter/jiangjin'
+import kefu from '@/components/personalCenter/kefu'
 
 // import charge from '@/components/index/'
 import settingRoutes from './setting-pay-method.js'
@@ -54,6 +55,11 @@ export default new Router({
       path: '/zijin',
       name: 'zijin',
       component: zijin
+    },
+    {
+      path: '/kefu',
+      name: 'kefu',
+      component: kefu
     },
     {
       path: '/jiangjin',

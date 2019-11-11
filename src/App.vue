@@ -27,8 +27,15 @@ html,body{
   color: #2c3e50; */
   /* margin-top: 60px; */
 }
+.van-nav-bar{
+    color: #fff;
+    background: #0d0900;
+}
+.van-nav-bar .van-nav-bar__title{
+  color: #fff;
+}
 .van-nav-bar .van-icon{
-    color: #111;
+  color: #fff;
 }
 .overText{
     overflow: hidden;

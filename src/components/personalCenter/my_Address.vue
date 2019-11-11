@@ -70,6 +70,7 @@ export default {
                 this.lastId = 0;
                 this.page = 1;
                 this.get_address()
+                this.$router.go(0)
               }
             })
         })
@@ -114,7 +115,6 @@ export default {
             }
           })
           .then(res => {
-            console.log('我的地址', res)
             this.lastId = res.data.lastId
 
             if (res.code == 0) {
@@ -122,6 +122,7 @@ export default {
                 this.finished = true
               } else {
                 var ret = res.data.list
+                console.log('我的地址', res)
                 if (page == 1) {
                   this.list = ret
                 } else {

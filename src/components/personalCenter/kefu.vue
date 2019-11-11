@@ -1,22 +1,18 @@
 <template>
   <div class="content">
-    <van-nav-bar title="邀请好友" left-arrow @click-left="$router.go(-1)" :border="false" />
+    <van-nav-bar title="客服" left-arrow @click-left="$router.go(-1)" :border="false" />
     <div class="main">
-      <div class="title">
-        <h2>锚定钻石邀请您注册及下载</h2>
-
-      </div>
       <div class="con">
         <div class="top">
-          <p>注册邀请码</p>
-          <label>{{num}}</label>
-          <button @click="copy(num)">复制</button>
+          <p>QQ</p>
+          <label>{{QQ}}</label>
+          <button @click="copy(QQ)">复制</button>
         </div>
         <img width="80%" src="../../../static/mdimg/zhixian@3x.png" alt="">
-        <div class="bottom">
-          <img :src="qrcode" alt />
-          <p>长按二维码识别</p>
-          <!-- <button @click="show=true">邀请好友</button> -->
+        <div class="top">
+          <p>电话</p>
+          <label>{{phone}}</label>
+          <button @click="copy(phone)">复制</button>
         </div>
       </div>
     </div>
@@ -59,8 +55,8 @@ export default {
   data () {
     return {
       // show: true,
-      num: '',
-      qrcode: '',
+      QQ: '12346512',
+      phone: '13371495332',
       info: ''
     }
   },
@@ -81,15 +77,15 @@ export default {
   created () {
     this.$axios
       .fetchPost('/portal', {
-        interface: '4000',
+        interface: '6000',
         module: 'User',
         source: 'web',
         version: 'v1'
       })
       .then(res => {
         console.log(res)
-        this.num = res.data.inviteCode
-        this.qrcode = res.data.qrCode
+        this.QQ = res.data.qq
+        this.phone = res.data.mobile
         this.info = res.data
       })
   }
@@ -146,9 +142,10 @@ export default {
 .con .top p {
   font-size: 14px;
   line-height: 1;
+  margin-bottom: 30px;
 }
 .con .top label {
-  font-size: 35px;
+  font-size: 30px;
   line-height: 1;
   font-weight: 500;
   margin-top: 7px;

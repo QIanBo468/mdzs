@@ -110,7 +110,7 @@
     },
     methods: {
       onClickLeft () {
-        this.$router.push({path:'myIndex'})
+        this.$router.push({path:'Index'})
       },
       acChange(){
         this.finished = false
@@ -142,7 +142,7 @@
               version: "v1",
               module: "Finance",
               interface: "1001",
-              data: {lastId: this.lastId,page: this.page ++,creditType: 'credit_2',direction: direction}
+              data: {lastId: this.lastId,page: this.page ++}
             }).then(res => {
             console.log(res);
             this.lastPage = res.data.lastPage

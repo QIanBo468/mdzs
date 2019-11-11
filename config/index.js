@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api':{
-        // target:"http://www.batchina.top/",
+        target:"http://zuanshi.qdunzi.cn/portal",
         changeOrigin:true,
         pathRewrite:{
           '/api':'/'

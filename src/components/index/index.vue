@@ -2,27 +2,25 @@
   <div id="index">
     <div class="indexbox">
       <div class="index-banner">
-        <van-image src="../../../static/mdimg/banner@3x.png" />
+        <van-image :src="banner" />
       </div>
       <div class="shopmore">
         <div class="notice">
-            <div class="notice-gonggao">
-          <img style="float: left;" src="../../../static/mdimg/tz@3x.png" alt />
-          <p>测试公告</p>
+          <div class="notice-gonggao">
+            <img style="float: left;" src="../../../static/mdimg/tz@3x.png" alt />
+            <p>{{classList.noticeList[0].title}}</p>
           </div>
-          <div class="more" @click="$router.push('/notice')">
-            更多 >
-          </div>
+          <div class="more" @click="$router.push('/notice')">更多 ></div>
         </div>
       </div>
       <div class="qianbao">
         <router-link to="usdt" class="qianbao-doc">
           <p>DOC</p>
-          <span>1234.12</span>
+          <span>{{classList.DOC}}</span>
         </router-link>
         <router-link to="usdt" class="qianbao-tg">
           <p>TG</p>
-          <span>1234.12</span>
+          <span>{{classList.TG}}</span>
         </router-link>
       </div>
       <van-list @load="onLoad" v-model="loading" :finished="finished">
@@ -61,25 +59,38 @@ import example from "barrage-ui/example.json";
 
 import { Loading } from "vant";
 import { Toast } from "vant";
-import text from "../text";
 export default {
   data() {
     return {
+      banner:'',
       active: 0,
       text: "",
       loading: false,
       finished: false,
-      list: [],
-      classList: [],
-      rateObj: {}
+      list: {},
+      classList: {},
+      rateObj: {},
+      page:0,
+      lastId:0,
     };
   },
-  component: {
-    text
-  },
+
   mounted() {},
   created() {
-    console.log(this.$cookies.get("accessToken"));
+    this.$axios.fetchPost("/portal", {
+      source: "web",
+      version: "v1",
+      module: "Content",
+      interface: "6000",
+      data: {page:this.page++,lastId: this.lastId}
+    }).then(res=>{
+      console.log(res)
+      if(res.success) {
+        this.banner = res.data.slideList[0].src
+        this.classList = res.data
+      }
+      
+    });
   },
   methods: {
     onLoad() {
@@ -168,7 +179,7 @@ export default {
         return;
       }
       this.$router.push(to);
-    },
+    }
   }
 };
 </script>
@@ -224,8 +235,8 @@ export default {
         border-radius: 30px;
         font-size: 14px;
         p {
-        // float: left;
-        line-height: 36px;
+          // float: left;
+          line-height: 36px;
           padding: 0;
           margin: 0;
           overflow: hidden;
@@ -235,14 +246,14 @@ export default {
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
-        .notice-gonggao{
-            display: flex;
-            align-items: center;
+        .notice-gonggao {
+          display: flex;
+          align-items: center;
         }
-        img{
-            width: 24px;
-            height: 24px;
-            line-height: 36px;
+        img {
+          width: 24px;
+          height: 24px;
+          line-height: 36px;
         }
       }
       .more {
@@ -250,22 +261,22 @@ export default {
         align-items: center;
         justify-content: center;
         border-radius: 20px;
-        background:linear-gradient(90deg, #655AFF 0%, #2923D5 100%);
+        background: linear-gradient(90deg, #655aff 0%, #2923d5 100%);
         width: 48px;
         height: 22px;
         font-size: 12px;
       }
     }
   }
-  .van-list{
-      width: 100%;
+  .van-list {
+    width: 100%;
   }
-  .qianbao{
+  .qianbao {
     width: 100%;
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
-    .qianbao-doc{
+    .qianbao-doc {
       width: 165px;
       height: 90px;
       background: url(../../../static/mdimg/bg_2@3x.png) no-repeat no-repeat;
@@ -273,25 +284,25 @@ export default {
       padding-left: 20px;
       box-sizing: border-box;
       color: #fff;
-      p{
+      p {
         font-size: 16px;
       }
-      span{
+      span {
         font-size: 16px;
       }
     }
-    .qianbao-tg{
+    .qianbao-tg {
       width: 165px;
       height: 90px;
       background: url(../../../static/mdimg/bg_1@3x.png) no-repeat no-repeat;
       background-size: 100%;
-       padding-left: 20px;
+      padding-left: 20px;
       box-sizing: border-box;
       color: #fff;
-      p{
+      p {
         font-size: 16px;
       }
-      span{
+      span {
         font-size: 16px;
       }
     }

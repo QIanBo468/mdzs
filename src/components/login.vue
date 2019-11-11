@@ -70,6 +70,7 @@ export default {
                     interface: "1000",
                     data: that.obj
                 }).then(res => {
+                    console.log(res)
                     if (res.success) {
                         that.$cookies.set('status', res.data.status)
                         that.userInfo = res.data

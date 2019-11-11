@@ -13,7 +13,7 @@
             <li>123132</li>
           </ul>
           <div>
-            <img src="../../../static/images/index/more.png" alt />
+            <img src="../../../static/mdimg/gg.png" alt />
           </div>
         </router-link>
       </van-list>
@@ -25,9 +25,6 @@ export default {
   data() {
     return {
       noticeList: [
-        { id: 1, title: "1231", time: "2019-11-8 17:30" },
-        { id: 2, title: "1231456", time: "2019-11-8 17:30" },
-        { id: 3, title: "12314789", time: "2019-11-8 17:30" }
       ],
       lastPage: null,
       lastId: 0,

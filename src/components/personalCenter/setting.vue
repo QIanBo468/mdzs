@@ -95,7 +95,7 @@ export default {
 
       let form = new FormData()
       form.append("file", file)
-      this.$axios.fetchPost("http://ofc.qdunzi.com/upload", form).then(res => {
+      this.$axios.fetchPost("http://zuanshi.qdunzi.cn/upload", form).then(res => {
         // console.log(res)
         this.$axios.fetchPost('/portal', {
           source: "web",

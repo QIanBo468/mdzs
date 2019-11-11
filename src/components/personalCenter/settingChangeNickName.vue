@@ -48,6 +48,10 @@ export default {
           }
         })
         .then(res => {
+          console.log(res)
+          if(res.success) {
+            this.$router.go(-1)
+          }
           Toast(res.message);
           // console.log(res)
         });

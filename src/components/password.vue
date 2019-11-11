@@ -43,6 +43,7 @@
           v-model="obj.password"
           v-validate="'required'"
           :error="errors.has('password')"
+          type="password"
         >
           <template slot="left-icon">
             <img class="inputIcon" src="../../static/images/index/yaoqingma@2x.png" />
@@ -52,6 +53,7 @@
           placeholder="请再次输入密码"
           left-icon="bag-o"
           name="password"
+          type="password"
           v-model="obj.passworded"
           v-validate="'required'"
           :error="errors.has('password')"
@@ -228,5 +230,8 @@ export default {
   text-align: center;
   font-size: 12px;
   // co
+}
+.van-cell:not(:last-child)::after{
+  border: none;
 }
 </style>
