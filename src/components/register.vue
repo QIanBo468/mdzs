@@ -25,6 +25,7 @@
         <van-field
           placeholder="请输入验证码"
           name="captcha"
+          maxlength="6"
           v-validate="'required'"
           v-model="fromObj.captcha"
           :error="errors.has('captcha')"
@@ -42,6 +43,7 @@
           v-model="fromObj.password"
           name="password"
           type="password"
+          maxlength="16"
           :error="errors.has('password')"
           v-validate="'required|password'"
         >
@@ -54,6 +56,7 @@
           v-model="fromObj.passworded"
           name="password"
           type="password"
+          maxlength="16"
           :error="errors.has('password')"
           v-validate="'required|password'"
         >
@@ -94,6 +97,7 @@
           placeholder="请输入邀请码"
           left-icon="contact"
           name="inviteCode"
+          maxlength="16"
           v-validate="'required'"
           :error="errors.has('inviteCode')"
           v-model="fromObj.inviteCode"

@@ -143,7 +143,7 @@
       }
     },
     created () {
-      this.address = this.$route.query.account
+      // this.address = this.$route.query.account
       this.radio = this.type
 
       this.getInfo()

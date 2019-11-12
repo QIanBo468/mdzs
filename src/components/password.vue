@@ -21,6 +21,7 @@
         <van-field
           placeholder="请输入验证码"
           name="captcha"
+          maxlength="6"
           v-validate="'required'"
           v-model="obj.captcha"
           :error="errors.has('captcha')"
@@ -38,6 +39,7 @@
         </div>
         <van-field
           placeholder="请输入密码"
+          maxlength="16"
           left-icon="bag-o"
           name="password"
           v-model="obj.password"
@@ -51,6 +53,7 @@
         </van-field>
         <van-field
           placeholder="请再次输入密码"
+          maxlength="16"
           left-icon="bag-o"
           name="password"
           type="password"

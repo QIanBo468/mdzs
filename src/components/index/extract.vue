@@ -151,14 +151,14 @@ export default {
     this.usdtNum = this.$route.query.usdt;
     this.address = this.$route.query.address;
     this.user = this.$route.query.account.substr(0,3)+'****'+this.$route.query.account.substr(7);
-    console.log(this.user)
+    // console.log(this.user)
     this.$axios
-      .fetchPost("/portal", {
+      .fetchPost("/portal/Digiccy", {
         source: "web",
         version: "v1",
         module: "Finance",
         interface: "2000",
-        data: {}
+        data: {creditType:'credit_5'}
       })
       .then(res => {
         console.log(res);

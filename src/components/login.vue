@@ -11,6 +11,7 @@
                     placeholder="请输入手机号"
                     v-model="obj.account"
                     name="phone"
+                    maxlength="11"
                     v-validate="'required|phones'"
                     :error="errors.has('phone')"
                 >
@@ -23,6 +24,7 @@
                     type="password"
                     v-validate="'required'"
                     name='password'
+                    maxlength="16"
                     :error="errors.has('password')"
                     v-model="obj.password"
                 >

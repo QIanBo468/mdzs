@@ -7,9 +7,8 @@
       </div>
       <div class="inputBox" style="margin-bottom: 40px">
         <van-field
-          type="password"
           placeholder="请输入验证码"
-         
+         maxlength="6"
           :border="false"
           name="safeword"
           v-model="safeword"
@@ -22,12 +21,12 @@
       <div class="content-title">
         <div class="shuxian"></div>原密码
       </div>
-      <van-field  class="fuck" v-model="login_pwd" placeholder="请输入当前登录密码" label="请输入当前登录密码" type="password" />
+      <van-field  class="fuck" v-model="login_pwd" maxlength="16" :placeholder="placeholder" :label="placeholder" type="password" />
       <div class="content-title">
         <div class="shuxian"></div>新密码
       </div>
-      <van-field v-model="password" placeholder="请输入新密码" label="请输入新密码" type="password" />
-      <van-field v-model="passPwd" placeholder="请再次输入新密码" label="确认新密码" type="password" />
+      <van-field v-model="password" placeholder="请输入新密码" maxlength="16" label="请输入新密码" type="password" />
+      <van-field v-model="passPwd" placeholder="请再次输入新密码" maxlength="16" label="确认新密码" type="password" />
     </div>
     <div class="intrd">请输入6~20个英文字母，数字或符号</div>
     <div class="sure">
@@ -51,14 +50,17 @@ export default {
       codeTime: 60,
       show: false,
       usernum:'',
-      title:'修改登录密码'
+      title:'修改登录密码',
+      placeholder:'请输入当前登录密码'
     };
   },
   created() {
     if( this.$route.query.type == 0){
-      this.title = '修改登录密码'
+      this.title = '修改登录密码',
+      this.placeholder = '请输入当前登录密码'
     } else {
-      this.title = '修改支付密码'
+      this.title = '修改支付密码',
+       this.placeholder = '请输入当前支付密码'
     }
     this.usernum = this.$route.query.account.substr(0,3)+'****'+this.$route.query.account.substr(7)
   },
