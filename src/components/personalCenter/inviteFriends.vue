@@ -4,7 +4,6 @@
     <div class="main">
       <div class="title">
         <h2>锚定钻石邀请您注册及下载</h2>
-
       </div>
       <div class="con">
         <div class="top">
@@ -12,9 +11,9 @@
           <label>{{num}}</label>
           <button @click="copy(num)">复制</button>
         </div>
-        <img width="80%" src="../../../static/mdimg/zhixian@3x.png" alt="">
+        <img width="80%" src="../../../static/mdimg/zhixian@3x.png" alt />
         <div class="bottom">
-          <img :src="qrcode" alt />
+          <canvas id="qrcode"></canvas>
           <p>长按二维码识别</p>
           <!-- <button @click="show=true">邀请好友</button> -->
         </div>
@@ -55,45 +54,69 @@
 </template>
 
 <script>
+import QRCode from "qrcode";
+
 export default {
-  data () {
+  data() {
     return {
       // show: true,
-      num: '',
-      qrcode: '',
-      info: ''
-    }
+      num: "",
+      // qrcode: '',
+      info: ""
+    };
   },
   methods: {
-    copy (num) {
-      this.show = true
-      this.$toast('已复制')
-      const input = document.createElement('input')
-      document.body.appendChild(input)
-      input.setAttribute('value', num)
-      input.select()
-      if (document.execCommand('copy')) {
-        document.execCommand('copy')
+    copy(num) {
+      this.show = true;
+      this.$toast("已复制");
+      const input = document.createElement("input");
+      document.body.appendChild(input);
+      input.setAttribute("value", num);
+      input.select();
+      if (document.execCommand("copy")) {
+        document.execCommand("copy");
       }
-      document.body.removeChild(input)
+      document.body.removeChild(input);
+    },
+    qrcode() {
+      let qrcode = new QRCode("qrcode", {
+        width: 132,
+        height: 132,
+        text: "http://www.baidu.com?" + 123, // 二维码地址
+        colorDark: "#000",
+        colorLight: "#fff"
+      });
+      console.log(qrcode);
+    },
+    useqrcode(id) {
+      console.log(id);
+      var canvas = document.getElementById("qrcode");
+
+      QRCode.toCanvas(canvas, "http://www.baidu.com?id=" + id, function(error) {
+        if (error) console.error(error);
+        console.log("success!");
+      });
     }
   },
-  created () {
+  created() {},
+  mounted() {
     this.$axios
-      .fetchPost('/portal', {
-        interface: '4000',
-        module: 'User',
-        source: 'web',
-        version: 'v1'
+      .fetchPost("/portal", {
+        interface: "4000",
+        module: "User",
+        source: "web",
+        version: "v1"
       })
       .then(res => {
-        console.log(res)
-        this.num = res.data.inviteCode
-        this.qrcode = res.data.qrCode
-        this.info = res.data
-      })
+        console.log(res);
+        this.num = res.data.inviteCode;
+        this.qrcode = res.data.qrCode;
+        this.info = res.data;
+        console.log(this.num);
+        this.useqrcode(this.num);
+      });
   }
-}
+};
 </script>
 
 <style scoped>
@@ -114,7 +137,7 @@ export default {
   height: auto;
   color: #fff;
   text-align: center;
-  background: #0C0C0C;
+  background: #0c0c0c;
 }
 .title h2 {
   font-size: 20px;
@@ -133,7 +156,7 @@ export default {
 .con {
   width: 270px;
   height: 420px;
-  background: linear-gradient(90deg,#4A66FA 0%, #7482FC 100%);
+  background: linear-gradient(90deg, #4a66fa 0%, #7482fc 100%);
   background-size: 100% 100%;
   margin: 20px auto 0;
   color: #fff;
@@ -158,7 +181,7 @@ export default {
 .main button {
   width: 80px;
   height: 28px;
-    background: linear-gradient(90deg, #494EFE 0%, #0900F8 100%);
+  background: linear-gradient(90deg, #494efe 0%, #0900f8 100%);
   background-size: 100% 100%;
   font-size: 12px;
   display: inline-block;

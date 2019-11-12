@@ -13,7 +13,7 @@
           <p>DOC可用余额</p>
           <!-- <img width="27px;" height="32px" src="../../../static/images/index/B@3x.png" />BAT -->
         </div>
-        <div class="money">{{$route.query.usdt}}</div>
+        <div class="money">{{$route.query.DOC}}</div>
       </div>
 
       <div class="content-title">
@@ -88,15 +88,14 @@
         />
       </div>
       <div class="content-title">
-        <div class="shuxian"></div>安全验证(188****1234)
+        <div class="shuxian"></div>安全验证{{'('+user+')'}}
       </div>
       <div class="inputBox" style="margin-bottom: 40px">
         <van-field
-          type="password"
           placeholder="请输入验证码"
           :border="false"
           name="safeword"
-          v-model="safeword"
+          v-model="captcha"
           :error="errors.has('safeword')"
           v-validate="'required'"
         />
@@ -114,6 +113,7 @@ export default {
       user: "",
       address: "",
       num: "",
+      captcha:null,
       InputImg: require("../../../static/images/index/yaoqing@3x.png"),
       placesite: "请输入钱包地址",
       placeNum: "请输入提币数量",
@@ -126,7 +126,7 @@ export default {
       codeTime: 60,
       show: false,
       radio: 1,
-      disabled: false
+      disabled: false,
     };
   },
   computed: {
@@ -150,6 +150,8 @@ export default {
   created() {
     this.usdtNum = this.$route.query.usdt;
     this.address = this.$route.query.address;
+    this.user = this.$route.query.account.substr(0,3)+'****'+this.$route.query.account.substr(7);
+    console.log(this.user)
     this.$axios
       .fetchPost("/portal", {
         source: "web",
@@ -179,15 +181,17 @@ export default {
         // }
         if(this.codeText == '获取验证码'){
           var that = this;
-          that.$axios.fetchPost('/portal',
+          that.$axios.fetchPost('/portal/Digiccy',
             {
               source: "web",
               version: "v1",
-              module: "Utils",
-              interface: "1004",
-              data: {template:'5bcd32b99a1df09e1a90317626d19d9b'}
+              module: "Finance",
+              interface: "2003",
+              data:{account:that.$route.query.account}
+              // template:'5bcd32b99a1df09e1a90317626d19d9b'
             }).then(res => {
             this.disabled = false
+            console.log(res)
             if(res.success){
               Dialog.alert({
                 title: '提示',
@@ -232,7 +236,8 @@ export default {
                 amount: that.num,
                 account: that.address,
                 creditType: "credit_2",
-                safeword: that.safeword
+                safeword: that.safeword,
+                captcha: that.captcha
               } //, contract:that.contract,safeword:that.safeword
             })
             .then(res => {
@@ -296,6 +301,7 @@ export default {
   overflow: hidden;
   height: 100%;
   background: #0d0900;
+  overflow-y: auto;
   .box {
     // width: 100%;
     padding: 0 16px;
@@ -401,10 +407,11 @@ export default {
       }
     }
     .btn {
-      margin-top: 60px;
+      margin-top: 30px;
       text-align: center;
       line-height: 40px;
       font-size: 16px;
+      margin-bottom: 20px;
     }
     .red {
       color: #dee7ff;

@@ -1,56 +1,87 @@
 <template>
-<div id="jiangjin">
-        <van-nav-bar class="jiangjintitle" title="奖金明细" left-arrow :border="false" @click-left="onClickLeft" />
+  <div id="jiangjin">
+    <van-nav-bar
+      class="jiangjintitle"
+      title="奖金明细"
+      left-arrow
+      :border="false"
+      @click-left="onClickLeft"
+    />
 
-      <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-          <div class="list" v-for="(item, index) in list" :key="index">
-            <ul>
-              <li class="overText">{{item.remark}}</li>
-              <li>{{item.createdAt}}</li>
-            </ul>
-            <div :class="[item.type == 1 ? '': 'blue','overText']">{{item.num}}</div>
-          </div>
-        </van-list>
-</div>
+    <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
+      <div class="list" v-for="(item, index) in list" :key="index">
+        <ul>
+          <li class="overText">{{item.creditName}}</li>
+          <li>{{item.createdAt}}</li>
+        </ul>
+        <div :class="[item.type == 1 ? '': 'blue','overText']">{{item.money}}</div>
+      </div>
+    </van-list>
+  </div>
 </template>
 
 <script>
 export default {
- data () {
-     return{
-         loading:false,
-         finished:false,
-         list:[
-             {remark:123, createdAt:'123',num:123}
-         ],
-
-     }
- },
- methods:{
-     onClickLeft() {
-         this.$router.go(-1)
-     },
-     onLoad() {
-
-     }
- }
-}
+  data() {
+    return {
+      loading: false,
+      finished: false,
+      list: [],
+      page: 1,
+      lastId: 0,
+      lastPage: null,
+    };
+  },
+  methods: {
+    onClickLeft() {
+      this.$router.go(-1);
+    },
+    onLoad() {
+      if (this.lastPage && this.lastPage < this.page) {
+        this.finished = true;
+        this.loading = false;
+      } else {
+        this.$axios
+          .fetchPost("/portal", {
+            source: "web",
+            version: "v1",
+            module: "Finance",
+            interface: "1101",
+            data: {
+              lastId: this.lastId,
+              page: this.page++,
+              creditType: "",
+              // direction: direction
+            }
+          })
+          .then(res => {
+            console.log(res);
+            this.lastPage = res.data.lastPage;
+            this.lastId = res.data.lastId;
+            this.usdt = res.data;
+            this.loading = false;
+            this.list = this.list.concat(res.data.list);
+          });
+      }
+    }
+  }
+};
 </script>
 
 <style lang='less' scope>
-#jiangjin{
-    width: 100%;
-    height: 100%;
-    background: #0C0C0C;
+#jiangjin {
+  width: 100%;
+  height: 100%;
+  background: #0c0c0c;
 }
-.jiangjintitle{
-    background: #0C0C0C;
-    .van-nav-bar__title{
-        color: #fff;
-    }
-    .van-icon{
-        color: #fff
-    }
+.jiangjintitle {
+  background: #0c0c0c;
+  .van-nav-bar__title {
+    color: #fff;
+  }
+  .van-icon {
+    color: #fff;
+  }
 }
 .list {
   height: 60px;

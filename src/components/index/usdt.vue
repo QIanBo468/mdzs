@@ -3,7 +3,7 @@
         
         <div class="navstatis">
          <van-nav-bar
-            title="DOC"
+            :title=title
             left-arrow
             :border="false"
             @click-left="onClickLeft"
@@ -11,7 +11,7 @@
         <div class="usdt-box">
         <div class='statis'>
             <div>余额</div>
-            <div>{{usdt.creditValue}}</div>
+            <div>{{$route.query.num}}</div>
         </div>
         </div>
         </div>
@@ -104,9 +104,15 @@
         lastPage: null,
         page: 1,
         lastId: 0,
+        title:'',
       }
     },
     created () {
+        if(this.$route.query.type == 0){
+            this.title ='DOC'
+        } else{
+            this.title = 'TG'
+        }
     },
     methods: {
       onClickLeft () {

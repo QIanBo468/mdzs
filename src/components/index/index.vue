@@ -14,11 +14,11 @@
         </div>
       </div>
       <div class="qianbao">
-        <router-link to="usdt" class="qianbao-doc">
+        <router-link :to="{path:'usdt',query:{num:classList.DOC,type:0}}" class="qianbao-doc">
           <p>DOC</p>
           <span>{{classList.DOC}}</span>
         </router-link>
-        <router-link to="usdt" class="qianbao-tg">
+        <router-link :to="{path:'usdt',query:{num:classList.DOC,type:1}}" class="qianbao-tg">
           <p>TG</p>
           <span>{{classList.TG}}</span>
         </router-link>

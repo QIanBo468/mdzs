@@ -9,7 +9,7 @@
 
         <div class="encoding">{{obj.address}}</div>
         <div class="btn tag-read" @click="copy" :data-clipboard-text="obj.address">复制</div>
-        <img class="zhixian" src="../../../static/mdimg/zhixian@3x.png" alt="">
+        <!-- <img class="zhixian" :src="obj.qrCode" alt=""> -->
         <img class="img" :src="obj.qrCode" alt />
       </div>
     </div>
@@ -43,6 +43,7 @@ export default {
         data: {}
       })
       .then(res => {
+        console.log(res)
         if (res.success) {
           this.obj = res.data;
         } else {
@@ -144,7 +145,7 @@ border-radius: 6px;
     }
   }
   .encoding {
-    font-size: 14px;
+    font-size: 12px;
     color: #fff;
   }
   .btn {

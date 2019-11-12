@@ -13,30 +13,30 @@
        <p>DOC可用余额</p> 
       </div>
       <div class='money'>
-        {{money}}
+        {{$route.query.DOC}}
       </div>
       </div>
       <div class='title'>
         <div class="g"></div>
-        钱包地址
+        转入账号
       </div>
  <div class="inputBox">
         <van-field
-          placeholder="请输入钱包地址"
+          placeholder="请输入会员账号"
           :border="false"
           name="address"
           v-model="address"
           :error="errors.has('address')"
           v-validate="'required'"
         />
-        <img
+        <!-- <img
           v-if="imgFlag"
           :src="InputImg"
           alt
           @click="$router.push({path: '/address', query:{usdt: usdtNum}})"
-        />
+        /> -->
         <img
-          v-else
+          @click="address = ''"
           style="width: 19px;height: 19px"
           src="../../../static/images/index/empty.png"
           alt
@@ -63,17 +63,18 @@
 
       <div class='title'>
         <div class="g"></div>
-        验证码
-        <div class="phon">
+        支付密码
+        <!-- <div class="phon">
           {{hintPhone}}
-        </div>
+        </div> -->
       </div>
 
       <div class="inputBox">
         <van-field
-          placeholder="请输入验证码"
+          placeholder="请输入支付密码"
           :border="false"
           name="captcha"
+          type="password"
           :disabled = 'disabled'
           v-model="form.captcha"
           :error="errors.has('captcha')"
@@ -93,7 +94,7 @@
         转账
       </div>
     </div>
-    <van-action-sheet v-model="show" title="请选择转账用户">
+    <!-- <van-action-sheet v-model="show" title="请选择转账用户">
       <van-radio-group v-model="radio" @change="select">
         <van-cell-group>
           <van-cell clickable @click="radio = item.name" v-for='(item,index) in list' :key='index' v-if='item.use'>
@@ -105,12 +106,9 @@
             </template>
             <van-radio slot="right-icon" :name="item.name" />
           </van-cell>
-          <!-- <van-cell title="单选框 2" clickable @click="radio = '2'">
-          <van-radio slot="right-icon" name="2" />
-          </van-cell> -->
         </van-cell-group>
       </van-radio-group>
-    </van-action-sheet>
+    </van-action-sheet> -->
   </div>
 </template>
 <script>
@@ -121,12 +119,10 @@
       return {
         address:'',
         user: '',
-        InputImg: './static/images/index/user.png',
         imgFlag: true,
         placesUser: '请输入会员ID',
         placesNum: '请输入转账数量',
         placesCode: '请输入验证码',
-        codeText: '获取验证码',
         hintPhone: '',
         codeTime: 60,
         show: false,
@@ -141,24 +137,13 @@
         typeImg: '../../static/images/index/usdt.png',
         list: {},
         type: '',
-        iconObj: {
-          ofc: './static/images/index/ofc.png',
-          BAT: './static/images/index/B@3x.png',
-          LoveFund:'./static/images/index/fund.png'
-        },
         procedure: '',
         fee:0.00,
         payMoney:0.00
       }
     },
     created () {
-      let type = ''
-      if( this.$route.query.type =='LoveFund'){
-        this.type = '爱心基金'
-      }else{
-        this.type = this.$route.query.type
-      }
-      this.typeImg = this.iconObj[this.$route.query.type]
+      this.address = this.$route.query.account
       this.radio = this.type
 
       this.getInfo()
@@ -167,25 +152,25 @@
           source: "web",
           version: "v1",
           module: "Finance",
-          interface: "1000",
+          interface: "2000",
           data: {}
         }).then(res => {
-        //console.log(res.data)
-        if(res.success){
-          this.money= res.data.credit_2.value;
-        }else{
-          Toast(res.message)
-        }
+        console.log(res)
+        // if(res.success){
+        //   this.money= res.data.credit_2.value;
+        // }else{
+        //   Toast(res.message)
+        // }
       })
     },
-    computed : {
-      count () {
-        var obj = {}
-        obj.fee = (this.form.amount * this.procedure.fee / 100).toFixed(8)
-        obj.love = (this.form.amount * this.procedure.love / 100).toFixed(8)
-        return obj
-      }
-    },
+    // computed : {
+    //   count () {
+    //     var obj = {}
+    //     obj.fee = (this.form.amount * this.procedure.fee / 100).toFixed(8)
+    //     obj.love = (this.form.amount * this.procedure.love / 100).toFixed(8)
+    //     return obj
+    //   }
+    // },
     methods : {
       changeMoeny () {
         this.payMoney =  this.form.amount * (100+this.fee)/100;
@@ -222,21 +207,21 @@
         // }
         this.$router.push('myindex')
       },
-      select () {
-        var type = this.radio
-        if(type == '爱心基金'){
-          type = 'LoveFund'
-          this.typeImg  = '../../../static/images/index/fund.png'
-        }else if(type == 'ofc'){
-          this.typeImg  = '../../../static/images/index/ofc.png'
-        }else{
-          this.typeImg  = '../../../static/images/index/B@3x.png'
-        }
+      // select () {
+      //   var type = this.radio
+      //   if(type == '爱心基金'){
+      //     type = 'LoveFund'
+      //     this.typeImg  = '../../../static/images/index/fund.png'
+      //   }else if(type == 'ofc'){
+      //     this.typeImg  = '../../../static/images/index/ofc.png'
+      //   }else{
+      //     this.typeImg  = '../../../static/images/index/B@3x.png'
+      //   }
 
-        this.type = this.radio
-        this.money = this.list[type].have
-        this.show = false
-      },
+      //   this.type = this.radio
+      //   this.money = this.list[type].have
+      //   this.show = false
+      // },
       time () {
         // if(!this.form.id){
         //     Toast('会员ID不能为空')
@@ -290,9 +275,9 @@
                 source: "web",
                 version: "v1",
                 module: "Finance",
-                interface: 4001,
+                interface: 2001,
                 // data: that.form
-                data: {fromCredit: 'credit_2',toCredit:'credit_1', amount:that.form.amount,captcha:that.form.captcha}
+                data: {creditType: 'credit_2', account:that.address, amount:that.form.amount,safeword:that.form.captcha}
               }).then(res => {
               console.log(res);
 
@@ -384,6 +369,7 @@
         padding: 0 15px;
         p{
             font-size: 16px;
+            color: #fff;
         }
         margin-bottom: 10px;
     }

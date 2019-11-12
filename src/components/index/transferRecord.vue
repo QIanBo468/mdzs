@@ -79,16 +79,15 @@
         }
         var page = this.page++
         setTimeout(() => {
-
-
           this.$axios.fetchPost('/portal',
             {
               source: "web",
               version: "v1",
               module: "Finance",
-              interface: "4002",
-              data: { lastId: lastid,page: page,fromCredit: 'credit_2',toCredit:'credit_1'}
+              interface: "2002",
+              data: { lastId: lastid,page: page,creditType: 'credit_2',isOut:false}
             }).then(res => {
+              console.log(res)
             if(res.success){
               if (res.data.list.length == 0) {
                 this.finished = true

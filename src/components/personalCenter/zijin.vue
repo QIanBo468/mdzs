@@ -6,7 +6,7 @@
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
           <div class="list" v-for="(item, index) in list" :key="index">
             <ul>
-              <li class="overText">{{item.remark}}</li>
+              <li class="overText">{{item.creditName}}</li>
               <li>{{item.createdAt}}</li>
             </ul>
             <div :class="[item.type == 1 ? '': 'blue','overText']">{{item.num}}</div>

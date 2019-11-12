@@ -39,11 +39,11 @@
           <div>充币</div>
         </div>
 
-        <div class="num" @click="$router.push('extract')">
+        <div class="num" @click="$router.push({path:'extract',query:{account:info.mobile,DOC:info.DOC_1}})">
           <img width="24px;" height="24px;" src="../../../static/mdimg/tibi@3x.png" alt />
           <div>提币</div>
         </div>
-        <div class="num"  @click="$router.push('transfer')">
+        <div class="num"  @click="$router.push({path:'transfer',query:{account:info.mobile,DOC:info.DOC_1}})">
           <img width="24px;" height="24px;" src="../../../static/mdimg/zhuanzhang@3x.png" alt />
           <div>站内转账</div>
         </div>

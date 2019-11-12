@@ -124,7 +124,7 @@ export default {
       if ( this.$route.query.type ==0 ) {
           interfaces = 2001
       } else{
-        interfaces = 2004
+        interfaces = 2005
       }
       console.log(interfaces)
       this.$axios
