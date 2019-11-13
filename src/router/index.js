@@ -51,11 +51,7 @@ export default new Router({
       name: 'Password',
       component: Password
     },
-    {
-      path: '/zijin',
-      name: 'zijin',
-      component: zijin
-    },
+ 
     {
       path: '/kefu',
       name: 'kefu',
@@ -223,7 +219,15 @@ export default new Router({
       name: 'transmarket',
       component: resolve => require(['@/components/transaction/tran_market'], resolve),
       meta: {
-        title: '交易市场',
+        title: '交易市场'
+      }
+    },
+    {
+      path: '/zijin',
+      name: 'zijin',
+      component: resolve => require(['@/components/personalCenter/zijin'], resolve),
+      meta: {
+        title: '资金明细'
       }
     },
 

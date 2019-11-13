@@ -1,6 +1,6 @@
 <template>
 <div class='tranBox'>
-    <trannav :title="title" ></trannav>
+    <trannav class="tranboxtitle" style="background: #0B0C21" :title="title" ></trannav>
     <div class="tran-banner">
         <img width="230px" height="130px;" src="../../../static/mdimg/img@3x.png" alt="">
         <p>暂未开放,敬请期待</p>
@@ -138,8 +138,14 @@ export default {
     color: #BEC6E4;
     font-size: 14px;
 }
-/deep/.nav[data-v-1fe035a7]{
-    background: #0B0C21;
+// /deep/.nav[data-v-1fe035a7]{
+//     background: #0B0C21;
+// }
+.tranboxtitle{
+    background: #0B0C21 !important;
+}
+/deep/.van-nav-bar{
+    background-color: #0B0C21;
 }
 .title{
     color:#fff;

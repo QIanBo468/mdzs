@@ -1,7 +1,7 @@
 <template>
   <div class="zijin">
-    <van-nav-bar title="资金明细" left-arrow :border="false" @click-left="onClickLeft" />
-    <van-tabs v-model="active" @change="acChange">
+    <van-nav-bar class="jiangjintitle" style="background-color: #0c0c0c" title="资金明细" left-arrow :border="false" @click-left="onClickLeft" />
+    <van-tabs v-model="active"  @change="acChange">
       <van-tab title="全部">
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
           <div class="list" v-for="(item, index) in list" :key="index">
@@ -197,8 +197,8 @@ export default {
   z-index: 5;
   // margin-bottom: 20px;
 }
-.van-nav-bar {
-  background: #0c0c0c;
+/deep/.van-nav-bar {
+  background: none;
   // background:linear-gradient(180deg,#3FCFFE 0%,#39B2F8 100%);
   // background: #fff;
   .van-icon {
@@ -208,10 +208,15 @@ export default {
     color: #fff;
   }
 }
+.van-tabs{
+  background-color: #1d1c3b;
+  margin-bottom: 5px;
+}
 .van-tabs__nav {
-  background: #1d1c3b;
+  background-color: #1d1c3b !important;
   margin-bottom: 5px !important;
   border: none;
+  margin: 5px 0;
 }
 .van-hairline--top-bottom::after,
 .van-hairline-unset--top-bottom::after {
@@ -236,7 +241,28 @@ export default {
 .van-ellipsis {
   color: #999999;
 }
-.van-tabs__content {
-  background: #fff;
+// .van-tabs__content {
+//   background: #fff;
+// }
+/deep/.van-nav-bar{
+  background-color: none;
+}
+/deep/.van-nav-bar .van-nav-bar__title {
+    color: #fff;
+  }
+ .van-nav-bar .van-icon {
+    color: #fff;
+  }
+.jiangjintitle {
+  background-color: none;
+  .van-nav-bar__title {
+    color: #fff;
+  }
+  .van-icon {
+    color: #fff;
+  }
+}
+[class*=van-hairline]:after{
+  border: none !important;
 }
 </style>

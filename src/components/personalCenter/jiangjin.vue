@@ -6,6 +6,7 @@
       left-arrow
       :border="false"
       @click-left="onClickLeft"
+      style="background: #0c0c0c;"
     />
 
     <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
@@ -74,14 +75,17 @@ export default {
   height: 100%;
   background: #0c0c0c;
 }
-.jiangjintitle {
-  background: #0c0c0c;
-  .van-nav-bar__title {
+/deep/.van-nav-bar{
+  background: none;
+}
+.van-nav-bar__title {
     color: #fff;
   }
   .van-icon {
     color: #fff;
   }
+.van-tabs__nav{
+  background: #1d1c3b;
 }
 .list {
   height: 60px;
@@ -122,5 +126,26 @@ export default {
   .blue {
     color: #bec6e4;
   }
+}
+/deep/.van-nav-bar{
+  background: none;
+}
+/deep/.van-nav-bar .van-nav-bar__title {
+    color: #fff;
+  }
+ .van-nav-bar .van-icon {
+    color: #fff;
+  }
+.jiangjintitle {
+  background: none;
+  .van-nav-bar__title {
+    color: #fff;
+  }
+  .van-icon {
+    color: #fff;
+  }
+}
+[class*=van-hairline]:after{
+  border: none;
 }
 </style>
