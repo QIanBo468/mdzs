@@ -10,9 +10,9 @@
     />
 
     <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-      <div class="list" v-for="(item, index) in list" :key="index">
+      <div class="jj-list" v-for="(item, index) in list" :key="index">
         <ul>
-          <li class="overText">{{item.creditName}}</li>
+          <li >{{item.remark}}</li>
           <li>{{item.createdAt}}</li>
         </ul>
         <div :class="[item.type == 1 ? '': 'blue','overText']">{{item.money}}</div>
@@ -51,7 +51,7 @@ export default {
             data: {
               lastId: this.lastId,
               page: this.page++,
-              creditType: "",
+              creditType: "credit_5",
               // direction: direction
             }
           })
@@ -87,7 +87,8 @@ export default {
 .van-tabs__nav{
   background: #1d1c3b;
 }
-.list {
+
+.jj-list {
   height: 60px;
   display: flex;
   background: #1d1c3b;
@@ -95,6 +96,7 @@ export default {
   justify-content: space-around;
   box-sizing: border-box;
   // border-bottom: 1px solid #f9f9f9;
+  margin-bottom: 10px;
   overflow: hidden;
   ul {
     // width: 120px;
@@ -104,17 +106,19 @@ export default {
     flex-direction: column;
     justify-content: center;
     li {
-      font-size: 14px;
+      font-size: 12px;
       color: #aaa;
       height: 20px;
       line-height: 20px;
+      word-wrap: break-word;
     }
     li:last-child {
       font-size: 11px;
       color: #dee7ff;
       height: 16px;
-      margin-top: 5px;
+      margin-top: 20px;
       line-height: 16px;
+      word-wrap: break-word;
     }
   }
   div {

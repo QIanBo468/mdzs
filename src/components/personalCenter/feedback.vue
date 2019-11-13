@@ -112,25 +112,7 @@ export default {
         }
       })
 
-       this.list = [
-        {
-          content: "可不可以增加矿机的种类呢",
-          createdAt: "2019.06.12 13:00:54",
-          reply: "明天上新哦，敬请期待！",
-          replyAt: "2019.06.12 13:00:54",
-        },
-        {
-          content: "请问这个是什么意思？",
-          createdAt: "2019.06.12 13:00:54",
-          imageList: [
-            "http://img2.mtime.com/up/454/1152454/1382C875-EF8E-4B41-A5AF-CF920AABC062_500.jpg",
-            "http://img2.mtime.com/up/454/1152454/1382C875-EF8E-4B41-A5AF-CF920AABC062_500.jpg",
-            "http://img2.mtime.com/up/454/1152454/1382C875-EF8E-4B41-A5AF-CF920AABC062_500.jpg",
-          ],
-          reply: "亲，这是正在处理中的意思，请耐心等待！",
-          replyAt: "2019.06.12 13:00:54",
-        },
-      ] 
+       this.list = [] 
     },
   },
 }
@@ -216,5 +198,11 @@ export default {
 }
 [class*=van-hairline]::after{
   border: none;
+}
+.van-nav-bar{
+  background: #0D0900;
+}
+.van-icon{
+  color: #fff;
 }
 </style>

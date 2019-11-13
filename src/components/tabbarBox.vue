@@ -1,7 +1,7 @@
 <template>
     <div class='tabbar'>
-        <router-view style="flex:1; "/>
-        <van-tabbar v-model="actives" style="height: 50px;    position: sticky">
+        <router-view style="flex:1;background: #0b0c21;"/>
+        <van-tabbar v-model="actives" fixed	 style="height: 50px;position: sticky;position: fixed;bottom:0">
             <van-tabbar-item  to='/index' name="1">
                 <span class='red'>首页</span>
                 <img
@@ -74,6 +74,7 @@ export default {
         overflow: hidden;
         display: flex;
         flex-direction: column;
+        
     }
         /deep/.van-hairline--top-bottom::after, .van-hairline-unset--top-bottom::after{
         border-width: 0px;

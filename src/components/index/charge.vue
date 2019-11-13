@@ -17,10 +17,7 @@
       <div class="content-title">
         <div class="shuxian"></div>充币说明
       </div>
-      <p class="remark">
-                                  多年来稳健的经营并成功的将产品销售至亚洲各地,与著名的皇冠、新宝、ESPN等公司有过相关的技术合作。以追求最佳品质,重视用户反馈的娱乐平台服务著称。<br>
-      愿景:最受欢迎的娱乐互联网企业使命:通过互联网服务提升娱乐生活新品质肩负着重要的使命,美好的愿景,不断的努力,提供科技化的人性服务,开拓市场新领土。<br>公司一直持续的进行市场资讯的收集和研究,持续拓展业务和开拓全新的服务领域,加强发展技术,至力于新产品的开发、合作。我们每一项产品和软件设计思念,都要求最简单最实用最方便,所以大大的满足用户和
-                        </p>
+      <p class="remark" v-html="text"></p>
     </div>
   </div>
 </template>
@@ -30,7 +27,8 @@ import { Toast } from "vant";
 export default {
   data() {
     return {
-      obj: {}
+      obj: {},
+      text:''
     };
   },
   created() {
@@ -50,6 +48,16 @@ export default {
           // Toast(res.mes)
         }
       });
+      this.$axios.fetchPost('/portal',{
+        source: "web",
+        version: "v1",
+        module: "Content",
+        interface: "4003",
+        data: {name:'recharge_instruction'}
+      }).then(res=>{
+        console.log(res)
+        this.text = res.data.content
+      })
   },
   methods: {
     getInfo() {

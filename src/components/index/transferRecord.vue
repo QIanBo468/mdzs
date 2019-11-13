@@ -69,8 +69,6 @@
     },
     methods: {
       onLoad() {
-
-
         var lastid = ''
         if (this.lastId) {
           lastid = this.lastId
@@ -85,7 +83,7 @@
               version: "v1",
               module: "Finance",
               interface: "2002",
-              data: { lastId: lastid,page: page,creditType: 'credit_2',isOut:false}
+              data: { lastId: lastid,page: page,creditType: 'credit_2',isOut:true}
             }).then(res => {
               console.log(res)
             if(res.success){

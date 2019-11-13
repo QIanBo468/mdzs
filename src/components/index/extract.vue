@@ -13,7 +13,7 @@
           <p>DOC可用余额</p>
           <!-- <img width="27px;" height="32px" src="../../../static/images/index/B@3x.png" />BAT -->
         </div>
-        <div class="money">{{$route.query.DOC}}</div>
+        <div class="money">{{usdtNum}}</div>
       </div>
 
       <div class="content-title">
@@ -88,7 +88,7 @@
         />
       </div>
       <div class="content-title">
-        <div class="shuxian"></div>安全验证{{'('+user+')'}}
+        <div class="shuxian"></div>安全验证{{'('+user.substr(0,3)+'****'+user.substr(7)+')'}}
       </div>
       <div class="inputBox" style="margin-bottom: 40px">
         <van-field
@@ -127,6 +127,7 @@ export default {
       show: false,
       radio: 1,
       disabled: false,
+      contract:''
     };
   },
   computed: {
@@ -148,10 +149,8 @@ export default {
     }
   },
   created() {
-    this.usdtNum = this.$route.query.usdt;
+    
     this.address = this.$route.query.address;
-    this.user = this.$route.query.account.substr(0,3)+'****'+this.$route.query.account.substr(7);
-    // console.log(this.user)
     this.$axios
       .fetchPost("/portal/Digiccy", {
         source: "web",
@@ -163,11 +162,44 @@ export default {
       .then(res => {
         console.log(res);
         this.charge = res.data.params.feeRate;
+this.contract =  res.data.contractList[0].value
         // this.contract = res.data.contractList[0].value
         //   console.log(this.contract)
       });
+      this.goinfo()
   },
   methods: {
+    goinfo(){
+      this.$axios
+      .fetchPost("/portal", {
+        source: "web",
+        version: "v1",
+        module: "Finance",
+        interface: "1000",
+        data: {}
+      })
+      .then(res => {
+        console.log(res);
+        // this.charge = res.data.params.feeRate;
+        // this.contract = res.data.contractList[0].value
+        //   console.log(this.contract)
+      });
+      this.$axios
+      .fetchPost("/portal", {
+        source: "web",
+        version: "v1",
+        module: "User",
+        interface: "1000",
+        data: {}
+      })
+      .then(res => {
+        console.log(res);
+        this.usdtNum  = res.data.DOC_1
+        this.user = res.data.account
+        this.$route.query.account.substr(0,3)+'****'+this.$route.query.account.substr(7);
+      });
+      
+    },
     changeInput() {
       console.log(this.address);
     },
@@ -187,7 +219,7 @@ export default {
               version: "v1",
               module: "Finance",
               interface: "2003",
-              data:{account:that.$route.query.account}
+              data:{account:that.user}
               // template:'5bcd32b99a1df09e1a90317626d19d9b'
             }).then(res => {
             this.disabled = false
@@ -227,17 +259,18 @@ export default {
       this.$validator.validateAll().then(function(result) {
         if (result) {
           that.$axios
-            .fetchPost("/portal", {
+            .fetchPost("/portal/Digiccy", {
               source: "web",
               version: "v1",
               module: "Finance",
               interface: "2001",
               data: {
                 amount: that.num,
-                account: that.address,
-                creditType: "credit_2",
+                address: that.address,
+                creditType:"credit_5",
                 safeword: that.safeword,
-                captcha: that.captcha
+                captcha: that.captcha,
+                contract: that.contract
               } //, contract:that.contract,safeword:that.safeword
             })
             .then(res => {

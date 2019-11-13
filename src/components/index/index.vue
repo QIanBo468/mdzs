@@ -1,5 +1,5 @@
 <template>
-  <div id="index">
+  <div id="indexs">
     <div class="indexbox">
       <div class="index-banner">
         <van-image :src="banner" />
@@ -75,7 +75,6 @@ export default {
     };
   },
 
-  mounted() {},
   created() {
     this.$axios.fetchPost("/portal", {
       source: "web",
@@ -194,13 +193,12 @@ export default {
 }
 </style>
 <style lang="less" scoped>
-#index {
+#indexs {
   width: 100%;
   height: 100%;
   overflow-y: auto;
   background: #0b0c21;
   color: #fff;
-
   nav {
     font-size: 18px;
     margin-top: 15px;

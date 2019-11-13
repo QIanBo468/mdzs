@@ -15,23 +15,7 @@
         </div>
         </div>
         </div>
-        <!-- <div class='deposit' style="height: 40px;diplay:flex;">
-            <div @click='$router.push("/charge")'>
-                
-                    <img src="../../../static/images/index/chongzhi.png" alt="">
-                    <span>充币</span>
-          
-            </div>
-            <div @click='$router.push({path:"/extract", query: {usdt: usdt.creditValue}})'>
-                <img src="../../../static/images/index/extract.png" alt="">
-                <span>提币</span>
-            </div>
-        
-            <div @click='$router.push({path:"/transfer",query:{type:"usdt"}})'>
-                <img src="../../../static/images/index/transfer.png" alt="">
-                <span>转账</span>
-            </div>
-        </div> -->
+
         <van-tabs v-model="active" @change="acChange">
             <van-tab title="全部">
                 <van-list
@@ -105,13 +89,16 @@
         page: 1,
         lastId: 0,
         title:'',
+        creditType:''
       }
     },
     created () {
         if(this.$route.query.type == 0){
-            this.title ='DOC'
+            this.title ='DOC',
+            this.creditType = 'credit_3'
         } else{
             this.title = 'TG'
+            this.creditType = 'credit_1'
         }
     },
     methods: {
@@ -148,7 +135,7 @@
               version: "v1",
               module: "Finance",
               interface: "1001",
-              data: {lastId: this.lastId,page: this.page ++}
+              data: {lastId: this.lastId,page: this.page ++,creditType: this.creditType,direction:direction}
             }).then(res => {
             console.log(res);
             this.lastPage = res.data.lastPage

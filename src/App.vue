@@ -23,6 +23,7 @@ html,body{
   font-size: 12px;
   width: 100%;
   height: 100%;
+  background: #0C0C0C;
   /* text-align: center;
   color: #2c3e50; */
   /* margin-top: 60px; */

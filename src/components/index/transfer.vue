@@ -277,11 +277,12 @@
                 module: "Finance",
                 interface: 2001,
                 // data: that.form
-                data: {creditType: 'credit_2', account:that.address, amount:that.form.amount,safeword:that.form.captcha}
+                data: {creditType: 'credit_5', account:that.address, amount:that.form.amount,safeword:that.form.captcha}
               }).then(res => {
               console.log(res);
 
               if(res.success){
+                
                 that.form = {
                   amount: '',
                   id: '',
@@ -299,6 +300,7 @@
                   message: res.message
                 })
                 that.getInfo()
+                // that.$router.go(0)
               }else{
                 Toast(res.message)
               }

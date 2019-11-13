@@ -1,7 +1,7 @@
 <template>
     <div id='address'>
         <van-nav-bar
-            title="地址本"
+            title="地址簿"
             left-arrow
             :border="false"
             @click-left='$router.go(-1)'

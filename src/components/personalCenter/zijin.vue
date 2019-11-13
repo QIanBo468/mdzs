@@ -4,7 +4,7 @@
     <van-tabs v-model="active"  @change="acChange">
       <van-tab title="全部">
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-          <div class="list" v-for="(item, index) in list" :key="index">
+          <div class="zzlist" v-for="(item, index) in list" :key="index">
             <ul>
               <li class="overText">{{item.creditName}}</li>
               <li>{{item.createdAt}}</li>
@@ -15,7 +15,7 @@
       </van-tab>
       <van-tab title="收入">
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-          <div class="list" v-for="(item, index) in list" :key="index">
+          <div class="zzlist" v-for="(item, index) in list" :key="index">
             <ul>
               <li class="overText">{{item.remark}}</li>
               <li>{{item.createdAt}}</li>
@@ -26,7 +26,7 @@
       </van-tab>
       <van-tab title="支出">
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-          <div class="list" v-for="(item, index) in list" :key="index">
+          <div class="zzlist" v-for="(item, index) in list" :key="index">
             <ul>
               <li class="overText">{{item.remark}}</li>
               <li>{{item.createdAt}}</li>
@@ -119,10 +119,11 @@ export default {
   height: 100%;
   background: #0c0c0c;
 }
-.list {
+.zzlist {
   padding: 5px 0;
   width: 343px;
   margin: 0 auto;
+  border-bottom: 0.5px solid #eee;
   height: 50px;
   display: flex;
   background: #1d1c3b;
@@ -209,8 +210,8 @@ export default {
   }
 }
 .van-tabs{
-  background-color: #1d1c3b;
-  margin-bottom: 5px;
+  // background-color: #1d1c3b;
+  // margin-bottom: 5px;
 }
 .van-tabs__nav {
   background-color: #1d1c3b !important;

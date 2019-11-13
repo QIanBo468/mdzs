@@ -122,16 +122,11 @@ export default {
         this.$toast("确认密码不能为空！");
         return false;
       }
-      let interfaces;
+      
       if ( this.$route.query.type ==0 ) {
-          interfaces = 2001
-      } else{
-        interfaces = 2005
-      }
-      console.log(interfaces)
-      this.$axios
+           this.$axios
         .fetchPost("/portal", {
-          interface: interfaces,
+          interface: 2001,
           module: "User",
           source: "web",
           version: "v1",
@@ -156,6 +151,37 @@ export default {
             this.$toast(res.message);
           }
         });
+      } else{
+            this.$axios
+        .fetchPost("/portal", {
+          interface: 2005,
+          module: "User",
+          source: "web",
+          version: "v1",
+          data: {
+            oldSafeword: this.login_pwd,
+            safeword: this.password,
+            // repeat: this.passPwd,
+            captcha: this.safeword
+          }
+        })
+        .then(res => {
+          console.log("修改登录密码", res);
+          if (res.code == 0) {
+            this.$toast({
+              message: res.message,
+              duration: 1000
+            });
+            setTimeout(() => {
+              this.$router.push("login");
+            }, 1000);
+          } else {
+            this.$toast(res.message);
+          }
+        });
+      }
+      console.log(interfaces)
+     
     }
   }
 };

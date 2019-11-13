@@ -7,7 +7,7 @@
       <div class="top">
         <div class="top-username">
           <div class="headtext">
-            <p>{{info.account}}</p>
+            <p>{{info.nickname}}</p>
             <div class="userid">
               <p>ID：{{info.id}}</p>
               <p>级别：{{info.level}}</p>
@@ -42,6 +42,10 @@
         <div class="num" @click="$router.push({path:'extract',query:{account:info.mobile,DOC:info.DOC_1}})">
           <img width="24px;" height="24px;" src="../../../static/mdimg/tibi@3x.png" alt />
           <div>提币</div>
+        </div>
+        <div class="num" @click="$router.push({path:'exchange',query:{account:info.mobile,DOC:info.TG}})">
+          <img width="24px;" height="24px;" src="../../../static/mdimg/duihuan@3x.png" alt />
+          <div>兑换</div>
         </div>
         <div class="num"  @click="$router.push({path:'transfer',query:{account:info.mobile,DOC:info.DOC_1}})">
           <img width="24px;" height="24px;" src="../../../static/mdimg/zhuanzhang@3x.png" alt />
@@ -105,7 +109,7 @@
       <router-link class="list" to="my_Address">
         <div class="my_first">
           <img src="../../../static/mdimg/dizhi@3x.png" alt />
-          <p>地址本</p>
+          <p>地址簿</p>
         </div>
         <img width="22px" height="22px" src="../../../static/mdimg/in@3x.png" alt />
       </router-link>
@@ -175,6 +179,7 @@ export default {
         // this.goodsList = res.data.list;
         this.info = res.data;
         this.avatar = res.data.avatar;
+        console.log(this.info)
       });
 
     // this.$axios
