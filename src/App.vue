@@ -30,7 +30,7 @@ html,body{
 }
 .van-nav-bar{
     color: #fff;
-    background: #0d0900;
+    background: #0d0900 !important;
 }
 .van-nav-bar .van-nav-bar__title{
   color: #fff;
