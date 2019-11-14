@@ -30,13 +30,16 @@ html,body{
 }
 .van-nav-bar{
     color: #fff;
-    background: #0d0900 !important;
+    /* background: #0d0900 !important; */
 }
 .van-nav-bar .van-nav-bar__title{
   color: #fff;
 }
 .van-nav-bar .van-icon{
   color: #fff;
+}
+.tabbar{
+  background: #0b0c21;
 }
 .overText{
     overflow: hidden;

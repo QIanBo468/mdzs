@@ -5,8 +5,12 @@
       <van-tab title="全部">
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
           <div class="zzlist" v-for="(item, index) in list" :key="index">
+            <!-- <div class="zzlist-one">
+              <div class="zzlist-one-first">{{item.remark}}</div>
+              <span>{{item.createdAt}}</span>
+            </div> -->
             <ul>
-              <li class="overText">{{item.creditName}}</li>
+              <li>{{item.remark}}</li>
               <li>{{item.createdAt}}</li>
             </ul>
             <div :class="[item.type == 1 ? '': 'blue','overText']">{{item.num}}</div>
@@ -17,7 +21,7 @@
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
           <div class="zzlist" v-for="(item, index) in list" :key="index">
             <ul>
-              <li class="overText">{{item.remark}}</li>
+              <li>{{item.remark}}</li>
               <li>{{item.createdAt}}</li>
             </ul>
             <div :class="[item.type == 1 ? '': 'blue','overText']">{{item.num}}</div>
@@ -28,7 +32,7 @@
         <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
           <div class="zzlist" v-for="(item, index) in list" :key="index">
             <ul>
-              <li class="overText">{{item.remark}}</li>
+              <li>{{item.remark}}</li>
               <li>{{item.createdAt}}</li>
             </ul>
             <div :class="[item.type == 1 ? '': 'blue','overText']">
@@ -86,6 +90,7 @@ export default {
         this.finished = true;
         this.loading = false;
       } else {
+        console.log(direction)
         this.$axios
           .fetchPost("/portal", {
             source: "web",
@@ -95,7 +100,7 @@ export default {
             data: {
               lastId: this.lastId,
               page: this.page++,
-              creditType: "credit_2",
+              // creditType: "credit_3",
               direction: direction
             }
           })
@@ -124,7 +129,7 @@ export default {
   width: 343px;
   margin: 0 auto;
   border-bottom: 0.5px solid #eee;
-  height: 50px;
+  height: 70px;
   display: flex;
   background: #1d1c3b;
   align-items: center;
@@ -132,15 +137,39 @@ export default {
   box-sizing: border-box;
   // border-bottom: 1px solid #f9f9f9;
   overflow: hidden;
+  .zzlist-one{
+    flex: 7;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    .zzlist-one-first{
+      font-size: 13px;
+      text-align: left;
+      overflow: hidden;
+    }
+    span{
+      font-size: 11px;
+      color: #DEE7FF;
+    }
+  }
   ul {
-    width: 120px;
-    overflow: hidden;
+    // width: 120px;
+    flex: 6;
+    // overflow: hidden;
     height: 100%;
+    word-wrap: break-word;
+     word-break: normal;  
+    // .overText{
+    //   word-wrap: break-word;
+    // }
     li {
-      font-size: 14px;
+      font-size: 13px;
       color: #aaa;
-      height: 20px;
-      line-height: 20px;
+      height: 40px;
+      // line-height: 40px;
+     word-wrap: break-word; 
+      word-break: normal;  
     }
     li:last-child {
       font-size: 11px;
@@ -151,7 +180,8 @@ export default {
     }
   }
   div {
-    width: 130px;
+    // width: 130px;
+    flex: 3;
     text-align: right;
     font-size: 16px;
     color: #fff;

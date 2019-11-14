@@ -92,7 +92,7 @@ export default {
       console.log(id);
       var canvas = document.getElementById("qrcode");
 
-      QRCode.toCanvas(canvas, "http://www.baidu.com?id=" + id, function(error) {
+      QRCode.toCanvas(canvas, "http://zuanshi.qdunzi.cn/dist/register?id=" + id, function(error) {
         if (error) console.error(error);
         console.log("success!");
       });

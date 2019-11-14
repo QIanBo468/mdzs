@@ -11,6 +11,7 @@ import VueCookies from 'vue-cookies'
 Vue.use(VueCookies)
 Vue.prototype.$axios = api
 import api from './utils/api'
+// import rem from './utils/rem'
 // import VeeValidate from 'vee-validate';
 // Vue.use(VeeValidate);
 import VeeValidate, { Validator } from 'vee-validate'

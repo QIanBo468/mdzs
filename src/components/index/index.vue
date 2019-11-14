@@ -1,16 +1,23 @@
 <template>
   <div id="indexs">
     <div class="indexbox">
-      <div class="index-banner">
-        <van-image :src="banner" />
-      </div>
+      <!-- <div class="index-banner"> -->
+        <van-swipe class="banner-swiper" :autoplay="3000" :show-indicators=false >
+          <van-swipe-item v-for="item of banner" :key="item.id"><van-image class="img" :src="item.src" /></van-swipe-item>
+        </van-swipe>
+      <!-- </div> -->
       <div class="shopmore">
         <div class="notice">
           <div class="notice-gonggao">
             <img style="float: left;" src="../../../static/mdimg/tz@3x.png" alt />
-            <p>{{classList.noticeList[0].title}}</p>
+            <!-- <p>{{classList.noticeList[0].title}}</p> -->
+            <van-swipe :autoplay="5000" :show-indicators="false" touchable vertical>
+              <van-swipe-item v-for="item of classList.noticeList" :key="item.id">
+                <p>{{item.title}}</p>
+              </van-swipe-item>
+            </van-swipe>
           </div>
-          <div class="more" @click="$router.push('/notice')">更多 ></div>
+          <div class="index-more" @click="$router.push('/notice')">更多 ></div>
         </div>
       </div>
       <div class="qianbao">
@@ -18,7 +25,7 @@
           <p>DOC</p>
           <span>{{classList.DOC}}</span>
         </router-link>
-        <router-link :to="{path:'usdt',query:{num:classList.DOC,type:1}}" class="qianbao-tg">
+        <router-link :to="{path:'usdt',query:{num:classList.TG,type:1}}" class="qianbao-tg">
           <p>TG</p>
           <span>{{classList.TG}}</span>
         </router-link>
@@ -62,7 +69,7 @@ import { Toast } from "vant";
 export default {
   data() {
     return {
-      banner:'',
+      banner: "",
       active: 0,
       text: "",
       loading: false,
@@ -70,26 +77,27 @@ export default {
       list: {},
       classList: {},
       rateObj: {},
-      page:0,
-      lastId:0,
+      page: 0,
+      lastId: 0
     };
   },
 
   created() {
-    this.$axios.fetchPost("/portal", {
-      source: "web",
-      version: "v1",
-      module: "Content",
-      interface: "6000",
-      data: {page:this.page++,lastId: this.lastId}
-    }).then(res=>{
-      console.log(res)
-      if(res.success) {
-        this.banner = res.data.slideList[0].src
-        this.classList = res.data
-      }
-      
-    });
+    this.$axios
+      .fetchPost("/portal", {
+        source: "web",
+        version: "v1",
+        module: "Content",
+        interface: "6000",
+        data: {}
+      })
+      .then(res => {
+        console.log(res);
+        if (res.success) {
+          this.banner = res.data.slideList;
+          this.classList = res.data;
+        }
+      });
   },
   methods: {
     onLoad() {
@@ -204,6 +212,17 @@ export default {
     margin-top: 15px;
     margin-bottom: 19px;
   }
+        .banner-swiper{
+          width: 100%;
+          margin-top: 10px;
+          border-radius: 6px;
+        .img {
+          width: 100%;
+        // width: 340px;
+        height: 150px;
+        border-radius: 6px;
+      }
+      }
   .indexbox {
     height: 100%;
     padding: 0 15px;
@@ -211,10 +230,10 @@ export default {
     flex-direction: column;
     align-items: center;
     .index-banner {
+      display: flex;
       margin-top: 15px;
-      .img {
-        width: 100%;
-      }
+
+      
     }
     .shopmore {
       margin-top: 10px;
@@ -232,6 +251,7 @@ export default {
         background: #121e4d;
         border-radius: 30px;
         font-size: 14px;
+
         p {
           // float: left;
           line-height: 36px;
@@ -247,6 +267,16 @@ export default {
         .notice-gonggao {
           display: flex;
           align-items: center;
+          justify-content: flex-start;
+          .van-swipe {
+            width: 15rem;
+            // flex: 1;
+            height: 36px;
+            .van-swipe-item {
+              width: 100%;
+              height: 100%;
+            }
+          }
         }
         img {
           width: 24px;
@@ -254,13 +284,13 @@ export default {
           line-height: 36px;
         }
       }
-      .more {
+      .index-more {
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 20px;
         background: linear-gradient(90deg, #655aff 0%, #2923d5 100%);
-        width: 48px;
+        width: 58px;
         height: 22px;
         font-size: 12px;
       }

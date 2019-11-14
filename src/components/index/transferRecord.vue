@@ -13,31 +13,27 @@
         finished-text="没有更多了"
         @load="onLoad"
       >
-        <div class='record' v-for='(item, index) in list' :key='index'>
+        <!-- <div class='record' v-for='(item, index) in list' :key='index'> -->
           <!-- <div class='status'>兑换成功</div> -->
-          <ul>
-            <li>
-              <div>兑换数量</div>
-              <div>{{item.money}}</div>
-            </li>
-            <li>
-              <div>提交时间</div>
-              <div>{{item.createdAt}}</div>
-            </li>
-            <!-- <li>
-                <div>爱心基金</div>
-                <div>{{item.loveFund}}</div>
-            </li>-->
-            <li>
-              <div>手续费</div>
-              <div>{{item.fee}}</div>
-            </li>
-            <li>
-              <div>到账数量</div>
-              <div class='red'>{{item.realMoney}}BAT</div>
-            </li>
-          </ul>
-        </div>
+           <div class='record' v-for='(item, index) in list' :key='index'>
+                    <!-- <div v-if='item.status == 0' class='status red'>申请中</div>
+                    <div v-if='item.status == 1' class='status'>提币成功</div>
+                    <div v-if='item.status == -1' class='status red'>申请被驳回</div> -->
+                    <!-- <div class="record-list"> -->
+                        <div class="record-list-one">
+                            <p>{{item.creditName}}</p>
+                            <div>{{item.toUser.account}}</div>
+                            <span>{{item.createdAt}}</span>
+                        </div>
+                        <div class="record-list-two">
+                            <!-- <p>{{item.status == 0? '申请中': (item.status ==1 ? '提币成功': '申请被驳回')}}</p> -->
+                            <div>{{item.money}}</div>
+                            <!-- <span>手续费:{{item.fee}}</span> -->
+                        </div>
+                    <!-- </div> -->
+    
+                </div>
+        <!-- </div> -->
       </van-list>
     </div>
   </div>
@@ -46,7 +42,9 @@
   export default {
     data () {
       return {
-        list: [],
+        list: [
+          
+        ],
         finished: false,
         loading: false,
         page: 1,
@@ -83,7 +81,7 @@
               version: "v1",
               module: "Finance",
               interface: "2002",
-              data: { lastId: lastid,page: page,creditType: 'credit_2',isOut:true}
+              data: { lastId: lastid,page: page,creditType: 'credit_5',isOut:true}
             }).then(res => {
               console.log(res)
             if(res.success){
@@ -147,39 +145,55 @@
     padding: 16px;
     overflow: scroll;
   .record{
-    padding: 20px;
-    border-radius: 6px;
-    background: #fff;
-    margin-bottom: 10px;
-  .status{
-    font-size: 12px;
-    text-align: right;
-    color: #1890FF;
-    margin-bottom: 5px;
-  }
-  .red{
-    color: #F84D4D;
-  }
-  ul li{
-    height: 17px;
-    line-height: 17px;
-    font-size: 12px;
-    display: flex;
-    margin-bottom: 5px;
-    color: #000;
-  div:first-child{
-    width: 60px;
-    color: #666666;
-    margin-right: 35px;
-  }
-  div:last-child{
-    width: 70%;
-  }
-  }
-  li:last-child{
-    margin-bottom: 0px;
-  }
-  }
+                padding: 20px;
+                border-radius: 6px;
+                // background: #fff;
+                margin-bottom: 10px;
+                background: #212243;
+                display: flex;
+                   justify-content: space-between;
+                   align-items: center;
+               .record-list-one{
+                   display: flex;
+                   flex-direction: column;
+                   align-items: flex-start;
+                p{
+                    font-size: 14px;
+                    color: #CBD9FF;
+                    margin: 5px;
+                    padding: 0;
+                }
+                > div{
+                    color: #fff;
+                    font-size: 14px;
+                    margin-bottom: 5px;
+                }
+                    span{
+                        font-size: 11px;
+                        color: #BEC6E4;
+                    }
+               }
+               .record-list-two{
+                   display: flex;
+                   flex-direction: column;
+                   align-items: flex-end;
+                p{
+                    font-size: 14px;
+                    color: #8FADFF;
+                    margin: 5px;
+                    padding: 0;
+                }
+                > div{
+                    color: #fff;
+                    font-size: 14px;
+                    margin-bottom: 5px;
+                }
+                    span{
+                        font-size: 11px;
+                        color: #BEC6E4;
+                    }
+               }
+            }
   }
   .van-nav-bar{
     background: #000;

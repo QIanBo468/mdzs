@@ -44,7 +44,7 @@
                 >
                 <div class="list" v-for='(item, index) in list' :key='index'>
                     <ul>
-                        <li class='overText'>{{item.remark}}</li>
+                        <li >{{item.remark}}</li>
                         <li>{{item.createdAt}}</li>
                     </ul>
                     <div  :class='[item.type == 1 ? "": "blue","overText"]'>
@@ -62,7 +62,7 @@
                 >
                     <div class="list" v-for='(item, index) in list' :key='index'>
                         <ul>
-                            <li class='overText'>{{item.remark}}</li>
+                            <li >{{item.remark}}</li>
                             <li>{{item.createdAt}}</li>
                         </ul>
                         <div :class='[item.type == 1 ? "": "blue","overText"]'>  <!-- -->
@@ -134,7 +134,7 @@
               source: "web",
               version: "v1",
               module: "Finance",
-              interface: "1001",
+              interface: "1002",
               data: {lastId: this.lastId,page: this.page ++,creditType: this.creditType,direction:direction}
             }).then(res => {
             console.log(res);
@@ -250,15 +250,18 @@
     box-sizing: border-box;
     // border-bottom: 1px solid #f9f9f9;
     overflow: hidden;
+    margin-bottom: 5px;
     ul{
+        flex: 6;
         width: 120px;
-        overflow: hidden;
+        // overflow: hidden;
         height: 100%;
         li{
             font-size: 14px;
             color: #aaa;
             height: 20px;
             line-height: 20px;
+            word-wrap: break-word;
         }
         li:last-child{
             font-size: 11px;
@@ -269,6 +272,7 @@
         }
     }
     div{
+        flex: 4;
         width: 130px;
         text-align: right;
         font-size: 16px;

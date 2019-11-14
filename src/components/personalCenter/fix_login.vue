@@ -173,7 +173,7 @@ export default {
               duration: 1000
             });
             setTimeout(() => {
-              this.$router.push("login");
+              this.$router.go(-1);
             }, 1000);
           } else {
             this.$toast(res.message);

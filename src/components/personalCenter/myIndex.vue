@@ -202,6 +202,7 @@ export default {
 .myIndex {
   overflow-y: auto;
   background: #0b0c21;
+  margin-bottom: 50px;
 }
 .my_header {
   // width: 100%;
