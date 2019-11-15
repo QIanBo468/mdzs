@@ -2,9 +2,14 @@
   <div id="indexs">
     <div class="indexbox">
       <!-- <div class="index-banner"> -->
-        <van-swipe class="banner-swiper" :autoplay="3000" :show-indicators=false >
-          <van-swipe-item v-for="item of banner" :key="item.id"><van-image class="img" :src="item.src" /></van-swipe-item>
-        </van-swipe>
+        <!-- <div style="height: 150px; width:100%"> -->
+          <div style="width:100%">
+      <van-swipe  class="banner-swiper" :autoplay="3000" :show-indicators="false">
+        <van-swipe-item  v-for="item of classList.slideList" :key="item.id">
+          <van-image class="img" :src="item.src" />
+        </van-swipe-item>
+      </van-swipe>
+      </div>
       <!-- </div> -->
       <div class="shopmore">
         <div class="notice">
@@ -34,23 +39,23 @@
         <div class="indexlist" v-for="(item, index) of list" :key="index">
           <div class="listtitle" style="width: 25%;">
             <div class="listname">
-              <h3>{{item.name}}</h3>
+              <h3>{{index}}</h3>
               <!-- <span>{{item.quote}}</span> -->
             </div>
             <span
               style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;"
-            >{{item.amount}}</span>
+            >量(24H){{item.totalAmount}}</span>
           </div>
           <div class="jiage">
             <h3
               style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width: 90%"
-            >{{item.close}}</h3>
+            >{{item.priceHigh}}</h3>
             <span
               style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;width: 70%"
-            >≈￥{{item.closeCNY}}</span>
+            >{{item.priceLow}}</span>
           </div>
-          <div class="amount" v-if="item.floatRate >0">
-            <div class="amount-btn">{{item.floatRate}}</div>
+          <div class="amount" v-if="item.percent">
+            <div class="amount-btn">{{item.percent}}%</div>
           </div>
           <!-- <div class="amount" v-else="item.floatRate<0">
             <div class="amount-btn btn-low">{{item.floatRate}}</div>
@@ -96,6 +101,7 @@ export default {
         if (res.success) {
           this.banner = res.data.slideList;
           this.classList = res.data;
+          this.onLoad()
         }
       });
   },
@@ -110,9 +116,10 @@ export default {
           data: {}
         })
         .then(res => {
+          console.log(res);
           if (res.success) {
             let text = [];
-            this.list = res.data.list;
+            this.list = res.data;
             this.finished = true;
             console.log(this.list);
             //this.createDM ()
@@ -207,22 +214,32 @@ export default {
   overflow-y: auto;
   background: #0b0c21;
   color: #fff;
-  nav {
-    font-size: 18px;
-    margin-top: 15px;
-    margin-bottom: 19px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  // nav {
+  //   font-size: 18px;
+  //   margin-top: 15px;
+  //   margin-bottom: 19px;
+  // }
+  .banner-swiper {
+    flex: 1;
+    margin-top: 10px;
+    width: 100%;
+    // margin-top: 150px;
+    border-radius: 6px;
+    height: 150px;
+    // overflow: auto;
+    // position: absolute;
+    // top: 10px;
+    z-index: 1;
+    .img {
+      width: 100%;
+      // width: 340px;
+      height: 150px;
+      border-radius: 6px;
+    }
   }
-        .banner-swiper{
-          width: 100%;
-          margin-top: 10px;
-          border-radius: 6px;
-        .img {
-          width: 100%;
-        // width: 340px;
-        height: 150px;
-        border-radius: 6px;
-      }
-      }
   .indexbox {
     height: 100%;
     padding: 0 15px;
@@ -232,8 +249,6 @@ export default {
     .index-banner {
       display: flex;
       margin-top: 15px;
-
-      
     }
     .shopmore {
       margin-top: 10px;
@@ -297,6 +312,7 @@ export default {
     }
   }
   .van-list {
+    box-sizing: border-box;
     width: 100%;
   }
   .qianbao {
@@ -336,7 +352,7 @@ export default {
     }
   }
   .indexlist {
-    text-align: center;
+    // text-align: center;
     width: 95%;
     height: 80px;
     background: #191b4b;
@@ -347,12 +363,14 @@ export default {
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    justify-content: space-around;
+    // justify-content: center;
+    justify-content: space-between;
     .listtitle {
       flex: 2;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      margin-right: 30px;
       .listname {
         display: flex;
         align-items: center;
@@ -363,28 +381,28 @@ export default {
           margin-bottom: 12px;
         }
         span {
-          color: #e3e3e9;
+          color: #bec6e4;
           font-size: 11px;
           margin-bottom: 11px;
         }
       }
     }
     .jiage {
-      flex: 1;
+      flex: 2;
       display: flex;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
       overflow: hidden;
       h3 {
         color: #ffffff;
-        font-size: 16px;
+        font-size: 13px;
         margin: 0;
         margin-bottom: 12px;
       }
       span {
-        color: #e3e3e9;
-        font-size: 16px;
+        color: #bec6e4;
+        font-size: 13px;
       }
     }
     .amount {
